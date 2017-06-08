@@ -1,0 +1,17 @@
+postgresql_settings: &postgresql_settings
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: postgres
+  password: root
+  host: localhost
+  
+
+development:
+  <<: *postgresql_settings
+  database: recruitment_production 
+
+production:
+  <<: *postgresql_settings
+  database: recruitment_development
+

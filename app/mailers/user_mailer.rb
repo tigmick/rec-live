@@ -75,23 +75,29 @@ class UserMailer < ApplicationMailer
   end
 
   def candidate_email_alert(resource, user)
+    @resource = resource
     if (resource.first_name.present? rescue false)
       html = "Thanks for registering on MYPHD.<br>"
       html += "Username - #{resource.first_name}<br>"
       html += "Email    - #{resource.email}<br>"
       html += "password - #{resource.password}<br>"
       @content = html
-      @subject = resource.role.upcase + " EMAIL ALERT REGISTRATION"
+      @subject = resource.role.upcase + ' EMAIL ALERT REGISTRATION'
+      mail(from: AdminUser.first.email, to: resource.email, subject: @subject)
     else
-      html = "New User have registered on your site."
-      html += "Username - #{user.first_name}<br>"
-      html += "Email    - #{user.email}<br>"
-      html += "password - #{user.password}<br>"
-      html +="Username."
+      html = "New User have registered on your site.<br>"
+      html += "Username     - #{user.first_name}<br>"
+      html += "Last Name    - #{user.last_name}<br>"
+      html += "Email        - #{user.email}<br>"
+      html += "password     - #{user.password}<br>"
+      html += "Contact No   - #{user.contact_no}<br>"
+      html += "Job Title    - #{user.job_title}<br>"
+      html += "Company Name - #{user.company_name}<br>"
+      html += "Location     - #{user.current_location}<br>"
+      # html +="Username."
       @content = html
       @subject = user.role.upcase + " EMAIL ALERT REGISTRATION"
+      mail(from: AdminUser.first.email, to: resource.email, subject: @subject)
     end
-    @resource = resource
-    mail(from: AdminUser.first.email,to: resource.email, subject: @subject)
   end
 end
