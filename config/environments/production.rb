@@ -76,9 +76,9 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   # config.action_mailer.default_url_options = { :host => "http://phdsearchandselection.com" }
    config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
+    address:              'smtp.123-reg.co.uk',
     port:                 587,
-    domain:               'gmail.com',
+    domain:               'yourcube.co.uk',
     user_name:            ENV['USER_NAME'],
     password:             ENV['PASSWORD'],
     authentication:       'plain',
