@@ -82,8 +82,7 @@ Rails.application.configure do
     user_name:            'chris.forbes@yourcube.co.uk',
     password:             'Kenmore1!',
     authentication:       'plain',
-    ssl: true,
-    enable_starttls_auto: true  }
+    ssl: true  }
 
 
 
