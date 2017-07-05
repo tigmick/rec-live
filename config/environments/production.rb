@@ -77,7 +77,7 @@ Rails.application.configure do
      config.action_mailer.default_url_options = { :host => "yourcube.co.uk" }
    config.action_mailer.smtp_settings = {
     address:              'smtp.123-reg.co.uk',
-    port:                  587,
+    port:                  2525,
     domain:               'yourcube.co.uk',
     user_name:            'chris.forbes@yourcube.co.uk',
     password:             'Kenmore1!',
