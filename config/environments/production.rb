@@ -74,16 +74,15 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  # config.action_mailer.default_url_options = { :host => "http://phdsearchandselection.com" }
+  config.action_mailer.default_url_options = { :host => "http://phdsearchandselection.com" }
    config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
-    port:                 587,
-    domain:               'gmail.com',
-    user_name:            ENV['USER_NAME'],
-    password:             ENV['PASSWORD'],
+    address:              'smtp.123-reg.co.uk',
+    port:                    587,
+    domain:               'yourcube.co.uk',
+    user_name:            'chris.forbes@yourcube.co.uk',
+    password:             'Kenmore1!',
     authentication:       'plain',
     enable_starttls_auto: true  }
-
 
 
   # Send deprecation notices to registered listeners.
