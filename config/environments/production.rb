@@ -77,7 +77,7 @@ Rails.application.configure do
    config.action_mailer.default_url_options = { :host => "http://phdsearchandselection.com" }
    config.action_mailer.smtp_settings = {
     address:              'smtp.123-reg.co.uk',
-    port:                  25,
+    port:                  587,
     domain:               'yourcube.co.uk',
     user_name:            'chris.forbes@yourcube.co.uk',
     password:             'Kenmore1!',
