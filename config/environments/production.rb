@@ -76,11 +76,11 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
      config.action_mailer.default_url_options = { :host => "yourcube.co.uk" }
    config.action_mailer.smtp_settings = {
-    address:              'smtp.123-reg.co.uk',
+    address:              'smtp.gmail.com',
     port:                  2525,
-    domain:               'yourcube.co.uk',
-    user_name:            'chris.forbes@yourcube.co.uk',
-    password:             'Kenmore1!',
+    domain:               'gmail.com',
+    user_name:            ENV[:USER_NAME],
+    password:             ENV[:PASSWORD],
     authentication:       'login',
     enable_starttls_auto: true }
 
