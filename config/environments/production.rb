@@ -77,13 +77,13 @@ Rails.application.configure do
   config.action_mailer.default_url_options = {:host => "yourcube.co.uk"}
 
   config.action_mailer.smtp_settings = {
-      address: 'smtp.123-reg.co.uk',
-      port: 465,
-      domain: 'yourcube.co.uk',
-      user_name: 'chris.forbes@yourcube.co.uk',
-      password: 'Kenmore1!',
-      authentication: 'plain',
-      ssl: true
+      :user_name => 'wipeout221',
+      :password => 'testing60',
+      :domain => 'yourcube.co.uk',
+      :address => 'smtp.sendgrid.net',
+      :port => 587,
+      :authentication => :plain,
+      :enable_starttls_auto => true
   }
 
 
