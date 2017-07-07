@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170530104536) do
+ActiveRecord::Schema.define(version: 20170707114138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,7 +178,7 @@ ActiveRecord::Schema.define(version: 20170530104536) do
     t.integer  "resume_file_size"
     t.datetime "resume_updated_at"
     t.string   "salary_expectation"
-    t.boolean  "varify_candidate",       default: false
+    t.boolean  "verify_candidate",       default: false
     t.string   "job_title"
     t.string   "company_name"
     t.boolean  "status",                 default: false
