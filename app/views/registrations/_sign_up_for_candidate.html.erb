@@ -28,7 +28,12 @@
     </div>
     <div class="field">
       <%= f.label :salary_expectation, "Salary Sought" %>*<br />
-      <%= f.text_field :salary_expectation, autofocus: true , required: "true", class: "form-control"%>
+      <%= f.select(:salary_expectation, options_for_select([["£18-30k", "18000-30000"],
+                                                            ["£30-50k", "30000-50000"],
+                                                            ["£50-75k", "50000-75000"],
+                                                            ["£75-100k", "75000-100000"],
+                                                            ["£100k+", "100000+"]]),
+                   { include_blank: true }, required: "true", class: "form-control" ) %>
     </div>
 
     <div class="field">
