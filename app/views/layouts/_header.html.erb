@@ -10,12 +10,16 @@
           <span class="icon-bar"></span>
         </button>
         <!-- <a class="navbar-brand logo_txt" href="/">MYPHD</a> -->
-        <a class="navbar-brand logo_txt" href="/"><img src="<%=asset_path('img/logo.png')%>"></a>
+
+        <% if user_signed_in? %>
+            <a class="navbar-brand logo_txt" href="<%= users_dashboard_path %>"><img src="<%=asset_path('img/logo.png')%>"></a>
+        <% else %>
+            <a class="navbar-brand logo_txt" href="/"><img src="<%=asset_path('img/logo.png')%>"></a>
+        <% end %>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <% if user_signed_in? %>
-            <% if current_user.candidate? %>
+          <% if user_signed_in? && current_user.candidate? %>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My CV <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -25,24 +29,11 @@
                 
                 </ul>
               </li>
-              
-            <% else %>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Jobs<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><%= link_to "Create Job", new_job_path %></li>
-                  <li role="separator" class="divider"></li>
-                  <li><%= link_to "All Jobs", jobs_path %></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#">Delete Jobs</a></li>
-                </ul>
-              </li>
-            <% end %>
           <% end %>
         </ul>
         <% if user_signed_in? %>
-        <%if current_user.candidate? %>
-  	      <%= form_tag welcome_search_path, :method=> :post,:class=>"navbar-form navbar-left" do%>
+        <% if current_user.candidate? %>
+  	      <%= form_tag welcome_search_path, :method=> :post,:class=>"navbar-form navbar-left" do %>
   		<div class="form-group">
   		<%#= text_field_tag "search" ,nil,:class=>"form-control", :placeholder=>"Search Jobs"%>
   		<%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title"),class: 'form-control',:prompt => 'Select Job Category'%> 
@@ -76,7 +67,7 @@
   		<%= submit_tag "Search", :class=>"btn btn-default"%>
   		</div>
   	      <% end %>
-        <%end%>
+        <% end %>
       
         <ul class="nav navbar-nav navbar-right add_focus">
           <% if !user_signed_in? %>
@@ -90,8 +81,15 @@
                 <li><a href="#"><%= current_user.email%></a></li>
                 <li role="separator" class="divider"></li>
                 <li><%= link_to "Go to Dashboard", users_dashboard_path%>
-               
                 <li role="separator" class="divider"></li>
+
+                  <% unless current_user.candidate? %>
+                    <li><%= link_to "Create Job", new_job_path %></li>
+                    <li role="separator" class="divider"></li>
+                    <li><%= link_to "Administrate Jobs", jobs_path %></li>
+                    <li role="separator" class="divider"></li>
+                  <% end %>
+
                 <li><%= link_to "Edit",  edit_user_registration_path %></li>
                 <li role="separator" class="divider"></li>
                 <li><%= link_to "Logout",  destroy_user_session_path, method: :delete%></li>

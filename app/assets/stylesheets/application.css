@@ -14,6 +14,7 @@
  *= require_self
  *= stub active_admin
  *= require datetimepicker
+ *= require font-awesome
  */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
 nav{max-width: 100% !important; right:0 !important; margin:0;}

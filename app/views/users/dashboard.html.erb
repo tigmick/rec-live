@@ -41,7 +41,11 @@
     <tr>
       <% users = UserJob.all.collect{|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
       <td ><%= link_to job.title, job_path(job) %><br/>
-        <%= link_to job.document_file_name, download_job_path(job),  target: "_blank" if job.document.present? %>
+        <% if job.document.present? %>
+          <%= link_to download_job_path(job), target: '_blank' do %>
+            <%= fa_icon 'file-word-o 2x' %>
+          <% end %>
+        <% end %>
       </td>
       <td ><%= link_to users.count, job_path(job) %></td>
       <td style="padding:0;"><%= users.count == 0 ? "No One Applied yet" : reviewed_client_section(job)%></td>
