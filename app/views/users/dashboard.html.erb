@@ -42,7 +42,7 @@
       <% users = UserJob.all.collect{|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
       <td ><%= link_to job.title, job_path(job) %><br/>
         <% if job.document.present? %>
-          <%= link_to download_job_path(job), target: '_blank' do %>
+          <%= link_to download_job_path(job), target: '_blank', class: 'centered' do %>
             <%= fa_icon 'file-word-o 2x' %>
           <% end %>
         <% end %>
