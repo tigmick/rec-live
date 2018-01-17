@@ -30,14 +30,95 @@
                         closed = response.closed_jobs;
 
 
-                    $('#container').highcharts({
+                    Highcharts.chart('container', {
+                        chart: {
+                            type: 'area'
+                        },
+                        title: {
+                            text: 'Historic and Estimated Worldwide Population Growth by Region'
+                        },
+                        subtitle: {
+                            text: 'Source: Wikipedia.org'
+                        },
+                        xAxis: {
+                            title: {
+                                text: ''
+                            },
+                            labels: {
+                                style: {
+                                    fontWeight: 'normal',
+                                    fontSize: '12px',
+                                    fontFamily: 'Segoe UI',
+                                    color: 'black'
+                                },
+                                formatter: function () {
+                                    var localDate = new Date(this.value);
+                                    var addLabel = false;
+                                    if (currentMonth != localDate.getMonth())
+                                    {
+                                        addLabel = true;
+                                        currentMonth = localDate.getMonth();
+                                    }
+
+                                    if (this.isFirst) {
+                                        return Highcharts.dateFormat('%d', this.value) + '<br/>' + Highcharts.dateFormat('%b', this.value);
+                                    }
+                                    if (addLabel) {
+                                        return Highcharts.dateFormat('%d', this.value) + '<br/>' + Highcharts.dateFormat('%b', this.value);
+                                    }
+                                    else {
+                                        return Highcharts.dateFormat('%d', this.value);
+                                    }
+                                }
+                            },
+                            type: 'datetime',
+                            tickInterval: 24 * 3600 * 1000 * 5
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Jobs'
+                            },
+                            labels: {
+                                formatter: function () {
+                                    return this.value / 1000;
+                                }
+                            }
+                        },
+                        tooltip: {
+                            split: true,
+                            valueSuffix: ''
+                        },
+                        plotOptions: {
+                            area: {
+                                stacking: 'normal',
+                                lineColor: '#666666',
+                                lineWidth: 1,
+                                marker: {
+                                    lineWidth: 1,
+                                    lineColor: '#666666'
+                                }
+                            }
+                        },
+                        series: [{
+                            name: 'Open Jobs',
+                            data: open
+                        }, {
+                            name: 'Closed Jobs',
+                            data: closed
+                        }]
+                    });
+
+                    /*$('#container').highcharts({
                         chart: {
                             type: 'area',
-                            zoomtype: 'x',
+                            zoomType: 'x',
                             panning: true,
-                            pankey: 'shift',
-                            resetzoombutton: {
-                                relativeto: 'spacingbox',
+                            panKey: 'shift',
+                            resetZoomButton: {
+                                relativeTo: 'spacingBox',
                                 position: {
                                     y: 0,
                                     x: 0
@@ -62,83 +143,83 @@
                         title: {
                             text: ''
                         },
-                        xaxis: {
+                        xAxis: {
                             title: {
                                 text: ''
                             },
                             labels: {
                                 style: {
-                                    fontweight: 'normal',
-                                    fontsize: '12px',
-                                    fontfamily: 'segoe ui',
+                                    fontWeight: 'normal',
+                                    fontSize: '12px',
+                                    fontFamily: 'Segoe UI',
                                     color: 'black'
                                 },
                                 formatter: function () {
-                                    var localdate = new date(this.value);
-                                    var addlabel = false;
-                                    if (currentmonth != localdate.getmonth())
+                                    var localDate = new Date(this.value);
+                                    var addLabel = false;
+                                    if (currentMonth != localDate.getMonth())
                                     {
-                                        addlabel = true;
-                                        currentmonth = localdate.getmonth();
+                                        addLabel = true;
+                                        currentMonth = localDate.getMonth();
                                     }
 
-                                    if (this.isfirst) {
-                                        return highcharts.dateformat('%d', this.value) + '<br/>' + highcharts.dateformat('%b', this.value);
+                                    if (this.isFirst) {
+                                        return Highcharts.dateFormat('%d', this.value) + '<br/>' + Highcharts.dateFormat('%b', this.value);
                                     }
-                                    if (addlabel) {
-                                        return highcharts.dateformat('%d', this.value) + '<br/>' + highcharts.dateformat('%b', this.value);
+                                    if (addLabel) {
+                                        return Highcharts.dateFormat('%d', this.value) + '<br/>' + Highcharts.dateFormat('%b', this.value);
                                     }
                                     else {
-                                        return highcharts.dateformat('%d', this.value);
+                                        return Highcharts.dateFormat('%d', this.value);
                                     }
                                 }
                             },
                             type: 'datetime',
-                            tickinterval: 24 * 3600 * 1000 * 5
+                            tickInterval: 24 * 3600 * 1000 * 5
                         },
                         credits: {
                             enabled: false
                         },
-                        yaxis: {
+                        yAxis: {
                             title: {
-                                text: 'jobs count',
+                                text: 'Jobs Count',
                                 style: {
-                                    fontweight: 'normal',
-                                    fontsize: '12px',
-                                    fontfamily: 'segoe ui',
+                                    fontWeight: 'normal',
+                                    fontSize: '12px',
+                                    fontFamily: 'Segoe UI',
                                     color: 'black'
                                 }
                             },
                             labels: {
                                 style: {
-                                    fontweight: 'normal',
-                                    fontsize: '12px',
-                                    fontfamily: 'segoe ui',
+                                    fontWeight: 'normal',
+                                    fontSize: '12px',
+                                    fontFamily: 'Segoe UI',
                                     color: 'black'
                                 }
                             },
-                            tickinterval: 5
+                            tickInterval: 5
                         },
                         legend: {
                             enabled: false,
                             layout: 'vertical',
                             align: 'right',
-                            verticalalign: 'top',
-                            itemstyle: {
-                                fontweight: 'normal',
-                                fontsize: '12px',
-                                fontfamily: 'segoe ui'
+                            verticalAlign: 'top',
+                            itemStyle: {
+                                fontWeight: 'normal',
+                                fontSize: '12px',
+                                fontFamily: 'Segoe UI'
                             }
                         },
                         tooltip: {
                             crosshairs: true,
                             shared: true
                         },
-                        plotoptions: {
+                        plotOptions: {
                             area: {
                                 stacking: 'normal',
-                                linecolor: '#666666',
-                                linewidth: 0,
+                                lineColor: '#666666',
+                                lineWidth: 0,
                                 marker: { enabled: false }
                             }
                         },
@@ -168,7 +249,7 @@
                         exporting: {
                             enabled: false
                         }
-                    });
+                    });*/
                 })
                 .fail(function() {
                     alert( "something went wrong." );

@@ -45,8 +45,88 @@
                     var open = response.open_jobs,
                         closed = response.closed_jobs;
 
+                    Highcharts.chart('container', {
+                        chart: {
+                            type: 'area'
+                        },
+                        title: {
+                            text: 'Historic and Estimated Worldwide Population Growth by Region'
+                        },
+                        subtitle: {
+                            text: 'Source: Wikipedia.org'
+                        },
+                        xAxis: {
+                            title: {
+                                text: ''
+                            },
+                            labels: {
+                                style: {
+                                    fontWeight: 'normal',
+                                    fontSize: '12px',
+                                    fontFamily: 'Segoe UI',
+                                    color: 'black'
+                                },
+                                formatter: function () {
+                                    var localDate = new Date(this.value);
+                                    var addLabel = false;
+                                    if (currentMonth != localDate.getMonth())
+                                    {
+                                        addLabel = true;
+                                        currentMonth = localDate.getMonth();
+                                    }
 
-                    $('#container').highcharts({
+                                    if (this.isFirst) {
+                                        return Highcharts.dateFormat('%d', this.value) + '<br/>' + Highcharts.dateFormat('%b', this.value);
+                                    }
+                                    if (addLabel) {
+                                        return Highcharts.dateFormat('%d', this.value) + '<br/>' + Highcharts.dateFormat('%b', this.value);
+                                    }
+                                    else {
+                                        return Highcharts.dateFormat('%d', this.value);
+                                    }
+                                }
+                            },
+                            type: 'datetime',
+                            tickInterval: 24 * 3600 * 1000 * 5
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Jobs'
+                            },
+                            labels: {
+                                formatter: function () {
+                                    return this.value / 1000;
+                                }
+                            }
+                        },
+                        tooltip: {
+                            split: true,
+                            valueSuffix: ''
+                        },
+                        plotOptions: {
+                            area: {
+                                stacking: 'normal',
+                                lineColor: '#666666',
+                                lineWidth: 1,
+                                marker: {
+                                    lineWidth: 1,
+                                    lineColor: '#666666'
+                                }
+                            }
+                        },
+                        series: [{
+                            name: 'Open Jobs',
+                            data: open
+                        }, {
+                            name: 'Closed Jobs',
+                            data: closed
+                        }]
+                    });
+
+                    /*$('#container').highcharts({
                         chart: {
                             type: 'area',
                             zoomType: 'x',
@@ -184,7 +264,7 @@
                         exporting: {
                             enabled: false
                         }
-                    });
+                    });*/
                 })
                 .fail(function() {
                     alert( "Something went Wrong." );
