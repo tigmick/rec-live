@@ -143,25 +143,25 @@
                             }
                         },
                         series: [{
-                            name: 'closed jobs',
-                            color: color2,
-                            type: 'scatter',
-                            marker: { symbol: 'circle' }
-                        },{
-                            name: 'open jobs',
-                            type: 'scatter',
+                            name: 'Open jobs',
                             color: color1,
+                            type: 'scatter',
                             marker: { symbol: 'circle' }
                         },{
-                            name: 'closed jobs',
+                            name: 'Closed jobs',
+                            type: 'scatter',
                             color: color2,
-                            data: closed,
+                            marker: { symbol: 'circle' }
+                        },{
+                            name: 'Open jobs',
+                            color: color1,
+                            data: open,
                             showinlegend: false,
                             marker: { symbol: 'circle' }
                         },{
-                            name: 'open jobs',
-                            color: color1,
-                            data: open,
+                            name: 'Closed jobs',
+                            color: color2,
+                            data: closed,
                             showinlegend: false,
                             marker: { symbol: 'circle' }
                         }],
