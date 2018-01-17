@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'reports/index'
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
@@ -9,11 +11,16 @@ Rails.application.routes.draw do
   match "/admin/client/:id/jobs" => 'admin/client#client_jobs', via: :get, as: "admin_client_jobs"
   match "/admin/client/:client_id/job/:id/schedule" => 'admin/client#client_job_schedules', via: :get, as: "admin_client_job_schedules"
   match "/admin/resumes/:id/download" => 'admin/resumes#download', via: :get, as: "admin_resume_download"
+  match "/admin/reports" => 'admin/report#index', via: :get, as: "admin_reports"
+  match "/admin/get_data" => 'admin/report#get_data', via: :get, as: "admin_get_report_data"
 
 
   # match "/admin/update_passwords" => 'admin/update_passwords#update', via: :post
 
   get 'users/dashboard'
+
+  get 'reports' => 'reports#index', as: :client_reports
+  get 'reports/get_data' => 'reports#get_data'
 
   get 'jobs/index'
   resources :resumes do 

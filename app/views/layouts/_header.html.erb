@@ -84,6 +84,7 @@
                 <li role="separator" class="divider"></li>
 
                   <% unless current_user.candidate? %>
+                    <li><%= link_to "Reports", client_reports_path %></li>
                     <li><%= link_to "Create Job", new_job_path %></li>
                     <li role="separator" class="divider"></li>
                     <li><%= link_to "Administrate Jobs", jobs_path %></li>

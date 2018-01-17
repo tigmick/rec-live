@@ -23,5 +23,7 @@ module Recruitment
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     config.time_zone = 'London'
+
+    Rails.application.config.assets.precompile += %w( highcharts.js highcharts-more)
   end
 end

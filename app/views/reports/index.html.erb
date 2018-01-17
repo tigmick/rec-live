@@ -1,0 +1,210 @@
+<%= javascript_include_tag 'highcharts', 'highcharts-more' %>
+<br/>
+<div class="col-md-6 col-md-offset-3">
+  <div class="row">
+    <div class="col-md-5">
+      <%= text_field_tag :start_date, nil, class: 'form-control', placeholder: 'Start Date' %>
+    </div>
+    <div class="col-md-5">
+      <%= text_field_tag :end_date, nil, class: 'form-control', placeholder: 'End Date' %>
+    </div>
+    <div class="col-md-2">
+      <%= button_tag 'Load Results', id: 'load_result', class: 'btn btn-default' %>
+    </div>
+  </div>
+</div>
+<div id="container" style="width: 700px; height: 390px; margin: 0 auto"></div>
+<script>
+    $(function(){
+        $(document).ready(function(){
+            loadGraph();
+            $('#start_date').datetimepicker({
+                format:'d/m/Y',
+                timepicker:false
+            });
+            $('#end_date').datetimepicker({
+                format:'d/m/Y',
+                timepicker:false
+            });
+            $('#load_result').click(function () {
+                loadGraph();
+            });
+        });
+
+        function loadGraph() {
+            var start_date = $('#start_date').val();
+            var end_date = $('#end_date').val();
+            getUrl(start_date, end_date)
+                .done(function(response) {
+                    //Cumulative Flow Diagram
+                    var color1 = '#A8F99F';
+                    var color2 = '#062702';
+
+                    var currentMonth = -1;
+
+                    var open = response.open_jobs,
+                        closed = response.closed_jobs;
+
+
+                    $('#container').highcharts({
+                        chart: {
+                            type: 'area',
+                            zoomType: 'x',
+                            panning: true,
+                            panKey: 'shift',
+                            resetZoomButton: {
+                                relativeTo: 'spacingBox',
+                                position: {
+                                    y: 0,
+                                    x: 0
+                                },
+                                theme: {
+                                    fill: 'white',
+                                    'stroke-width': 1,
+                                    stroke: 'grey',
+                                    r: 0,
+                                    states: {
+                                        hover: {
+                                            fill: '#b7cfec'
+                                        },
+                                        select: {
+                                            stroke: '#039',
+                                            fill: '#b7cfec'
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        title: {
+                            text: ''
+                        },
+                        xAxis: {
+                            title: {
+                                text: ''
+                            },
+                            labels: {
+                                style: {
+                                    fontWeight: 'normal',
+                                    fontSize: '12px',
+                                    fontFamily: 'Segoe UI',
+                                    color: 'black'
+                                },
+                                formatter: function () {
+                                    var localDate = new Date(this.value);
+                                    var addLabel = false;
+                                    if (currentMonth != localDate.getMonth())
+                                    {
+                                        addLabel = true;
+                                        currentMonth = localDate.getMonth();
+                                    }
+
+                                    if (this.isFirst) {
+                                        return Highcharts.dateFormat('%d', this.value) + '<br/>' + Highcharts.dateFormat('%b', this.value);
+                                    }
+                                    if (addLabel) {
+                                        return Highcharts.dateFormat('%d', this.value) + '<br/>' + Highcharts.dateFormat('%b', this.value);
+                                    }
+                                    else {
+                                        return Highcharts.dateFormat('%d', this.value);
+                                    }
+                                }
+                            },
+                            type: 'datetime',
+                            tickInterval: 24 * 3600 * 1000 * 5
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Jobs Count',
+                                style: {
+                                    fontWeight: 'normal',
+                                    fontSize: '12px',
+                                    fontFamily: 'Segoe UI',
+                                    color: 'black'
+                                }
+                            },
+                            labels: {
+                                style: {
+                                    fontWeight: 'normal',
+                                    fontSize: '12px',
+                                    fontFamily: 'Segoe UI',
+                                    color: 'black'
+                                }
+                            },
+                            tickInterval: 5
+                        },
+                        legend: {
+                            enabled: false,
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'top',
+                            itemStyle: {
+                                fontWeight: 'normal',
+                                fontSize: '12px',
+                                fontFamily: 'Segoe UI'
+                            }
+                        },
+                        tooltip: {
+                            crosshairs: true,
+                            shared: true
+                        },
+                        plotOptions: {
+                            area: {
+                                stacking: 'normal',
+                                lineColor: '#666666',
+                                lineWidth: 0,
+                                marker: { enabled: false }
+                            }
+                        },
+                        series: [{
+                            name: 'Closed Jobs',
+                            color: color2,
+                            type: 'scatter',
+                            marker: { symbol: 'circle' }
+                        },{
+                            name: 'Open Jobs',
+                            type: 'scatter',
+                            color: color1,
+                            marker: { symbol: 'circle' }
+                        },{
+                            name: 'Closed Jobs',
+                            color: color2,
+                            data: closed,
+                            showInLegend: false,
+                            marker: { symbol: 'circle' }
+                        },{
+                            name: 'Open Jobs',
+                            color: color1,
+                            data: open,
+                            showInLegend: false,
+                            marker: { symbol: 'circle' }
+                        }],
+                        exporting: {
+                            enabled: false
+                        }
+                    });
+                })
+                .fail(function() {
+                    alert( "Something went Wrong." );
+                })
+        }
+
+        function getUrl(start_date, end_date) {
+            if((start_date == '' || start_date == undefined) && (end_date == '' || end_date == undefined)) {
+                return $.get({
+                    url: '/reports/get_data'
+                })
+            } else {
+                return $.get({
+                    url: '/reports/get_data',
+                    data: {
+                        start_date: start_date,
+                        end_date: end_date
+                    }
+                })
+            }
+        }
+    });
+</script>
