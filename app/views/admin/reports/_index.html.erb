@@ -1,0 +1,194 @@
+<%= javascript_include_tag 'highcharts', 'highcharts-more' %>
+<br/>
+<div  style="width: 700px; margin: 0 auto">
+    <%= date_field_tag :start_date, nil, class: 'form-control', placeholder: 'start date' %>
+    <%= date_field_tag :end_date, nil, class: 'form-control', placeholder: 'end date' %>
+    <%= button_tag 'load results', id: 'load_result', class: 'btn btn-default' %>
+</div>
+<div id="container" style="width: 700px; height: 390px; margin: 0 auto"></div>
+<script>
+    $(function(){
+        $(document).ready(function(){
+            loadgraph();
+            $('#load_result').click(function () {
+                loadgraph();
+            });
+        });
+
+        function loadgraph() {
+            var start_date = $('#start_date').val();
+            var end_date = $('#end_date').val();
+            geturl(start_date, end_date)
+                .done(function(response) {
+                    //cumulative flow diagram
+                    var color1 = '#a8f99f';
+                    var color2 = '#062702';
+
+                    var currentmonth = -1;
+
+                    var open = response.open_jobs,
+                        closed = response.closed_jobs;
+
+
+                    $('#container').highcharts({
+                        chart: {
+                            type: 'area',
+                            zoomtype: 'x',
+                            panning: true,
+                            pankey: 'shift',
+                            resetzoombutton: {
+                                relativeto: 'spacingbox',
+                                position: {
+                                    y: 0,
+                                    x: 0
+                                },
+                                theme: {
+                                    fill: 'white',
+                                    'stroke-width': 1,
+                                    stroke: 'grey',
+                                    r: 0,
+                                    states: {
+                                        hover: {
+                                            fill: '#b7cfec'
+                                        },
+                                        select: {
+                                            stroke: '#039',
+                                            fill: '#b7cfec'
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        title: {
+                            text: ''
+                        },
+                        xaxis: {
+                            title: {
+                                text: ''
+                            },
+                            labels: {
+                                style: {
+                                    fontweight: 'normal',
+                                    fontsize: '12px',
+                                    fontfamily: 'segoe ui',
+                                    color: 'black'
+                                },
+                                formatter: function () {
+                                    var localdate = new date(this.value);
+                                    var addlabel = false;
+                                    if (currentmonth != localdate.getmonth())
+                                    {
+                                        addlabel = true;
+                                        currentmonth = localdate.getmonth();
+                                    }
+
+                                    if (this.isfirst) {
+                                        return highcharts.dateformat('%d', this.value) + '<br/>' + highcharts.dateformat('%b', this.value);
+                                    }
+                                    if (addlabel) {
+                                        return highcharts.dateformat('%d', this.value) + '<br/>' + highcharts.dateformat('%b', this.value);
+                                    }
+                                    else {
+                                        return highcharts.dateformat('%d', this.value);
+                                    }
+                                }
+                            },
+                            type: 'datetime',
+                            tickinterval: 24 * 3600 * 1000 * 5
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        yaxis: {
+                            title: {
+                                text: 'jobs count',
+                                style: {
+                                    fontweight: 'normal',
+                                    fontsize: '12px',
+                                    fontfamily: 'segoe ui',
+                                    color: 'black'
+                                }
+                            },
+                            labels: {
+                                style: {
+                                    fontweight: 'normal',
+                                    fontsize: '12px',
+                                    fontfamily: 'segoe ui',
+                                    color: 'black'
+                                }
+                            },
+                            tickinterval: 5
+                        },
+                        legend: {
+                            enabled: false,
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalalign: 'top',
+                            itemstyle: {
+                                fontweight: 'normal',
+                                fontsize: '12px',
+                                fontfamily: 'segoe ui'
+                            }
+                        },
+                        tooltip: {
+                            crosshairs: true,
+                            shared: true
+                        },
+                        plotoptions: {
+                            area: {
+                                stacking: 'normal',
+                                linecolor: '#666666',
+                                linewidth: 0,
+                                marker: { enabled: false }
+                            }
+                        },
+                        series: [{
+                            name: 'closed jobs',
+                            color: color2,
+                            type: 'scatter',
+                            marker: { symbol: 'circle' }
+                        },{
+                            name: 'open jobs',
+                            type: 'scatter',
+                            color: color1,
+                            marker: { symbol: 'circle' }
+                        },{
+                            name: 'closed jobs',
+                            color: color2,
+                            data: closed,
+                            showinlegend: false,
+                            marker: { symbol: 'circle' }
+                        },{
+                            name: 'open jobs',
+                            color: color1,
+                            data: open,
+                            showinlegend: false,
+                            marker: { symbol: 'circle' }
+                        }],
+                        exporting: {
+                            enabled: false
+                        }
+                    });
+                })
+                .fail(function() {
+                    alert( "something went wrong." );
+                })
+        }
+
+        function geturl(start_date, end_date) {
+            if((start_date == '' || start_date == undefined) && (end_date == '' || end_date == undefined)) {
+                return $.get({
+                    url: '/admin/get_data'
+                })
+            } else {
+                return $.get({
+                    url: '/admin/get_data',
+                    data: {
+                        start_date: start_date,
+                        end_date: end_date
+                    }
+                })
+            }
+        }
+    });
+</script>

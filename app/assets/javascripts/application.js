@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require datetimepicker
+//= stub highcharts
+//= stub highcharts-more
 //= require_tree .
 
 

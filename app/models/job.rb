@@ -14,4 +14,6 @@ class Job < ActiveRecord::Base
   validates_attachment_file_name :document, matches: [/\.(pdf|(docx?)|dot|wrd)\z/]
   include PgSearch
   multisearchable :against => [:title]
+
+  enum status: [ :open, :closed ]
 end
