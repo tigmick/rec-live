@@ -19,7 +19,7 @@ ActiveAdmin.register_page "Report" do
       start_date = params[:start_date].present? ? Date.parse(params[:start_date]) : 1.month.ago.to_date
       end_date = params[:end_date].present? ? Date.parse(params[:end_date]) : Date.today
       total_open_job_count = Job.where('created_at < ?', start_date).count
-      total_closed_job_count = Job.where('status = ? and created_at < ?' ,0 ,start_date).count
+      total_closed_job_count = Job.where('status = ? and closed_at < ?' ,1 ,start_date).count
       json = {open_jobs: [], closed_jobs: []}
       (start_date..end_date).each do |date|
         open_job_count = Job.where(created_at: date.beginning_of_day..date.end_of_day).count
