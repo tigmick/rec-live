@@ -50,10 +50,10 @@
                             type: 'area'
                         },
                         title: {
-                            text: 'Historic and Estimated Worldwide Population Growth by Region'
+                            text: ''
                         },
                         subtitle: {
-                            text: 'Source: Wikipedia.org'
+                            text: ''
                         },
                         xAxis: {
                             title: {
@@ -67,39 +67,16 @@
                                     color: 'black'
                                 },
                                 formatter: function () {
-                                    var localDate = new Date(this.value);
-                                    var addLabel = false;
-                                    if (currentMonth != localDate.getMonth())
-                                    {
-                                        addLabel = true;
-                                        currentMonth = localDate.getMonth();
-                                    }
-
-                                    if (this.isFirst) {
-                                        return Highcharts.dateFormat('%d', this.value) + '<br/>' + Highcharts.dateFormat('%b', this.value);
-                                    }
-                                    if (addLabel) {
-                                        return Highcharts.dateFormat('%d', this.value) + '<br/>' + Highcharts.dateFormat('%b', this.value);
-                                    }
-                                    else {
-                                        return Highcharts.dateFormat('%d', this.value);
-                                    }
+                                    return ''
                                 }
-                            },
-                            type: 'datetime',
-                            tickInterval: 24 * 3600 * 1000 * 5
+                            }
                         },
                         credits: {
                             enabled: false
                         },
                         yAxis: {
                             title: {
-                                text: 'Jobs'
-                            },
-                            labels: {
-                                formatter: function () {
-                                    return this.value / 1000;
-                                }
+                                text: 'Jobs Count'
                             }
                         },
                         tooltip: {
