@@ -18,6 +18,8 @@
 
 <p><strong>Total Interview Round:</strong><%= @job.interview.try(:total_stage) %></p>
 
+<p><strong>Status:</strong><%= @job.status_string %></p>
+
 
 
 
@@ -27,6 +29,11 @@
 	<span style="font-weight:bold;color:red;padding-left:10px;"> (You must Click this button  before  Schedule is Created)</span></p><br />
 <%end%>
 <br />
+  <% if @job.closed? %>
+    <%= link_to 'Open Job', open_job_path(id: @job.id), method: :post if current_user.client? %>
+  <% else %>
+    <%= link_to 'Close Job', closed_job_path(id: @job.id), method: :post if current_user.client? %>
+  <% end %> |
 <%= link_to 'Edit', edit_job_path(@job) if current_user.client? %> |
 <%= link_to 'Back', users_dashboard_path %>
 

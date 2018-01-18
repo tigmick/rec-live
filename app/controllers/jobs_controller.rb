@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   include JobsHelper
-  before_action :set_job, only: [:show, :edit, :update, :destroy]
+  before_action :set_job, only: [:show, :edit, :update, :destroy, :close_job, :open_job]
   before_action :authenticate_user!, except: [:download]
 
 
@@ -83,6 +83,26 @@ class JobsController < ApplicationController
     # doc.track_resume(params[:job_id])  if current_user.client? 
     send_data(data, :type => "application/#{doc.document.path.split(".").last}", :filename => "#{doc.document_file_name}", :x_sendfile=>true)
     return
+  end
+
+  def close_job
+    if (current_user.client? && @job.user_id == current_user.id)
+      @job.update status: 1, closed_at: Time.now
+      redirect_to '/users/dashboard'
+    else
+      flash[:error] = 'Action not permitted'
+      redirect_to '/users/dashboard'
+    end
+  end
+
+  def open_job
+    if (current_user.client? && @job.user_id == current_user.id)
+      @job.update status: 0, closed_at: nil
+      redirect_to '/users/dashboard'
+    else
+      flash[:error] = 'Action not permitted'
+      redirect_to '/users/dashboard'
+    end
   end
 
   private
