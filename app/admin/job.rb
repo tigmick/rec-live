@@ -35,11 +35,9 @@ ActiveAdmin.register Job do
       else
         links << link_to('Open Job', admin_open_job_path(job), method: :post)
       end
-      links << link_to('Show', job_path(job))
-      links << link_to('Edit', edit_job_path(job))
-      links << link_to('Delete', job_path(job), method: :delete, confirm: 'Are you sure?')
       links.join(' ').html_safe
     end
+    actions
   end
 
   form do |f|
