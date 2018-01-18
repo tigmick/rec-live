@@ -31,14 +31,12 @@
 
 <table class="table table-bordered">
   <thead>
-    <th style="width:11%;" class="td_align">Vacancies Open</th>
-    <th style="width:9%;" class="td_align">No. of Candidates</th>
-    <th style="width:8%;" class="td_align">CV Download</th>
-    <th style="width:25%;" class="td_align">CV Review Notes</th>
-    <th style="width:19%;" class="td_align">Create Interview Stage</th>
-    <th  style="width:11%;" class="td_align">Interview Schedule</th>
-    <th  style="width:8%;" class="td_align">Status</th>
-    <th  style="width:8%;" class="td_align">Actions</th>
+    <th style="width:13%;" class="td_align">Vacancies Open</th>
+    <th style="width:13%;" class="td_align">No. of Candidates</th>
+    <th style="width:12%;" class="td_align">CV Download</th>
+    <th style="width:27%;" class="td_align">CV Review Notes</th>
+    <th style="width:22%;" class="td_align">Create Interview Stage</th>
+    <th  style="width:13%;" class="td_align">Interview Schedule</th>
   </thead>
   <tbody>
     <% @jobs.each do |job| %>
@@ -57,14 +55,6 @@
       <td style="padding:0;"><%= users.count == 0 ? "No One Applied yet" : cv_download_client_section(job)%></td>
       <% Review.where(job_id: job.id) %>
       <td style="padding:0;"><%=users.count == 0 ? "No One Applied yet" : interview_stage_client_section(job)%></td>
-      <td style=""><%= job.status_string %></td>
-      <td style="padding:0;">
-        <% if job.open? %>
-          <%= link_to 'Close Job', close_job_path(id: job.id), method: :post, data: {confirm: 'Are you sure you want to close this Job.'}, class: 'btn btn-default' %>
-        <% else %>
-          <%= link_to 'Open Job', open_job_path(id: job.id), method: :post, class: 'btn btn-default' %>
-        <% end %>
-      </td>
     <tr>
     <%end%>
   </tbody>

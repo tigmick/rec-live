@@ -14,6 +14,7 @@
       <th>Industry</th>
       <th colspan="3">Actions</th>
       <th>Job Assign</th>
+      <th>Status</th>
     </tr>
   </thead>
 
@@ -28,6 +29,14 @@
           <td><%= link_to 'Edit', edit_job_path(job) if current_user.client?%></td>
           <td><%= link_to 'Delete', job, method: :delete, data: { confirm: 'Are you sure?' } if current_user.client? %></td>
            <td><%= link_to 'assign job', new_job_assign_job_path(job) if current_user.client? %></td>
+          <td style=""><%= job.status_string %></td>
+          <td style="padding:0;">
+            <% if job.open? %>
+              <%= link_to 'Close Job', close_job_path(id: job.id), method: :post, data: {confirm: 'Are you sure you want to close this Job.'}, class: 'btn btn-default' %>
+            <% else %>
+              <%= link_to 'Open Job', open_job_path(id: job.id), method: :post, class: 'btn btn-default' %>
+            <% end %>
+          </td>
         <%end%>
         
         
