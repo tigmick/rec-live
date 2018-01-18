@@ -21,11 +21,25 @@ ActiveAdmin.register Job do
     selectable_column
     column :title
     #column :description
+    column :status do |job|
+      job.status_string
+    end
     column "description" do |job|
           truncate(job.description, omision: "...", length: 100)
         end
     column :industry_id
-    actions
+    column :actions do |job|
+      links = []
+      if job.open?
+        links << link_to('Close Job', admin_close_job_path(job), method: :post, confirm: 'Are you sure?')
+      else
+        links << link_to('Open Job', admin_open_job_path(job), method: :post)
+      end
+      links << link_to('Show', job_path(job))
+      links << link_to('Edit', edit_job_path(job))
+      links << link_to('Delete', job_path(job), method: :delete, confirm: 'Are you sure?')
+      links.join(' ').html_safe
+    end
   end
 
   form do |f|
@@ -39,5 +53,19 @@ ActiveAdmin.register Job do
     f.actions
   end
 
+
+  controller do
+    def close_job
+      job = Job.find(params[:id])
+      job.update status: 1, closed_at: Time.now
+      redirect_to '/admin/jobs'
+    end
+
+    def open_job
+      job = Job.find(params[:id])
+      job.update status: 0, closed_at: nil
+      redirect_to '/admin/jobs'
+    end
+  end
 
 end

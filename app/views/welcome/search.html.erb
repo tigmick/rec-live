@@ -22,7 +22,7 @@
 
     </div>
     <div class="apply_dis">
-    <%= job_apply_link(search) if user_signed_in? %>
+    <%= job_apply_link(search) if user_signed_in? && search.open? %>
     </div>
 
     <div class="clearfix"></div>

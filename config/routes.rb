@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   match "/admin/resumes/:id/download" => 'admin/resumes#download', via: :get, as: "admin_resume_download"
   match "/admin/reports" => 'admin/report#index', via: :get, as: "admin_reports"
   match "/admin/get_data" => 'admin/report#get_data', via: :get, as: "admin_get_report_data"
+  match '/admin/jobs/close_job/:id' => 'admin/jobs#close_job', via: :post, as: :admin_close_job
+  match '/admin/jobs/open_job/:id' => 'admin/jobs#open_job', via: :post, as: :admin_open_job
 
 
   # match "/admin/update_passwords" => 'admin/update_passwords#update', via: :post
@@ -23,7 +25,9 @@ Rails.application.routes.draw do
   get 'reports/get_data' => 'reports#get_data'
 
   get 'jobs/index'
-  resources :resumes do 
+  post 'jobs/close_job/:id' => 'jobs#close_job', as: :close_job
+  post 'jobs/open_job/:id' => 'jobs#open_job', as: :open_job
+  resources :resumes do
     member do
       get :download
     end
