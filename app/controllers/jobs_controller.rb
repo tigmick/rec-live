@@ -88,20 +88,20 @@ class JobsController < ApplicationController
   def close_job
     if (current_user.client? && @job.user_id == current_user.id)
       @job.update status: 1, closed_at: Time.now
-      redirect_to '/users/dashboard'
+      redirect_to '/jobs'
     else
       flash[:error] = 'Action not permitted'
-      redirect_to '/users/dashboard'
+      redirect_to '/jobs'
     end
   end
 
   def open_job
     if (current_user.client? && @job.user_id == current_user.id)
       @job.update status: 0, closed_at: nil
-      redirect_to '/users/dashboard'
+      redirect_to '/jobs'
     else
       flash[:error] = 'Action not permitted'
-      redirect_to '/users/dashboard'
+      redirect_to '/jobs'
     end
   end
 
