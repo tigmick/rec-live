@@ -25,11 +25,11 @@ class ReportsController < ApplicationController
       json[:cummulative_data][:closed_jobs] << cummulative_data[1]
       line_chart_data = get_line_chart_data(date)
       json[:line_chart_data][:open_jobs] << line_chart_data[0]
-      json[:line_chart_data][:closed_jobs] << line_chart_data[0]
+      json[:line_chart_data][:closed_jobs] << line_chart_data[1]
       bar_chart_data = get_bar_chart_data(date)
       json[:bar_chart_data][:dates] << date.strftime('%e %B %Y')
       json[:bar_chart_data][:open_jobs] << bar_chart_data[0]
-      json[:bar_chart_data][:closed_jobs] << bar_chart_data[0]
+      json[:bar_chart_data][:closed_jobs] << bar_chart_data[1]
     end
     json[:pie_data] = get_pie_data
     json
