@@ -1,19 +1,24 @@
 <%= javascript_include_tag 'highcharts', 'highcharts-more' %>
 <br/>
-<div class="col-md-6 col-md-offset-3">
-  <div class="row">
-    <div class="col-md-5">
-      <%= text_field_tag :start_date, nil, class: 'form-control', placeholder: 'Start Date' %>
-    </div>
-    <div class="col-md-5">
-      <%= text_field_tag :end_date, nil, class: 'form-control', placeholder: 'End Date' %>
-    </div>
-    <div class="col-md-2">
-      <%= button_tag 'Load Results', id: 'load_result', class: 'btn btn-default' %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="row">
+      <div class="col-md-5">
+        <%= text_field_tag :start_date, nil, class: 'form-control', placeholder: 'Start Date' %>
+      </div>
+      <div class="col-md-5">
+        <%= text_field_tag :end_date, nil, class: 'form-control', placeholder: 'End Date' %>
+      </div>
+      <div class="col-md-2">
+        <%= button_tag 'Load Results', id: 'load_result', class: 'btn btn-default' %>
+      </div>
     </div>
   </div>
 </div>
-<div id="container" style="width: 700px; height: 390px; margin: 0 auto;margin-bottom: 40px;"></div>
+<div id="container" style="width: 700px; height: 390px; margin: 0 auto;margin-bottom: 40px;border: 1px solid #CCCCCC;"></div>
+<div id="container_pie" style="width: 700px; height: 390px; margin: 0 auto;margin-bottom: 40px;border: 1px solid #CCCCCC;"></div>
+<div id="container_line" style="width: 700px; height: 390px; margin: 0 auto;margin-bottom: 40px;border: 1px solid #CCCCCC;"></div>
+<div id="container_bar" style="width: 700px; height: 390px; margin: 0 auto;margin-bottom: 40px;border: 1px solid #CCCCCC;"></div>
 <script>
     $(function(){
         $(document).ready(function(){
@@ -37,20 +42,16 @@
             getUrl(start_date, end_date)
                 .done(function(response) {
                     //Cumulative Flow Diagram
-                    var color1 = '#A8F99F';
-                    var color2 = '#062702';
 
-                    var currentMonth = -1;
-
-                    var open = response.open_jobs,
-                        closed = response.closed_jobs;
+                    var open_cummulative = response.cummulative_data.open_jobs,
+                        closed_cummulative = response.cummulative_data.closed_jobs;
 
                     Highcharts.chart('container', {
                         chart: {
                             type: 'area'
                         },
                         title: {
-                            text: ''
+                            text: 'Jobs Cumulative Flow Diagram'
                         },
                         subtitle: {
                             text: ''
@@ -96,10 +97,157 @@
                         },
                         series: [{
                             name: 'Open Jobs',
-                            data: open
+                            data: open_cummulative
                         }, {
                             name: 'Closed Jobs',
-                            data: closed
+                            data: closed_cummulative
+                        }]
+                    });
+
+                    //Pie Diagram
+                    var open_jobs_pie = response.pie_data.open_jobs, closed_jobs_pie = response.pie_data.closed_jobs;
+
+                    Highcharts.chart('container_pie', {
+                        chart: {
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false,
+                            type: 'pie'
+                        },
+                        title: {
+                            text: 'Jobs Pie Chart'
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                    style: {
+                                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                    }
+                                }
+                            }
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'Brands',
+                            colorByPoint: true,
+                            data: [{
+                                name: 'Closed Jobs',
+                                y: closed_jobs_pie
+                            }, {
+                                name: 'Open Jobs',
+                                y: open_jobs_pie
+                            }]
+                        }]
+                    });
+
+                    //Line Diagram
+                    var open_jobs_line_chart = response.line_chart_data.open_jobs, closed_jobs_line_chart = response.line_chart_data.closed_jobs;
+
+                    Highcharts.chart('container_line', {
+                        title: {
+                            text: 'Job Line Chart'
+                        },
+                        subtitle: {
+                            text: ''
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Jobs'
+                            }
+                        },
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'middle'
+                        },
+                        plotOptions: {
+                            series: ''
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'Open Jobs',
+                            data: open_jobs_line_chart
+                        }, {
+                            name: 'Closed Jobs',
+                            data: closed_jobs_line_chart
+                        }],
+
+                        responsive: {
+                            rules: [{
+                                condition: {
+                                    maxWidth: 500
+                                },
+                                chartOptions: {
+                                    legend: {
+                                        layout: 'horizontal',
+                                        align: 'center',
+                                        verticalAlign: 'bottom'
+                                    }
+                                }
+                            }]
+                        }
+
+                    });
+
+                    //Bar Diagram
+                    var open_jobs_bar_chart = response.bar_chart_data.open_jobs, closed_jobs_bar_chart = response.bar_chart_data.closed_jobs, dates = response.bar_chart_data.dates;
+
+                    Highcharts.chart('container_bar', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Job Bar Chart'
+                        },
+                        subtitle: {
+                            text: ''
+                        },
+                        xAxis: {
+                            categories: dates,
+                            crosshair: true
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Jobs'
+                            }
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        tooltip: {
+                            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y}</b></td></tr>',
+                            footerFormat: '</table>',
+                            shared: true,
+                            useHTML: true
+                        },
+                        plotOptions: {
+                            column: {
+                                pointPadding: 0.2,
+                                borderWidth: 0
+                            }
+                        },
+                        series: [{
+                            name: 'Open Jobs',
+                            data: open_jobs_bar_chart
+
+                        }, {
+                            name: 'Closed Jobs',
+                            data: closed_jobs_bar_chart
+
                         }]
                     });
 
