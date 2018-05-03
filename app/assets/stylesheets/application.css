@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  *= stub active_admin
+ *= stub new_ui/application
  *= require datetimepicker
  *= require font-awesome
  */

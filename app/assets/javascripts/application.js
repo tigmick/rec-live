@@ -16,6 +16,7 @@
 //= require datetimepicker
 //= stub highcharts
 //= stub highcharts-more
+//= stub new_ui/application
 //= require_tree .
 
 

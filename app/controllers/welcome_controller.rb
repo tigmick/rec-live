@@ -1,6 +1,7 @@
 class WelcomeController < ApplicationController
 	include WelcomeHelper
   def index
+    render layout: 'new_ui/application'
   end
   def search
     # @search = PgSearch.multisearch(params[:search])
