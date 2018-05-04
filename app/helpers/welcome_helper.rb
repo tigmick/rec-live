@@ -11,5 +11,5 @@ module WelcomeHelper
 		  	link_to "Applied" ,"#" ,class: 'btn btn-danger'
 		  end
 		end
-  end
+	end
 end

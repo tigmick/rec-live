@@ -6,14 +6,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag 'new_ui/application', media: 'all' %>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
   <%= javascript_include_tag 'new_ui/application' %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-<%# flash.each do |name, msg| %>
-  <%#= content_tag :div, msg, class: "alert alert-info" %>
-<%# end %>
+<body class="<%= controller_name %> <%= action_name %>">
+<%= render partial: '/layouts/new_ui/header' %>
+<% flash.each do |name, msg| %>
+  <%= content_tag :div, msg, class: "alert alert-info" %>
+<% end %>
 <!-- <div class="container"> -->
 <%= yield %>
+<%= render partial: '/layouts/new_ui/footer' %>
+<%= render partial: '/layouts/new_ui/modals' %>
 </body>
 </html>

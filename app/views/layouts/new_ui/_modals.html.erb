@@ -1,0 +1,162 @@
+<% if current_user.blank? %>
+  <!-- Sign In and Sign Up modal -->
+  <div class="modal fade popup-1" id="login_sign_up_modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <ul class="nav nav-tabs" id="login_sign_up_tabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" href="#sign_up" role="tab" data-toggle="tab">sign up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#login" role="tab" data-toggle="tab">sign in</a>
+            </li>
+          </ul>
+          <a href="#" class="close" data-dismiss="modal">close</a>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active show" id="sign_up">
+              <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { id: 'sign-up-form' }) do |f| %>
+                <%#= devise_error_messages! %>
+                <div class="alert alert-danger" id="sign-up-error" role="alert">
+
+                </div>
+                <div class="candi-client text-center">
+                  <div class="radio">
+                    <label><%= f.radio_button :role, 'candidate' %>&nbsp;&nbsp;candidate</label>
+                  </div>
+                  <div class="radio">
+                    <label><%= f.radio_button :role, 'client' %>&nbsp;&nbsp;client</label>
+                  </div>
+                </div>
+                <div class="name-field">
+                  <div class="form-group">
+                    <%= f.text_field :first_name, autofocus: true, class: "form-control", placeholder: 'First Name' %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.text_field :last_name, class: "form-control", placeholder: 'Last Name' %>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <%= f.email_field :email, class: "form-control", id: 'sign_up_email', placeholder: "Email" %>
+                </div>
+                <div class="form-group">
+                  <%= f.text_field :contact_no, class: "form-control", placeholder: "Contact Number" %>
+                </div>
+                <div class="form-group client-fields">
+                  <%= f.text_field :job_title, class: "form-control", placeholder: "Job title" %>
+                </div>
+                <div class="form-group client-fields">
+                  <%= f.text_field :company_name, class: "form-control", placeholder: "Company name" %>
+                </div>
+                <div class="form-group">
+                  <%= f.text_field :current_location, class: "form-control", placeholder: 'Location Preferred' %>
+                </div>
+                <div class="form-group candidate-fields">
+                  <%= f.select(:salary_expectation, options_for_select([["£18-30k", "18000-30000"],
+                                                                        ["£30-50k", "30000-50000"],
+                                                                        ["£50-75k", "50000-75000"],
+                                                                        ["£75-100k", "75000-100000"],
+                                                                        ["£100k+", "100000+"]]),
+                                   { prompt: 'Salary Sought' } , class: "form-control", placeholder: "Salary Sought*") %>
+                </div>
+                <div class="form-group">
+                  <%= f.password_field :password, autocomplete: "off", id: 'sign_up_password', class: "form-control", placeholder: "Password (6 characters minimum)" %>
+                </div>
+                <div class="form-group">
+                  <%= f.password_field :password_confirmation, autocomplete: "off", id: 'sign_up_password_confirmation', class: "form-control", placeholder: "Password confirmation" %>
+                </div>
+                <%= f.submit "Sign up", class: "btn log-in-btn" %>
+              <% end %>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="login">
+              <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), html: { class: 'log-in-form', id: 'log-in-form' }, format: :json, remote: true) do |f| %>
+                <div class="alert alert-danger" id="login-error" role="alert">
+
+                </div>
+                <div class="form-group">
+                  <%= f.email_field :email, autofocus: true, placeholder: 'Email', class: 'form-control' %>
+                </div>
+
+                <div class="form-group">
+                  <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: 'password' %>
+                </div>
+
+                <div class="form-group form-check">
+                  <label class="form-check-label">
+                    <%= f.check_box :remember_me, class: 'form-check-input' %> <%= f.label :remember_me %>
+                  </label>
+                </div>
+
+                <%= f.submit "Log in", class: "btn log-in-btn" %>
+                <a href="#">forget your password?</a>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <!-- Edit profile modal -->
+  <div class="modal fade popup-1" id="edit_profile_modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <a href="#" class="close" data-dismiss="modal">close</a>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form class="sign-up-form edit-profile">
+            <div class="candi-client text-center">
+              Edit Profile
+            </div>
+            <div class="name-field">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="First Name">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Last Name">
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Contact Number">
+            </div>
+            <div class="form-group">
+              <select class="form-control" id="sel1">
+                <option>Location Preferred</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Salary Sought*">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" placeholder="Password (6 characters minimum)">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" placeholder="Password confirmation">
+            </div>
+            <button type="submit" class="btn log-in-btn">save</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<% end %>
