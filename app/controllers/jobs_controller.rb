@@ -28,6 +28,7 @@ class JobsController < ApplicationController
   # GET /Jobs/new
   def new
     @job = Job.new
+    render layout: 'new_ui/application'
   end
 
   # GET /Jobs/1/edit

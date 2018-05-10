@@ -2,7 +2,7 @@ class ReportsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-
+    render layout: 'new_ui/application'
   end
 
   def get_data

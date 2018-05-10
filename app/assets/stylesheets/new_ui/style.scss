@@ -1,3 +1,6 @@
+.start_date_end_date_css{
+  padding: 60px 0px;  
+}
 @font-face {
   font-family: ZPublicaSans;
   src: font-url("PublicaSans-Regular.otf");
@@ -591,6 +594,18 @@ padding:0px;border:0px;
 }
 .title input:focus{box-shadow:none;}
 .create-job button{
+line-height: normal;
+font-size: 15px;
+background-color: #122FB8;
+font-family: ZPublicaSans;
+letter-spacing: -0.217708px;
+color: #FFFFFF;
+border-radius: 8px;
+width: 100%;
+padding: 15px;
+max-width: 240px;
+}
+.create-job .btn{
 line-height: normal;
 font-size: 15px;
 background-color: #122FB8;

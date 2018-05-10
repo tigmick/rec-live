@@ -14,6 +14,7 @@ class UsersController < ApplicationController
       @applied_jobs = current_user.user_job.present? ? Job.where(id: current_user.user_job.job_ids) : [] 
       @reviews = Review.joins(:job).where(user_id: current_user.id).select("id","job_id","jobs.user_id","created_at","cv_download_date")
     end
+    render layout: 'new_ui/application'
   end
 
   def user_profile
