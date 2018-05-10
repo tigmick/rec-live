@@ -15,6 +15,7 @@ class JobsController < ApplicationController
       @jobs << Job.where('id IN (?)',job_ids)
       @jobs = @jobs.flatten
     end
+    render layout: 'new_ui/application'
   end
 
   # GET /Jobs/1
