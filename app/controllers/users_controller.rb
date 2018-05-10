@@ -8,6 +8,7 @@ class UsersController < ApplicationController
       @jobs = current_user.jobs.order('created_at desc')
       @jobs << Job.where('id IN (?)',job_ids)
       @jobs = @jobs.flatten
+      @industries = Industry.all
 
     else
       @user = current_user
