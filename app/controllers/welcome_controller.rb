@@ -13,6 +13,7 @@ class WelcomeController < ApplicationController
     else
     	@search = Job.where(status: 0).paginate(:page => params[:page], :per_page => 6).order(created_at: :desc)
     end
+    render layout: 'new_ui/application'
   end
 
   def search_candidate

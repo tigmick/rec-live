@@ -5,8 +5,18 @@ class SessionsController < Devise::SessionsController
     return invalid_login_attempt unless resource
 
     if resource.valid_password?(params[:user][:password])
-      sign_in :user, resource
-      return render json: { location: after_sign_in_path_for(resource) }
+      if resource.role == "client"
+        unless resource.verify_candidate
+          set_flash_message! :notice, :inactive
+          return render json: { location: root_path } 
+        else  
+          sign_in :user, resource
+          return render json: { location: after_sign_in_path_for(resource) }
+        end
+      else
+        sign_in :user, resource
+        return render json: { location: after_sign_in_path_for(resource) }
+      end
     end
 
     invalid_login_attempt

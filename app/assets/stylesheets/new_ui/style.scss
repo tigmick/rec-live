@@ -74,7 +74,7 @@ text-transform:uppercase;
 a.navbar-brand img{
 width:100%;
 max-width:34px;
-margin-right:10px;
+//margin-right:10px;
 }
 .loc-search-form select:focus, .search input:focus{
 box-shadow:none;
@@ -87,13 +87,13 @@ color: #090909;
 font-size: 15px;
 letter-spacing: -0.217708px;
 }
-.search{
+/*.search{
 margin-left: 15px;
 padding: 10px;
 display: flex;
 flex-direction: row;
 align-items: center;
-}
+}*/
 .search input{
 border:0px;
 font-size:24px;
@@ -247,6 +247,9 @@ letter-spacing: -0.348333px;
 padding: 0;
 display: inline-block;
 }
+.box-job-dashboard ul li{
+  height: auto !important; 
+}
 .box-job ul li{
 display: inline-block;
 min-width: 225px;
@@ -255,6 +258,7 @@ border-radius:5px;
 background-color:#fff;
 vertical-align:top;
 margin: 0px 5px 15px;
+height: 16em;
 }
 h2.job-heading{
 line-height: normal;
@@ -659,4 +663,8 @@ color: #dc3545;
 @media screen and (max-width:992px){
 .navbar-collapse.row{margin:0px;}
 .navigation{max-width:100%;}
+}
+
+.search-equal-height {
+    height: 12em;
 }

@@ -1,66 +1,146 @@
- <div class="banner_cov">
- <%= image_tag("banner_inn.jpg") %></div>  
- <div class="container">
- <div class="row">
-  <p id="error-msg" class="alert alert-danger"></p>
-  <div class="col-md-6 sign_pop col-md-offset-3">
-<% if !@search.blank? %> 
- <% @search.each do |search| %>
-    <div class="job_bx">
-    <div class="left_dis">
-     <h1><label>Job Title :</label> <%= search.title%><br/></h1>
-    <p><label>Job Description :</label> 
-    <div id="less_<%= search.id%>"> 
-      <%= search.description.truncate(300)%>
-    </div>
-    <div id="more_<%= search.id%>" style="display:none;">
-      <%= search.description %>
-    </div>
-    <label>Job Document :</label> <%= link_to search.document_file_name, download_job_path(search),  target: "_blank" if search.document.present? %> <br/>
-    </p>
-    <a href="javascript:void(0)" id="view_details" data-id="<%= search.id%>"class="view_details">View Details</a> 
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12" style="background-color:#f1f1f1;">
+        <div class="job-right">
+          <h2 class="heading">Administrate Jobs</h2>
+          <div class="box-job result">
+            <% if !@search.blank? %> 
+            <ul>
+              <% @search.each do |search| %>
+              <li>
+                <div class="equal-height search-equal-height">
+                  <div class="box-heading">
+                    <div class="box-header">
+                      <div class="name"><%= search.title.split[0][0] %><% if search.title.split[1] %><%= search.title.split[1][0] %><% end %></div>
+                       <div class="detail"><h2 class="job-heading"><%= search.title%></h2>
+                      <div class="about-job"><%= link_to search.document_file_name, download_job_path(search),  target: "_blank" if search.document.present? %></div>
+                    </div></div>
+                    <div class="job-option text-center float-right job-in-search">
+                      <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                      </ul></a>
+                      <div class="dropdown-menu" aria-labelledby="options">
+                        <a class="dropdown-item" href="#">Create interview</a>
+                        <a class="dropdown-item" href="#">Close the job</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="job-discription">
+                    <div class="hori-divi"></div>
+                    <h3>Interview notes &nbsp;&nbsp;<a href="#">Edit</a></h3>
+                    <p><%= search.description.truncate(300)%></p>
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <%= link_to 'view detail', search  %>
+                  <!-- <a href="javascript:void(0)" class="view-detail" data-id="<%# search.id %>" class="view_details">view detail</a> -->
 
+                  <!-- <a href="#" class="view-detail" data-toggle="modal" data-target="#myModal3">view detail</a> -->
+                </div>
+              </li>
+              <% end %>
+              </ul>
+              <% end %>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="apply_dis">
-    <%= job_apply_link(search) if user_signed_in? && search.open? %>
+  </div>
+              <!-- <li>
+                <div class="equal-height">
+                  <div class="box-heading">
+                    <div class="box-header">
+                      <div class="name">AK</div>
+                       <div class="detail"><h2 class="job-heading">Ashish Khumar</h2>
+                      <div class="about-job">PDF</div>
+                    </div></div>
+                    <div class="job-option text-center float-right">
+                      <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                      </ul></a>
+                      <div class="dropdown-menu" aria-labelledby="options">
+                        <a class="dropdown-item" href="#">Create interview</a>
+                        <a class="dropdown-item" href="#">Close the job</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="job-discription">
+                    <div class="hori-divi"></div>
+                    <h3>Interview notes &nbsp;&nbsp;<a href="#">Edit</a></h3>
+                    <p>Candidate has a strong technical background working on similar systems and a good track record. Seems to develop with the…</p>
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <a href="#" class="view-detail" data-toggle="modal" data-target="#myModal3">view detail</a>
+                </div>
+              </li>
+              <li>
+                <div class="equal-height">
+                  <div class="box-heading">
+                    <div class="box-header">
+                      <div class="name">AK</div>
+                       <div class="detail"><h2 class="job-heading">Ashish Khumar</h2>
+                      <div class="about-job">PDF</div>
+                    </div></div>
+                    <div class="job-option text-center float-right">
+                      <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                      </ul></a>
+                      <div class="dropdown-menu" aria-labelledby="options">
+                        <a class="dropdown-item" href="#">Create interview</a>
+                        <a class="dropdown-item" href="#">Close the job</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="job-discription">
+                    <div class="hori-divi"></div>
+                    <h3>Interview notes &nbsp;&nbsp;<a href="#">Edit</a></h3>
+                    <p>Candidate has a strong technical background working on similar systems and a good track record. Seems to develop with the…</p>
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <a href="#" class="view-detail" data-toggle="modal" data-target="#myModal3">view detail</a>
+                </div>
+              </li>
+              <li>
+                <div class="equal-height">
+                  <div class="box-heading">
+                    <div class="box-header">
+                      <div class="name">AK</div>
+                       <div class="detail"><h2 class="job-heading">Ashish Khumar</h2>
+                      <div class="about-job">PDF</div>
+                    </div></div>
+                    <div class="job-option text-center float-right">
+                      <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                      </ul></a>
+                      <div class="dropdown-menu" aria-labelledby="options">
+                        <a class="dropdown-item" href="#">Create interview</a>
+                        <a class="dropdown-item" href="#">Close the job</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="job-discription">
+                    <div class="hori-divi"></div>
+                    <h3>Interview notes &nbsp;&nbsp;<a href="#">Edit</a></h3>
+                    <p>Candidate has a strong technical background working on similar systems and a good track record. Seems to develop with the…</p>
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <a href="#" class="view-detail" data-toggle="modal" data-target="#myModal3">view detail</a>
+                </div>
+              </li> -->
+            <!-- </ul>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div class="clearfix"></div>
-    </div>
-  <% end %>
-<% else %>
-<h5 style="color:#4286F5;font-weight:bold;">No Job listed in this Category Yet.</h5>
-<% end %>
-  <%= will_paginate @search , renderer: BootstrapPagination::Rails%>
-</div>
-</div>
-</div>
-
-<script>
-$(document).ready(function(){
-  $(".view_details").click(function(){
-    if($(this).text() =="View Details")
-    {
-    var dataid = $(this).attr("data-id")
-    $("#less_"+dataid).hide()
-    $("#more_"+dataid).show()
-    $(this).text("Less Details")
-    }else{
-    	var dataid = $(this).attr("data-id")
-    $("#less_"+dataid).show()
-    $("#more_"+dataid).hide()
-    $(this).text("View Details")
-    }
-    
-  })
-})
-
-</script>
-<style type="text/css">
-  #view_details{
-    color: #428bca !important;
-  }
-  .left_dis > a {
-    color: #4286f5;
-  }
-</style>
+  </div> -->
