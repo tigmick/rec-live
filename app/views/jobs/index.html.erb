@@ -77,13 +77,14 @@
           <h2 class="heading">Administrate Jobs</h2>
           <div class="box-job">
             <ul>
+              <% @jobs.each do |job| %>
               <li>
-                <div class="equal-height">
+                <div class="equal-height equal-height-jobs-index-custom">
                   <div class="box-heading">
                     <div class="box-header">
-                      <h2 class="job-heading">Java developer</h2>
-                      <h3 class="job-sub-heading">Application Development</h3>
-                      <div class="about-job open">open</div>
+                      <h2 class="job-heading"><%= link_to job.title, job_path(job) %></h2>
+                      <h3 class="job-sub-heading"><%= job.industry.title %></h3>
+                      <div class="about-job open"><%= job.status %></div>
                     </div>
                     <div class="job-option text-center float-right">
                       <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul>
@@ -100,214 +101,17 @@
                   <div class="job-discription">
                     <div class="hori-divi"></div>
                     <h3>Job description</h3>
-                    <p>Java Application developer required for an Investment Bank in the City of London…</p>
+                    <p><%= job.description %></p>
                   </div>
                 </div>
                 <div class="box-footer">
-                  <ul class="d-block">
-                    <li><a href="#">view</a></li>
-                    <li><a href="#">edit</a></li>
+                  <ul class="d-block jobs-index-custom">
+                    <li><%= link_to 'view', job_path(job) %></li>
+                    <li><%= link_to 'edit', edit_job_path(job) %></li>
                   </ul>
                 </div>
               </li>
-              <li>
-                <div class="equal-height">
-                  <div class="box-heading">
-                    <div class="box-header">
-                      <h2 class="job-heading">Java developer</h2>
-                      <h3 class="job-sub-heading">Application Development</h3>
-                      <div class="about-job clos">close</div>
-                    </div>
-                    <div class="job-option text-center float-right">
-                      <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                      </ul></a>
-                      <div class="dropdown-menu" aria-labelledby="options">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="job-discription">
-                    <div class="hori-divi"></div>
-                    <h3>Job description</h3>
-                    <p>Oracle R12 Developer required for Investment Bank</p>
-                  </div>
-                </div>
-                <div class="box-footer">
-                  <ul class="d-block">
-                    <li><a href="#">view</a></li>
-                    <li><a href="#">edit</a></li>
-                  </ul>
-                </div>
-              </li>
-              <li>
-                <div class="equal-height">
-                  <div class="box-heading">
-                    <div class="box-header">
-                      <h2 class="job-heading">Hedge Fund Client Manager</h2>
-                      <h3 class="job-sub-heading">Sales Executives</h3>
-                      <div class="about-job open">open</div>
-                    </div>
-                    <div class="job-option text-center float-right">
-                      <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                      </ul></a>
-                      <div class="dropdown-menu" aria-labelledby="options">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="job-discription">
-                    <div class="hori-divi"></div>
-                    <h3>Job description</h3>
-                    <p>Hedge Fund Client Manager required to look after a set of multi asset class funds ACCA Equities FX Rates Bonds.</p>
-                  </div>
-                </div>
-                <div class="box-footer">
-                  <ul class="d-block">
-                    <li><a href="#">view</a></li>
-                    <li><a href="#">edit</a></li>
-                  </ul>
-                </div>
-              </li>
-              <li>
-                <div class="equal-height">
-                  <div class="box-heading">
-                    <div class="box-header">
-                      <h2 class="job-heading">Hedge Fund Client Manager</h2>
-                      <h3 class="job-sub-heading">Sales Executives</h3>
-                      <div class="about-job open">open</div>
-                    </div>
-                    <div class="job-option text-center float-right">
-                      <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                      </ul></a>
-                      <div class="dropdown-menu" aria-labelledby="options">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="job-discription">
-                    <div class="hori-divi"></div>
-                    <h3>Job description</h3>
-                    <p>Hedge Fund Client Manager required to look after a set of multi asset class funds ACCA Equities FX Rates Bonds.</p>
-                  </div>
-                </div>
-                <div class="box-footer">
-                  <ul class="d-block">
-                    <li><a href="#">view</a></li>
-                    <li><a href="#">edit</a></li>
-                  </ul>
-                </div>
-              </li>
-              <li>
-                <div class="equal-height">
-                  <div class="box-heading">
-                    <div class="box-header">
-                      <h2 class="job-heading">Oracle Database Analyst</h2>
-                      <h3 class="job-sub-heading">Oracle</h3>
-                      <div class="about-job open">open</div>
-                    </div>
-                    <div class="job-option text-center float-right">
-                      <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                      </ul></a>
-                      <div class="dropdown-menu" aria-labelledby="options">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="job-discription">
-                    <div class="hori-divi"></div>
-                    <h3>Job description</h3>
-                    <p>Our client is looking for a qualified Database analyst/developer to design stable and reliable databases, according to their company’s needs. You will be…</p>
-                  </div>
-                </div>
-                <div class="box-footer">
-                  <ul class="d-block">
-                    <li><a href="#">view</a></li>
-                    <li><a href="#">edit</a></li>
-                  </ul>
-                </div>
-              </li>
-              <li>
-                <div class="equal-height">
-                  <div class="box-heading">
-                    <div class="box-header">
-                      <h2 class="job-heading">Technical Agile Project Manager</h2>
-                      <h3 class="job-sub-heading">Project Management</h3>
-                      <div class="about-job open">open</div>
-                    </div>
-                    <div class="job-option text-center float-right">
-                      <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                      </ul></a>
-                      <div class="dropdown-menu" aria-labelledby="options">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="job-discription">
-                    <div class="hori-divi"></div>
-                    <h3>Job description</h3>
-                    <p>Job Title Technical Agile Project Manager Location Durham Job Description Primary ongoing responsibility is for management of projects. Focuses on meeting project</p>
-                  </div>
-                </div>
-                <div class="box-footer">
-                  <ul class="d-block">
-                    <li><a href="#">view</a></li>
-                    <li><a href="#">edit</a></li>
-                  </ul>
-                </div>
-              </li>
-              <li>
-                <div class="equal-height">
-                  <div class="box-heading">
-                    <div class="box-header">
-                      <h2 class="job-heading">C#Developer</h2>
-                      <h3 class="job-sub-heading">Application Development</h3>
-                      <div class="about-job clos">close</div>
-                    </div>
-                    <div class="job-option text-center float-right">
-                      <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                      </ul></a>
-                      <div class="dropdown-menu" aria-labelledby="options">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="job-discription">
-                    <div class="hori-divi"></div>
-                    <h3>Job description</h3>
-                    <p>This is a role for a motivated Senior Software Developer, to join our client’s everexpanding team in Durham. You must have a high level of proficiency in .NET / C# development including…</p>
-                  </div>
-                </div>
-                <div class="box-footer">
-                  <ul class="d-block">
-                    <li><a href="#">view</a></li>
-                    <li><a href="#">edit</a></li>
-                  </ul>
-                </div>
-              </li>
+              <% end %>
             </ul>
           </div>
         </div>
