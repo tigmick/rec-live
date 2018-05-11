@@ -34,7 +34,7 @@ ActiveAdmin.register User do
       f.input :last_name
       f.input :contact_no
       f.input :password_confirmation
-      f.input :verify_candidate , :as => :check_boxes
+      f.input :verify_candidate , as: :boolean 
       f.label :role, class: "select-role"
       f.select(:role, options_for_select(['client', 'candidate']),style:"margin-left:225px;")
       f.label :status, class: "select-status"
