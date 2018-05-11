@@ -238,7 +238,7 @@ letter-spacing: -0.348333px;
 .job-right{padding:50px;}
 .box-job ul{
 padding: 0;
-display: inline-block;
+display: inline-block !important;
 }
 .box-job-dashboard ul li{
   height: auto !important; 
@@ -274,7 +274,7 @@ display:inline-block;
 }
 .job-option ul li{
 min-width: auto;
-height:4px;
+height:4px !important;
 display: block;
 margin-bottom: 4px !important;
 width: 4px;
@@ -660,4 +660,19 @@ color: #dc3545;
 
 .search-equal-height {
     height: 12em;
+}
+.candidate-dashboard-custom{
+  padding: 30px;
+}
+.candidate-dashboard-custom ul{}
+.candidate-dashboard-custom ul li{
+  margin-bottom: 50px;
+}
+.box-footer .d-block{
+  display: block !important;
+}
+.candidate-job-desc-custom{}
+.candidate-job-desc-custom h3{}
+.candidate-job-desc-custom p{
+  margin-bottom: 5px;
 }

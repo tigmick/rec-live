@@ -72,29 +72,60 @@
     </ul>
   </div>
 <% if current_user.candidate? %>
-<table class="table table-bordered">
-  <thead>
-    <th class="td_align">Vacancies Applied For</th>
-    <th class="td_align">Reviewed by Client</th>
-    <th class="td_align">Submitted to Client</th>
-    <th class="td_align">Interview Schedules</th>
-    <th class="td_align">Interview Status</th>
-    <th class="td_align">Job Status</th>
-  </thead>
-  <tbody>
-    <% @applied_jobs.each do |job| %>
-    <tr>
-      <td><%= link_to job.title, job_path(job) %></td>
-      <td><%=reviewed_by(@reviews,job)%></td>
-      <td><%=cv_download(@reviews,job)%></td>
-      <td><%=interviewed_by(job)%></td>
-      <td><%=interview_status(job)%></td>
-      <td><%= job.status_string %></td>
-    <tr>
-    <%end%>
-  </tbody>
-</table>
-<% end %>
+<div class="col-md-10" style="background-color:#f1f1f1;">        
+    <div class="row">
+      <div class="col-md-12" style="border-bottom:1px solid #fff;">
+            <div class="box-job box-job-dashboard candidate-dashboard-custom">
+              <ul>
+                <% @applied_jobs.each do |job| %>
+                <li>
+                  <div class="equal">
+                    <div class="box-heading">
+                      <div class="box-header">
+                        <div class="name"><%= job.title.split[0][0] %><% if job.title.split[1] %><%= job.title.split[1][0] %><% end %></div>
+
+                         <div class="detail"><h2 class="job-heading"><%= link_to job.title, job_path(job) %></h2>
+                        <div class="about-job"><%=cv_download(@reviews,job)%></div>
+                      </div></div>
+                      <div class="job-option text-center float-right">
+                        <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul>
+                          <li></li>
+                          <li></li>
+                          <li></li>
+                        </ul></a>
+                        <div class="dropdown-menu" aria-labelledby="options">
+                          <a class="dropdown-item" href="#">Create interview</a>
+                          <a class="dropdown-item" href="#">Close the job</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="job-discription candidate-job-desc-custom">
+                      <h3>Reviewed By Client &nbsp;&nbsp;</h3>
+                      <p><%=reviewed_by(@reviews,job)%></p>
+                    </div>
+                    <div class="job-discription candidate-job-desc-custom">
+                      <h3>Interview Schedules &nbsp;&nbsp;</h3>
+                      <p><%=interviewed_by(job)%></p>
+                    </div>
+                    <div class="job-discription candidate-job-desc-custom">
+                      <h3>Interview Status &nbsp;&nbsp;</h3>
+                      <p><%=interview_status(job)%></p>
+                    </div>
+                    <div class="job-discription candidate-job-desc-custom">
+                      <h3>Job Status &nbsp;&nbsp;</h3>
+                      <p><%= job.status_string %></p>
+                    </div>
+                  </div>
+                </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+
 <% if current_user.client? %>
   <div class="col-md-10" style="background-color:#f1f1f1;">
     <% @industries.each do |industry| %>
@@ -134,13 +165,13 @@
                     </div>
                     <div class="job-discription">
                       <div class="hori-divi"></div>
-                      <h3>Interview notes &nbsp;&nbsp;<a href="#">Edit</a></h3>
+                      <h3>Interview notes &nbsp;&nbsp;<a href="#"><%= link_to 'Edit', edit_job_path(job) %></a></h3>
                       <p><%= job.description %></p>
                     </div>
                   </div>
                   <div class="box-footer">
                     <ul class="d-block">
-                      <h3>Interview schedule &nbsp;&nbsp;&nbsp;<a href="#">view</a></h3>
+                      <h3>Interview schedule &nbsp;&nbsp;&nbsp;<a href="#"><%= link_to 'view', job_path(job) %></a></h3>
                     <div class="stepwizard">
                       <div class="stepwizard-row">
                         <div class="stepwizard-step">
