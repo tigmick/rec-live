@@ -1,0 +1,27 @@
+<div class="banner_cov">
+	<%= image_tag("banner_inn.jpg") %></div>  
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 sign_pop col-md-offset-1">
+			<% unless flash[:notice].nil? %>
+			<p class="error-msg"> <%= flash[:notice] %> </p>
+			<% end %>
+			<div class="job_bx">
+			<div class="user_profile">
+			<h5><b>Email:</b> <%= @user.email %></h5>
+			<h5><b>Full Name:</b> <%= @user.first_name %></h5>
+			<h5><b>Contact No:</b> <%= @user.contact_no %></h5>
+			<h5><b>Location Preferred:</b> <%= @user.try(:current_location) %></h5>
+			<h5><b>Salary expected:</b> <%= @user.try(:salary_expectation) %></h5>
+			<h5>
+            <%if params[:job_id].present?%>
+			    <%=  link_to "Download Candidate Resumes",{:controller => "resumes", :action => "index", :user_id => @user.id, job_id: @job.id},  class: " btn btn-primary" %>
+				<% end %>
+			</h5>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+
+

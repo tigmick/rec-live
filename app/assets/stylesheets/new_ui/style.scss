@@ -688,3 +688,33 @@ color: #dc3545;
     max-width: 240px;
     }
 }
+.job-discription-less-custom{}
+.job-discription-less-custom p{
+  padding: 10px;
+}
+.custom-height-search-result{
+  height: 6em !important;
+}
+.custom-height-div ul li{
+  height: 10em;
+}
+.detail-page-custom-design ul{
+  list-style: none;
+}
+.detail-page-custom-design ul li{
+  margin: 0 30px;
+}
+.detail-page-custom-design ul li h4{
+  font-weight: bold;
+  float: left;
+}
+.detail-page-custom-design ul li p{
+  margin-left: 20em;
+}
+.detail-page-custom-design {
+    background: #eee;
+    border: 1px solid lightgrey;
+    width: 40em;
+    margin: 0 auto;
+    padding: 10px;
+}

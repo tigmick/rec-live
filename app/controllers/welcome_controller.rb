@@ -64,7 +64,7 @@ class WelcomeController < ApplicationController
     else
       @users = User.where(role: 'candidate')
     end
-   
+   render layout: 'new_ui/application'
   end
 end
 

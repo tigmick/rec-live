@@ -23,6 +23,7 @@ class UsersController < ApplicationController
   	if params[:job_id].present?
       @job = Job.find(params[:job_id])
     end
+    render layout: 'new_ui/application'
   end
 
   def check_reviews

@@ -24,6 +24,7 @@ class JobsController < ApplicationController
     @users = UserJob.all.collect{|k| k.job_ids.include?(@job.id) ? User.find(k.user_id) : []}.flatten
     @interview = Interview.new
     @schedules =  @job.interview.present? ? @job.interview.interview_schedules : []
+    render layout: 'new_ui/application'
   end
 
   # GET /Jobs/new
