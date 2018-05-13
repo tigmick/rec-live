@@ -3,15 +3,19 @@ class WelcomeController < ApplicationController
   def index
     render layout: 'new_ui/application'
   end
+
   def search
-    # @search = PgSearch.multisearch(params[:search])
-    if params[:search].present? || params[:category].present?
-    @search = Job.where("title LIKE ? and status = ?", "%#{params[:search]}%", 0) unless params[:category].present?
-    @search = Job.where("title LIKE ? AND industry_id = ? and status = ?", "%#{params[:search]}%","#{params[:category]}", 0) if params[:category].present?
-    @search = Job.where("industry_id = ? and status = ?","#{params[:category]}", 0) unless params[:search].present?
-    @search = @search.paginate(:page => params[:page], :per_page => 6).order(created_at: :desc)
+    if params[:search].present? && params[:category].present?
+      @search = Job.where("title LIKE ? AND industry_id = ? and status = ?", "%#{params[:search]}%","#{params[:category]}", 0)
+      @search = @search.order(created_at: :desc)
+    elsif params[:search].present? && !params[:category].present?
+      @search = Job.where("title LIKE ? and status = ?", "%#{params[:search]}%", 0)
+      @search = @search.order(created_at: :desc)
+    elsif !params[:search].present? && params[:category].present?
+      @search = Job.where("industry_id = ? and status = ?","#{params[:category]}", 0)
+      @search = @search.order(created_at: :desc)
     else
-    	@search = Job.where(status: 0).paginate(:page => params[:page], :per_page => 6).order(created_at: :desc)
+    	@search = Job.where(status: 0).order(created_at: :desc)
     end
     render layout: 'new_ui/application'
   end
@@ -19,7 +23,6 @@ class WelcomeController < ApplicationController
   def search_candidate
    # user_ids =  UserJob.all.select{|j| (j.job_ids & current_user.jobs.map(&:id)).any?}.map(&:user_id).uniq
    # @users =  User.where("first_name LIKE ? AND role = ?","#{params[:search_candidate]}%", "candidate")
-   
     if params[:salary_aearch].present?
       if  params[:salary_aearch] == "30000"
         a = "0"   

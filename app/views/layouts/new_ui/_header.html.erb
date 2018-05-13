@@ -1,128 +1,338 @@
-<% if request.path.include? "dashboard" %>
-  <nav class="navbar navbar-expand-lg navbar-light head-2">
-      <a class="navbar-brand" href="/">
-        <%= image_tag 'new_ui/logo-2.png', alt: 'logo', class: 'img-fluid' %>
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<% if user_signed_in? %>
+  <% if current_user.client? %>
+    <% if request.path.include? "dashboard" %>
+      <nav class="navbar navbar-expand-lg navbar-light head-2">
+        <a class="navbar-brand" href="/">
+          <%= image_tag 'new_ui/logo-2.png', alt: 'logo', class: 'img-fluid' %>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class=" container navigation">
+        <div class="collapse navbar-collapse row" id="navbarSupportedContent">
+          <%= form_tag search_candidate_path, :method=> :post, class: 'form-inline loc-search-form col-md-10' do %>
+            <div class="col-md-3">
+              <div class="form-group">
+                <%= select_tag "location_search", options_from_collection_for_select(User.all, "current_location", "current_location"),class: 'form-control', id: 'sel1', :prompt => 'Select Location' %>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group search search-custom">
+                <%= text_field_tag :search_candidate, '', class: 'form-control', placeholder: 'Search Candidate', aria: { label: 'Search Candidate' } %>
+                <%= button_tag class: 'btn srch-btn' do %>
+                  <i class="fas fa-search"></i>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          <% if current_user.present? %>
+            <ul class="navbar-nav ml-auto col-md-2">
+              <li>
+                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
+                  <i class="fas fa-user"></i>
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.first_name %>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <%= link_to "Go to Dashboard", users_dashboard_path, class: 'dropdown-item' %>
+                  <% unless current_user.candidate? %>
+                    <%= link_to "Reports", client_reports_path, class: 'dropdown-item' %>
+                    <%= link_to "Create Job", new_job_path, class: 'dropdown-item' %>
+                    <%= link_to "Administrate Jobs", jobs_path, class: 'dropdown-item' %>
+                  <% end %>
+                  <%= link_to "Edit", edit_user_registration_path, class: 'dropdown-item' %>
+                  <%= link_to "Logout", destroy_user_session_path, class: 'dropdown-item' %>
+                </div>
+              </li>
+            </ul>
+          <% else %>
+            <ul class="navbar-nav ml-auto col-md-2" id="log-in-form-btn">
+              <li>
+                <a href="#">
+                  <i class="fas fa-user"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="navbarDropdown" role="button">
+                  Sign In
+                </a>
+              </li>
+            </ul>
+          <% end %>
+        </div>
+        </div>
+      </nav>
+
+    <% else %>
+      <nav class="navbar navbar-expand-lg navbar-light">
+      <%= link_to root_url, class: 'navbar-brand' do %>
+        <%= image_tag 'new_ui/logo-img.png', alt: 'logo', class: 'img-fluid' %>
+        yourcube
+      <% end %>
+      <%= button_tag class: 'navbar-toggler', data: { toggle: 'collapse', target: '#navbarSupportedContent' }, aria: { controls: 'navbarSupportedContent', expanded: 'false', label: 'Toggle navigation' } do %>
         <span class="navbar-toggler-icon"></span>
-      </button>
+      <% end %>
 
       <div class=" container navigation">
-      <div class="collapse navbar-collapse row" id="navbarSupportedContent">
-        <%= form_tag welcome_search_path, :method=> :post, class: 'form-inline loc-search-form col-md-2' do %>
-          <div class="form-group">
-            <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title"),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
-          </div>
-        <% end %>
-        <%= form_tag welcome_search_path, :method=> :post, class: 'form-inline loc-search-form col-md-8' do %>
-          <div class="form-group search">
-            <%= text_field_tag :search, '', class: 'form-control', placeholder: 'Search', aria: { label: 'Search' } %>
-            <%= button_tag class: 'btn srch-btn' do %>
-              <i class="fas fa-search"></i>
-            <% end %>
-          </div>
-        <% end %>
-        <% if current_user.present? %>
-          <ul class="navbar-nav ml-auto col-md-2">
-            <li>
-              <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
-                <i class="fas fa-user"></i>
-              </a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.first_name %>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <%= link_to "Go to Dashboard", users_dashboard_path, class: 'dropdown-item' %>
-                <% unless current_user.candidate? %>
-                  <%= link_to "Reports", client_reports_path, class: 'dropdown-item' %>
-                  <%= link_to "Create Job", new_job_path, class: 'dropdown-item' %>
-                  <%= link_to "Administrate Jobs", jobs_path, class: 'dropdown-item' %>
-                <% end %>
-                <%= link_to "Edit", edit_user_registration_path, class: 'dropdown-item' %>
-                <%= link_to "Logout", destroy_user_session_path, class: 'dropdown-item' %>
+        <div class="collapse navbar-collapse row" id="navbarSupportedContent">
+          <%= form_tag search_candidate_path, :method=> :post, class: 'form-inline loc-search-form col-md-10' do %>
+            <div class="col-md-3">
+              <div class="form-group">
+                <%= select_tag "location_search", options_from_collection_for_select(User.all, "current_location", "current_location"),class: 'form-control', id: 'sel1', :prompt => 'Select Location' %>
               </div>
-            </li>
-          </ul>
-        <% else %>
-          <ul class="navbar-nav ml-auto col-md-2" id="log-in-form-btn">
-            <li>
-              <a href="#">
-                <i class="fas fa-user"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" id="navbarDropdown" role="button">
-                Sign In
-              </a>
-            </li>
-          </ul>
-        <% end %>
-      </div>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group search search-custom">
+                <%= text_field_tag :search_candidate, '', class: 'form-control', placeholder: 'Search Candidate', aria: { label: 'Search Candidate' } %>
+                <%= button_tag class: 'btn srch-btn' do %>
+                  <i class="fas fa-search"></i>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          <% if current_user.present? %>
+            <ul class="navbar-nav col-md-2">
+              <li>
+                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
+                  <i class="fas fa-user"></i>
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.first_name %>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <%= link_to "Go to Dashboard", users_dashboard_path, class: 'dropdown-item' %>
+                  <% unless current_user.candidate? %>
+                    <%= link_to "Reports", client_reports_path, class: 'dropdown-item' %>
+                    <%= link_to "Create Job", new_job_path, class: 'dropdown-item' %>
+                    <%= link_to "Administrate Jobs", jobs_path, class: 'dropdown-item' %>
+                  <% end %>
+                  <%= link_to "Edit", edit_user_registration_path, class: 'dropdown-item' %>
+                  <%= link_to "Logout", destroy_user_session_path, class: 'dropdown-item' %>
+                </div>
+              </li>
+            </ul>
+          <% else %>
+            <ul class="navbar-nav ml-auto col-md-2" id="log-in-form-btn">
+              <li>
+                <a href="#">
+                  <i class="fas fa-user"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="navbarDropdown" role="button">
+                  Sign In
+                </a>
+              </li>
+            </ul>
+          <% end %>
+        </div>
       </div>
     </nav>
-  <% else %>
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <%= link_to root_url, class: 'navbar-brand' do %>
-      <%= image_tag 'new_ui/logo-img.png', alt: 'logo', class: 'img-fluid' %>
-      yourcube
-    <% end %>
-    <%= button_tag class: 'navbar-toggler', data: { toggle: 'collapse', target: '#navbarSupportedContent' }, aria: { controls: 'navbarSupportedContent', expanded: 'false', label: 'Toggle navigation' } do %>
-      <span class="navbar-toggler-icon"></span>
-    <% end %>
 
-    <div class=" container navigation">
-      <div class="collapse navbar-collapse row" id="navbarSupportedContent">
-        <%= form_tag welcome_search_path, :method=> :post, class: 'form-inline loc-search-form col-md-2' do %>
-          <div class="form-group">
-            <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title"),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
-          </div>
-        <% end %>
-        <%= form_tag welcome_search_path, :method=> :post, class: 'form-inline loc-search-form col-md-8' do %>
-          <div class="form-group search">
-            <%= text_field_tag :search, '', class: 'form-control', placeholder: 'Search', aria: { label: 'Search' } %>
-            <%= button_tag class: 'btn srch-btn' do %>
-              <i class="fas fa-search"></i>
-            <% end %>
-          </div>
-        <% end %>
-        <% if current_user.present? %>
-          <ul class="navbar-nav ml-auto col-md-2">
-            <li>
-              <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
-                <i class="fas fa-user"></i>
-              </a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.first_name %>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <%= link_to "Go to Dashboard", users_dashboard_path, class: 'dropdown-item' %>
-                <% unless current_user.candidate? %>
-                  <%= link_to "Reports", client_reports_path, class: 'dropdown-item' %>
-                  <%= link_to "Create Job", new_job_path, class: 'dropdown-item' %>
-                  <%= link_to "Administrate Jobs", jobs_path, class: 'dropdown-item' %>
-                <% end %>
-                <%= link_to "Edit", edit_user_registration_path, class: 'dropdown-item' %>
-                <%= link_to "Logout", destroy_user_session_path, class: 'dropdown-item' %>
+    <% end %>
+  <% elsif current_user.candidate? %>
+    <% if request.path.include? "dashboard" %>
+      <nav class="navbar navbar-expand-lg navbar-light head-2">
+        <a class="navbar-brand" href="/">
+          <%= image_tag 'new_ui/logo-2.png', alt: 'logo', class: 'img-fluid' %>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class=" container navigation">
+        <div class="collapse navbar-collapse row" id="navbarSupportedContent">
+          <%= form_tag welcome_search_path, :method=> :post, class: 'form-inline loc-search-form col-md-10' do %>
+            <div class="col-md-3">
+              <div class="form-group">
+                <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title"),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
               </div>
-            </li>
-          </ul>
-        <% else %>
-          <ul class="navbar-nav ml-auto col-md-2" id="log-in-form-btn">
-            <li>
-              <a href="#">
-                <i class="fas fa-user"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" id="navbarDropdown" role="button">
-                Sign In
-              </a>
-            </li>
-          </ul>
-        <% end %>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group search search-custom">
+                <%= text_field_tag :search, '', class: 'form-control', placeholder: 'Search Job', aria: { label: 'Search' } %>
+                <%= button_tag class: 'btn srch-btn' do %>
+                  <i class="fas fa-search"></i>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          <% if current_user.present? %>
+            <ul class="navbar-nav ml-auto col-md-2">
+              <li>
+                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
+                  <i class="fas fa-user"></i>
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.first_name %>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <%= link_to "Go to Dashboard", users_dashboard_path, class: 'dropdown-item' %>
+                  <% unless current_user.candidate? %>
+                    <%= link_to "Reports", client_reports_path, class: 'dropdown-item' %>
+                    <%= link_to "Create Job", new_job_path, class: 'dropdown-item' %>
+                    <%= link_to "Administrate Jobs", jobs_path, class: 'dropdown-item' %>
+                  <% end %>
+                  <%= link_to "Edit", edit_user_registration_path, class: 'dropdown-item' %>
+                  <%= link_to "Logout", destroy_user_session_path, class: 'dropdown-item' %>
+                </div>
+              </li>
+            </ul>
+          <% else %>
+            <ul class="navbar-nav ml-auto col-md-2" id="log-in-form-btn">
+              <li>
+                <a href="#">
+                  <i class="fas fa-user"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="navbarDropdown" role="button">
+                  Sign In
+                </a>
+              </li>
+            </ul>
+          <% end %>
+        </div>
+        </div>
+      </nav>
+    <% else %>
+      <nav class="navbar navbar-expand-lg navbar-light">
+      <%= link_to root_url, class: 'navbar-brand' do %>
+        <%= image_tag 'new_ui/logo-img.png', alt: 'logo', class: 'img-fluid' %>
+        yourcube
+      <% end %>
+      <%= button_tag class: 'navbar-toggler', data: { toggle: 'collapse', target: '#navbarSupportedContent' }, aria: { controls: 'navbarSupportedContent', expanded: 'false', label: 'Toggle navigation' } do %>
+        <span class="navbar-toggler-icon"></span>
+      <% end %>
+
+      <div class=" container navigation">
+        <div class="collapse navbar-collapse row" id="navbarSupportedContent">
+          <%= form_tag welcome_search_path, :method=> :post, class: 'form-inline loc-search-form col-md-10' do %>
+            <div class="col-md-3">
+              <div class="form-group">
+                <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title"),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group search search-custom">
+                <%= text_field_tag :search, '', class: 'form-control', placeholder: 'Search Job', aria: { label: 'Search' } %>
+                <%= button_tag class: 'btn srch-btn' do %>
+                  <i class="fas fa-search"></i>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          <% if current_user.present? %>
+            <ul class="navbar-nav col-md-2">
+              <li>
+                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
+                  <i class="fas fa-user"></i>
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.first_name %>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <%= link_to "Go to Dashboard", users_dashboard_path, class: 'dropdown-item' %>
+                  <% unless current_user.candidate? %>
+                    <%= link_to "Reports", client_reports_path, class: 'dropdown-item' %>
+                    <%= link_to "Create Job", new_job_path, class: 'dropdown-item' %>
+                    <%= link_to "Administrate Jobs", jobs_path, class: 'dropdown-item' %>
+                  <% end %>
+                  <%= link_to "Edit", edit_user_registration_path, class: 'dropdown-item' %>
+                  <%= link_to "Logout", destroy_user_session_path, class: 'dropdown-item' %>
+                </div>
+              </li>
+            </ul>
+          <% else %>
+            <ul class="navbar-nav ml-auto col-md-2" id="log-in-form-btn">
+              <li>
+                <a href="#">
+                  <i class="fas fa-user"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="navbarDropdown" role="button">
+                  Sign In
+                </a>
+              </li>
+            </ul>
+          <% end %>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
+
+    <% end %>
+  <% end %>
+<% else %>
+  <nav class="navbar navbar-expand-lg navbar-light">
+      <%= link_to root_url, class: 'navbar-brand' do %>
+        <%= image_tag 'new_ui/logo-img.png', alt: 'logo', class: 'img-fluid' %>
+        yourcube
+      <% end %>
+      <%= button_tag class: 'navbar-toggler', data: { toggle: 'collapse', target: '#navbarSupportedContent' }, aria: { controls: 'navbarSupportedContent', expanded: 'false', label: 'Toggle navigation' } do %>
+        <span class="navbar-toggler-icon"></span>
+      <% end %>
+
+      <div class=" container navigation">
+        <div class="collapse navbar-collapse row" id="navbarSupportedContent">
+          <%= form_tag welcome_search_path, :method=> :post, class: 'form-inline loc-search-form col-md-10' do %>
+            <div class="col-md-3">
+              <div class="form-group">
+                <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title"),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group search search-custom">
+                <%= text_field_tag :search, '', class: 'form-control', placeholder: 'Search Job', aria: { label: 'Search' } %>
+                <%= button_tag class: 'btn srch-btn' do %>
+                  <i class="fas fa-search"></i>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          <% if current_user.present? %>
+            <ul class="navbar-nav col-md-2">
+              <li>
+                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
+                  <i class="fas fa-user"></i>
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.first_name %>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <%= link_to "Go to Dashboard", users_dashboard_path, class: 'dropdown-item' %>
+                  <% unless current_user.candidate? %>
+                    <%= link_to "Reports", client_reports_path, class: 'dropdown-item' %>
+                    <%= link_to "Create Job", new_job_path, class: 'dropdown-item' %>
+                    <%= link_to "Administrate Jobs", jobs_path, class: 'dropdown-item' %>
+                  <% end %>
+                  <%= link_to "Edit", edit_user_registration_path, class: 'dropdown-item' %>
+                  <%= link_to "Logout", destroy_user_session_path, class: 'dropdown-item' %>
+                </div>
+              </li>
+            </ul>
+          <% else %>
+            <ul class="navbar-nav ml-auto col-md-2" id="log-in-form-btn">
+              <li>
+                <a href="#">
+                  <i class="fas fa-user"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="navbarDropdown" role="button">
+                  Sign In
+                </a>
+              </li>
+            </ul>
+          <% end %>
+        </div>
+      </div>
+    </nav>
 <% end %>
