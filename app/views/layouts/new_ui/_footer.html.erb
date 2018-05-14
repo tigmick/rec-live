@@ -1,6 +1,7 @@
 <!----- footer ----->
 
-<footer class="container-fluid">
+<footer class="container-fluid" style="bottom: 0px;
+    position: fixed;">
   <div class="row">
     <div class="col-md-3">
       <div class="foot-left-prt">
@@ -9,18 +10,18 @@
     </div>
     <div class="col-md-6 text-center">
       <ul class="foot-menu">
-        <li><a href="#">The platform</a></li>
-        <li><a href="#">Privacy policy</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Contact Us</a></li>
-        <li><a href="#">Terms & Conditions</a></li>
+        <li><a href="<%= platform_path%>">The Platform</a></li>
+        <li><a href="<%= privacy_path %>">Secure Data & Privacy Policy</a></li>
+        <li><a href="<%= about_path %>">About Us</a></li>
+        <li><a href="<%= contact_path%>">Contact Us</a></li>
+        <li><a href="<%= term_condition_path%>">Terms & Conditions</a></li>
       </ul>
     </div>
     <div class="col-md-3 text-right">
       <ul class="foot-menu">
-        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-        <li><a href="#"><i class="fas fa-envelope"></i></a></li>
+        <li><a href="https://twitter.com/PhDSearch1" target="_blank"><i class="fab fa-twitter"></i></a></li>
+        <li><a href="https://www.linkedin.com/groups/3032718" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+        <li><a href="mailto:http://mailto:chris.forbes@phdit.com" target="_top"><i class="fas fa-envelope"></i></a></li>
       </ul>
     </div>
   </div>

@@ -71,131 +71,267 @@
     </ul>
   </div>
   <div class="col-md-10" style="background-color:#f1f1f1;">
-                <div class="job-right reportse">
-                    
-                    <div class="box-job job-report-box">
-                        <ul>
-                            <li>
-                                <div class="equal-height">
-                                    <div class="box-heading">
-                                        
-                                        <div class="report bo">
-                                            <span><%= @job_count %></span>
-                                        </div>
-                                    </div>
-                                    <div class="hori-divi"></div>
-                                    Live Vacancies
-                                </div>
-                            </li>
-                            <li>
-                                <div class="equal-height">
-                                    <div class="box-heading">
-                                        
-                                        <div class="report redr">
-                                            <i class="fas fa-long-arrow-alt-up grey"></i><span>70</span><i class="fas fa-long-arrow-alt-down red"></i>
-                                        </div>
-                                    </div>
-                                    <div class="hori-divi"></div>
-                                    Avarage time to Offer
-                                </div>
-                            </li>
-                            <li>
-                                <div class="equal-height">
-                                    <div class="box-heading">
-                                        
-                                        <div class="report green">
-                                            <i class="fas fa-long-arrow-alt-up green"></i><span>9:1</span><i class="fas fa-long-arrow-alt-down grey"></i>
-                                        </div>
-                                    </div>
-                                    <div class="hori-divi"></div>
-                                    Live Vacancies
-                                </div>
-                            </li>
-                            <li>
-                                <div class="equal-height">
-                                    <div class="box-heading">
-                                        
-                                        <div class="report bo">
-                                            <span>3</span>
-                                        </div>
-                                    </div>
-                                    <div class="hori-divi"></div>
-                                    Live Vacancies
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="reporttable">
-                    <table>
-                    <tr>
-                        <th>Roles</th>
-                        <th>Number of Candidates</th>
-                        <th>1st Round</th>
-                        <th>2nd Round</th>
-                        <th>3rd Round</th>
-                        <th>Offer</th>
-                    </tr>
-                    <tr>
-                        <td>January</td>
-                        <td>15</td>
-                        <td>7</td>
-                        <td>3</td>
-                        <td>2</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>Bussiness Analysts</td>
-                        <td>10</td>
-                        <td>8</td>
-                        <td>2</td>
-                        <td>1</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>Programmers</td>
-                        <td>20</td>
-                        <td>10</td>
-                        <td>2</td>
-                        <td>1</td>
-                        <td>1</td>
-                    </tr>
-                    </table>
-                    </div>
-                    
-                    <div class="reporttable tab2">
-                    <table>
-                    <tr>
-                        <th>Interviwers</th>
-                        <th>Pass</th>
-                        <th>Rejects</th>
-                        <th>Notes</th>
-                    </tr>
-                    <tr>
-                        <td>January</td>
-                        <td>40</td>
-                        <td>5</td>
-                        <td>Our time to offer is below the market average</td>
-                    </tr>
-                    <tr>
-                        <td>Bussiness Analysts</td>
-                        <td>10</td>
-                        <td>8</td>
-                        <td>Mark Smith has an above average of failure of candidates</td>
-                    </tr>
-                    <tr>
-                        <td>Programmers</td>
-                        <td>20</td>
-                        <td>10</td>
-                        <td>We’re getting less programmer applications than the market</td>
-                    </tr>
-                    <tr>
-                        <td>Programmers</td>
-                        <td>20</td>
-                        <td>10</td>
-                        <td>We need to get more applications if we want achieve our targets</td>
-                    </tr>
-                    </table>
-                    </div>
-                </div>
+    <%= javascript_include_tag 'highcharts', 'highcharts-more' %>
+    <br/>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="row">
+          <div class="col-md-5">
+            <%= text_field_tag :start_date, nil, class: 'form-control', placeholder: 'Start Date' %>
+          </div>
+          <div class="col-md-5">
+            <%= text_field_tag :end_date, nil, class: 'form-control', placeholder: 'End Date' %>
+          </div>
+          <div class="col-md-2">
+            <%= button_tag 'Load Results', id: 'load_result', class: 'btn btn-default' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container" style="width: 700px; height: 390px; margin: 0 auto;margin-bottom: 40px;border: 1px solid #CCCCCC;"></div>
+    <div id="container_pie" style="width: 700px; height: 390px; margin: 0 auto;margin-bottom: 40px;border: 1px solid #CCCCCC;"></div>
+    <div id="container_line" style="width: 700px; height: 390px; margin: 0 auto;margin-bottom: 40px;border: 1px solid #CCCCCC;"></div>
+    <div id="container_bar" style="width: 700px; height: 390px; margin: 0 auto;margin-bottom: 40px;border: 1px solid #CCCCCC;"></div>
             </div>
-  
+
+</div>
+<script>
+    $(function(){
+        $(document).ready(function(){
+            loadGraph();
+            $('#start_date').datetimepicker({
+                format:'d/m/Y',
+                timepicker:false
+            });
+            $('#end_date').datetimepicker({
+                format:'d/m/Y',
+                timepicker:false
+            });
+            $('#load_result').click(function () {
+                loadGraph();
+            });
+        });
+        function loadGraph() {
+            var start_date = $('#start_date').val();
+            var end_date = $('#end_date').val();
+            getUrl(start_date, end_date)
+                .done(function(response) {
+                    //Cumulative Flow Diagram
+                    var open_cummulative = response.cummulative_data.open_jobs,
+                        closed_cummulative = response.cummulative_data.closed_jobs;
+                    Highcharts.chart('container', {
+                        chart: {
+                            type: 'area'
+                        },
+                        title: {
+                            text: 'Jobs Cumulative Flow Diagram'
+                        },
+                        subtitle: {
+                            text: ''
+                        },
+                        xAxis: {
+                            title: {
+                                text: ''
+                            },
+                            labels: {
+                                style: {
+                                    fontWeight: 'normal',
+                                    fontSize: '12px',
+                                    fontFamily: 'Segoe UI',
+                                    color: 'black'
+                                },
+                                formatter: function () {
+                                    return ''
+                                }
+                            }
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Jobs Count'
+                            }
+                        },
+                        tooltip: {
+                            split: true,
+                            valueSuffix: ''
+                        },
+                        plotOptions: {
+                            area: {
+                                stacking: 'normal',
+                                lineColor: '#666666',
+                                lineWidth: 1,
+                                marker: {
+                                    lineWidth: 1,
+                                    lineColor: '#666666'
+                                }
+                            }
+                        },
+                        series: [{
+                            name: 'Open Jobs',
+                            data: open_cummulative
+                        }, {
+                            name: 'Closed Jobs',
+                            data: closed_cummulative
+                        }]
+                    });
+                    //Pie Diagram
+                    var open_jobs_pie = response.pie_data.open_jobs, closed_jobs_pie = response.pie_data.closed_jobs;
+                    Highcharts.chart('container_pie', {
+                        chart: {
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false,
+                            type: 'pie'
+                        },
+                        title: {
+                            text: 'Jobs Pie Chart'
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                    style: {
+                                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                    }
+                                }
+                            }
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'Brands',
+                            colorByPoint: true,
+                            data: [{
+                                name: 'Closed Jobs',
+                                y: closed_jobs_pie
+                            }, {
+                                name: 'Open Jobs',
+                                y: open_jobs_pie
+                            }]
+                        }]
+                    });
+                    //Line Diagram
+                    var open_jobs_line_chart = response.line_chart_data.open_jobs, closed_jobs_line_chart = response.line_chart_data.closed_jobs;
+                    Highcharts.chart('container_line', {
+                        title: {
+                            text: 'Job Line Chart'
+                        },
+                        subtitle: {
+                            text: ''
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Jobs'
+                            }
+                        },
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'middle'
+                        },
+                        plotOptions: {
+                            series: ''
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'Open Jobs',
+                            data: open_jobs_line_chart
+                        }, {
+                            name: 'Closed Jobs',
+                            data: closed_jobs_line_chart
+                        }],
+                        responsive: {
+                            rules: [{
+                                condition: {
+                                    maxWidth: 500
+                                },
+                                chartOptions: {
+                                    legend: {
+                                        layout: 'horizontal',
+                                        align: 'center',
+                                        verticalAlign: 'bottom'
+                                    }
+                                }
+                            }]
+                        }
+                    });
+                    //Bar Diagram
+                    var open_jobs_bar_chart = response.bar_chart_data.open_jobs, closed_jobs_bar_chart = response.bar_chart_data.closed_jobs, dates = response.bar_chart_data.dates;
+                    Highcharts.chart('container_bar', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Job Bar Chart'
+                        },
+                        subtitle: {
+                            text: ''
+                        },
+                        xAxis: {
+                            categories: dates,
+                            crosshair: true
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Jobs'
+                            }
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        tooltip: {
+                            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y}</b></td></tr>',
+                            footerFormat: '</table>',
+                            shared: true,
+                            useHTML: true
+                        },
+                        plotOptions: {
+                            column: {
+                                pointPadding: 0.2,
+                                borderWidth: 0
+                            }
+                        },
+                        series: [{
+                            name: 'Open Jobs',
+                            data: open_jobs_bar_chart
+                        }, {
+                            name: 'Closed Jobs',
+                            data: closed_jobs_bar_chart
+                        }]
+                    });
+                })
+                .fail(function() {
+                    alert( "Something went Wrong." );
+                })
+        }
+        function getUrl(start_date, end_date) {
+            if((start_date == '' || start_date == undefined) && (end_date == '' || end_date == undefined)) {
+                return $.get({
+                    url: '/reports/get_data'
+                })
+            } else {
+                return $.get({
+                    url: '/reports/get_data',
+                    data: {
+                        start_date: start_date,
+                        end_date: end_date
+                    }
+                })
+            }
+        }
+    });
+</script>
