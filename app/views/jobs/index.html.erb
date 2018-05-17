@@ -83,7 +83,7 @@
                   <div class="box-heading">
                     <div class="box-header">
                       <h2 class="job-heading"><%= link_to job.title, job_path(job) %></h2>
-                      <h3 class="job-sub-heading"><%= job.industry.title %></h3>
+                      <h3 class="job-sub-heading"><% if job.industry.present? %><%= job.industry.title %><% end %></h3>
                       <div class="about-job open"><%= job.status %></div>
                     </div>
                     <div class="job-option text-center float-right">
