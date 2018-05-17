@@ -2,7 +2,9 @@
  <%= image_tag("banner_inn.jpg") %></div>  -->
  <div class="container">
  <div class="row">
+<% if current_user.present? %>
   <p id="error-msg" class="alert alert-danger"></p>
+<% end %>
   <div class="sign_pop col-md-offset-3">
 <% if !@search.blank? %> 
  <% @search.each do |search| %>
