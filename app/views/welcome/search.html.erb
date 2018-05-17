@@ -2,8 +2,7 @@
  <%= image_tag("banner_inn.jpg") %></div>  
  <div class="container">
  <div class="row">
-  <p id="error-msg" class="alert alert-danger"></p>
-  <div class="col-md-6 sign_pop col-md-offset-3">
+  <div class="sign_pop col-md-offset-3">
 <% if !@search.blank? %> 
  <% @search.each do |search| %>
     <div class="job_bx">
