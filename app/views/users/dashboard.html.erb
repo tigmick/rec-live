@@ -128,13 +128,18 @@
                               <% industry.jobs.each do |job| %>
                                   <li>
                                     <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
+                                    <% user = users.first %>
                                     <div class="equal">
                                       <div class="box-heading">
                                         <div class="box-header">
-                                          <div class="name"><%= job.title.split[0][0] %>
-                                            <% if job.title.split[1] %><%= job.title.split[1][0] %>
-                                            <% end %></div>
-
+                                          <div class="name">
+                                          <% if user.present? %>
+                                          <%= user.first_name[0] %><% if user.last_name %><%= user.last_name[0] %><% end %>
+                                          <% else %>
+                                          <%= job.title.split[0][0] %>
+                                            <% if job.title.split[1] %><%= job.title.split[1][0] %><% end %>
+                                          <% end %>
+                                          </div>
                                           <div class="detail">
                                             <h2 class="job-heading"><%= link_to job.title, job_path(job) %></h2>
                                             <!-- <h3 class="job-sub-heading"><a href="mailto:ashish@khumar.com">ashish@khumar.com</a></h3> -->
