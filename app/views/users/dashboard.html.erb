@@ -140,7 +140,7 @@
                           <div class="box-job box-job-dashboard">
                             <ul>
                               <% industry.jobs.each do |job| %>
-                                  <li>
+                                  <li style="width: 265px;">
                                     <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
                                     <% user = users.first %>
                                     <% next unless user.present? %>
