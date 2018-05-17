@@ -17,7 +17,9 @@ class WelcomeController < ApplicationController
     else
     	@search = Job.where(status: 0).order(created_at: :desc)
     end
-    render 'search', layout: 'new_ui/application'
+    if current_user.nil? || current_user.client?
+      render 'search', layout: 'new_ui/application'
+    end
   end
 
   def search_candidate
