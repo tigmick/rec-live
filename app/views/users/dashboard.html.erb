@@ -113,22 +113,28 @@
 
     <% if current_user.client? %>
         <% industries = [] %>
+        <% job_counts = [] %>
         <% @industries.each do |industry| %>
-        <% industry.jobs.each do |job| %>
-        <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
-        <% user = users.first %>
-        <% industries << industry if user.present? %>
-        <% end %>
+          <% count = 0 %>
+          <% industry.jobs.each do |job| %>
+            <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
+              <% user = users.first %>
+              <% if user.present?%>
+              <% industries << industry if count == 0 %>
+              <% count += 1 %>
+              <% end %>
+          <% end %>
+          <% job_counts << count if count > 0 %>
         <% end %>
         <div class="col-md-10" style="background-color:#f1f1f1;">
-          <% industries.each do |industry| %>
+          <% industries.each_with_index do |industry, i| %>
               <% if industry.jobs.count > 0 %>
                   <div class="row">
                     <div class="col-md-12" style="border-bottom:1px solid #fff;">
                       <div class="job-right">
                         <h2 class="heading">
                           <a href="#" data-toggle="collapse" data-target="#collapse-<%= industry.id %>">
-                            <%= industry.title %>
+                            <%= industry.title %> (<%= job_counts[i] %>)
                           </a></h2>
                         <div id="collapse-<%= industry.id %>" class="collapse-panel collapse show">
                           <div class="box-job box-job-dashboard">
