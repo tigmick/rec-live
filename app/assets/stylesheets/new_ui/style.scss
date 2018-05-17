@@ -248,7 +248,7 @@ display: inline-block !important;
 }
 .box-job ul li{
 display: inline-block;
-min-width: 225px;
+min-width: 265px;
 width: 23%;
 border-radius:5px;
 background-color:#fff;
@@ -264,6 +264,9 @@ margin-bottom:5px;
 font-size: 15px;
 letter-spacing: -0.217708px;
 }
+h2.job-heading a{
+color:#090909;
+} 
 h3.job-sub-heading{
 line-height: normal;
 font-family: PublicaSans-Light;
