@@ -115,6 +115,7 @@
         <% industries = [] %>
         <% @industries.each do |industry| %>
         <% industry.jobs.each do |job| %>
+        <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
         <% user = users.first %>
         <% industries << industry if user.present? %>
         <% end %>
