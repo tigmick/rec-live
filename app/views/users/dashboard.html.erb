@@ -126,27 +126,69 @@
                           <div class="box-job box-job-dashboard">
                             <ul>
                               <% industry.jobs.each do |job| %>
-                                <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
-                                <% users.each do |user| %>
-                                <li>
-                                  <div class="equal-height search-equal-height custom-height-search-result">
-                                    <div class="box-heading">
-                                      <div class="box-header">
-                                        <div class="name"><%= user.first_name[0] %><% if user.last_name %><%= user.last_name[0] %><% end %></div>
-                                         <div class="detail"><h2 class="job-heading"><%= user.first_name %><% user.last_name %></h2>
+                                  <li>
+                                    <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
+                                    <div class="equal">
+                                      <div class="box-heading">
+                                        <div class="box-header">
+                                          <div class="name"><%= job.title.split[0][0] %>
+                                            <% if job.title.split[1] %><%= job.title.split[1][0] %>
+                                            <% end %></div>
+
+                                          <div class="detail">
+                                            <h2 class="job-heading"><%= link_to job.title, job_path(job) %></h2>
+                                            <!-- <h3 class="job-sub-heading"><a href="mailto:ashish@khumar.com">ashish@khumar.com</a></h3> -->
+                                            <div class="about-job"><%= link_to job.document_file_name, download_job_path(job), target: "_blank" if job.document.present? %></div>
+                                          </div>
+                                        </div>
+                                        <div class="job-option text-center float-right">
+                                          <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <ul>
+                                              <li></li>
+                                              <li></li>
+                                              <li></li>
+                                            </ul>
+                                          </a>
+                                          <div class="dropdown-menu" aria-labelledby="options">
+                                            <%= link_to 'Create interview', job_path(job), class: "dropdown-item" %>
+                                            <a class="dropdown-item" href="#">Close the job</a>
+                                          </div>
+                                        </div>
                                       </div>
-                                  </div>
+                                      <div class="job-discription">
+                                        <div class="hori-divi"></div>
+                                        <h3>Interview
+                                          notes &nbsp;&nbsp;<a href="#"><%= link_to 'Edit', '#' %></a>
+                                        </h3>
+                                        <p><%= job.description %></p>
+                                      </div>
                                     </div>
-                                    <div class="job-discription-less-custom">
-                                      <p><%= user.email %></p>
+                                    <div class="box-footer">
+                                      <ul class="d-block">
+                                        <h3>Interview
+                                          schedule &nbsp;&nbsp;&nbsp;<%= link_to 'view', interview_schedule_path(job, user_id: current_user) %>
+                                        </h3>
+                                        <div class="stepwizard">
+                                          <div class="stepwizard-row">
+                                            <div class="stepwizard-step">
+                                              <button type="button" class="btn btn-default btn-circle">
+                                                <i class="fas fa-check"></i></button>
+                                              <p>1st</p>
+                                            </div>
+                                            <div class="stepwizard-step">
+                                              <button type="button" class="btn btn-circle"><i class="fas fa-check"></i>
+                                              </button>
+                                              <p>2nd</p>
+                                            </div>
+                                            <div class="stepwizard-step">
+                                              <button type="button" class="btn btn-default btn-circle" disabled="disabled"></button>
+                                              <p>3rd</p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </ul>
                                     </div>
-                                  </div>
-                                  <div class="box-footer">
-                                    <a href="/users/<%=user.id%>/user_profile?job_id=<%=user.jobs.first%>&review=true">view</a>
-                                    <%# link_to 'view', user_path %>
-                                  </div>
-                                </li>
-                                <% end %>
+                                  </li>
                               <% end %>
                             </ul>
                           </div>
