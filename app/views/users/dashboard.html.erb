@@ -141,7 +141,13 @@
                                           <% end %>
                                           </div>
                                           <div class="detail">
-                                            <h2 class="job-heading"><%= link_to job.title, job_path(job) %></h2>
+                                            <h2 class="job-heading">
+                                            <% if user.present? %>
+                                              <%= link_to "#{user.first_name}#{user.last_name}", job_path(job) %>
+                                            <% else %>
+                                              <%= link_to job.title, job_path(job) %>
+                                            <% end %>
+                                            </h2>
                                             <!-- <h3 class="job-sub-heading"><a href="mailto:ashish@khumar.com">ashish@khumar.com</a></h3> -->
                                             <div class="about-job"><%= link_to job.document_file_name, download_job_path(job), target: "_blank" if job.document.present? %></div>
                                           </div>
