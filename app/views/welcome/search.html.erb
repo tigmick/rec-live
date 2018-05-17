@@ -11,7 +11,7 @@
                 <div class="equal-height search-equal-height">
                   <div class="box-heading">
                     <div class="box-header">
-                      <div class="name"><% if search.title %><%= search.title.split[0][0] %><% if search.title.split[1] %><%= search.title.split[1][0] %><% end %><% end %></div>
+                      <div class="name"><% unless search.title.blank? %><%= search.title.split[0][0] %><% if search.title.split[1] %><%= search.title.split[1][0] %><% end %><% end %></div>
                        <div class="detail"><h2 class="job-heading"><%= search.title%></h2>
                       <div class="about-job"><%= link_to search.document_file_name, download_job_path(search),  target: "_blank" if search.document.present? %></div>
                     </div></div>
