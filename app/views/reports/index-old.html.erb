@@ -1,8 +1,7 @@
-<%= javascript_include_tag 'highcharts', 'highcharts-more' %>
 <div class="row">
 <div class="col-md-2">
     <ul class="dashside">
-      <li><a href="dashboard-collapse.html"><svg width="19" height="19" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <li><a href="users/dashboard"><svg width="19" height="19" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <g id="Canvas" fill="none">
         <g id="dashboard">
         <g id="Rectangle 5">
@@ -56,7 +55,7 @@
         <% end %>
       </li>
       <li>
-        <a href="administrate.html">
+        <a href="/jobs">
           <svg width="17" height="17" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <g id="Canvas" fill="none">
             <g id="Page 1">
@@ -72,157 +71,30 @@
     </ul>
   </div>
   <div class="col-md-10" style="background-color:#f1f1f1;">
-                <div class="job-right reportse">
-                    
-                    <div class="box-job job-report-box">
-                        <ul>
-                            <li>
-                                <div class="equal-height">
-                                    <div class="box-heading">
-                                        
-                                        <div class="report bo">
-                                            <span>10</span>
-                                        </div>
-                                    </div>
-                                    <div class="hori-divi"></div>
-                                    Live Vacancies
-                                </div>
-                            </li>
-                            <li>
-                                <div class="equal-height">
-                                    <div class="box-heading">
-                                        
-                                        <div class="report redr">
-                                            <i class="fas fa-long-arrow-alt-up grey"></i><span>70</span><i class="fas fa-long-arrow-alt-down red"></i>
-                                        </div>
-                                    </div>
-                                    <div class="hori-divi"></div>
-                                    Avarage time to Offer
-                                </div>
-                            </li>
-                            <li>
-                                <div class="equal-height">
-                                    <div class="box-heading">
-                                        
-                                        <div class="report green">
-                                            <i class="fas fa-long-arrow-alt-up green"></i><span>9:1</span><i class="fas fa-long-arrow-alt-down grey"></i>
-                                        </div>
-                                    </div>
-                                    <div class="hori-divi"></div>
-                                    Live Vacancies
-                                </div>
-                            </li>
-                            <li>
-                                <div class="equal-height">
-                                    <div class="box-heading">
-                                        
-                                        <div class="report bo">
-                                            <span>3</span>
-                                        </div>
-                                    </div>
-                                    <div class="hori-divi"></div>
-                                    Live Vacancies
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="reporttable">
-                    <table>
-                    <tr>
-                        <th>Roles</th>
-                        <th>Number of Candidates</th>
-                        <th>1st Round</th>
-                        <th>2nd Round</th>
-                        <th>3rd Round</th>
-                        <th>Offer</th>
-                    </tr>
-                    <tr>
-                        <td>January</td>
-                        <td>15</td>
-                        <td>7</td>
-                        <td>3</td>
-                        <td>2</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>Bussiness Analysts</td>
-                        <td>10</td>
-                        <td>8</td>
-                        <td>2</td>
-                        <td>1</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>Programmers</td>
-                        <td>20</td>
-                        <td>10</td>
-                        <td>2</td>
-                        <td>1</td>
-                        <td>1</td>
-                    </tr>
-                    </table>
-                    </div>
-                    
-                    <div class="reporttable tab2">
-                    <table>
-                    <tr>
-                        <th>Interviwers</th>
-                        <th>Pass</th>
-                        <th>Rejects</th>
-                        <th>Notes</th>
-                    </tr>
-                    <tr>
-                        <td>January</td>
-                        <td>40</td>
-                        <td>5</td>
-                        <td>Our time to offer is below the market average</td>
-                    </tr>
-                    <tr>
-                        <td>Bussiness Analysts</td>
-                        <td>10</td>
-                        <td>8</td>
-                        <td>Mark Smith has an above average of failure of candidates</td>
-                    </tr>
-                    <tr>
-                        <td>Programmers</td>
-                        <td>20</td>
-                        <td>10</td>
-                        <td>We’re getting less programmer applications than the market</td>
-                    </tr>
-                    <tr>
-                        <td>Programmers</td>
-                        <td>20</td>
-                        <td>10</td>
-                        <td>We need to get more applications if we want achieve our targets</td>
-                    </tr>
-                    </table>
-                    </div>
-                </div>
-            </div>
-  <div class="col-md-10">
-<div class="row start_date_end_date_css">
-  <div class="col-md-2"></div>  
-  <div class="col-md-6">
+    <%= javascript_include_tag 'highcharts', 'highcharts-more' %>
+    <br/>
     <div class="row">
-      <div class="col-md-5">
-        <%= text_field_tag :start_date, nil, class: 'form-control', placeholder: 'Start Date' %>
-      </div>
-      <div class="col-md-5">
-        <%= text_field_tag :end_date, nil, class: 'form-control', placeholder: 'End Date' %>
-      </div>
-      <div class="col-md-2">
-        <%= button_tag 'Load Results', id: 'load_result', class: 'btn btn-default' %>
+      <div class="col-md-6 col-md-offset-3">
+        <div class="row">
+          <div class="col-md-5">
+            <%= text_field_tag :start_date, nil, class: 'form-control', placeholder: 'Start Date' %>
+          </div>
+          <div class="col-md-5">
+            <%= text_field_tag :end_date, nil, class: 'form-control', placeholder: 'End Date' %>
+          </div>
+          <div class="col-md-2">
+            <%= button_tag 'Load Results', id: 'load_result', class: 'btn btn-default' %>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="col-md-4"></div>
+    <div id="container" style="width: 700px; height: 390px; margin: 0 auto;margin-bottom: 40px;border: 1px solid #CCCCCC;"></div>
+    <div id="container_pie" style="width: 700px; height: 390px; margin: 0 auto;margin-bottom: 40px;border: 1px solid #CCCCCC;"></div>
+    <div id="container_line" style="width: 700px; height: 390px; margin: 0 auto;margin-bottom: 40px;border: 1px solid #CCCCCC;"></div>
+    <div id="container_bar" style="width: 700px; height: 390px; margin: 0 auto;margin-bottom: 40px;border: 1px solid #CCCCCC;"></div>
+            </div>
+
 </div>
-</div>
-</div>
-<div id="container" style="width: 700px; height: 390px; margin: 0 auto;margin-bottom: 40px;border: 1px solid #CCCCCC;"></div>
-<div id="container_pie" style="width: 700px; height: 390px; margin: 0 auto;margin-bottom: 40px;border: 1px solid #CCCCCC;"></div>
-<div id="container_line" style="width: 700px; height: 390px; margin: 0 auto;margin-bottom: 40px;border: 1px solid #CCCCCC;"></div>
-<div id="container_bar" style="width: 700px; height: 390px; margin: 0 auto;margin-bottom: 40px;border: 1px solid #CCCCCC;"></div>
 <script>
     $(function(){
         $(document).ready(function(){
@@ -239,17 +111,14 @@
                 loadGraph();
             });
         });
-
         function loadGraph() {
             var start_date = $('#start_date').val();
             var end_date = $('#end_date').val();
             getUrl(start_date, end_date)
                 .done(function(response) {
                     //Cumulative Flow Diagram
-
                     var open_cummulative = response.cummulative_data.open_jobs,
                         closed_cummulative = response.cummulative_data.closed_jobs;
-
                     Highcharts.chart('container', {
                         chart: {
                             type: 'area'
@@ -307,10 +176,8 @@
                             data: closed_cummulative
                         }]
                     });
-
                     //Pie Diagram
                     var open_jobs_pie = response.pie_data.open_jobs, closed_jobs_pie = response.pie_data.closed_jobs;
-
                     Highcharts.chart('container_pie', {
                         chart: {
                             plotBackgroundColor: null,
@@ -352,10 +219,8 @@
                             }]
                         }]
                     });
-
                     //Line Diagram
                     var open_jobs_line_chart = response.line_chart_data.open_jobs, closed_jobs_line_chart = response.line_chart_data.closed_jobs;
-
                     Highcharts.chart('container_line', {
                         title: {
                             text: 'Job Line Chart'
@@ -386,7 +251,6 @@
                             name: 'Closed Jobs',
                             data: closed_jobs_line_chart
                         }],
-
                         responsive: {
                             rules: [{
                                 condition: {
@@ -401,12 +265,9 @@
                                 }
                             }]
                         }
-
                     });
-
                     //Bar Diagram
                     var open_jobs_bar_chart = response.bar_chart_data.open_jobs, closed_jobs_bar_chart = response.bar_chart_data.closed_jobs, dates = response.bar_chart_data.dates;
-
                     Highcharts.chart('container_bar', {
                         chart: {
                             type: 'column'
@@ -447,20 +308,16 @@
                         series: [{
                             name: 'Open Jobs',
                             data: open_jobs_bar_chart
-
                         }, {
                             name: 'Closed Jobs',
                             data: closed_jobs_bar_chart
-
                         }]
                     });
-
                 })
                 .fail(function() {
                     alert( "Something went Wrong." );
                 })
         }
-
         function getUrl(start_date, end_date) {
             if((start_date == '' || start_date == undefined) && (end_date == '' || end_date == undefined)) {
                 return $.get({
