@@ -129,27 +129,24 @@
                                   <li>
                                     <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
                                     <% user = users.first %>
+                                    <% next unless user.present? %>
+                                    <% resume = user.resumes.first %>
                                     <div class="equal">
                                       <div class="box-heading">
                                         <div class="box-header">
                                           <div class="name">
-                                          <% if user.present? %>
                                           <%= user.first_name[0] %><% if user.last_name %><%= user.last_name[0] %><% end %>
-                                          <% else %>
-                                          <%= job.title.split[0][0] %>
-                                            <% if job.title.split[1] %><%= job.title.split[1][0] %><% end %>
-                                          <% end %>
                                           </div>
                                           <div class="detail">
                                             <h2 class="job-heading">
-                                            <% if user.present? %>
-                                              <%= link_to "#{user.first_name}#{user.last_name}", job_path(job) %>
-                                            <% else %>
-                                              <%= link_to job.title, job_path(job) %>
-                                            <% end %>
+                                              <%= link_to "#{user.first_name} #{user.last_name}", job_path(job) %>
                                             </h2>
                                             <!-- <h3 class="job-sub-heading"><a href="mailto:ashish@khumar.com">ashish@khumar.com</a></h3> -->
-                                            <div class="about-job"><%= link_to job.document_file_name, download_job_path(job), target: "_blank" if job.document.present? %></div>
+                                            <% if resume.present? %>
+                                            <div class="about-job">
+                                            <%= link_to resume.cv_file_name, download_resume_path(resume),  target: "_blank"%>
+                                            </div>
+                                            <% end %>
                                           </div>
                                         </div>
                                         <div class="job-option text-center float-right">
