@@ -1,32 +1,51 @@
- <div class="banner_cov">
- <%= image_tag("banner_inn.jpg") %></div>  
- <div class="container">
-  <div class="col-md-6 sign_pop col-md-offset-3">
-  <p id="notice"><%= notice %></p>
-<% unless flash[:errors].nil? %>
- <p class="error-msg"> <%= flash[:errors] %> </p>
-<% end %>
-<div class="job_bx">
-<h1><label>Job Title :</label> <%= @job.title %></h1>
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12" style="background-color:#f1f1f1;">
+        <div class="job-right">
+          <div class="detail-page-custom-design">
+            <ul>
+                <li>
+                    <h4>Job Title:</h4>
+                    <p><%= @job.title %></p>
+                </li>
+                <li>
+                    <h4>Description:</h4>
+                    <p><%= @job.description %></p>
+                </li>
+                <li>
+                    <h4>Document: </h4>
+                    <p>
+                        <% if @job.document_file_name %>
+                            <%= link_to @job.document_file_name, download_job_path(@job),  target: "_blank"%>
+                        <% else %>
+                        <p>No Document</p>
+                        <% end %>
+                            
+                        </p>
+                </li>
+                <li>
+                    <h4>Industry:</h4>
+                    <p><%= @job.industry.try(:title) %></p>
+                </li>
+                <li>
+                    <h4>Total Interview Round:</h4>
+                    <p><%= @job.interview.try(:total_stage) %></p>
+                </li>
+                <li>
+                    <h4>Status:</h4>
+                    <p><%= @job.status_string %></p>
+                </li>
+                
+            </ul>
 
- 
- <p><strong>Description:</strong> <%= @job.description %></p>
- <p><strong>Document:</strong> <%= link_to @job.document_file_name, download_job_path(@job),  target: "_blank"%> </p>
-  
-<p><strong>Industry:</strong> <%= @job.industry.try(:title) %></p>
-
-
-<p><strong>Total Interview Round:</strong><%= @job.interview.try(:total_stage) %></p>
-
-<p><strong>Status:</strong><%= @job.status_string %></p>
-
-
-
-
+          </div>
+      </div>
+  </div>
+</div>
 <% if current_user.client? %>
-	<p>
+    <p>
  <button id="myBtn" class="btn btn-primary">Create Interview Stage for this Job</button>
-	<span style="font-weight:bold;color:red;padding-left:10px;"> (You must Click this button  before  Schedule is Created)</span></p><br />
+    <span style="font-weight:bold;color:red;padding-left:10px;"> (You must Click this button  before  Schedule is Created)</span></p><br />
 <%end%>
 <br />
   <% if @job.closed? %>
@@ -36,12 +55,9 @@
   <% end %> |
 <%= link_to 'Edit', edit_job_path(@job) if current_user.client? %> |
 <%= link_to 'Back', users_dashboard_path %>
+</div>
 
 
-
-
-<div class="ma_hed"><%#=feedbacks(@schedules)%></div>
-<hr>
 <%if current_user.client? %>
 <div class="re_sty">
 <h1>Applications - <%= @users.length %> </h1>
