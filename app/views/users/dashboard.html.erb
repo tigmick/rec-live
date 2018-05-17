@@ -127,7 +127,7 @@
                             <ul>
                               <% industry.jobs.each do |job| %>
                                 <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
-                                <% @users.each do |user| %>
+                                <% users.each do |user| %>
                                 <li>
                                   <div class="equal-height search-equal-height custom-height-search-result">
                                     <div class="box-heading">
