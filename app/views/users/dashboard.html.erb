@@ -120,7 +120,6 @@
         <% industries << industry if user.present? %>
         <% end %>
         <% end %>
-        <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
         <div class="col-md-10" style="background-color:#f1f1f1;">
           <% industries.each do |industry| %>
               <% if industry.jobs.count > 0 %>
