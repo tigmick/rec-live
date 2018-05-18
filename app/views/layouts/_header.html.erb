@@ -12,7 +12,7 @@
         <!-- <a class="navbar-brand logo_txt" href="/">MYPHD</a> -->
 
         <% if user_signed_in? %>
-            <a class="navbar-brand logo_txt" href="<%= users_dashboard_path %>"><img src="<%=asset_path('img/logo.png')%>"></a>
+            <a class="navbar-brand logo_txt" href="/"><img src="<%=asset_path('img/logo.png')%>"></a>
         <% else %>
             <a class="navbar-brand logo_txt" href="/"><img src="<%=asset_path('img/logo.png')%>"></a>
         <% end %>
