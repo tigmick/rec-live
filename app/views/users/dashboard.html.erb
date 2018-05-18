@@ -112,24 +112,38 @@
     <% end %>
 
     <% if current_user.client? %>
+        <% industries = [] %>
+        <% job_counts = [] %>
+        <% @industries.each do |industry| %>
+          <% count = 0 %>
+          <% industry.jobs.each do |job| %>
+-            <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
+              <% user = users.first %>
+              <% if user.present?%>
+              <% industries << industry if count == 0 %>
+              <% count += 1 %>
+              <% end %>
+          <% end %>
+          <% job_counts << count if count > 0 %>
+        <% end %>
         <div class="col-md-10" style="background-color:#f1f1f1;">
-          <% @industries.each_with_index do |industry, i| %>
-              <% jobs = Job.joins(interview: [:interview_schedules]).where('industry_id=?', industry) %>
-              <% if jobs.count > 0 %>
+          <% industries.each_with_index do |industry, i| %>
+              <% if industry.jobs.count > 0 %>
                   <div class="row">
                     <div class="col-md-12" style="border-bottom:1px solid #fff;">
                       <div class="job-right">
                         <h2 class="heading">
                           <a href="#" data-toggle="collapse" data-target="#collapse-<%= industry.id %>">
-                            <%= industry.title %> (<%= jobs.count %>)
+                            <%= industry.title %> (<%= job_counts[i] %>)
                           </a></h2>
                         <div id="collapse-<%= industry.id %>" class="collapse-panel collapse show">
                           <div class="box-job box-job-dashboard">
                             <ul>
-                              <% jobs.each do |job| %>
+                              <% industry.jobs.each do |job| %>
                                   <li style="width: 265px;">
-                                    <% schedules = InterviewSchedule.joins(:interview).where('interviews.job_id=?', job) %>
-                                    <% user = schedules.first.user %>
+                                    <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
+                                    <% user = users.first %>
+                                    <% next unless user.present? %>
                                     <% resume = user.resumes.first %>
                                     <div class="equal">
                                       <div class="box-heading">
