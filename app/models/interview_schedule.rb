@@ -24,4 +24,5 @@ class InterviewSchedule < ActiveRecord::Base
    belongs_to :interview
    has_many :candidate_feedbacks
    has_many :client_comments
+   belongs_to :user
 end
