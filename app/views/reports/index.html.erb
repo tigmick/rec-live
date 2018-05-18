@@ -164,7 +164,7 @@
     <%= interview.interviewers_names.each do |name| %>
             <tr>
                 <td><%= name %></td>
-                <td><%= comment.present? comment.comment : '' %></td>
+                <td><%= (comment.present? ? comment.comment : '') %></td>
             </tr>
     <% end %>
 <% end %>
