@@ -161,7 +161,7 @@
             </tr>
 <% InterviewSchedule.all.each do |interview| %>
 <% comment = interview.client_comments.first %>
-    <%= interview.interviewers_names.each do |name| %>
+    <% interview.interviewers_names.each do |name| %>
             <tr>
                 <td><%= name %></td>
                 <td><%= (comment.present? ? comment.comment : '') %></td>
