@@ -52,6 +52,5 @@ border:1px solid #f5f5f5; }
 }
 /*.box-job ul li{width: 24%;}*/
 .job-report-box ul li{width: 24% !important;}
-.box-job ul li:first-child{margin-left:0px;}
 .box-job ul li:last-child{margin-right:0px;}
 .linkright img{max-width:50px;border-radius:50%;}
