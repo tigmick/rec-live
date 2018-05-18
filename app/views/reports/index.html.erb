@@ -142,12 +142,13 @@
                 <th>Offer</th>
             </tr>
 <% Job.open.each do |job| %>
+<% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
             <tr>
                 <td><%= job.title %></td>
-                <td>15</td>
-                <td>7</td>
-                <td>3</td>
-                <td>2</td>
+                <td><%= users.count %></td>
+                <td><%= InterviewSchedule.joins(:interview).where('interviews.job_id=? and stage = 0', job).size %></td>
+                <td><%= InterviewSchedule.joins(:interview).where('interviews.job_id=? and stage = 1', job).size %></td>
+                <td><%= InterviewSchedule.joins(:interview).where('interviews.job_id=? and stage = 3', job).size %></td>
                 <td>1</td>
             </tr>
 <% end %>
