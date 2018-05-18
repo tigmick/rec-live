@@ -163,7 +163,7 @@
     <%= interview.interviewers_names.each do |name| %>
             <tr>
                 <td><%= name %></td>
-                <td>Our time to offer is below the market average</td>
+                <td><%= interview.client_comments.first.comment %></td>
             </tr>
     <% end %>
 <% end %>
