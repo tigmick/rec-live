@@ -139,7 +139,6 @@
                 <th>1st Round</th>
                 <th>2nd Round</th>
                 <th>3rd Round</th>
-                <th>Offer</th>
             </tr>
 <% Job.open.each do |job| %>
 <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
@@ -148,8 +147,7 @@
                 <td><%= users.count %></td>
                 <td><%= InterviewSchedule.joins(:interview).where('interviews.job_id=? and stage = 0', job).size %></td>
                 <td><%= InterviewSchedule.joins(:interview).where('interviews.job_id=? and stage = 1', job).size %></td>
-                <td><%= InterviewSchedule.joins(:interview).where('interviews.job_id=? and stage = 3', job).size %></td>
-                <td>1</td>
+                <td><%= InterviewSchedule.joins(:interview).where('interviews.job_id=? and stage = 2', job).size %></td>
             </tr>
 <% end %>
             </table>
@@ -159,34 +157,16 @@
             <table>
             <tr>
                 <th>Interviwers</th>
-                <th>Pass</th>
-                <th>Rejects</th>
                 <th>Notes</th>
             </tr>
+<% InterviewSchedule.all.each do |interview| %>
+    <%= interview.interviewers_names.each do |name| %>
             <tr>
-                <td>January</td>
-                <td>40</td>
-                <td>5</td>
+                <td><%= name %></td>
                 <td>Our time to offer is below the market average</td>
             </tr>
-            <tr>
-                <td>Bussiness Analysts</td>
-                <td>10</td>
-                <td>8</td>
-                <td>Mark Smith has an above average of failure of candidates</td>
-            </tr>
-            <tr>
-                <td>Programmers</td>
-                <td>20</td>
-                <td>10</td>
-                <td>We’re getting less programmer applications than the market</td>
-            </tr>
-            <tr>
-                <td>Programmers</td>
-                <td>20</td>
-                <td>10</td>
-                <td>We need to get more applications if we want achieve our targets</td>
-            </tr>
+    <% end %>
+<% end %>
             </table>
             </div>
         </div>
