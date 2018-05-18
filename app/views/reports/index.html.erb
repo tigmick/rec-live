@@ -141,30 +141,16 @@
                 <th>3rd Round</th>
                 <th>Offer</th>
             </tr>
+<% Job.open.each do |job| %>
             <tr>
-                <td>January</td>
+                <td><%= job.title %></td>
                 <td>15</td>
                 <td>7</td>
                 <td>3</td>
                 <td>2</td>
                 <td>1</td>
             </tr>
-            <tr>
-                <td>Bussiness Analysts</td>
-                <td>10</td>
-                <td>8</td>
-                <td>2</td>
-                <td>1</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td>Programmers</td>
-                <td>20</td>
-                <td>10</td>
-                <td>2</td>
-                <td>1</td>
-                <td>1</td>
-            </tr>
+<% end %>
             </table>
             </div>
             
