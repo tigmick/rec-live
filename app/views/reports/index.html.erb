@@ -160,10 +160,11 @@
                 <th>Notes</th>
             </tr>
 <% InterviewSchedule.all.each do |interview| %>
+<% comment = interview.client_comments.first %>
     <%= interview.interviewers_names.each do |name| %>
             <tr>
                 <td><%= name %></td>
-                <td><%= interview.client_comments.first.comment %></td>
+                <td><%= comment.present? comment.comment : '' %></td>
             </tr>
     <% end %>
 <% end %>
