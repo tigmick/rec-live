@@ -88,7 +88,7 @@
                   <div class="box-header">
                     <h2 class="job-heading"><%= link_to job.title, job_path(job) %></h2>
                     <h3 class="job-sub-heading"><% if job.industry.present? %><%= job.industry.title %><% end %></h3>
-                    <div class="about-job open"><%= job.status %></div>
+                    <div class="about-job <%= "#{ job.status_string }" %>"><%= job.status %></div>
                   </div>
                   <div class="job-option text-center float-right">
                     <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul>

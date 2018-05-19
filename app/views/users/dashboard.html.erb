@@ -157,8 +157,8 @@
                                        </h2>
                                        <h3 class="job-sub-heading"><a href="mailto:<%= user.email %>"><%= user.email %></a></h3>
                                        <% if resume.present? %>
-                                       <div class="about-job cvlink">
-                                          <%= link_to resume.cv_file_name, download_resume_path(resume),  target: "_blank"%>
+                                       <div class="about-job">
+                                          <%= link_to "#{resume.cv_file_name.split('.')[1] || 'Cv'}".humanize, download_resume_path(resume),  target: "_blank"%>
                                        </div>
                                        <% end %>
                                     </div>
@@ -174,9 +174,9 @@
                                     <div class="dropdown-menu" aria-labelledby="options">
                                        <%= link_to 'Create interview', job_path(job), class: "dropdown-item" %>
                                        <% if job.open? %>
-                                       <%= link_to 'Close the job', close_job_path(id: job.id), method: :post, data: {confirm: 'Are you sure you want to close this Job.'}, class: 'dropdown-item' %>
+                                       <%= link_to 'Close the job', close_job_path(id: job.id), class: 'dropdown-item jobs-action', id: "job_#{job.id}" %>
                                        <% else %>
-                                       <%= link_to 'Open the job', open_job_path(id: job.id), method: :post, class: 'dropdown-item' %>
+                                       <%= link_to 'Open the job', open_job_path(id: job.id), class: 'dropdown-item jobs-action', id: "job_#{job.id}" %>
                                        <% end %>
                                     </div>
                                  </div>

@@ -3,11 +3,9 @@ class JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy, :close_job, :open_job]
   before_action :authenticate_user!, except: [:download]
 
-
   # GET /Jobs
   # GET /Jobs.json
   def index
-
     job_ids = AssignJob.all.collect{|k| k.user_ids.include?(current_user.id) ? k.job_id : []}.flatten
     @jobs = Job.all.order('created_at desc')
     if current_user.client? 
@@ -89,22 +87,32 @@ class JobsController < ApplicationController
   end
 
   def close_job
-    if (current_user.client? && @job.user_id == current_user.id)
-      @job.update status: 1, closed_at: Time.now
-      redirect_to '/jobs'
-    else
-      flash[:error] = 'Action not permitted'
-      redirect_to '/jobs'
+    respond_to do |format|
+      if (current_user.client? && @job.user_id == current_user.id)
+        if @job.update status: 1, closed_at: Time.now
+          format.json { render json: @job }
+        else
+          format.json { render json: @job.errors, status: :unprocessable_entity }
+        end
+      else
+          format.json { render json: @job.errors, status: :unprocessable_entity }
+      end  
     end
+
+
   end
 
   def open_job
-    if (current_user.client? && @job.user_id == current_user.id)
-      @job.update status: 0, closed_at: nil
-      redirect_to '/jobs'
-    else
-      flash[:error] = 'Action not permitted'
-      redirect_to '/jobs'
+    respond_to do |format|
+      if (current_user.client? && @job.user_id == current_user.id)
+        if @job.update status: 0, closed_at: nil
+          format.json { render json: @job }
+        else
+          format.json { render json: @job.errors, status: :unprocessable_entity }
+        end
+      else
+          format.json { render json: @job.errors, status: :unprocessable_entity }
+      end  
     end
   end
 

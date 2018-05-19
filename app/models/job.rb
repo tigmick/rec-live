@@ -37,6 +37,6 @@ class Job < ActiveRecord::Base
   enum status: [ :open, :closed ]
 
   def status_string
-    open? ? '<span class="label label-success">OPEN</span>'.html_safe : '<span class="label label-danger">CLOSED</span>'.html_safe
+    open? ? 'open' : 'clos'
   end
 end

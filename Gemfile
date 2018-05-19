@@ -73,3 +73,4 @@ group :production do
 end
 
 gem 'figaro'
+gem 'alertifyjs-rails'
