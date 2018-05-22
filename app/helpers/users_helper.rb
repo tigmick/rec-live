@@ -25,6 +25,7 @@ module UsersHelper
 			html = ""
 			stages = job.interview.interview_schedules.where(user_id: current_user).map(&:stage).flatten
 	  	stages.each do |stage|
+	  		de
 	  		html += "<b> pre screen </b> round<br>"# if stage.one? 
     		html += "<b>"+stage.try(:ordinalize)+"</b> round<br>"# unless stage.zero?
 	  	end
@@ -143,8 +144,8 @@ module UsersHelper
 
 					html +=	" <div class='stepwizard'><div class='stepwizard-row'>"
 					(1..3).each do |item|
-						color = (item.to_i <= stage.to_i) ? 'green' : ''
-						html += "<div class='stepwizard-step'><button type='button' class='btn btn-default btn-circle' style='background: #{color}'><i class='fas fa-check'></i></button><p>#{item.to_i.ordinalize}</p></div>"
+						color = (item.to_i <= stage.to_i) ? '<i class="fas fa-check"></i>' : ''
+						html += "<div class='stepwizard-step'><button type='button' class='btn btn-default btn-circle'> #{color}</button><p>#{item.to_i.ordinalize}</p></div>"
 					end	
 				end
 			else
@@ -154,7 +155,7 @@ module UsersHelper
 				html +=	"</h3>"
 				html +=	" <div class='stepwizard'><div class='stepwizard-row'>"
 				(1..3).each do |item|
-					html += "<div class='stepwizard-step'><button type='button' class='btn btn-default btn-circle' ><i class='fas fa-check'></i></button><p>#{item.to_i.ordinalize}</p></div>"
+					html += "<div class='stepwizard-step'><button type='button' class='btn btn-default btn-circle' ></button><p>#{item.to_i.ordinalize}</p></div>"
 				end
 			end
 		else
@@ -164,7 +165,7 @@ module UsersHelper
 			html +=	"</h3>"
 			html +=	" <div class='stepwizard'><div class='stepwizard-row'>"
 			(1..3).each do |item|
-				html += "<div class='stepwizard-step'><button type='button' class='btn btn-default btn-circle' ><i class='fas fa-check'></i></button><p>#{item.to_i.ordinalize}</p></div>"
+				html += "<div class='stepwizard-step'><button type='button' class='btn btn-default btn-circle' ></button><p>#{item.to_i.ordinalize}</p></div>"
 			end
 
 		end

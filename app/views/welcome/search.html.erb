@@ -34,6 +34,7 @@
 <% else %>
 <h5 style="color:#4286F5;font-weight:bold;">No Job listed in this Category Yet.</h5>
 <% end %>
+  <%= will_paginate @search , renderer: BootstrapPagination::Rails%>
 </div>
 </div>
 </div>
