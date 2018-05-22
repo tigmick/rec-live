@@ -231,7 +231,7 @@ footer{padding:0px 50px;}
 
 .job-right .heading{
 line-height: normal;
-font-size: 24px;
+font-size: 20px;
 font-family: PublicaSans-Medium;
 color:#090909;
 letter-spacing: -0.348333px;
@@ -252,8 +252,8 @@ border-radius:5px;
 background-color:#fff;
 vertical-align:top;
 margin: 0px 5px 15px;
-height: 16em;
-}
+
+} 
 h2.job-heading{
 line-height: normal;
 font-family: ZPublicaSans;
@@ -321,7 +321,7 @@ display: inline-block;
 .hori-divi{border:1px solid #f5f5f5;margin-bottom:15px;}
 .job-discription h3{
 line-height: normal;
-font-size: 14px;
+font-size: 12px;
 font-family: PublicaSans-Light;
 color:#090909;
 letter-spacing: -0.174167px;
@@ -341,14 +341,14 @@ width: 49%;
 text-align: center;
 }
 .box-footer a{
-line-height: normal;
-font-size: 14px;
-display:block;
-text-align:center;
-padding:12px;
-letter-spacing: -0.174167px;
-color: #203CC4;
-font-family: PublicaSans-Medium;
+  line-height: normal;
+  font-size: 12px;
+  display:block;
+  text-align:center;
+  padding: 12px 0px;
+  letter-spacing: -0.174167px;
+  color: #203CC4;
+  font-family: PublicaSans-Medium;
 }
 .box-footer{border-top:1px solid #f5f5f5;margin-top:15px;}
 .box-footer ul li:last-child{border-left:1px solid #f5f5f5;}

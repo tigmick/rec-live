@@ -1,3 +1,5 @@
+//= require jquery
+//= require jquery_ujs
 //= require new_ui/jquery.min
 //= require new_ui/slick.min
 //= require new_ui/common

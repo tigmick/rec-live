@@ -90,15 +90,27 @@ class JobsController < ApplicationController
     respond_to do |format|
       if (current_user.client? && @job.user_id == current_user.id)
         if @job.update status: 1, closed_at: Time.now
-          format.json { render json: @job }
+          format.json do 
+            render json: @job 
+          end
+          format.html do 
+            redirect_to '/jobs' 
+          end
         else
-          format.json { render json: @job.errors, status: :unprocessable_entity }
+          format.json do render json: @job.errors, status: :unprocessable_entity end
+          format.html do
+            flash[:error] = 'Action not permitted'
+            redirect_to '/jobs'
+          end
         end
       else
           format.json { render json: @job.errors, status: :unprocessable_entity }
+          format.html do
+            flash[:error] = 'Action not permitted'
+            redirect_to '/jobs'
+          end
       end  
     end
-
 
   end
 
@@ -106,12 +118,25 @@ class JobsController < ApplicationController
     respond_to do |format|
       if (current_user.client? && @job.user_id == current_user.id)
         if @job.update status: 0, closed_at: nil
-          format.json { render json: @job }
+          format.json do 
+            render json: @job 
+          end
+          format.html do 
+            redirect_to '/jobs' 
+          end
         else
-          format.json { render json: @job.errors, status: :unprocessable_entity }
+          format.json do render json: @job.errors, status: :unprocessable_entity end
+          format.html do
+            flash[:error] = 'Action not permitted'
+            redirect_to '/jobs'
+          end
         end
       else
           format.json { render json: @job.errors, status: :unprocessable_entity }
+          format.html do
+            flash[:error] = 'Action not permitted'
+            redirect_to '/jobs'
+          end
       end  
     end
   end

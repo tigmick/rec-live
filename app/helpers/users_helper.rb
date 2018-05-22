@@ -25,7 +25,7 @@ module UsersHelper
 			html = ""
 			stages = job.interview.interview_schedules.where(user_id: current_user).map(&:stage).flatten
 	  	stages.each do |stage|
-	  		html += "<b> pre screen </b> round<br>" if stage.zero? 
+	  		html += "<b> pre screen </b> round<br>" if stage.one? 
     		html += "<b>"+stage.try(:ordinalize)+"</b> round<br>" unless stage.zero?
 	  	end
        # html += link_to "view schedule","/interview_schedules/#{job.id}"
@@ -125,8 +125,78 @@ module UsersHelper
 		html.html_safe
 	end
 
+
+	def new_desing_interview_stage_client_section(job, user_id) 
+		html = ""
+		if job.interview.present?
+			reviews = Review.where(job_id: job.id, user_id: user_id)
+			if reviews.present?
+				reviews.each do |review|
+					job_totla_stage = job.interview.total_stage || 0
+					stage = job.interview.interview_schedules.where(user_id: review.user_id).maximum("stage").to_i + 1
+					html +=	"<ul class='d-block'>"
+					html +=	"<h3>Interview schedule &nbsp;&nbsp;&nbsp;"
+					html += link_to "create","/interview_schedules/#{job.id}?user_id=#{review.user_id}"  if current_user.present?
+					html +=	"/" if job.interview.interview_schedules.where(user_id: review.user_id).present?
+					html += link_to "edit","/interview_schedules/#{job.id}?user_id=#{review.user_id}"  if job.interview.interview_schedules.where(user_id: review.user_id).present?
+					html +=	"</h3>"
+
+					html +=	" <div class='stepwizard'><div class='stepwizard-row'>"
+					(1..3).each do |item|
+						color = (item.to_i <= stage.to_i) ? 'green' : ''
+						html += "<div class='stepwizard-step'><button type='button' class='btn btn-default btn-circle' style='background: #{color}'><i class='fas fa-check'></i></button><p>#{item.to_i.ordinalize}</p></div>"
+					end	
+				end
+			else
+				html +=	"<ul class='d-block'>"
+				html +=	"<h3>Interview schedule &nbsp;&nbsp;&nbsp;"
+				html += link_to "create","javascript:void(0)"
+				html +=	"</h3>"
+				html +=	" <div class='stepwizard'><div class='stepwizard-row'>"
+				(1..3).each do |item|
+					html += "<div class='stepwizard-step'><button type='button' class='btn btn-default btn-circle' ><i class='fas fa-check'></i></button><p>#{item.to_i.ordinalize}</p></div>"
+				end
+			end
+		else
+
+			html +=	"<ul class='d-block'>"
+			html +=	"<h3>Interview schedule &nbsp;&nbsp;&nbsp;"
+			html += link_to "create","javascript:void(0)"
+			html +=	"</h3>"
+			html +=	" <div class='stepwizard'><div class='stepwizard-row'>"
+			(1..3).each do |item|
+				html += "<div class='stepwizard-step'><button type='button' class='btn btn-default btn-circle' ><i class='fas fa-check'></i></button><p>#{item.to_i.ordinalize}</p></div>"
+			end
+
+		end
+		html += "</div></div></ul>"
+		html.html_safe
+	end
+
+	def new_desing_meeting_with(job, user_id)
+    	html = "<h3>Interview notes &nbsp;&nbsp;"
+    	if job.interview.present?
+    		reviews = Review.where(job_id: job.id, user_id: user_id)
+    		#if reviews.present?
+	    		reviews.each do |review|
+	    			unless job.interview_schedules.where(user_id: user_id).empty? 
+						add = "<a href='javascript:void(0);' onclick='meeting_with(#{review.id},\"\")' id='myBtn'>Add</a>"
+						edit = "<a href='javascript:void(0);' onclick='meeting_with(#{review.id},\"#{review.meeting}\")' id='myBtn'>Edit</a>"
+						html += 	review.meeting.present? ? "#{add}/#{edit}" : "#{add}"
+						if review.meeting.present?
+							html +=	"<p title='#{review.meeting}'>#{review.meeting.truncate(70)}</p>"
+						else
+							html +=	"<p title='No review'>No review</p>"
+						end
+			end
+    		end
+		end
+		html += "</h3>"
+		html.html_safe
+	end
+
 	def meeting_with(job)
-    html = "<p style='height:0px;margin-top:-10px;'></p>"
+    	html = "<p style='height:0px;margin-top:-10px;'></p>"
 		if job.interview.present?
 			reviews = Review.where(job_id: job.id)
 			reviews.each do |review|
@@ -134,11 +204,11 @@ module UsersHelper
 				add = "<div style='padding:30px;'><button onclick='meeting_with(#{review.id},\"\")' class='btn btn-primary' id='myBtn'>Add</button>"
 				edit = "<button onclick='meeting_with(#{review.id},\"#{review.meeting}\")' class='btn btn-primary' id='myBtn'>Edit</button>"
 				html +=	review.meeting.present? ? "<div style='padding:21px;'><a href='#' data-toggle='tooltip' data-placement='bottom' title='#{review.meeting}'>#{review.meeting.truncate(70)}</a>"+edit : add
-		  	else
-		  	html +=	"<div style='padding:30px;'>No"
-		  	end
-		  	html += "</div>"
-		  end
+	  	else
+  			html +=	"<div style='padding:30px;'>No"
+  		end
+	  		html += "</div>"
+	  	end
 		end 
 		html.html_safe
 	end

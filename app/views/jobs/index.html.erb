@@ -1,124 +1,54 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-2">
-      <ul class="dashside">
-        <li><a href="/users/dashboard">
-          <svg width="19" height="19" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <g id="Canvas" fill="none">
-              <g id="dashboard">
-                <g id="Rectangle 5">
-                  <path d="M 2 16L 15 16C 16.1046 16 17 15.1046 17 14L 17 2C 17 0.895431 16.1046 0 15 0L 2 0C 0.895431 0 0 0.895431 0 2L 0 14C 0 15.1046 0.895431 16 2 16Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(1 2)" stroke="#B2B6BA"/>
-                </g>
-                <g id="Line 5">
-                  <path d="M 1.66667 0.996528L 1.66667 17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(8 1)" stroke="#B2B6BA"/>
-                </g>
-                <g id="Line 6">
-                  <path d="M 0.444444 1L 10 1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(8 9)" stroke="#B2B6BA"/>
-                </g>
-                <g id="Line 7">
-                  <path d="M 9 1L 0 1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(2 9)" stroke="#B2B6BA"/>
-                </g>
-              </g>
-            </g>
-          </svg>
-          Dashboard</a>
-        </li>
-        <% if user_signed_in? && current_user.client? %>
-        <li>
-          <%= link_to(client_reports_path) do %>
-              <svg width="19" height="16" viewBox="0 0 19 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g id="Canvas" fill="none">
-                  <g id="reports">
-                    <path id="Line 10" d="M 0.5 1.5L 16.5 1.5" transform="translate(1 13)" stroke-width="2" stroke-linecap="round" stroke="#122FB8"/>
-                    <path id="Line 11" d="M 1.5 4.5L 1.5 0.964466" transform="translate(3 10)" stroke-width="2" stroke-linecap="round" stroke="#122FB8"/>
-                    <path id="Line 11 Copy" d="M 1.5 13.5L 1.5 0.990004" transform="translate(8 1)" stroke-width="2" stroke-linecap="round" stroke="#122FB8"/>
-                    <path id="Line 11 Copy 2" d="M 1.5 8.5L 1.5 0.983352" transform="translate(13 6)" stroke-width="2" stroke-linecap="round" stroke="#122FB8"/>
-                  </g>
-                </g>
-              </svg>
-              Reports
-          <% end %>
-        </li>
-        <li>
-          <!-- <a href="create-job.html"> -->
-          <%= link_to(new_job_path) do %>
-              <svg width="19" height="17" viewBox="0 0 19 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g id="Canvas" fill="none">
-                  <g id="create job">
-                    <g id="Group 2">
-                      <path id="Rectangle 8" d="M 0 0L 17 0L 17 12L 0 12L 0 0Z" transform="translate(1 4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#B2B6BA"/>
-                      <path id="Rectangle 8 Copy" d="M 0 0L 3 0L 3 5L 0 5L 0 0Z" transform="matrix(0 -1 1 0 7 4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#B2B6BA"/>
-                      <path id="Line 9" d="M 1.5 0.924816L 1.5 2.625" transform="translate(4 9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#B2B6BA"/>
-                      <path id="Line 9 Copy" d="M 1.5 0.924816L 1.5 2.625" transform="translate(12 9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#B2B6BA"/>
-                    </g>
-                    <path id="Path 2" d="M 0 0C 0 0 7.78268 6 17 0" transform="translate(1 7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#B2B6BA"/>
-                  </g>
-                </g>
-              </svg>
-              Create Job
-          <% end %>
-        </li>
-        <li  class="active">
+   <%= render 'shared/navigation' %>
+   <div class="col-md-10" style="background-color:#f1f1f1;">
+        <div class="job-right">
+          <h2 class="heading">Administrate Jobs</h2>
+          <div class="box-job">
+            <ul>
 
-          <a href="/jobs">
-            <svg width="17" height="17" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-              <g id="Canvas" fill="none">
-                <g id="Page 1">
-                  <path id="Stroke 1" d="M 0 4.24128L 8.85607 13L 13 13L 13 8.88254L 3.92787 0L 0 4.24128Z" transform="translate(3 3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#B2B6BA"/>
-                  <path id="Stroke 3" d="M 0 3L 3 0" transform="translate(11 11)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#B2B6BA"/>
-                  <path id="Stroke 5" d="M 1.68488 5.90021L 0.792287 5.00701C -0.264096 3.9511 -0.264096 2.22295 0.792287 1.1665L 1.26661 0.692139C 2.323 -0.363766 3.85018 -0.147724 4.90656 0.908181C 5.96294 1.96409 5.79915 1.80084 5.79915 1.80084" transform="translate(1 1.09985)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#B2B6BA"/>
-                </g>
-              </g>
-            </svg>
-            Administrate jobs
-          </a>
-        </li>
-        <% end %>
-      </ul>
-    </div>
-    <div class="col-md-10" style="background-color:#f1f1f1;">
-      <div class="job-right">
-        <h2 class="heading">Administrate Jobs</h2>
-        <div class="box-job">
-          <ul>
-            <% @jobs.each do |job| %>
-            <li>
-              <div class="equal-height equal-height-jobs-index-custom">
-                <div class="box-heading">
-                  <div class="box-header">
-                    <h2 class="job-heading"><%= link_to job.title, job_path(job) %></h2>
-                    <h3 class="job-sub-heading"><% if job.industry.present? %><%= job.industry.title %><% end %></h3>
-                    <div class="about-job <%= "#{ job.status_string }" %>"><%= job.status %></div>
-                  </div>
-                  <div class="job-option text-center float-right">
-                    <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul>
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                    </ul></a>
-                    <div class="dropdown-menu" aria-labelledby="options">
-                      <%= link_to 'Action', job_path(job), class: "dropdown-item" %>
-                      <a class="dropdown-item" href="#">Another action</a>
+              <% @jobs.each do |job| %>
+              <li>
+                <div class="equal-height" style="min-height:200px; max-height:300px;">
+                  <div class="box-heading">
+                    <div class="box-header">
+                      <h2 class="job-heading"><%= job.title  rescue ""%></h2>
+                      <h3 class="job-sub-heading"><%= job.try(:industry).try(:title) %></h3>
+                      <div class="about-job <%= "#{ job.status_string }" %>"><%= job.status %></div>
+                    </div>
+                    <div class="job-option text-center float-right">
+                      <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                      </ul></a>
+                      <div class="dropdown-menu" aria-labelledby="options">
+                        <%= link_to 'View job', job_path(job), class: "dropdown-item" %>
+                        <% if job.open? %>
+                          <%= link_to 'Close Job', close_job_path(id: job.id), method: :post, data: {confirm: 'Are you sure you want to close this Job.'}, class: "dropdown-item" %>
+                        <% else %>
+                          <%= link_to 'Open Job', open_job_path(id: job.id), method: :post, class: "dropdown-item" %>
+                        <% end %>
+                      </div>
                     </div>
                   </div>
+                  <div class="job-discription">
+                    <div class="hori-divi"></div>
+                    <h3>Job description</h3>
+                    <p><%= job.description.truncate(60) %></p>
+                  </div>
                 </div>
-                <div class="job-discription">
-                  <div class="hori-divi"></div>
-                  <h3>Job description</h3>
-                  <p><%= job.description %></p>
-                </div>
-              </div>
-              <div class="box-footer">
-                <ul class="d-block jobs-index-custom">
-                  <li><%= link_to 'view', job_path(job) %></li>
+                <div class="box-footer">
+                  <ul class="d-block">
+                    <li><%= link_to 'view', job_path(job) %></li>
                   <li><%= link_to 'edit', edit_job_path(job) %></li>
-                </ul>
-              </div>
-            </li>
-            <% end %>
-          </ul>
+                  </ul>
+                </div>
+              </li>
+              <% end %>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
 </div>
 </div>

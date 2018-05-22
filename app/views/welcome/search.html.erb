@@ -11,6 +11,7 @@
     <div class="job_bx">
     <div class="left_dis">
      <h1><label>Job Title :</label> <%= search.title%><br/></h1>
+    <p><label>Industry :</label> <%= search.industry.title.humanize %></p>
     <p><label>Job Description :</label> 
     <div id="less_<%= search.id%>"> 
       <%= search.description.truncate(300)%>

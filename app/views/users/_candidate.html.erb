@@ -1,0 +1,30 @@
+
+<div class="col-md-10" style="background-color:#f1f1f1;">
+  <div class="row">
+     <div class="col-md-12" style="border-bottom:1px solid #fff;">
+
+          <table class="table table-bordered">
+            <thead>
+              <th class="td_align">Vacancies Applied For</th>
+              <th class="td_align">Reviewed by Client</th>
+              <th class="td_align">Submitted to Client</th>
+              <th class="td_align">Interview Schedules</th>
+              <th class="td_align">Interview Status</th>
+              <th class="td_align">Job Status</th>
+            </thead>
+            <tbody>
+             <% @applied_jobs.each do |job| %>
+              <tr>
+                <td><%= link_to job.title, job_path(job) %></td>
+                <td><%=reviewed_by(@reviews,job)%></td>
+                <td><%=cv_download(@reviews,job)%></td>
+                <td><%=interviewed_by(job)%></td>
+                <td><%=interview_status(job)%></td>
+                <td><%= job.status_string %></td>
+              <tr>
+              <%end%>
+            </tbody>
+          </table>
+      </div>
+  </div>
+</div>

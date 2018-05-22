@@ -10,13 +10,11 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
+//= require new_ui/application
 //= require twitter/bootstrap
 //= require datetimepicker
 //= stub highcharts
 //= stub highcharts-more
-//= stub new_ui/application
 //= require_tree .
 
 
