@@ -161,7 +161,6 @@ module UsersHelper
 
 			html +=	"<ul class='d-block'>"
 			html +=	"<h3>Interview schedule &nbsp;&nbsp;&nbsp;"
-			html += link_to "create","javascript:void(0)"
 			html +=	"</h3>"
 			html +=	" <div class='stepwizard'><div class='stepwizard-row'>"
 			(1..3).each do |item|
