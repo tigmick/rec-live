@@ -25,7 +25,6 @@ module UsersHelper
 			html = ""
 			stages = job.interview.interview_schedules.where(user_id: current_user).map(&:stage).flatten
 	  	stages.each do |stage|
-	  		de
 	  		html += "<b> pre screen </b> round<br>"# if stage.one? 
     		html += "<b>"+stage.try(:ordinalize)+"</b> round<br>"# unless stage.zero?
 	  	end
@@ -137,9 +136,9 @@ module UsersHelper
 					stage = job.interview.interview_schedules.where(user_id: review.user_id).maximum("stage").to_i + 1
 					html +=	"<ul class='d-block'>"
 					html +=	"<h3>Interview schedule &nbsp;&nbsp;&nbsp;"
-					html += link_to "create","/interview_schedules/#{job.id}?user_id=#{review.user_id}"  if current_user.present?
+					html += link_to "Create","/interview_schedules/#{job.id}?user_id=#{review.user_id}"  if current_user.present?
 					html +=	"/" if job.interview.interview_schedules.where(user_id: review.user_id).present?
-					html += link_to "edit","/interview_schedules/#{job.id}?user_id=#{review.user_id}"  if job.interview.interview_schedules.where(user_id: review.user_id).present?
+					html += link_to "Edit","/interview_schedules/#{job.id}?user_id=#{review.user_id}"  if job.interview.interview_schedules.where(user_id: review.user_id).present?
 					html +=	"</h3>"
 
 					html +=	" <div class='stepwizard'><div class='stepwizard-row'>"
@@ -151,7 +150,7 @@ module UsersHelper
 			else
 				html +=	"<ul class='d-block'>"
 				html +=	"<h3>Interview schedule &nbsp;&nbsp;&nbsp;"
-				html += link_to "create","javascript:void(0)"
+				html += link_to "Create","javascript:void(0)"
 				html +=	"</h3>"
 				html +=	" <div class='stepwizard'><div class='stepwizard-row'>"
 				(1..3).each do |item|

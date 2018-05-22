@@ -68,6 +68,27 @@ class WelcomeController < ApplicationController
     end
    render layout: 'new_ui/application'
   end
+
+  def about
+    render layout: 'new_ui/application'
+  end
+
+  def contact
+    render layout: 'new_ui/application'
+  end
+
+  def platform
+    render layout: 'new_ui/application'
+  end
+
+  def privacy
+    render layout: 'new_ui/application'
+  end
+
+  def term_condition
+    render layout: 'new_ui/application'
+  end
+
 end
 
 
