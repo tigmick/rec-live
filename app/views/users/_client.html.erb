@@ -79,7 +79,7 @@
                                   </div>
                                   <div class="job-discription">
                                      <div class="hori-divi"></div>
-                                     <%= new_desing_add_comment(job, user.id)%>
+                                     <%= new_desing_meeting_with(job, user.id)%>
                                   </div>
                                </div>
                                <div class="box-footer">
@@ -102,17 +102,25 @@
 <div id="myModalMeeting" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
-    <%= render partial: "interview_schedules/meeting" %>
+      <%= form_tag meeting_interview_schedules_path do %>
+        <H3>CV Review Notes</H3>
+        <%= hidden_field_tag :review_id,'' %>
+        
+        <div class="form-group">
+          <%= label_tag :Review, nil, class: "col-md-3 control-label" %>
+          <div class="col-md-9">
+            <%= text_field_tag :meeting,nil, class: "result form-control"%>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-9">
+            <%= submit_tag "submit",class: "btn btn-primary"%>
+          </div>
+        </div>
+     <% end %>
   </div>
 </div>
 
-
-<div id="myModalComment" class="modal">
-<div class="modal-content">
-<span class="close">&times;</span>
-<%= render partial: "interview_schedules/client_comment" %>
-</div>
-</div>
 
 <script type="text/javascript">
 var modal = document.getElementById('myModalMeeting');
@@ -129,15 +137,6 @@ function meeting_with(id,result)
   $("#myModalMeeting").show()
   $("#review_id").val(id)
   $("#meeting").val(result)
-}
-
-function show(id,comment_id,result)
-{
-  $("#myModalComment").show()
-  // modal.style.display = "block";
-  $("#sched_id").val(id)
-  $("#comment_id").val(comment_id)
-  $(".result").val(result)
 }
 
 $(document).ready(function(){
