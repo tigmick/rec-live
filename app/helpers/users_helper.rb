@@ -172,23 +172,26 @@ module UsersHelper
 		html.html_safe
 	end
 
-	def new_desing_meeting_with(job, user_id)
+	def new_desing_add_comment(job, user_id)
     	html = "<h3>Interview notes &nbsp;&nbsp;"
-    	if job.interview.present?
-    		reviews = Review.where(job_id: job.id, user_id: user_id)
-    		#if reviews.present?
-	    		reviews.each do |review|
-	    			unless job.interview_schedules.where(user_id: user_id).empty? 
-						add = "<a href='javascript:void(0);' onclick='meeting_with(#{review.id},\"\")' id='myBtn'>Add</a>"
-						edit = "<a href='javascript:void(0);' onclick='meeting_with(#{review.id},\"#{review.meeting}\")' id='myBtn'>Edit</a>"
-						html += 	review.meeting.present? ? "#{add}/#{edit}" : "#{add}"
-						if review.meeting.present?
-							html +=	"<p title='#{review.meeting}'>#{review.meeting.truncate(70)}</p>"
+    	job = Job.find(job.id)
+    	user = User.find(user_id)
+    	schedules = job.interview.interview_schedules.where(user_id: user.id)
+
+    	if schedules.present?
+    		schedule  = schedules.last
+    		#reviews = Review.where(job_id: job.id, user_id: user_id)
+    		comment = ClientComment.where(interview_schedule_id: schedule.interview_id).order("updated_at").last
+    				if comment.present?
+						add = "<a href='javascript:void(0);' onclick='show(#{comment.id},\"\",\"\")' id='myBtn'>Add</a>"
+						edit = "<a href='javascript:void(0);' onclick='show(#{comment.id},#{comment.id},\"#{comment.comment}\")' id='myBtn'>Edit</a>"
+						html += 	comment.comment.present? ? "#{add}/#{edit}" : "#{add}"
+						if comment.comment.present?
+							html +=	"<p title='#{comment.comment}'>#{comment.comment.truncate(70)}</p>"
 						else
-							html +=	"<p title='No review'>No review</p>"
+							html +=	"<p title='No Comment'></p>"
 						end
-			end
-    		end
+					end	
 		end
 		html += "</h3>"
 		html.html_safe
