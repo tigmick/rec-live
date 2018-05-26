@@ -20,6 +20,8 @@ function token(){
 
 
 function saveComment(form){
+   $("#btnSaveComment").prop('disabled', true);
+   $("#btnSaveComment").text('Saving...');
     $.ajax({
            type: form.method,
            url: form.action,
@@ -39,10 +41,14 @@ function saveComment(form){
            		}else{
            			window.location.reload();
            		}
-               $("#myModalComment").hide();
+              $("#btnSaveComment").prop('disabled', false);
+              $("#myModalComment").hide();
+              $("#btnSaveComment").text('Submit');
            	}, 
       			error: function (xhr, ajaxOptions, thrownError){
-      				$("#myModalComment").hide();
+      				$("#btnSaveComment").prop('disabled', false);
+              $("#myModalComment").hide();
+              $("#btnSaveComment").text('Submit');
       			}
          });
 }
@@ -81,8 +87,7 @@ function setJobStatusUrl(obj){
 }
 
 
-function next_step(id,stage,interviewers_names,inviewer_dates)
-{
+function next_step(id,stage,interviewers_names,inviewer_dates){
  $("#myModal_n").show()
   $("#scheds_id").val(id)
   $("#stage").val(stage)
@@ -95,8 +100,7 @@ function next_step(id,stage,interviewers_names,inviewer_dates)
 }
 
 
-function show(id,comment_id,result)
-{
+function show(id,comment_id,result){
   $("#myModalComment").show()
   // modal.style.display = "block";
   $("#sched_id").val(id)
@@ -105,8 +109,7 @@ function show(id,comment_id,result)
 }
 
 
-function UpdateDate(dates)
-{
+function UpdateDate(dates){
   var count = 1
   for (var key in dates){
     val = count++
@@ -116,8 +119,7 @@ function UpdateDate(dates)
  
 }
 
-function meeting_with(id,result)
-{
+function meeting_with(id,result){
 
   $("#myModalMeeting").show()
   $("#review_id").val(id)
