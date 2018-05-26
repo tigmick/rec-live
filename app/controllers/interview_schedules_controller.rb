@@ -32,7 +32,7 @@ class InterviewSchedulesController < ApplicationController
 		@user = User.find(params[:user_id]) if current_user.client?
 		@schedules = @job.interview.interview_schedules.where(user_id: current_user.id) if current_user.candidate?
 		@schedules = @job.interview.interview_schedules.where(user_id: params[:user_id]) if current_user.client?
-	  @last_stage = @schedules.maximum('stage') if current_user.client?
+	    @last_stage = @schedules.maximum('stage') if current_user.client?
 	end
 
 	def candidate_feedback  
@@ -76,8 +76,16 @@ class InterviewSchedulesController < ApplicationController
 		 client_comment=ClientComment.find(params[:comment_id])
 		 client_comment.update(comment: params[:comment])
 		end
-		 redirect_to interview_schedule_path(schedule.interview.job) if current_user.candidate?
-		 redirect_to "/interview_schedules/#{schedule.interview.job.id}?user_id=#{schedule.user_id}" if current_user.client?
+
+	    respond_to do |format|
+	        format.html do 
+	        	redirect_to interview_schedule_path(schedule.interview.job) if current_user.candidate?
+		 		redirect_to "/interview_schedules/#{schedule.interview.job.id}?user_id=#{schedule.user_id}" if current_user.client?
+	        end
+	        format.json do 
+	        	render json: client_comment, status: :ok 
+	        end
+	    end
 	end
 
 	def destroy_comment

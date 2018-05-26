@@ -173,24 +173,47 @@ module UsersHelper
 	end
 
 	def new_desing_meeting_with(job, user_id)
-    	html = "<h3>Interview notes &nbsp;&nbsp;"
-    	if job.interview.present?
-    		reviews = Review.where(job_id: job.id, user_id: user_id)
-    		#if reviews.present?
-	    		reviews.each do |review|
-	    			unless job.interview_schedules.where(user_id: user_id).empty? 
-						add = "<a href='javascript:void(0);' onclick='meeting_with(#{review.id},\"\")' id='myBtn'>Add</a>"
-						edit = "<a href='javascript:void(0);' onclick='meeting_with(#{review.id},\"#{review.meeting}\")' id='myBtn'>Edit</a>"
-						html += 	review.meeting.present? ? "#{add}/#{edit}" : "#{add}"
-						if review.meeting.present?
-							html +=	"<p title='#{review.meeting}'>#{review.meeting.truncate(70)}</p>"
-						else
-							html +=	"<p title='No review'>No review</p>"
-						end
+  #   	html = "<h3>Interview notes &nbsp;&nbsp;"
+  #   	if job.interview.present?
+  #   		reviews = Review.where(job_id: job.id, user_id: user_id)
+  #   		#if reviews.present?
+	 #    		reviews.each do |review|
+	 #    			unless job.interview_schedules.where(user_id: user_id).empty? 
+		# 				add = "<a href='javascript:void(0);' onclick='meeting_with(#{review.id},\"\")' id='myBtn'>Add</a>"
+		# 				edit = "<a href='javascript:void(0);' onclick='meeting_with(#{review.id},\"#{review.meeting}\")' id='myBtn'>Edit</a>"
+		# 				html += 	review.meeting.present? ? "#{add}/#{edit}" : "#{add}"
+		# 				if review.meeting.present?
+		# 					html +=	"<p title='#{review.meeting}'>#{review.meeting.truncate(70)}</p>"
+		# 				else
+		# 					html +=	"<p title='No review'>No review</p>"
+		# 				end
+		# 	end
+  #   		end
+		# end
+		# html += "</h3>"
+		# html.html_safe
+		#debugger
+		
+		@job = Job.find(job.id)
+		@user = User.find(user_id) if current_user.client?
+		html = "<h3>Interview notes &nbsp;&nbsp;"
+		if @job.interview.present?
+			@schedule = @job.interview.interview_schedules.where(user_id: user_id).last if current_user.client?
+			#@last_stage = @schedules.maximum('stage') if current_user.client?
+			if current_user.client? && @schedule.present?
+				if @schedule.client_comments.present?
+					recent_comment = @schedule.client_comments.last
+					add = "<a href='javascript:void(0);' id='addLink' onclick='show(#{@schedule.id},\"\",\"\")' id='myBtn'>Add</a>"
+					edit = "<a href='javascript:void(0);' id='editLink' onclick='show(#{@schedule.id},#{recent_comment.id},\"#{recent_comment.comment}\")' id='myBtn'>Edit</a>"
+					html += 	@schedule.client_comments.present? ? "#{add}/#{edit}" : "#{add}"
+					html +=	"<p title='#{recent_comment.comment}' id='comment_#{recent_comment.interview_schedule_id}_#{recent_comment.id}'>#{recent_comment.comment.truncate(70)}</p>"
+				else
+					html += "<a href='javascript:void(0);' id='addLink' onclick='show(#{@schedule.id},\"\",\"\")' id='myBtn'>Add</a>"
+					html +=	"<p title='' id='comment_#{@schedule.id}'></p>"
+				end
 			end
-    		end
 		end
-		html += "</h3>"
+	    html += "</h3>"
 		html.html_safe
 	end
 

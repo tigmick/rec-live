@@ -51,7 +51,6 @@
                                           <h3 class="job-sub-heading">
                                             <a href="mailto:<%= user.email %>"><%= user.email %></a>
                                           </h3>
-                                           
                                           <% if resume.present? %>
                                            <div class="about-job">
                                               <%= link_to "#{resume.cv_file_name}".truncate(10).humanize, download_resume_path(resume),  target: "_blank", style: "color:#203CC4", title: "#{resume.cv_file_name}" %>
@@ -122,6 +121,28 @@
 </div>
 
 
+<div id="myModalComment" class="modal">
+<div class="modal-content">
+<span class="close">&times;</span>
+    <%= form_tag client_comment_interview_schedules_path, id:"commentForm" do %>
+      <H3>Client Comments</H3>
+      <%= hidden_field_tag :sched_id,'' %>
+      <%= hidden_field_tag :comment_id,'' %>
+      <div class="form-group">
+        <%= label_tag :client_comment, nil, class: "col-md-3 control-label" %>
+        <div class="col-md-9">
+          <%= text_field_tag :comment,nil, class: "result form-control"%>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-9">
+          <%= button_tag "Submit", type:"button", class: "btn btn-primary", onclick:"saveComment(this.form);" %>
+        </div>
+      </div>
+    <% end %>
+</div>
+</div>
+
 <script type="text/javascript">
 var modal = document.getElementById('myModalMeeting');
 var btn = document.getElementById("myBtn");
@@ -130,14 +151,6 @@ var span = document.getElementsByClassName("close")[0];
 $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();   
 });
-
-function meeting_with(id,result)
-{
-
-  $("#myModalMeeting").show()
-  $("#review_id").val(id)
-  $("#meeting").val(result)
-}
 
 $(document).ready(function(){
   $('.close').click(function(){

@@ -18,6 +18,35 @@ function token(){
   return $("meta[name='csrf-token']").attr("content");
 }
 
+
+function saveComment(form){
+    $.ajax({
+           type: form.method,
+           url: form.action,
+           data: $("#commentForm").serialize(),
+           dataType: "json",
+           success: function(data, textStatus, xhr) {
+           		if(textStatus == "success"){
+           			action = "show('"+data.interview_schedule_id+"','"+data.interview_schedule_id+"','"+data.comment+"')";
+           			if ($("#comment_"+data.interview_schedule_id+"_"+data.id).length) {
+           				/*--------- Edit Comment ---------*/
+           				$("#comment_"+data.interview_schedule_id+"_"+data.id).text(data.comment);
+           				$("#comment_"+data.interview_schedule_id+"_"+data.id).siblings("#editLink").attr('onclick', action);
+           			}else{
+           				/*--------- New Comment ---------*/
+           				window.location.reload();	
+           			}
+           		}else{
+           			window.location.reload();
+           		}
+               $("#myModalComment").hide();
+           	}, 
+      			error: function (xhr, ajaxOptions, thrownError){
+      				$("#myModalComment").hide();
+      			}
+         });
+}
+
 function updateTheJob(e){
 	$.ajax({
         type: "post",
@@ -49,4 +78,48 @@ function setJobStatusUrl(obj){
 		alertify.warning(obj.title +" "+ obj.status + " " + "Successfully!");
 	}
 	$("a#options").click();
+}
+
+
+function next_step(id,stage,interviewers_names,inviewer_dates)
+{
+ $("#myModal_n").show()
+  $("#scheds_id").val(id)
+  $("#stage").val(stage)
+  $("#interviewer_names").val(interviewers_names)
+  $("#add_interview_dates").attr("data-id",$(".avail_date").length)
+  if(Object.keys(inviewer_dates).length > 1)
+  {
+    UpdateDate(inviewer_dates)
+  }
+}
+
+
+function show(id,comment_id,result)
+{
+  $("#myModalComment").show()
+  // modal.style.display = "block";
+  $("#sched_id").val(id)
+  $("#comment_id").val(comment_id)
+  $(".result").val(result)
+}
+
+
+function UpdateDate(dates)
+{
+  var count = 1
+  for (var key in dates){
+    val = count++
+    DateSetup(dates,key,val)
+  $("#add_interview_dates").attr("data-id",val)
+  }
+ 
+}
+
+function meeting_with(id,result)
+{
+
+  $("#myModalMeeting").show()
+  $("#review_id").val(id)
+  $("#meeting").val(result)
 }
