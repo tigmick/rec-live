@@ -2,7 +2,7 @@
 <% job_counts = [] %>
 <% @industries.each do |industry| %>
   <% count = 0 %>
-  <% industry.jobs.each do |job| %>
+  <% industry.jobs.where(user_id: current_user.id).each do |job| %>
     <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
     <% users.each do |user| %>
     <% if user.present?%>
