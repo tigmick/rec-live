@@ -1,35 +1,24 @@
-<div class="banner_cov">
- <%= image_tag("banner_inn.jpg") %></div>  
- <div class="container">
- <div class="row">
-  <div class="col-md-10 sign_pop col-md-offset-1">
-  <%= form_for(@resume, :html => { :multipart => true }) do |f| %>
-  <% if @resume.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@resume.errors.count, "error") %> prohibited this resume from being saved:</h2>
-
-      <ul>
+<%= form_for(@resume, :html => { :multipart => true }) do |f| %>
+<% if @resume.errors.any? %>
+<div id="error_explanation">
+   <h2><%= pluralize(@resume.errors.count, "error") %> prohibited this resume from being saved:</h2>
+   <ul>
       <% @resume.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <li><%= message %></li>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :cv, "CV" %><br>
-    <%= f.file_field :cv %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+   </ul>
+</div>
 <% end %>
-</div></div></div>
+<div class="form-group title">
+   <label>Title</label>
+   <%= f.text_field :title, class:"form-control", placeholder:"title" %>
+</div>
+<div class="form-group">
+   <%= f.text_area :description, class:"form-control", rows:"5", placeholder:"Description" %>
+</div>
+<div class="box__input">
+   <%= f.file_field :cv, class:"box__file" %>
+   <label for="file"><%= image_tag "/assets/new_ui/Shape.png", class:"img-fluid", alt:"drag" %>&nbsp;&nbsp;Browse</label>
+</div>
+<%= f.submit  class:"btn"%>
+<% end %>

@@ -21,6 +21,7 @@ class ResumesController < ApplicationController
   # GET /resumes/new
   def new
     @resume = Resume.new
+    render layout: 'new_ui/application'
   end
 
   # GET /resumes/1/edit

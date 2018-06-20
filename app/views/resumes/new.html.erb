@@ -1,10 +1,13 @@
- <div class="banner_cov">
- <%= image_tag("banner_inn.jpg") %></div>  
- <div class="container">
-  <div class="col-md-6 sign_pop col-md-offset-3">
- <h1>New Resume</h1>
 
-<%= render 'form' %>
-<div class="text-center">
-<%= link_to 'Back', resumes_path %>
-</div></div></div>
+<div class="container-fluid">
+<div class="row">
+	<%= render 'shared/navigation' %>
+	<div class="col-md-10" style="background-color:#f1f1f1;">
+		<div class="create-job">
+			<h2>new resume</h2>
+			<%= render 'form' %>
+		</div>
+	</div>
+	</div>
+</div>
+

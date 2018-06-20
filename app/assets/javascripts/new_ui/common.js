@@ -98,7 +98,6 @@ $(document).ready(function(){
 
 
 $("#navbar-collapse-btn").click(function(){
-  console.log("Check.............");
     $(".panel-label, #company-logo").toggle();
     
     if($("#company-logo").css('display') == "none"){
