@@ -96,3 +96,23 @@ $(document).ready(function(){
 
     });
 
+
+$("#navbar-collapse-btn").click(function(){
+  console.log("Check.............");
+    $(".panel-label, #company-logo").toggle();
+    
+    if($("#company-logo").css('display') == "none"){
+      $('.navbar-brand').addClass('mobile-collaps');
+    }else{
+      $('.navbar-brand').removeClass('mobile-collaps');
+    }
+    
+    if ($("#collaps-menu").hasClass('col-md-2')) {
+      $("#collaps-menu").removeClass('col-md-2').addClass('col-md-1');
+      $("#content-container").removeClass('col-md-10').addClass('col-md-11');
+    }else{
+      $("#collaps-menu").addClass('col-md-2').removeClass('col-md-1');
+      $("#content-container").removeClass('col-md-11').addClass('col-md-10');
+    }
+   
+})
