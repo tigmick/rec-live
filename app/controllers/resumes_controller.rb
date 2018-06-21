@@ -27,6 +27,7 @@ class ResumesController < ApplicationController
 
   # GET /resumes/1/edit
   def edit
+    render layout: 'new_ui/application'
   end
 
   # POST /resumes
@@ -49,7 +50,7 @@ class ResumesController < ApplicationController
   def update
     respond_to do |format|
       if @resume.update(resume_params)
-        format.html { redirect_to @resume, notice: 'Resume was successfully updated.' }
+        format.html { redirect_to resumes_path, notice: 'Resume was successfully updated.' }
         format.json { render :show, status: :ok, location: @resume }
       else
         format.html { render :edit }
