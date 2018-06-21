@@ -24,7 +24,7 @@
         </li>
         <% if user_signed_in? && current_user.candidate? %>
           
-          <li  class="<%= (controller_name == 'reports' && action_name == 'index') ? 'active' : '' %>">
+          <li  class="<%= (controller_name == 'resumes' && action_name == 'new') ? 'active' : '' %>">
           <%= link_to(new_resume_path) do %>
               <svg width="19" height="16" viewBox="0 0 19 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g id="Canvas" fill="none">
@@ -39,7 +39,7 @@
               <span class="panel-label">Upload CV</span>
           <% end %>
         </li>
-        <li  class="<%= controller_name == 'jobs' &&action_name == 'new' ? 'active' : '' %>">
+        <li  class="<%= controller_name == 'resumes' &&action_name == 'index' ? 'active' : '' %>">
           <%= link_to(resumes_path) do %>
               <svg width="19" height="17" viewBox="0 0 19 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g id="Canvas" fill="none">

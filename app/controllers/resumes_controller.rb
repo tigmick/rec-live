@@ -11,6 +11,7 @@ class ResumesController < ApplicationController
       @resumes = User.find(params[:user_id]).resumes
       @job = Job.find(params[:job_id])
     end
+    render layout: 'new_ui/application'
   end
 
   # GET /resumes/1

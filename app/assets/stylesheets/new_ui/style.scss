@@ -965,3 +965,109 @@ p{
 .form-control:focus {
     color: #CDD0D4;
 }
+
+/*********************** New Style  *********************************/
+
+
+
+.job-right .heading{
+    line-height: normal;
+    font-size: 24px;
+    font-family: PublicaSans-Medium;
+    color:#090909;
+    letter-spacing: -0.348333px;
+    margin-bottom:40px;
+}
+.job-right{padding:50px;}
+.box-job ul{
+    padding: 0;
+    display:block;
+}
+
+.box-job ul li:nth-child(4n){margin:0px;}
+h2.job-heading{
+    line-height: normal;
+    font-family: ZPublicaSans;
+    color:#090909;
+    margin-bottom:5px;
+    font-size: 15px;
+    letter-spacing: -0.217708px;
+}
+h3.job-sub-heading{
+    line-height: normal;
+    font-family: PublicaSans-Light;
+    color:#090909;
+    margin:0px;
+    font-size: 12px;
+    letter-spacing: -0.174167px;
+}
+.job-option ul{
+    display:inline-block;
+}
+.job-option ul li{
+    min-width: auto;
+    height:4px;
+    display: block;
+    margin-bottom: 4px !important;
+    width: 4px;
+    background-color: #203CC4;
+    border-radius: 20px;
+    margin: auto;
+    transition: all 0.5s;
+}
+.equal .about-job{
+        color: #203CC4 !important;
+    border: 1px solid #203CC4;
+}
+.equal .job-discription p{font-size:15px;}
+.job-option .ver-dot-toggle{
+    display: block;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    transition: all 0.5s;
+    margin: auto;
+    border-radius: 20px !important;
+}
+.job-option a:hover{background-color: #203CC4;transition: all 0.5s;}
+.job-option a:hover ul li{background-color: #fff;transition: all 0.5s;}
+.job-option{
+    display: inline-block;
+}
+.box-header{
+    display: inline-block;
+    /*width: 80%;*/
+}
+.box-header .about-job.open{background-color:#7ed321;}
+.box-header .about-job.clos{background-color:#db254a;}
+.box-header .about-job{
+    line-height: normal;
+    font-size: 10px;
+    text-align: center;
+    font-family: PublicaSans-Medium;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-block;
+}
+.box-heading, .job-discription{padding:15px 15px 0px;}
+.hori-divi{border:1px solid #f5f5f5;margin-bottom:15px;}
+.job-discription h3{
+    line-height: normal;
+    font-size: 12px;
+    font-family: PublicaSans-Light;
+    color:#090909;
+    text-transform:capitalize;
+    letter-spacing: -0.174167px;
+}
+.job-discription p{
+    line-height: 15px;
+    font-size: 12px;
+    letter-spacing: -0.174167px;
+    color: #B2B6BA;
+    font-family: PublicaSans-Light;
+}
+
+.box-job ul{display:block;}
+
+/*********************** End of New style *******************************/

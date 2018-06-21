@@ -12,7 +12,7 @@
         <div class=" container navigation">
         <div class="collapse navbar-collapse row" id="navbarSupportedContent">
           <%= form_tag search_candidate_path, :method=> :post, class: 'form-inline loc-search-form col-md-10' do %>
-            <div class="col-md-3">
+             <div class="col-md-1">
               <div class="form-group">
                 <div id="navbar-collapse-btn" style="font-size:30px;cursor:pointer">
                    <ul class="custom-togg">
@@ -21,14 +21,18 @@
                       <li></li>
                    </ul>
                 </div>
-                <%= select_tag "location_search", options_from_collection_for_select(User.all, "current_location", "current_location"),class: 'form-control', id: 'sel1', :prompt => 'Select Location' %>
               </div>
             </div>
-            <div class="col-md-9">
-              <div class="form-group search search-custom">
-                <%= text_field_tag :search_candidate, '', class: 'form-control', placeholder: 'Search Candidate', aria: { label: 'Search Candidate' } %>
+            <div class="col-md-11">
+              <div class="form-group search">
+                <div class="col-md-4">
+                <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title"),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
+              </div>
+              <div class="col-md-7">
+                <%= text_field_tag :search, '', class: 'form-control', placeholder: 'Search Job', aria: { label: 'Search' } %>
                 <%= button_tag class: 'btn srch-btn' do %>
                   <i class="fas fa-search"></i>
+                </div>
                 <% end %>
               </div>
             </div>
@@ -86,7 +90,7 @@
       <div class=" container navigation">
         <div class="collapse navbar-collapse row" id="navbarSupportedContent">
           <%= form_tag search_candidate_path, :method=> :post, class: 'form-inline loc-search-form col-md-10' do %>
-            <div class="col-md-3">
+             <div class="col-md-1">
               <div class="form-group">
                 <div id="navbar-collapse-btn" style="font-size:30px;cursor:pointer">
                    <ul class="custom-togg">
@@ -95,14 +99,18 @@
                       <li></li>
                    </ul>
                 </div>
-                <%= select_tag "location_search", options_from_collection_for_select(User.all, "current_location", "current_location"),class: 'form-control', id: 'sel1', :prompt => 'Select Location' %>
               </div>
             </div>
-            <div class="col-md-9">
-              <div class="form-group search search-custom">
-                <%= text_field_tag :search_candidate, '', class: 'form-control', placeholder: 'Search Candidate', aria: { label: 'Search Candidate' } %>
+            <div class="col-md-11">
+              <div class="form-group search">
+                <div class="col-md-4">
+                <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title"),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
+              </div>
+              <div class="col-md-7">
+                <%= text_field_tag :search, '', class: 'form-control', placeholder: 'Search Job', aria: { label: 'Search' } %>
                 <%= button_tag class: 'btn srch-btn' do %>
                   <i class="fas fa-search"></i>
+                </div>
                 <% end %>
               </div>
             </div>
@@ -162,7 +170,7 @@
         <div class=" container navigation">
         <div class="collapse navbar-collapse row" id="navbarSupportedContent">
           <%= form_tag welcome_search_path, :method=> :post, class: 'form-inline loc-search-form col-md-10' do %>
-            <div class="col-md-3">
+            <div class="col-md-1">
               <div class="form-group">
                 <div id="navbar-collapse-btn" style="font-size:30px;cursor:pointer">
                    <ul class="custom-togg">
@@ -171,14 +179,18 @@
                       <li></li>
                    </ul>
                 </div>
-                <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title"),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
               </div>
             </div>
-            <div class="col-md-9">
-              <div class="form-group search search-custom">
+            <div class="col-md-11">
+              <div class="form-group search">
+                <div class="col-md-4">
+                <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title"),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
+              </div>
+              <div class="col-md-7">
                 <%= text_field_tag :search, '', class: 'form-control', placeholder: 'Search Job', aria: { label: 'Search' } %>
                 <%= button_tag class: 'btn srch-btn' do %>
                   <i class="fas fa-search"></i>
+                </div>
                 <% end %>
               </div>
             </div>
@@ -235,7 +247,7 @@
       <div class=" container navigation">
         <div class="collapse navbar-collapse row" id="navbarSupportedContent">
           <%= form_tag welcome_search_path, :method=> :post, class: 'form-inline loc-search-form col-md-10' do %>
-            <div class="col-md-3">
+            <div class="col-md-1">
               <div class="form-group">
                 <div id="navbar-collapse-btn" style="font-size:30px;cursor:pointer">
                    <ul class="custom-togg">
@@ -244,14 +256,18 @@
                       <li></li>
                    </ul>
                 </div>
-                <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title"),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
               </div>
             </div>
-            <div class="col-md-9">
-              <div class="form-group search search-custom">
+            <div class="col-md-11">
+              <div class="form-group search">
+                <div class="col-md-4">
+                  <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title"),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
+                </div>
+                <div class="col-md-7">
                 <%= text_field_tag :search, '', class: 'form-control', placeholder: 'Search Job', aria: { label: 'Search' } %>
                 <%= button_tag class: 'btn srch-btn' do %>
                   <i class="fas fa-search"></i>
+                </div>
                 <% end %>
               </div>
             </div>

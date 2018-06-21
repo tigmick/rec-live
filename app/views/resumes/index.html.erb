@@ -1,32 +1,65 @@
-<div class="banner_cov">
- <%= image_tag("banner_inn.jpg") %></div>  
- <div class="container">
- <div class="row">
-  <div class="col-md-10 sign_pop col-md-offset-1">
-  <p id="notice"><%= notice %></p>
+<div class="container-fluid">
+<div class="row">
+  <%= render 'shared/navigation' %>
+  <div class="col-md-10" style="background-color:#f1f1f1;">
 
-<h1> List of Candidate Resumes</h1>
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @resumes.each do |resume| %>
-      <tr>
-        <td><%= resume.title %></td>
-        <td><%= resume.description %></td>
-        <%= resume_links resume %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
 
-<%= link_to 'New Resume', new_resume_path unless current_user.client? %>
-</div></div></div>
+
+
+
+
+
+
+    <div class="job-right resume-list">
+          <h2 class="heading">List of Candidate Resumes</h2>
+      <div class="box-job">
+        <ul>
+          <% @resumes.each do |resume| %>
+          <li>
+                      <div class="equal">
+                        <div class="box-heading">
+                          <div class="box-header">
+                            <div class="name"> <%= resume.user.first_name[0] %><% if resume.user.last_name %><%= resume.user.last_name[0] %><% end %></div>
+                             <div class="detail"><h2 class="job-heading">Ashish Khumar</h2>
+                            <h3 class="job-sub-heading"><a href="mailto:ashish@khumar.com">ashish@khumar.com</a></h3>
+                            <div class="about-job"><%= link_to "#{resume.cv_file_name}".truncate(10).humanize, download_resume_path(resume),  target: "_blank", style: "color:#203CC4", title: "#{resume.cv_file_name}" %> </div>
+                          </div></div>
+                          <div class="job-option text-center float-right">
+                            <a href="#" id="options" class="ver-dot-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul>
+                              <li></li>
+                              <li></li>
+                              <li></li>
+                            </ul></a>
+                            <div class="dropdown-menu" aria-labelledby="options" x-placement="bottom-start" style="position: absolute; transform: translate3d(245px, 164px, 0px); top: 0px; left: 0px; will-change: transform;">
+                              <a class="dropdown-item" href="#">destroy</a>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="job-discription">
+                          <h3>description</h3>
+                          <p><%= resume.description.truncate(100) %></p>
+                        </div>
+                      </div>
+                      <div class="box-footer text-center">
+                        <a href="<%= edit_resume_path(resume) %>">Edit</a>
+                      </div>
+                    </li>
+
+                    <% end %>
+        </ul>
+        
+      
+    </div>
+  </div>
+
+
+
+
+
+
+  </div>
+  </div>
+</div>
+
