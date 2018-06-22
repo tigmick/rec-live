@@ -3,6 +3,8 @@ class ResumesController < ApplicationController
   before_action :set_resume, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
+  layout "new_ui/application", only: [:index, :new, :edit]
+
   # GET /resumes
   # GET /resumes.json
   def index
@@ -11,7 +13,6 @@ class ResumesController < ApplicationController
       @resumes = User.find(params[:user_id]).resumes
       @job = Job.find(params[:job_id])
     end
-    render layout: 'new_ui/application'
   end
 
   # GET /resumes/1
@@ -22,12 +23,10 @@ class ResumesController < ApplicationController
   # GET /resumes/new
   def new
     @resume = Resume.new
-    render layout: 'new_ui/application'
   end
 
   # GET /resumes/1/edit
   def edit
-    render layout: 'new_ui/application'
   end
 
   # POST /resumes

@@ -6,6 +6,7 @@
             <h2 class="heading">List of Candidate Resumes</h2>
             <div class="box-job">
                <ul>
+                  <% if @resumes.present? %>
                   <% @resumes.each do |resume| %>
                   <li>
                      <div class="equal">
@@ -40,6 +41,9 @@
                         <a href="<%= edit_resume_path(resume) %>">Edit</a>
                      </div>
                   </li>
+                  <% end %>
+                  <% else%>
+                  <li> No Resume uploaded yet.</li>
                   <% end %>
                </ul>
             </div>
