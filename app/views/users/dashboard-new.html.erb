@@ -78,7 +78,7 @@
          </ul> -->
       </div>
       <% if current_user.candidate? %>
-      <div class="col-md-10" style="background-color:#f1f1f1;">
+      <div class="col-md-10" id="content-container" style="background-color:#f1f1f1;">
          <div class="row">
             <div class="col-md-12" style="border-bottom:1px solid #fff;">
                <div class="box-job box-job-dashboard candidate-dashboard-custom">
@@ -125,7 +125,7 @@
    <% end %>
    <% job_counts << count if count > 0 %>
    <% end %>
-   <div class="col-md-10" style="background-color:#f1f1f1;">
+   <div class="col-md-10" id="content-container" style="background-color:#f1f1f1;">
       <% industries.each_with_index do |industry, i| %>
       <% if industry.jobs.count > 0 %>
       <div class="row">

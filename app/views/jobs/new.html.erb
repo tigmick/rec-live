@@ -1,7 +1,7 @@
 <div class="container-fluid">
 <div class="row">
 <%= render 'shared/navigation' %>
-<div class="col-md-10" style="background-color:#f1f1f1;">
+<div class="col-md-10" id="content-container" style="background-color:#f1f1f1;">
    <div class="create-job">
       <h2>new job</h2>
       <%= form_for(@job, :html => { :multipart => true }) do |f| %>
