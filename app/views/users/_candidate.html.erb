@@ -1,30 +1,63 @@
 
 <div class="col-md-10" style="background-color:#f1f1f1;">
-  <div class="row">
-     <div class="col-md-12" style="border-bottom:1px solid #fff;">
-
-          <table class="table table-bordered">
-            <thead>
-              <th class="td_align">Vacancies Applied For</th>
-              <th class="td_align">Reviewed by Client</th>
-              <th class="td_align">Submitted to Client</th>
-              <th class="td_align">Interview Schedules</th>
-              <th class="td_align">Interview Status</th>
-              <th class="td_align">Job Status</th>
-            </thead>
-            <tbody>
-             <% @applied_jobs.each do |job| %>
-              <tr>
-                <td><%= link_to job.title, job_path(job) %></td>
-                <td><%=reviewed_by(@reviews,job)%></td>
-                <td><%=cv_download(@reviews,job)%></td>
-                <td><%=interviewed_by(job)%></td>
-                <td><%=interview_status(job)%></td>
-                <td><%= job.status_string %></td>
-              <tr>
-              <%end%>
-            </tbody>
-          </table>
+   <div class="job-right">
+      <h2 class="heading"><%= @applied_jobs.present? ? "Jobs you've applied for (#{@applied_jobs.size})" : "" %></h2>
+      <div class="box-job">
+         <ul>
+          <% @applied_jobs.each do |job| %>
+            <li>
+               <div class="equal-height" style="height: 314px;">
+                  <div class="box-heading">
+                     <div class="box-header">
+                        <h2 class="job-heading">Java developer</h2>
+                        <h3 class="job-sub-heading">Application Development</h3>
+                        <div class="about-job open">open</div>
+                     </div>
+                  </div>
+                  <div class="job-discription">
+                     <h3>Interview notes &nbsp;&nbsp;<a href="#" data-toggle="modal" data-target="#interview-round">Edit</a></h3>
+                     <p>Candidate has a strong technical background working on similar systems and a good track record. Seems to develop with the…</p>
+                     <div class="job-status">
+                        <h3>status</h3>
+                        <h3>Reviewed by client?</h3>
+                        <p>Yes. 21/02/2018 12:32 am</p>
+                        <h3>Submitted to client?</h3>
+                        <p>Yes. 21/02/2018 12:32 am</p>
+                     </div>
+                  </div>
+               </div>
+               <div class="box-footer">
+                  <ul class="d-block">
+                     <h3>Interview schedule &nbsp;&nbsp;&nbsp;<a href="#" data-toggle="modal" data-target="#schedule" style="display: inline-block;">view</a></h3>
+                     <div class="stepwizard">
+                        <div class="stepwizard-row">
+                           <div class="stepwizard-step">
+                              <button type="button" class="btn btn-default btn-circle"><i class="fas fa-check"></i></button>
+                              <p>1st</p>
+                           </div>
+                           <div class="stepwizard-step">
+                              <button type="button" class="btn btn-circle"><i class="fas fa-check"></i></button>
+                              <p>2nd</p>
+                           </div>
+                           <div class="stepwizard-step">
+                              <button type="button" class="btn btn-default btn-circle" disabled="disabled"></button>
+                              <p>3rd</p>
+                           </div>
+                           <div class="stepwizard-step">
+                              <button type="button" class="btn btn-default btn-circle" disabled="disabled"></button>
+                              <p>4th</p>
+                           </div>
+                           <div class="stepwizard-step">
+                              <button type="button" class="btn btn-default btn-circle" disabled="disabled"></button>
+                              <p>5th</p>
+                           </div>
+                        </div>
+                     </div>
+                  </ul>
+               </div>
+            </li>
+          <% end %>
+         </ul>
       </div>
-  </div>
+   </div>
 </div>

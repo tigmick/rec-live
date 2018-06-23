@@ -2,17 +2,17 @@ class UsersController < ApplicationController
   include UsersHelper
 	before_action :check_reviews, only: :user_profile  
   def dashboard
+    @industries = Industry.all
+    @user = current_user
     if current_user.client?
       job_ids = AssignJob.all.collect{|k| k.user_ids.include?(current_user.id) ? k.job_id : []}.flatten
-      @user = current_user
       @jobs = current_user.jobs.order('created_at desc')
       @jobs << Job.where('id IN (?)',job_ids)
       @jobs = @jobs.flatten
-      @industries = Industry.all
     else
-      @user = current_user
-      @applied_jobs = current_user.user_job.present? ? Job.where(id: current_user.user_job.job_ids) : [] 
-      @reviews = Review.joins(:job).where(user_id: current_user.id).select("id","job_id","jobs.user_id","created_at","cv_download_date")
+      @applied_jobs = @user.candidate_jobs
+      #@applied_jobs = current_user.user_job.present? ? Job.where(id: current_user.user_job.job_ids) : [] 
+      @reviews = Review.joins(:job).where(user_id: @user.id).select("id","job_id","jobs.user_id","created_at","cv_download_date")
     end
     render layout: 'new_ui/application'
   end
