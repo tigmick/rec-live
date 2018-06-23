@@ -1,7 +1,7 @@
 <% unless @error_msg.present? %>
 	$("#apply_<%=@job_id%>").attr("href","#")
 	$("#apply_<%=@job_id%>").text("Applied")
-	$("#apply_<%=@job_id%>").addClass('btn btn-danger')
+	$("#apply_<%=@job_id%>").removeClass('not-applied').addClass('applied')
 <%else%>
-	$("#error-msg").html("<%=@error_msg%>")
+	$("#error-msg").html("<%=@error_msg%>").show();
 <%end%>

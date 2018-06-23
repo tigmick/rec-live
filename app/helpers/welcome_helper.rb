@@ -6,9 +6,9 @@ module WelcomeHelper
   def job_apply_link(search)
   	unless current_user.client?
 			unless job_applied?(search.id)
-			  link_to "Apply",{:controller => "user_jobs", :action => "create", :user_id => current_user.id , job_id: search.id }, id:"apply_#{search.id}",  class: "search_btn btn btn-primary",method: :post, remote: true 
+			  link_to "Apply",{:controller => "user_jobs", :action => "create", :user_id => current_user.id , job_id: search.id }, id:"apply_#{search.id}",  class: "job-search not-applied",method: :post, remote: true 
 		  else
-		  	link_to "Applied" ,"#" ,class: 'btn btn-danger'
+		  	link_to "Applied" ,"#" ,class: 'job-search applied'
 		  end
 		end
 	end
