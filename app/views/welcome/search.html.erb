@@ -1,69 +1,69 @@
- <!--<div class="banner_cov">
- <%= image_tag("banner_inn.jpg") %></div>  -->
- <div class="container">
- <div class="row">
-<% if current_user.present? %>
-  <p id="error-msg" class="alert alert-danger"></p>
-<% end %>
-  <div class="sign_pop col-md-offset-3">
-<% if !@search.blank? %> 
- <% @search.each do |search| %>
-    <div class="job_bx">
-    <div class="left_dis">
-     <h1><label>Job Title :</label> <%= search.title%><br/></h1>
-    <p><label>Industry :</label> <%= "#{search.industry.title || '' }".humanize if search.industry.present? %></p>
-    <p><label>Job Description :</label> 
-    <div id="less_<%= search.id%>"> 
-      <%= search.description.truncate(300)%>
-    </div>
-    <div id="more_<%= search.id%>" style="display:none;">
-      <%= search.description %>
-    </div>
-    <label>Job Document :</label> <%= link_to search.document_file_name, download_job_path(search),  target: "_blank" if search.document.present? %> <br/>
-    </p>
-    <a href="javascript:void(0)" id="view_details" data-id="<%= search.id%>"class="view_details">View Details</a> 
-
-    </div>
-    <div class="apply_dis">
-    <%= job_apply_link(search) if user_signed_in? && search.open? %>
-    </div>
-
-    <div class="clearfix"></div>
-    </div>
-  <% end %>
-<% else %>
-<h5 style="color:#4286F5;font-weight:bold;">No Job listed in this Category Yet.</h5>
-<% end %>
-  <%= will_paginate @search , renderer: BootstrapPagination::Rails%>
+<div class="col-md-12" style="background-color:#f1f1f1;">
+   <div class="row">
+      <% if current_user.present? %>
+      <p id="error-msg" class="alert alert-danger"></p>
+      <% end %>
+      <div class="col-md-12" style="border-bottom:1px solid #fff;">
+         <div class="job-right without-logged">
+            <div class="box-job">
+               <% if !@search.blank? %> 
+               <ul>
+                  <% @search.each do |search| %>
+                  <li>
+                     <div class="equal-height" style="height: 175px;">
+                        <div class="box-heading">
+                           <div class="box-header">
+                              <div class="detail">
+                                 <h2 class="job-heading" id="job-title-<%= search.id %>"> <%= search.title%></h2>
+                                 <% if search.document.present? %>
+                                 <div class="about-job"><%= link_to search.document_file_name, download_job_path(search),  target: "_blank" %> </div>
+                                 <% end %>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="job-discription">
+                           <h3>job description</h3>
+                           <p ><%= search.description.truncate(50)%></p>
+                           <input type="hidden" id="job-<%= search.id %>-industry" value="<%= search.industry.title || '' %>">
+                           <input type="hidden" id="job-discription-<%= search.id %>" value="<%= search.description || '' %>">
+                        </div>
+                     </div>
+                     <div class="box-footer text-center">
+                        <a href="javascript:void(0)" data-toggle="modal" data-target="#jobDetialsModel" onclick="showJobDetails(<%= search.id %>)">view-detail</a>
+                     </div>
+                  </li>
+                  <% end %>
+               </ul>
+               <% else %>
+               <h5 style="color:#4286F5;font-weight:bold;">No Job listed in this Category Yet.</h5>
+               <% end %>
+            </div>
+         </div>
+         <nav aria-label="Page navigation">
+            <%= will_paginate @search , renderer: BootstrapPagination::Rails%>
+         </nav>
+      </div>
+   </div>
 </div>
+<!-- The Modal 2 -->
+<div class="modal fade popup-3 popup-1" id="jobDetialsModel">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <!-- Modal Header -->
+         <div class="modal-header">
+            <a href="#" class="close" data-dismiss="modal">close</a>
+         </div>
+         <!-- Modal body -->
+         <div class="modal-body">
+            <div class="reslt-model">
+               <h3 >Job Title</h3>
+               <p id="job-title"></p>
+               <h3 >Industry</h3>
+               <p id="job-industry"></p>
+               <h3 >Job Description</h3>
+               <p id="job-description">..</p>
+            </div>
+         </div>
+      </div>
+   </div>
 </div>
-</div>
-
-<script>
-$(document).ready(function(){
-  $(".view_details").click(function(){
-    if($(this).text() =="View Details")
-    {
-    var dataid = $(this).attr("data-id")
-    $("#less_"+dataid).hide()
-    $("#more_"+dataid).show()
-    $(this).text("Less Details")
-    }else{
-    	var dataid = $(this).attr("data-id")
-    $("#less_"+dataid).show()
-    $("#more_"+dataid).hide()
-    $(this).text("View Details")
-    }
-    
-  })
-})
-
-</script>
-<style type="text/css">
-  #view_details{
-    color: #428bca !important;
-  }
-  .left_dis > a {
-    color: #4286f5;
-  }
-</style>

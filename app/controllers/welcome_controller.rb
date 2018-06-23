@@ -1,25 +1,21 @@
 class WelcomeController < ApplicationController
 	include WelcomeHelper
+  layout "new_ui/application"#, only: [:index, :search, :search_candidate]
+  
   def index
-    render layout: 'new_ui/application'
   end
 
   def search
     if params[:search].present? && params[:category].present?
       @search = Job.where("title LIKE ? AND industry_id = ? and status = ?", "%#{params[:search]}%","#{params[:category]}", 0)
-      @search = @search.paginate(:page => params[:page], :per_page => 6).order(created_at: :desc)
     elsif params[:search].present? && !params[:category].present?
       @search = Job.where("title LIKE ? and status = ?", "%#{params[:search]}%", 0)
-      @search = @search.paginate(:page => params[:page], :per_page => 6).order(created_at: :desc)
     elsif !params[:search].present? && params[:category].present?
       @search = Job.where("industry_id = ? and status = ?","#{params[:category]}", 0)
-      @search = @search.paginate(:page => params[:page], :per_page => 6).order(created_at: :desc)
     else
-      @search = Job.where(status: 0).paginate(:page => params[:page], :per_page => 6).order(created_at: :desc)
+      @search = Job.where(status: 0).paginate(:page => params[:page], :per_page => 1).order(created_at: :desc)
     end
-    if current_user.nil? || current_user.client?
-      render 'search', layout: 'new_ui/application'
-    end
+    @search = @search.paginate(:page => params[:page], :per_page => 6).order(created_at: :desc)
   end
 
   def search_candidate
@@ -66,27 +62,21 @@ class WelcomeController < ApplicationController
     else
       @users = User.where(role: 'candidate')
     end
-   render layout: 'new_ui/application'
   end
 
   def about
-    render layout: 'new_ui/application'
   end
 
   def contact
-    render layout: 'new_ui/application'
   end
 
   def platform
-    render layout: 'new_ui/application'
   end
 
   def privacy
-    render layout: 'new_ui/application'
   end
 
   def term_condition
-    render layout: 'new_ui/application'
   end
 
 end

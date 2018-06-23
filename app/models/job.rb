@@ -13,7 +13,7 @@
 #  document_content_type :string
 #  document_file_size    :integer
 #  document_updated_at   :datetime
-#  status                :integer          default(0)
+#  status                :integer          default(0) 0=>Open, 1=>Close
 #  closed_at             :datetime
 #
 
