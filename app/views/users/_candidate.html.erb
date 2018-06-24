@@ -8,9 +8,9 @@
                <div class="equal-height" style="height: 314px;">
                   <div class="box-heading">
                      <div class="box-header">
-                        <h2 class="job-heading">Java developer</h2>
-                        <h3 class="job-sub-heading">Application Development</h3>
-                        <div class="about-job open">open</div>
+                        <h2 class="job-heading"><%= job.title || ""%></h2>
+                        <h3 class="job-sub-heading"><%= job.industry.title %></h3>
+                        <div class="about-job <%= job.status_string %>"><%= job.status %></div>
                      </div>
                   </div>
                   <div class="job-discription">
