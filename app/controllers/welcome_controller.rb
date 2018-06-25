@@ -8,14 +8,16 @@ class WelcomeController < ApplicationController
   def search
     if params[:search].present? && params[:category].present?
       @search = Job.where("title LIKE ? AND industry_id = ? and status = ?", "%#{params[:search]}%","#{params[:category]}", 0)
+      @search = @search.paginate(:page => params[:page], :per_page => 6).order(created_at: :desc)
     elsif params[:search].present? && !params[:category].present?
       @search = Job.where("title LIKE ? and status = ?", "%#{params[:search]}%", 0)
+      @search = @search.paginate(:page => params[:page], :per_page => 6).order(created_at: :desc)
     elsif !params[:search].present? && params[:category].present?
       @search = Job.where("industry_id = ? and status = ?","#{params[:category]}", 0)
+      @search = @search.paginate(:page => params[:page], :per_page => 6).order(created_at: :desc)
     else
-      @search = Job.where(status: 0).paginate(:page => params[:page], :per_page => 1).order(created_at: :desc)
+      @search = Job.where(status: 0).paginate(:page => params[:page], :per_page => 6).order(created_at: :desc)
     end
-    @search = @search.paginate(:page => params[:page], :per_page => 6).order(created_at: :desc)
   end
 
   def search_candidate

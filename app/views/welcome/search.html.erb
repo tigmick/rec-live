@@ -24,8 +24,8 @@
                         <div class="job-discription">
                            <h3>job description</h3>
                            <p ><%= search.description.truncate(50)%></p>
-                           <input type="hidden" id="job-<%= search.id %>-industry" value="<%= search.industry.title || '' %>">
-                           <input type="hidden" id="job-discription-<%= search.id %>" value="<%= search.description || '' %>">
+                           <input type="hidden" id="job-<%= search.id %>-industry" value="<%= search.industry.present? ? search.industry.title : '' %>">
+                           <input type="hidden" id="job-discription-<%= search.id %>" value="<%= search.description.present? ? search.description : '' %>">
                         </div>
                      </div>
                      <div class="box-footer text-center">

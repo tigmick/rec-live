@@ -10,8 +10,8 @@ class UsersController < ApplicationController
       @jobs << Job.where('id IN (?)',job_ids)
       @jobs = @jobs.flatten
     else
-      @applied_jobs = @user.candidate_jobs
-      #@applied_jobs = current_user.user_job.present? ? Job.where(id: current_user.user_job.job_ids) : [] 
+      #@applied_jobs = @user.candidate_jobs
+      @applied_jobs = current_user.user_job.present? ? Job.where(id: current_user.user_job.job_ids) : [] 
       @reviews = Review.joins(:job).where(user_id: @user.id).select("id","job_id","jobs.user_id","created_at","cv_download_date")
     end
     render layout: 'new_ui/application'
