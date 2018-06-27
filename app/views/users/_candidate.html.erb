@@ -8,7 +8,7 @@
                <div class="equal-height" style="height: 314px;">
                   <div class="box-heading">
                      <div class="box-header">
-                        <h2 class="job-heading"><%= job.title || ""%></h2>
+                        <h2 class="job-heading"><%= link_to (job.title || ""), job_path(job)%></h2>
                         <h3 class="job-sub-heading"><%= job.industry.present? ? job.industry.title : '' %></h3>
                         <div class="about-job <%= job.status_string %>"><%= job.status %></div>
                      </div>
@@ -19,41 +19,13 @@
                      <div class="job-status">
                         <h3>status</h3>
                         <h3>Reviewed by client?</h3>
-                        <p>Yes. 21/02/2018 12:32 am</p>
+                        <p><%=reviewed_by(@reviews,job)%></p>
                         <h3>Submitted to client?</h3>
-                        <p>Yes. 21/02/2018 12:32 am</p>
+                        <p><%=cv_download(@reviews,job)%></p>
                      </div>
                   </div>
                </div>
-               <div class="box-footer">
-                  <ul class="d-block">
-                     <h3>Interview Status&nbsp;&nbsp;&nbsp;<a href="#" data-toggle="modal" data-target="#schedule" style="display: inline-block;">view</a></h3>
-                     <div class="stepwizard">
-                        <div class="stepwizard-row">
-                           <div class="stepwizard-step">
-                              <button type="button" class="btn btn-default btn-circle"><i class="fas fa-check"></i></button>
-                              <p>1st</p>
-                           </div>
-                           <div class="stepwizard-step">
-                              <button type="button" class="btn btn-circle"><i class="fas fa-check"></i></button>
-                              <p>2nd</p>
-                           </div>
-                           <div class="stepwizard-step">
-                              <button type="button" class="btn btn-default btn-circle" disabled="disabled"></button>
-                              <p>3rd</p>
-                           </div>
-                           <div class="stepwizard-step">
-                              <button type="button" class="btn btn-default btn-circle" disabled="disabled"></button>
-                              <p>4th</p>
-                           </div>
-                           <div class="stepwizard-step">
-                              <button type="button" class="btn btn-default btn-circle" disabled="disabled"></button>
-                              <p>5th</p>
-                           </div>
-                        </div>
-                     </div>
-                  </ul>
-               </div>
+               <%= candidate_interview_status() %>
             </li>
           <% end %>
          </ul>

@@ -173,27 +173,6 @@ module UsersHelper
 	end
 
 	def new_desing_meeting_with(job, user_id)
-  #   	html = "<h3>Interview notes &nbsp;&nbsp;"
-  #   	if job.interview.present?
-  #   		reviews = Review.where(job_id: job.id, user_id: user_id)
-  #   		#if reviews.present?
-	 #    		reviews.each do |review|
-	 #    			unless job.interview_schedules.where(user_id: user_id).empty? 
-		# 				add = "<a href='javascript:void(0);' onclick='meeting_with(#{review.id},\"\")' id='myBtn'>Add</a>"
-		# 				edit = "<a href='javascript:void(0);' onclick='meeting_with(#{review.id},\"#{review.meeting}\")' id='myBtn'>Edit</a>"
-		# 				html += 	review.meeting.present? ? "#{add}/#{edit}" : "#{add}"
-		# 				if review.meeting.present?
-		# 					html +=	"<p title='#{review.meeting}'>#{review.meeting.truncate(70)}</p>"
-		# 				else
-		# 					html +=	"<p title='No review'>No review</p>"
-		# 				end
-		# 	end
-  #   		end
-		# end
-		# html += "</h3>"
-		# html.html_safe
-		#debugger
-		
 		@job = Job.find(job.id)
 		@user = User.find(user_id) if current_user.client?
 		html = "<h3>Interview notes &nbsp;&nbsp;"
@@ -233,5 +212,40 @@ module UsersHelper
 	  	end
 		end 
 		html.html_safe
+	end
+
+	def candidate_interview_status
+
+		html = "<div class='box-footer'>
+                  <ul class='d-block'>
+                     <h3>Interview Status&nbsp;&nbsp;&nbsp;<a href='#' data-toggle='modal' data-target='#schedule' style='display: inline-block;'>view</a></h3>
+                     <div class='stepwizard'>
+                        <div class='stepwizard-row'>
+                           <div class='stepwizard-step'>
+                              <button type='button' class='btn btn-default btn-circle'><i class='fas fa-check'></i></button>
+                              <p>1st</p>
+                           </div>
+                           <div class='stepwizard-step'>
+                              <button type='button' class='btn btn-circle'><i class='fas fa-check'></i></button>
+                              <p>2nd</p>
+                           </div>
+                           <div class='stepwizard-step'>
+                              <button type='button' class='btn btn-default btn-circle' disabled='disabled'></button>
+                              <p>3rd</p>
+                           </div>
+                           <div class='stepwizard-step'>
+                              <button type='button' class='btn btn-default btn-circle' disabled='disabled'></button>
+                              <p>4th</p>
+                           </div>
+                           <div class='stepwizard-step'>
+                              <button type='button' class='btn btn-default btn-circle' disabled='disabled'></button>
+                              <p>5th</p>
+                           </div>
+                        </div>
+                     </div>
+                  </ul>
+               </div>"
+
+               html.html_safe
 	end
 end
