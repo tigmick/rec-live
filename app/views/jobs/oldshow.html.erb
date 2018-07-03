@@ -1,0 +1,138 @@
+<div class="banner_cov">
+  <%= image_tag("banner_inn.jpg") %></div>
+<div class="container" style="top: -220px; position: relative;">
+  <div class="sign_pop col-md-offset-3">
+    <p id="notice"><%= notice %></p>
+    <% unless flash[:errors].nil? %>
+      <p class="error-msg">
+        <%= flash[:errors] %>
+      </p>
+    <% end %>
+    <div class="job_bx">
+      <h1>
+        <label>Job Title :</label>
+        <%= @job.title %></h1>
+
+      <p>
+        <strong>Description:</strong>
+        <%= @job.description %></p>
+
+      <p>
+        <strong>Document:</strong>
+        <%= link_to @job.document_file_name, download_job_path(@job), target: "_blank"%>
+      </p>
+
+      <p>
+        <strong>Industry:</strong>
+        <%= @job.industry.try(:title) %></p>
+
+      <p>
+        <strong>Total Interview Round:</strong><%= @job.interview.try(:total_stage) %></p>
+
+      <p>
+        <strong>Status:</strong><%= @job.status_string %></p>
+
+      <% if current_user.client? %>
+        <p>
+          <button id="myBtn" class="btn btn-primary">Create Interview Stage for this Job</button>
+          <span style="font-weight:bold;color:red;padding-left:10px;">
+            (You must Click this button before Schedule is Created)</span></p><br/>
+      <%end%>
+      <br/>
+      <% if @job.closed? %>
+        <%= link_to 'Open Job', open_job_path(id: @job.id), method: :post if current_user.client? %>
+      <% else %>
+        <%= link_to 'Close Job', close_job_path(id: @job.id), method: :post if current_user.client? %>
+      <% end %>
+      |
+      <%= link_to 'Edit', edit_job_path(@job) if current_user.client? %>
+      |
+      <%= link_to 'Back', users_dashboard_path %>
+
+      <div class="ma_hed">
+        <%#=feedbacks(@schedules)%>
+        </div>
+        <hr>
+        <%if current_user.client? %>
+          <div class="re_sty">
+            <h1>Applications -
+              <%= @users.length %>
+            </h1>
+            <div class="a_bold">
+              <%= render 'jobs/user_applied' %></div>
+          </div>
+          <!-- The Modal -->
+        <%end%>
+        <div id="myModal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <%= render "interviews/form"%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    var modal = document.getElementById('myModal');
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+    btn.onclick = function () {
+      modal.style.display = "block";
+    }
+    span.onclick = function () {
+      modal.style.display = "none";
+    }
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+  <style type="text/css">
+    /* The Modal (background) */
+    .modal {
+      display: none;
+      /* Hidden by default */
+      position: fixed;
+      /* Stay in place */
+      z-index: 1;
+      /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%;
+      /* Full width */
+      height: 100%;
+      /* Full height */
+      overflow: auto;
+      /* Enable scroll if needed */
+      background-color: rgb(0,0,0);
+      /* Fallback color */
+      background-color: rgba(0,0,0,0.4);
+      /* Black w/ opacity */
+    }
+    /* Modal Content/Box */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto;
+      /* 15% from the top and centered */
+      padding: 20px;
+      border: 1px solid #888;
+      height: 500px;
+      width: 80%;
+      /* Could be more or less, depending on screen size */
+    }
+    /* The Close Button */
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .close:focus,
+    .close:hover {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>

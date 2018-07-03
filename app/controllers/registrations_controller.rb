@@ -2,7 +2,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource(sign_up_params)
-    resource.save 
+    resource.save
     UserMailer.candidate_email_alert(resource, nil).deliver_now if resource.save
     UserMailer.candidate_email_alert(AdminUser.first, resource).deliver_now if resource.save
 
@@ -11,7 +11,7 @@ class RegistrationsController < Devise::RegistrationsController
       if resource.active_for_authentication?
         set_flash_message! :notice, :signed_up
         sign_up(resource_name, resource)
-    
+
         # respond_with resource, location: after_sign_up_path_for(resource)
         render json: { location: after_sign_up_path_for(resource) }
       else
@@ -26,7 +26,11 @@ class RegistrationsController < Devise::RegistrationsController
       # respond_with resource
       render json: resource.errors.full_messages[0], status: 422
     end
-    
+
     # add custom create logic here
+  end
+
+  def edit
+    render layout: 'new_ui/application'
   end
 end

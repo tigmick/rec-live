@@ -14,8 +14,8 @@
                            <div class="box-header">
                               <div class="name"> <%= resume.user.first_name[0] %><% if resume.user.last_name %><%= resume.user.last_name[0] %><% end %></div>
                               <div class="detail">
-                                 <h2 class="job-heading">Ashish Khumar</h2>
-                                 <h3 class="job-sub-heading"><a href="mailto:ashish@khumar.com">ashish@khumar.com</a></h3>
+                                 <h2 class="job-heading"><%= resume.user.first_name %> <br/><%= resume.user.last_name %></h2>
+                                 <h3 class="job-sub-heading"><%= resume.user.email %></h3>
                                  <div class="about-job"><%= link_to "#{resume.cv_file_name}".truncate(10).humanize, download_resume_path(resume),  target: "_blank", style: "color:#203CC4", title: "#{resume.cv_file_name}" %> </div>
                               </div>
                            </div>
@@ -28,7 +28,7 @@
                                  </ul>
                               </a>
                               <div class="dropdown-menu" aria-labelledby="options" x-placement="bottom-start" style="position: absolute; transform: translate3d(245px, 164px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                 <%= link_to 'Destroy', resume, method: :delete, data: { confirm: 'Are you sure?' } %>
+                                 <%= link_to 'Delete', resume, method: :delete, data: { confirm: 'Are you sure?' } %>
                               </div>
                            </div>
                         </div>

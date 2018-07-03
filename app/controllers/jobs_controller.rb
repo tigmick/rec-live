@@ -8,7 +8,7 @@ class JobsController < ApplicationController
   def index
     job_ids = AssignJob.all.collect{|k| k.user_ids.include?(current_user.id) ? k.job_id : []}.flatten
     @jobs = Job.all.order('created_at desc')
-    if current_user.client? 
+    if current_user.client?
       @jobs =  current_user.jobs.order('created_at desc')
       @jobs << Job.where('id IN (?)',job_ids)
       @jobs = @jobs.flatten
@@ -33,7 +33,7 @@ class JobsController < ApplicationController
 
   # GET /Jobs/1/edit
   def edit
-    
+    render layout: 'new_ui/application'
   end
 
   # POST /Jobs
@@ -43,7 +43,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
-        UserMailer.job_creation(@job).deliver_now 
+        UserMailer.job_creation(@job).deliver_now
         format.html { redirect_to @job, notice: 'Job was successfully created.' }
         format.json { render :show, status: :created, location: @job }
       else
@@ -81,7 +81,7 @@ class JobsController < ApplicationController
     doc = Job.find(params[:id])
     file = File.open(open("#{doc.document.path}"))
     data = file.read
-    # doc.track_resume(params[:job_id])  if current_user.client? 
+    # doc.track_resume(params[:job_id])  if current_user.client?
     send_data(data, :type => "application/#{doc.document.path.split(".").last}", :filename => "#{doc.document_file_name}", :x_sendfile=>true)
     return
   end
@@ -90,11 +90,11 @@ class JobsController < ApplicationController
     respond_to do |format|
       if (current_user.client? && @job.user_id == current_user.id)
         if @job.update status: 1, closed_at: Time.now
-          format.json do 
-            render json: @job 
+          format.json do
+            render json: @job
           end
-          format.html do 
-            redirect_to '/jobs' 
+          format.html do
+            redirect_to '/jobs'
           end
         else
           format.json do render json: @job.errors, status: :unprocessable_entity end
@@ -104,12 +104,12 @@ class JobsController < ApplicationController
           end
         end
       else
-          format.json { render json: @job.errors, status: :unprocessable_entity }
-          format.html do
-            flash[:error] = 'Action not permitted'
-            redirect_to '/jobs'
-          end
-      end  
+        format.json { render json: @job.errors, status: :unprocessable_entity }
+        format.html do
+          flash[:error] = 'Action not permitted'
+          redirect_to '/jobs'
+        end
+      end
     end
 
   end
@@ -118,11 +118,11 @@ class JobsController < ApplicationController
     respond_to do |format|
       if (current_user.client? && @job.user_id == current_user.id)
         if @job.update status: 0, closed_at: nil
-          format.json do 
-            render json: @job 
+          format.json do
+            render json: @job
           end
-          format.html do 
-            redirect_to '/jobs' 
+          format.html do
+            redirect_to '/jobs'
           end
         else
           format.json do render json: @job.errors, status: :unprocessable_entity end
@@ -132,23 +132,23 @@ class JobsController < ApplicationController
           end
         end
       else
-          format.json { render json: @job.errors, status: :unprocessable_entity }
-          format.html do
-            flash[:error] = 'Action not permitted'
-            redirect_to '/jobs'
-          end
-      end  
+        format.json { render json: @job.errors, status: :unprocessable_entity }
+        format.html do
+          flash[:error] = 'Action not permitted'
+          redirect_to '/jobs'
+        end
+      end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_job
-      @job = Job.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_job
+    @job = Job.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def job_params
-      params.require(:job).permit(:title, :description,:industry_id,:document)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def job_params
+    params.require(:job).permit(:title, :description,:industry_id,:document)
+  end
 end

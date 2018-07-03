@@ -9,13 +9,15 @@
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 
- 
+
   <script>
   $(window).ready(function() {
+    $( "#datepicker" ).datepicker();
+
  function showHeight( element, height ) {
 	$( ".banner" ).css("min-height" , height );
-	
-}	
+
+}
 showHeight( "window", $( window ).height() );
 });
 
