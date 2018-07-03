@@ -1,9 +1,51 @@
- <div class="banner_cov">
- <%= image_tag("banner_inn.jpg") %></div>  
- <div class="container">
-  <div class="col-md-6 sign_pop col-md-offset-3"><h1>Edit Job</h1>
+<div class="container-fluid">
+  <div class="row">
+  <%= render 'shared/navigation' %>
+    <div class="col-md-10" id="content-container" style="background-color:#f1f1f1;">
+       <div class="create-job">
+          <h2>edit job</h2>
+          <%= form_for(@job, :html => { :multipart => true }) do |f| %>
+          <% if @job.errors.any? %>
+          <div id="error_explanation">
+             <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
+             <ul>
+                <% @job.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+                <% end %>
+             </ul>
+          </div>
+          <% end %>
+          <div class="form-group title">
+             <label>Title</label>
+             <%= f.text_field :title, class: 'form-control', placeholder: 'Active field for job title' %>
+          </div>
+          <div class="form-group">
+             <%= f.text_area :description, rows: "5", class: 'form-control', placeholder: 'Description' %>
+          </div>
+          <div class="form-group">
+             <%= f.label :document %><br>
+             <%= f.file_field :document,  size: "8x8" %>
+          </div>
+          <div class="form-group">
+             <%= f.label :industry_id %><br>
+             <%= f.select("industry_id", Industry.all.collect {|p| [ p.title, p.id ] }, {include_blank: 'None'}, class: "form-control", id: 'sel1')  %>
+          </div>
+          <div class="actions">
+             <%= f.submit class: 'btn' %>
+          </div>
+          <% end %>
+       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="banner_cov">
+<%= image_tag("banner_inn.jpg") %></div>
+<div class="container">
+ <div class="col-md-6 sign_pop col-md-offset-3"><h1>Edit Job</h1>
 
 <%= render 'form' %>
 
 <%= link_to 'Back', jobs_path %>
-</div></div>
+</div></div> -->

@@ -63,24 +63,24 @@ class User < ActiveRecord::Base
 
   def candidate_jobs_by_industry
     jobs = {}
-    self.user_job.job_ids.each do |job_id| 
+    self.user_job.job_ids.each do |job_id|
         job = Job.find(job_id)
         if jobs.key?(job.industry.title)
           jobs[job.industry.title] << job
         else
           jobs.merge!({job.industry.title => [job]})
-        end 
+        end
     end
     jobs
   end
 
   def candidate_jobs
-    if self.user_job.present? 
-      job_ids = self.user_job.job_ids 
+    if self.user_job.present?
+      job_ids = self.user_job.job_ids
           jobs = Job.where(id: job_ids)
       else
         jobs = []
-      end
+    end
   end
 
   def active_for_authentication?

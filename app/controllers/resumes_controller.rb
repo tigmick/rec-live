@@ -35,7 +35,7 @@ class ResumesController < ApplicationController
     @resume = current_user.resumes.new(resume_params)
     respond_to do |format|
       if @resume.save
-        format.html { redirect_to @resume, notice: 'Resume was successfully created.' }
+        format.html { redirect_to resumes_path, notice: 'Resume was successfully created.' }
         format.json { render :show, status: :created, location: @resume }
       else
         format.html { render :new }
@@ -72,7 +72,7 @@ class ResumesController < ApplicationController
     doc = Resume.find(params[:id])
     file = File.open(open("#{doc.cv.path}"))
     data = file.read
-    doc.track_resume(params[:job_id])  if (params[:job_id].present?) 
+    doc.track_resume(params[:job_id])  if (params[:job_id].present?)
     send_data(data, :type => "application/#{doc.cv.path.split(".").last}", :filename => "#{doc.cv_file_name}", :x_sendfile=>true)
     return
   end

@@ -183,7 +183,7 @@ body{overflow-x:hidden;}.banner_img{ margin-left:-150%; margin-top:53px; max-wid
 	form.navbar-form.navbar-left.navbar-left{width:100%;}
 	nav .nav > li{display: inline-block;}
 	form.navbar-form.navbar-left.navbar-left .form-group select, form.navbar-form.navbar-left.navbar-left .form-group input {
-  	float: left; width:100%; margin-bottom:10px;}	
+  	float: left; width:100%; margin-bottom:10px;}
 	.content h1{font-size:25px; margin-top:20px;}
 	.banner_cov, .banner_cov img{max-width:1000%; min-height:300px; width:auto;}
 	.sign_pop.log_scr{margin-left: 0 !important;  width: 100% !important;}

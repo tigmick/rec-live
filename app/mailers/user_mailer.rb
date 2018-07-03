@@ -1,11 +1,11 @@
 class UserMailer < ApplicationMailer
   def resume_download resource,job_id,candidate=nil
-  	@job = Job.find(job_id)
-  	@client_email  = User.find(@job.user_id).email
-  	@subject = "CV Download"
+    @job = Job.find(job_id)
+    @client_email  = User.find(@job.user_id).email
+    @subject = "CV Download"
     @candidate = candidate unless candidate.nil?
     @resource = resource
-  	mail(from: @client_email,to: resource.email, subject: @subject)
+    mail(from: @client_email,to: resource.email, subject: @subject)
   end
 
   def assign_job resource,user,job
@@ -14,30 +14,30 @@ class UserMailer < ApplicationMailer
     @job = job
     @subject = "Job Assign Successfully"
     mail(from: @user.email,to: @resource.email, subject: @subject)
-  end 
+  end
 
   def un_assign_job resource,user
     @resource = resource
     @user = user
     @subject = "Job UN-Assign"
     mail(from: @user.email,to: @resource.email, subject: @subject)
-  end 
+  end
 
   def job_applied resource,job_id
     @resource = resource
     @job = Job.find(job_id)
-    (resource.first_name.present? rescue false) ? (@resource = User.find(@job.user_id)) : @resource 
+    (resource.first_name.present? rescue false) ? (@resource = User.find(@job.user_id)) : @resource
     @subject = "Job Appiled successfully"
     mail(from: AdminUser.first.email,to: @resource.email, subject: @subject)
-  end 
+  end
 
   def review_mail candidate,job_id
-  	@job = Job.find(job_id)
-  	@client_email  = User.find(@job.user_id).email
-  	@candidate_eamil = User.find(candidate).email
-  	@subject = "profile reviews"
-  	mail(from: @client_email,to: @candidate_eamil, subject: @subject)
-  end 
+    @job = Job.find(job_id)
+    @client_email  = User.find(@job.user_id).email
+    @candidate_eamil = User.find(candidate).email
+    @subject = "profile reviews"
+    mail(from: @client_email,to: @candidate_eamil, subject: @subject)
+  end
 
   def client_comment comment,resource
     @resource = resource

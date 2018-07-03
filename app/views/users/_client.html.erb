@@ -1,210 +1,221 @@
 <% industries = [] %>
-<% job_counts = [] %>
-<% @industries.each do |industry| %>
-  <% count = 0 %>
-  <% industry.jobs.where(user_id: current_user.id).each do |job| %>
-    <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
-    <% users.each do |user| %>
-    <% if user.present?%>
-      <% industries << industry if count == 0 %>
-      <% count += 1 %>
-    <% end %>
-    <% end %>
-  <% end %>
-  <% job_counts << count if count > 0 %>
-<% end %>
+  <% job_counts = [] %>
+    <% @industries.each do |industry| %>
+      <% count = 0 %>
+        <% industry.jobs.where(user_id: current_user.id).each do |job| %>
+          <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
+            <% users.each do |user| %>
+              <% if user.present?%>
+                <% industries << industry if count == 0 %>
+                  <% count += 1 %><% end %>
+                <% end %>
+              <% end %>
+              <% job_counts << count if count > 0 %><% end %>
 
-
- <div class="col-md-10" id="content-container" style="background-color:#f1f1f1;">
-  <% industries.each_with_index do |industry, i| %>
-    <% if industry.jobs.count > 0 %>
-      <!-- List the Jobs application according to Industry -->
-      <div class="row">
-           <div class="col-md-12" style="border-bottom:1px solid #fff;">
-              <div class="job-right">
-                <h2 class="heading">
-                  <a href="#" data-toggle="collapse" data-target="#collapse-<%= industry.id %>">
-                    <%= industry.title %> (<%= job_counts[i] %>)
-                  </a>
-                </h2>
-                  <div id="collapse-<%= industry.id %>" class="collapse-panel collapse show">
-                    <div class="box-job">
-                       <ul>
-                          <% industry.jobs.each do |job| %>
-                          <!-- start of application -->
-                          <% recived_applications = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
-                          <% recived_applications.each do |user| %>
-                            <%# user = users.first %>
-                            <% next unless user.present? %>
-                            <% resume = user.resumes.first %>
-                          <li> 
-                               <div class="equal">
-                                  <div class="box-heading">
-                                     <div class="box-header">
-                                        <div class="name">
-                                          <%= user.first_name[0] %><% if user.last_name %><%= user.last_name[0] %><% end %>
-                                        </div>
-                                        <div class="detail">
-                                          <h2 class="job-heading">
-                                            <%= link_to "#{user.first_name} #{user.last_name}", job_path(job) %>
-                                          </h2>
-                                          <h3 class="job-sub-heading">
-                                            <a href="mailto:<%= user.email %>"><%= user.email %></a>
-                                          </h3>
-                                          <% if resume.present? %>
-                                           <div class="about-job">
-                                              <%= link_to "#{resume.cv_file_name}".truncate(10).humanize, download_resume_path(resume),  target: "_blank", style: "color:#203CC4", title: "#{resume.cv_file_name}" %>
-                                           </div>
-                                       <% end %>
-                                        </div>
-                                     </div>
-                                     <div class="job-option text-center float-right">
-                                        <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                           <ul>
-                                              <li></li>
-                                              <li></li>
-                                              <li></li>
-                                           </ul>
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="options">
-                                          <%= link_to 'Create interview', job_path(job), class: "dropdown-item" %>
-                                          <% if job.open? %>
-                                            <%= link_to 'Close the job', close_job_path(id: job.id), class: 'dropdown-item jobs-action', id: "job_#{job.id}" %>
-                                          <% else %>
-                                            <%= link_to 'Open the job', open_job_path(id: job.id), class: 'dropdown-item jobs-action', id: "job_#{job.id}" %>
+              <div class="col-md-10" id="content-container" style="background-color:#f1f1f1;">
+                <% industries.each_with_index do |industry, i| %>
+                  <% if industry.jobs.count > 0 %>
+                    <!-- List the Jobs application according to Industry -->
+                    <div class="row">
+                      <div class="col-md-12" style="border-bottom:1px solid #fff;">
+                        <div class="job-right">
+                          <h2 class="heading">
+                            <a href="#" data-toggle="collapse" data-target="#collapse-<%= industry.id %>">
+                              <%= industry.title %>
+                              (<%= job_counts[i] %>)
+                            </a>
+                          </h2>
+                          <div id="collapse-<%= industry.id %>" class="collapse-panel collapse show">
+                            <div class="box-job">
+                              <ul>
+                                <% industry.jobs.each do |job| %>
+                                  <!-- start of application -->
+                                  <% recived_applications = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
+                                    <% recived_applications.each do |user| %>
+                                      <%# user = users.first %>
+                                        <% next unless user.present? %>
+                                          <% resume = user.resumes.first %>
+                                            <li>
+                                              <div class="equal">
+                                                <div class="box-heading">
+                                                  <div class="box-header">
+                                                    <div class="name">
+                                                      <%= user.first_name[0] %>
+                                                      <% if user.last_name %><%= user.last_name[0] %>
+                                                      <% end %>
+                                                    </div>
+                                                    <div class="detail">
+                                                      <h2 class="job-heading">
+                                                        <%= link_to "#{user.first_name} #{user.last_name}", job_path(job) %>
+                                                      </h2>
+                                                      <h3 class="job-sub-heading">
+                                                        <a href="mailto:<%= user.email %>"><%= user.email %></a>
+                                                      </h3>
+                                                      <% if resume.present? %>
+                                                        <div class="about-job">
+                                                          <%= link_to "#{resume.cv_file_name}".truncate(10).humanize, download_resume_path(resume), target: "_blank", style: "color:#203CC4", title: "#{resume.cv_file_name}" %>
+                                                        </div>
+                                                      <% end %>
+                                                    </div>
+                                                  </div>
+                                                  <div class="job-option text-center float-right">
+                                                    <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                      <ul>
+                                                        <li></li>
+                                                        <li></li>
+                                                        <li></li>
+                                                      </ul>
+                                                    </a>
+                                                    <div class="dropdown-menu" aria-labelledby="options">
+                                                      <%= link_to 'Create interview', job_path(job), class: "dropdown-item" %>
+                                                      <% if job.open? %>
+                                                        <%= link_to 'Close the job', close_job_path(id: job.id), class: 'dropdown-item jobs-action', id: "job_#{job.id}" %>
+                                                      <% else %>
+                                                        <%= link_to 'Open the job', open_job_path(id: job.id), class: 'dropdown-item jobs-action', id: "job_#{job.id}" %>
+                                                      <% end %>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <div class="job-discription">
+                                                  <div class="hori-divi"></div>
+                                                  <%= new_desing_meeting_with(job, user.id)%>
+                                                </div>
+                                              </div>
+                                              <div class="box-footer">
+                                                <ul class="d-block">
+                                                  <h3>Interview schedule &nbsp;&nbsp;&nbsp;<a data-toggle="modal" onclick="next_step('',0,'')" data-target="#interview-round" href="#">Create</a>
+                                                  </h3>
+                                                  <div class="stepwizard">
+                                                    <div class="stepwizard-row">
+                                                      <div class="stepwizard-step">
+                                                        <button type="button" class="btn btn-default btn-circle">
+                                                          <i class="fas fa-check"></i>
+                                                        </button>
+                                                        <p>1st</p>
+                                                      </div>
+                                                      <div class="stepwizard-step">
+                                                        <button type="button" class="btn btn-default btn-circle"></button>
+                                                        <p>2nd</p>
+                                                      </div>
+                                                      <div class="stepwizard-step">
+                                                        <button type="button" class="btn btn-default btn-circle"></button>
+                                                        <p>3rd</p>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </ul>
+                                                <!-- <%= new_desing_interview_stage_client_section(job, user.id )%> -->
+                                              </div>
+                                            </li>
+                                            <!-- end of application -->
                                           <% end %>
+                                        <% end %>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          <% end %>
+                        <% end %>
+
+                        <!-- interview round -->
+                        <div class="modal fade interview-round" id="interview-round">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+
+                              <!-- Modal Header -->
+                              <div class="modal-header d-block">
+                                <h3>Interview Schedule</h3>
+                                <a href="#" class="close" data-dismiss="modal">close</a>
+                              </div>
+
+                              <!-- Modal body -->
+                              <div class="modal-body">
+                                <ul class="nav nav-tabs" role="tablist">
+                                  <li class="nav-item">
+                                    <a class="nav-link active" href="#pre-screen" role="tab" data-toggle="tab">Pre screen</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="#2nd-round" role="tab" data-toggle="tab">2nd round</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="#3rd-round" role="tab" data-toggle="tab">3rd round</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="#4th-round" role="tab" data-toggle="tab">4th round</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="#5th-round" role="tab" data-toggle="tab">5th round</a>
+                                  </li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                  <div role="tabpanel" class="tab-pane in active" id="pre-screen">
+                                    <div class="popup-content">
+                                      <h4>interview availability dates</h4>
+                                      <div class="date">21/03/2018 10:00 am</div>
+                                      <div class="popup-divider"></div>
+                                      <h4>interviewer</h4>
+                                      <div class="interviewer-detail">
+                                        <%= image_tag "new_ui/About Us-1.png", alt:"interviewer", class:"img-fluid" %>
+                                        brain johnson</div>
+                                      <div class="popup-divider"></div>
+                                      <h4>interviewer</h4>
+                                      <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+                                      <div class="popup-divider"></div>
+                                      <h4>client comments</h4>
+                                      <div class="row">
+                                        <div class="col-9">
+                                          <a href="#">chris</a>
+                                          very nice
                                         </div>
-                                     </div>
+                                        <div class="col-3">
+                                          <a href="#">edit</a>
+                                          <a href="#">delete</a>
+                                        </div>
+                                        <div class="col-9">
+                                          <a href="#">chris</a>
+                                          very nice
+                                        </div>
+                                        <div class="col-3">
+                                          <a href="#">edit</a>
+                                          <a href="#">delete</a>
+                                        </div>
+                                        <div class="col-9">
+                                          <a href="#">chris</a>
+                                          very nice
+                                        </div>
+                                        <div class="col-3">
+                                          <a href="#">edit</a>
+                                          <a href="#">delete</a>
+                                        </div>
+                                      </div>
+                                      <div class="popup-divider"></div>
+                                      <h4>next steps</h4>
+                                      <div class="row">
+                                        <div class="col-8">
+                                          <a href="#">chris</a>
+                                          very nice
+                                        </div>
+                                        <div class="col-4">
+                                          <a href="#">edit</a>
+                                          <a href="#">add</a>
+                                          <a href="#">delete</a>
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
-                                  <div class="job-discription">
-                                     <div class="hori-divi"></div>
-                                     <%= new_desing_meeting_with(job, user.id)%>
-                                  </div>
-                               </div>
-                               <div class="box-footer">
-                                  <%= new_desing_interview_stage_client_section(job, user.id )%>
-                               </div>
-                            </li>
-                          <!-- end of application -->
-                          <% end %>
-                          <% end %>
-                       </ul>
-                    </div>
-                 </div>
-              </div>
-           </div>
-        </div>
-    <% end %>  
-  <% end %>
+                                  <div role="tabpanel" class="tab-pane fade" id="2nd-round">bbb</div>
+                                  <div role="tabpanel" class="tab-pane fade" id="3rd-round">ccc</div>
+                                  <div role="tabpanel" class="tab-pane fade" id="4th-round">dffsf</div>
+                                  <div role="tabpanel" class="tab-pane fade" id="4th-round">fsfs</div>
+                                </div>
+                              </div>
 
-
-<div id="myModalMeeting" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-      <%= form_tag meeting_interview_schedules_path do %>
-        <H3>CV Review Notes</H3>
-        <%= hidden_field_tag :review_id,'' %>
-        
-        <div class="form-group">
-          <%= label_tag :Review, nil, class: "col-md-3 control-label" %>
-          <div class="col-md-9">
-            <%= text_field_tag :meeting,nil, class: "result form-control"%>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-md-9">
-            <%= submit_tag "submit",class: "btn btn-primary"%>
-          </div>
-        </div>
-     <% end %>
-  </div>
-</div>
-
-
-<div id="myModalComment" class="modal">
-<div class="modal-content">
-<span class="close">&times;</span>
-    <%= form_tag client_comment_interview_schedules_path, id:"commentForm" do %>
-      <H3>Client Comments</H3>
-      <%= hidden_field_tag :sched_id,'' %>
-      <%= hidden_field_tag :comment_id,'' %>
-      <div class="form-group">
-        <%= label_tag :client_comment, nil, class: "col-md-3 control-label" %>
-        <div class="col-md-9">
-          <%= text_field_tag :comment,nil, class: "result form-control"%>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-md-9">
-          <%= button_tag "Submit", type:"button", class: "btn btn-primary", onclick:"saveComment(this.form);", id:"btnSaveComment" %>
-        </div>
-      </div>
-    <% end %>
-</div>
-</div>
-
-<script type="text/javascript">
-var modal = document.getElementById('myModalMeeting');
-var btn = document.getElementById("myBtn");
-var span = document.getElementsByClassName("close")[0];
-
-$(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();   
-});
-
-$(document).ready(function(){
-  $('.close').click(function(){
-    $('.modal .avail_date').closest('.form-group').remove()
-   $('.modal').hide()
-  })
-})
-   
-span.onclick = function() {
-    modal.style.display = "none";
-}
-window.onclick = function(event) {
-    if (event.target == modal) {
-      $('.modal').hide()
-    }
-}
-</script>
-<style type="text/css">
-  .td_align{
-    text-align: center;
-  }
-  .table.table-bordered td a{
-    display: block;
-  }
-  .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
-  .modal-content {
-    background-color: #fefefe;
-    margin: 5% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    height: 500px;
-    width: 80%; /* Could be more or less, depending on screen size */
-  }
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-</style>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- interview round -->

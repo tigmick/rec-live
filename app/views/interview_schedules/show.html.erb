@@ -1,5 +1,5 @@
  <div class="banner_cov">
- <%= image_tag("banner_inn.jpg") %></div>  
+ <%= image_tag("banner_inn.jpg") %></div>
  <div class="container">
  <div class="row">
   <div class="col-md-10 sign_pop col-md-offset-1">
@@ -25,8 +25,8 @@
     <% @schedules.each do |schedule| %>
       <tr>
         <td><%=schedule.stage.zero? ? "Pre Screen" : schedule.stage.ordinalize+" round" %></td>
-	<% dates = []%>
-          <% schedule.interview_avail_dates.values.each do |date|%>
+	          <% dates = []%>
+            <% schedule.interview_avail_dates.values.each do |date|%>
             <% dates << (date.to_s.in_time_zone('Eastern Time (US & Canada)').strftime("%d/%m/%Y %H:%M%P")) rescue "" %>
           <% end %>
         <td><%=dates.join(', ')%></td>
@@ -64,7 +64,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();   
+  $('[data-toggle="tooltip"]').tooltip();
 });
 var modal = document.getElementById('myModal');
 var modal_n = document.getElementById('myModal_n');
@@ -107,7 +107,7 @@ function UpdateDate(dates)
     DateSetup(dates,key,val)
   $("#add_interview_dates").attr("data-id",val)
   }
- 
+
 }
 
 function feedback(id,feedback_id,result)
@@ -117,7 +117,7 @@ function feedback(id,feedback_id,result)
   // modal.style.display = "block";
   $("#schedule_id").val(id)
   $("#feedback_id").val(feedback_id)
-  
+
   $(".result").val(result)
 }
 
@@ -138,7 +138,7 @@ $(document).ready(function(){
     $("#add_interview_dates").show()
   })
 })
-   
+
 span.onclick = function() {
   $(".modal").html("")
     modal.style.display = "none";
@@ -157,10 +157,10 @@ window.onclick = function(event) {
   }
 #myBtn {
      background:none!important;
-     border:none; 
+     border:none;
      padding:0!important;
      font: inherit;
-     border-bottom:1px solid #444; 
+     border-bottom:1px solid #444;
      cursor: pointer;
     color: black;
 }

@@ -1,113 +1,81 @@
- <div class="banner_cov">
- <%= image_tag("banner_inn.jpg") %></div>  
- <div class="container" style="top: -220px; position: relative;">
-  <div class="sign_pop col-md-offset-3">
-  <p id="notice"><%= notice %></p>
-<% unless flash[:errors].nil? %>
- <p class="error-msg"> <%= flash[:errors] %> </p>
-<% end %>
-<div class="job_bx">
-<h1><label>Job Title :</label> <%= @job.title %></h1>
-
- 
- <p><strong>Description:</strong> <%= @job.description %></p>
- <p><strong>Document:</strong> <%= link_to @job.document_file_name, download_job_path(@job),  target: "_blank"%> </p>
-  
-<p><strong>Industry:</strong> <%= @job.industry.try(:title) %></p>
-
-
-<p><strong>Total Interview Round:</strong><%= @job.interview.try(:total_stage) %></p>
-
-<p><strong>Status:</strong><%= @job.status_string %></p>
-
-
-
-
-<% if current_user.client? %>
-	<p>
- <button id="myBtn" class="btn btn-primary">Create Interview Stage for this Job</button>
-	<span style="font-weight:bold;color:red;padding-left:10px;"> (You must Click this button  before  Schedule is Created)</span></p><br />
-<%end%>
-<br />
-  <% if @job.closed? %>
-    <%= link_to 'Open Job', open_job_path(id: @job.id), method: :post if current_user.client? %>
-  <% else %>
-    <%= link_to 'Close Job', close_job_path(id: @job.id), method: :post if current_user.client? %>
-  <% end %> |
-<%= link_to 'Edit', edit_job_path(@job) if current_user.client? %> |
-<%= link_to 'Back', users_dashboard_path %>
-
-
-
-
-<div class="ma_hed"><%#=feedbacks(@schedules)%></div>
-<hr>
-<%if current_user.client? %>
-<div class="re_sty">
-<h1>Applications - <%= @users.length %> </h1>
-<div class="a_bold"> <%= render 'jobs/user_applied' %></div>
-</div>
-<!-- The Modal -->
-<%end%>
-<div id="myModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <%= render "interviews/form"%>
+<div class="container-fluid">
+  <div class="row">
+    <%= render 'shared/navigation' %>
+    <div class="col-md-10" style="background-color:#f1f1f1;">
+      <div class="create-job">
+        <!-- <h2>Job was successfully created</h2> -->
+        <div class="succesfull-create">
+          <h3><%= @job.title %></h3>
+          <div class="successfull-des">
+            <span>Description</span>
+            <%= @job.description %>
+          </div>
+          <div class="successfull-des">
+            <span>Document</span>
+            <%= link_to @job.document_file_name, download_job_path(@job), target: "_blank"%>
+          </div>
+          <div class="successfull-des">
+            <span>Industry</span>
+            <%= @job.industry.try(:title) %>
+          </div>
+          <div class="successfull-des status">
+            <span>Status</span>
+            <div class="open"><%= @job.status_string %></div>
+          </div>
+          <div class="successfull-des rounds">
+            <span>Total Interview Round</span>
+            <% if @job.interview.try(:total_stage).nil? %>
+              0
+            <% else %>
+              <%= @job.interview.try(:total_stage) %>
+            <% end %>
+          </div>
+          <% if current_user.client? %>
+            <a data-toggle="modal" data-target="#stage" href="#" class="interview-stage">create interview stage</a>
+            <div class="clos-edit-job">
+              <% if @job.closed? %>
+                <%= link_to 'Open Job', open_job_path(id: @job.id), method: :post if current_user.client? %>
+              <% else %>
+                <%= link_to 'Close Job', close_job_path(id: @job.id), method: :post if current_user.client? %>
+                <%= link_to 'Edit', edit_job_path(@job) if current_user.client? %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+<div class="modal fade " id="stage">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header d-block text-center">
+        <h3>Interview Schedule</h3>
+        <a href="#" class="close" data-dismiss="modal">close</a>
+        <a href="#" class="arrow" data-dismiss="modal">
+          <i class="fas fa-arrow-left"></i>
+        </a>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <h4>stage</h4>
+        <%= form_for :interview,url: job_interviews_path(@job) do |f|%>
+          <div class="form-group">
+            <div class="form-control">
+              <%= f.select(:total_stage, [["Stage 1", 1], ["Stage 2",2], ["Stage 3", 3], ["Stage 4",4],["Stage 5", 5],
+                 ["Stage 6",6], ["Stage 7", 7], ["Stage 8", 8], ["Stage 9", 9], ["Stage 10", 10]], {:class => 'stage-select'}) %>
+            </div>
+          </div>
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <%= f.submit "save changes" %>
+      </div>
+        <% end %>
+    </div>
+  </div>
 </div>
-</div></div>
-<script type="text/javascript">
-var modal = document.getElementById('myModal');
-var btn = document.getElementById("myBtn");
-var span = document.getElementsByClassName("close")[0];
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-span.onclick = function() {
-    modal.style.display = "none";
-}
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
-<style type="text/css">
-	/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-/* Modal Content/Box */
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    height: 500px;
-    width: 80%; /* Could be more or less, depending on screen size */
-}
-/* The Close Button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-</style>
