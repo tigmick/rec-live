@@ -23,7 +23,8 @@ class InterviewSchedulesController < ApplicationController
       schedule.update(interviewers_names: params[:interviewer_names].split(","),interview_avail_dates: @date_hash)
     end
     flash[:notice] = schedule.errors.messages  unless schedule.present?
-    redirect_to"/interview_schedules/#{interview.job.id}?user_id=#{params[:user_id]}"
+    #redirect_to"/interview_schedules/#{interview.job.id}?user_id=#{params[:user_id]}"
+    redirect_to "/users/dashboard"
     # redirect_to "/interview_schedules/#{params[:user_id]}/user_profile?job_id=#{interview.job.id}&review=true"
   end
 
@@ -79,7 +80,8 @@ class InterviewSchedulesController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to interview_schedule_path(schedule.interview.job) if current_user.candidate?
-        redirect_to "/interview_schedules/#{schedule.interview.job.id}?user_id=#{schedule.user_id}" if current_user.client?
+        #redirect_to "/interview_schedules/#{schedule.interview.job.id}?user_id=#{schedule.user_id}" if current_user.client?
+        redirect_to "/users/dashboard" if current_user.client?
       end
       format.json do
         render json: client_comment, status: :ok
@@ -91,7 +93,7 @@ class InterviewSchedulesController < ApplicationController
     client_comment=ClientComment.find(params[:id])
     client_comment.destroy
     redirect_to interview_schedule_path(client_comment.interview_schedule.interview.job) if current_user.candidate?
-    redirect_to "/interview_schedules/#{client_comment.interview_schedule.interview.job.id}?user_id=#{client_comment.interview_schedule.user_id}" if current_user.client?
+    redirect_to "/users/dashboard" if current_user.client?
 
   end
 

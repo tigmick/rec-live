@@ -12,10 +12,10 @@
 //
 //= require new_ui/application
 //= require twitter/bootstrap
-//= require datetimepicker
+// require datetimepicker
 //= stub highcharts
 //= stub highcharts-more
-//= require_tree .
+// require_tree .
 
 
 $(".navi").click(function(){

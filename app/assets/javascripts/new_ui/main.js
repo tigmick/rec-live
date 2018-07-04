@@ -89,13 +89,14 @@ function setJobStatusUrl(obj) {
 }
 
 
-function next_step(id, stage, interviewers_names, inviewer_dates) {
-    $("#myModal_n").show()
-    $("#scheds_id").val(id)
+function next_step(id, stage, inviewer_dates) {
+    //$("#myModal_n").show()
+    //$("#scheds_id").val(id)
     $("#stage").val(stage)
-    $("#interviewer_names").val(interviewers_names)
+    //$("#interviewer_names").val(interviewers_names)
     $("#add_interview_dates").attr("data-id", $(".avail_date").length)
-    if (Object.keys(inviewer_dates).length > 1) {
+    // && Object.keys(inviewer_dates).length > 1
+    if (typeof inviewer_dates !== "undefined") {
         UpdateDate(inviewer_dates)
     }
 }
@@ -111,6 +112,7 @@ function show(id, comment_id, result) {
 
 
 function UpdateDate(dates) {
+    console.log(dates);
     var count = 1
     for (var key in dates) {
         val = count++
@@ -133,4 +135,10 @@ function showJobDetails(jobId) {
     $("#job-industry").html($("#job-" + jobId + "-industry").val());
     $("#job-description").html($("#job-discription-" + jobId).val());
     $("#jobDetialsModel").show();
+}
+
+function setCommentDetails(element){
+  console.log($(element).data('comment-id'));
+  $('#comment').val($(element).data('comment'));
+  $('#comment_id').val($(element).data('comment-id'));
 }
