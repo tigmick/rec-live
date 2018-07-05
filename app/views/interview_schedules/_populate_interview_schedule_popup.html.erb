@@ -1,0 +1,76 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <!-- Modal Header -->
+    <div class="modal-header d-block">
+      <h3>Interview Schedule</h3>
+      <a href="#" class="close" data-dismiss="modal">close</a>
+    </div>
+    <!-- Modal body -->
+    <div class="modal-body">
+      <ul class="nav nav-tabs" role="tablist">
+        <%@job.interview.interview_schedules.order(:stage).each_with_index do |interview_schedule,index|%>
+          <li class="nav-item">
+            <a class="nav-link <%= index == 0 ? 'active' : '' %>" href="#<%= interview_schedule.stage %>-stage" role="tab" data-toggle="tab" onclick="showAddScheduleButton(<%= interview_schedule.id %>,<%= interview_schedule.stage %>,<%= @last_stage%>,<%=  @job.interview.total_stage%>);"><%= detect_stage(interview_schedule.stage) %></a>
+          </li>
+        <%end%>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <%if @job.interview.interview_schedules.size > 0%>
+          <%@job.interview.interview_schedules.each_with_index do |interview_schedule,index|%>
+            <div role="tabpanel" class="tab-pane <%= index == 0 ? 'in active' : '' %>" id="<%= interview_schedule.stage %>-stage">
+              <div class="popup-content">
+                <h4>interview availability dates</h4>
+                <div class="date"><%= interview_schedule.interview_avail_dates["interview_avail_date1"] %></div>
+                <div class="popup-divider"></div>
+                <h4>interviewer</h4>
+                <%interview_schedule.interviewers_names.each do |interviewer|%>
+                  <div class="interviewer-detail">
+                    <%= image_tag "new_ui/About Us-1.png", alt:"interviewer", class:"img-fluid" %>
+                      <%= interviewer %>
+                    </div>
+                  <%end%>
+                  <div class="popup-divider"></div>
+                  <h4>client comments</h4>
+                  <div class="row">
+                    <%interview_schedule.client_comments.each do |client_comment| %>
+                      <div class="col-9">
+                        <a href="##"><%= client_comment.user.first_name %></a>
+                        <%= client_comment.comment %>
+                      </div>
+                      <div class="col-3">
+                        <a data-toggle="modal" onclick="setCommentDetails(this);" data-target="#client-comment" href="#" data-comment-id="<%= client_comment.id %>" data-comment="<%= client_comment.comment %>" data-schedule_id="<%= interview_schedule.id %>">Edit</a> 
+                        <%= link_to 'Delete',destroy_comment_path(client_comment),method: :delete %>
+                      </div>
+                    <%end%>
+                    <div class="col-9">
+                    </div>
+                    <div class="col-3">
+                      <a data-toggle="modal" onclick="setCommentDetails(this);" data-target="#client-comment" href="#" data-comment-id="<%= '' %>" data-comment="<%= '' %>" data-schedule_id="<%= interview_schedule.id %>" class="btn btn-info">Add Comment</a> 
+                    </div>                            
+                  </div>
+                  <div class="popup-divider"></div>
+
+                  <div class="row">
+                    <div class="col-8">
+                      <h4>next steps</h4>    
+                    </div>
+                    <div class="col-4">
+                      <a data-toggle="modal" onclick="next_step(<%=  interview_schedule.id%>, <%=  interview_schedule.stage %>,<%= interview_schedule.interviewers_names %>, <%=  interview_schedule.interview_avail_dates.to_json %>,<%= @job.interview.id %>)" data-target="#schedule-interview" href="#">Edit</a>
+                      <a data-toggle="modal" onclick="next_step('', <%=  interview_schedule.stage+1%>, '', '',<%= @job.interview.id %>)" data-target="#schedule-interview" href="#" class="add-schedule-button-<%= interview_schedule.id %>" style="display:none;">Add</a>
+                      <%= link_to " Delete", "/interview_schedules/#{interview_schedule.id}", method: :delete  %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <%end%>
+          <%else%>
+        <a data-toggle="modal" onclick="next_step('', '1', '', '',<%= @job.interview.id %>)" data-target="#schedule-interview" href="#" class="btn btn-primary text-center">Add Interview Schedule</a>
+          <%end%>
+        </div>
+
+      </div>
+
+    </div>
+  </div>

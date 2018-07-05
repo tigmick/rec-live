@@ -51,6 +51,7 @@ Rails.application.routes.draw do
       post "client_comment"
       post "next_step"
       post "meeting"
+      get "populate_interview_schedule_popup"
     end
   end
   delete '/destroy_comment/:id', :to => "interview_schedules#destroy_comment", :as => :destroy_comment

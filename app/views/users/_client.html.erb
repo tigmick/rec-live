@@ -35,107 +35,109 @@
         <%# user = users.first %>
                       <% next unless user.present? %>
                       <% resume = user.resumes.first %>
-                      <li>
-                        <div class="equal">
-                          <div class="box-heading">
-                            <div class="box-header">
-                              <div class="name">
-                                <%= user.first_name[0] %>
-                                <% if user.last_name %><%= user.last_name[0] %>
-                                <% end %>
-                              </div>
-                              <div class="detail">
-                                <h2 class="job-heading">
-                                  <%= link_to "#{user.first_name} #{user.last_name}", job_path(job) %>
-                                </h2>
-                                <h3 class="job-sub-heading">
-                                  <a href="mailto:<%= user.email %>"><%= user.email %></a>
-                                </h3>
-                                <% if resume.present? %>
-                                  <div class="about-job">
-                                    <%= link_to "#{resume.cv_file_name}".truncate(10).humanize, download_resume_path(resume), target: "_blank", style: "color:#203CC4", title: "#{resume.cv_file_name}" %>
-                                  </div>
-                                <% end %>
-                              </div>
-                            </div>
-                            <div class="job-option text-center float-right">
-                              <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <ul>
-                                  <li></li>
-                                  <li></li>
-                                  <li></li>
-                                </ul>
-                              </a>
-                              <div class="dropdown-menu" aria-labelledby="options">
-                                <%= link_to 'Create interview', job_path(job), class: "dropdown-item" %>
-                                  <% if job.open? %>
-                                    <%= link_to 'Close the job', close_job_path(id: job.id), class: 'dropdown-item jobs-action', id: "job_#{job.id}" %>
-                                    <% else %>
-                                      <%= link_to 'Open the job', open_job_path(id: job.id), class: 'dropdown-item jobs-action', id: "job_#{job.id}" %>
-                                      <% end %>
-                                    </div>
-                                  </div>
+                      <%if job.interview.present?%>
+                        <li>
+                          <div class="equal">
+                            <div class="box-heading">
+                              <div class="box-header">
+                                <div class="name">
+                                  <%= user.first_name[0] %>
+                                  <% if user.last_name %><%= user.last_name[0] %>
+                                  <% end %>
                                 </div>
-                                <div class="job-discription">
-                                  <div class="hori-divi"></div>
-
-                                  <%= new_desing_meeting_with(job, user.id)%>
-                                  <%@last_stage = @job.interview.interview_schedules.maximum('stage')%>
-                                </div>
-                              </div>
-                              <div class="box-footer">
-                                <ul class="d-block">
-                                  <h3>Interview schedule &nbsp;&nbsp;&nbsp;<a data-toggle="modal"  data-target="#interview-round" href="#">View</a> 
+                                <div class="detail">
+                                  <h2 class="job-heading">
+                                    <%= link_to "#{user.first_name} #{user.last_name}", job_path(job) %>
+                                  </h2>
+                                  <h3 class="job-sub-heading">
+                                    <a href="mailto:<%= user.email %>"><%= user.email %></a>
                                   </h3>
-                                  <div class="stepwizard">
-                                    <div class="stepwizard-row">
-                                      <div class="stepwizard-step">
-                                        <button type="button" class="btn btn-default btn-circle">
-                                          <%if @last_stage > 1%>
-                                            <i class="fas fa-check"></i>
-                                          <%end%>
-                                        </button>
-                                        <p>1st</p>
+                                  <% if resume.present? %>
+                                    <div class="about-job">
+                                      <%= link_to "#{resume.cv_file_name}".truncate(10).humanize, download_resume_path(resume), target: "_blank", style: "color:#203CC4", title: "#{resume.cv_file_name}" %>
+                                    </div>
+                                  <% end %>
+                                </div>
+                              </div>
+                              <div class="job-option text-center float-right">
+                                <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <ul>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                  </ul>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="options">
+                                  <%= link_to 'Create interview', job_path(job), class: "dropdown-item" %>
+                                    <% if job.open? %>
+                                      <%= link_to 'Close the job', close_job_path(id: job.id), class: 'dropdown-item jobs-action', id: "job_#{job.id}" %>
+                                      <% else %>
+                                        <%= link_to 'Open the job', open_job_path(id: job.id), class: 'dropdown-item jobs-action', id: "job_#{job.id}" %>
+                                        <% end %>
                                       </div>
-                                      <div class="stepwizard-step">
-                                        <button type="button" class="btn btn-default btn-circle">
-                                          <%if @last_stage > 2%>
-                                            <i class="fas fa-check"></i>
-                                          <%end%>
-                                        </button>
-                                        <p>2nd</p>
-                                      </div>
-                                      <div class="stepwizard-step">
-                                        <button type="button" class="btn btn-default btn-circle">
-                                          <%if @last_stage > 3%>
-                                            <i class="fas fa-check"></i>
-                                          <%end%>
-                                        </button>
-                                        <p>3rd</p>
-                                      </div>
-                                      <div class="stepwizard-step">
-                                        <button type="button" class="btn btn-default btn-circle">
-                                          <%if @last_stage > 4%>
-                                            <i class="fas fa-check"></i>
-                                          <%end%>
-                                        </button>
-                                        <p>4th</p>
-                                      </div>
-                                      <div class="stepwizard-step">
-                                        <button type="button" class="btn btn-default btn-circle">
-                                          <%if @last_stage > 5%>
-                                            <i class="fas fa-check"></i>
-                                          <%end%>
-                                        </button>
-                                        <p>5th</p>
-                                      </div>
-                                      
                                     </div>
                                   </div>
-                                </ul>
-                                <!-- <%= new_desing_interview_stage_client_section(job, user.id )%> -->
-                              </div>
-                            </li>
+                                  <div class="job-discription">
+                                    <div class="hori-divi"></div>
+
+                                    <%= new_desing_meeting_with(job, user.id)%>
+                                    <%@last_stage = @job.interview.interview_schedules.maximum('stage')%>
+                                  </div>
+                                </div>
+                                <div class="box-footer">
+                                  <ul class="d-block">
+                                    <h3>Interview schedule &nbsp;&nbsp;&nbsp;<a href="##" data-job="<%= @job.id %>" onclick="populateInterviewSchedulePopUp(this);">View</a> 
+                                    </h3>
+                                    <div class="stepwizard">
+                                      <div class="stepwizard-row">
+                                        <div class="stepwizard-step">
+                                          <button type="button" class="btn btn-default btn-circle">
+                                            <%if @last_stage.present? and @last_stage > 1%>
+                                              <i class="fas fa-check"></i>
+                                            <%end%>
+                                          </button>
+                                          <p>1st</p>
+                                        </div>
+                                        <div class="stepwizard-step">
+                                          <button type="button" class="btn btn-default btn-circle">
+                                            <%if @last_stage.present? and @last_stage > 2%>
+                                              <i class="fas fa-check"></i>
+                                            <%end%>
+                                          </button>
+                                          <p>2nd</p>
+                                        </div>
+                                        <div class="stepwizard-step">
+                                          <button type="button" class="btn btn-default btn-circle">
+                                            <%if @last_stage.present? and @last_stage > 3%>
+                                              <i class="fas fa-check"></i>
+                                            <%end%>
+                                          </button>
+                                          <p>3rd</p>
+                                        </div>
+                                        <div class="stepwizard-step">
+                                          <button type="button" class="btn btn-default btn-circle">
+                                            <%if @last_stage.present? and @last_stage > 4%>
+                                              <i class="fas fa-check"></i>
+                                            <%end%>
+                                          </button>
+                                          <p>4th</p>
+                                        </div>
+                                        <div class="stepwizard-step">
+                                          <button type="button" class="btn btn-default btn-circle">
+                                            <%if @last_stage.present? and @last_stage > 5%>
+                                              <i class="fas fa-check"></i>
+                                            <%end%>
+                                          </button>
+                                          <p>5th</p>
+                                        </div>
+
+                                      </div>
+                                    </div>
+                                  </ul>
+                                  <!-- <%= new_desing_interview_stage_client_section(job, user.id )%> -->
+                                </div>
+                              </li>
+                            <%end%>
                             <!-- end of application -->
                           <% end %>
                         <% end %>
@@ -150,77 +152,7 @@
 
         <!-- interview round -->
         <div class="modal fade interview-round" id="interview-round">
-          <div class="modal-dialog">
-            <div class="modal-content">
-
-              <!-- Modal Header -->
-              <div class="modal-header d-block">
-                <h3>Interview Schedule</h3>
-                <a href="#" class="close" data-dismiss="modal">close</a>
-              </div>
-              <!-- Modal body -->
-              <div class="modal-body">
-                <ul class="nav nav-tabs" role="tablist">
-                  <%@job.interview.interview_schedules.order(:stage).each do |interview_schedule|%>
-                    <li class="nav-item">
-                      <a class="nav-link <%= interview_schedule.stage == 1 ? 'active' : '' %>" href="#<%= interview_schedule.stage %>-stage" role="tab" data-toggle="tab" onclick="showAddScheduleButton(<%= interview_schedule.id %>,<%= interview_schedule.stage %>,<%= @last_stage%>,<%=  @job.interview.total_stage%>);"><%= detect_stage(interview_schedule.stage) %></a>
-                    </li>
-                  <%end%>
-                </ul>
-                <!-- Tab panes -->
-                <div class="tab-content">
-                  <%@job.interview.interview_schedules.each do |interview_schedule|%>
-                    <div role="tabpanel" class="tab-pane <%= interview_schedule.stage == 1 ? 'in active' : '' %>" id="<%= interview_schedule.stage %>-stage">
-                      <div class="popup-content">
-                        <h4>interview availability dates</h4>
-                        <div class="date"><%= interview_schedule.interview_avail_dates["interview_avail_date1"] %></div>
-                        <div class="popup-divider"></div>
-                        <h4>interviewer</h4>
-                        <%interview_schedule.interviewers_names.each do |interviewer|%>
-                          <div class="interviewer-detail">
-                            <%= image_tag "new_ui/About Us-1.png", alt:"interviewer", class:"img-fluid" %>
-                              <%= interviewer %>
-                            </div>
-                          <%end%>
-                          <div class="popup-divider"></div>
-                          <h4>client comments</h4>
-                          <div class="row">
-                            <%interview_schedule.client_comments.each do |client_comment| %>
-                              <div class="col-9">
-                                <a href="##"><%= client_comment.user.first_name %></a>
-                                <%= client_comment.comment %>
-                              </div>
-                              <div class="col-3">
-                                <a data-toggle="modal" onclick="setCommentDetails(this);" data-target="#client-comment" href="#" data-comment-id="<%= client_comment.id %>" data-comment="<%= client_comment.comment %>" data-schedule_id="<%= interview_schedule.id %>">Edit</a> 
-                                <%= link_to 'Delete',destroy_comment_path(client_comment),method: :delete %>
-                              </div>
-                            <%end%>
-                            <div class="col-9">
-                            </div>
-                            <div class="col-3">
-                              <a data-toggle="modal" onclick="setCommentDetails(this);" data-target="#client-comment" href="#" data-comment-id="<%= '' %>" data-comment="<%= '' %>" data-schedule_id="<%= interview_schedule.id %>" class="btn btn-info">Add Comment</a> 
-                            </div>                            
-                          </div>
-                          <div class="popup-divider"></div>
-
-                          <div class="row">
-                            <div class="col-8">
-                              <h4>next steps</h4>    
-                            </div>
-                            <div class="col-4">
-                              <a data-toggle="modal" onclick="next_step(<%=  interview_schedule.id%>, <%=  interview_schedule.stage%>,<%= interview_schedule.interviewers_names %>, <%=  interview_schedule.interview_avail_dates.to_json %>,<%= @job.interview.id %>)" data-target="#schedule-interview" href="#">Edit</a>
-                              <a data-toggle="modal" onclick="next_step('', <%=  interview_schedule.stage+1%>, '', '',<%= @job.interview.id %>)" data-target="#schedule-interview" href="#" class="add-schedule-button-<%= interview_schedule.id %>" style="display:none;">Add</a>
-                              <a href="#">delete</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    <%end%>
-                  </div>
-                </div>
-
-              </div>
-            </div>
+          
           </div>
 
           <div class="modal fade schedule-interview" id="schedule-interview">

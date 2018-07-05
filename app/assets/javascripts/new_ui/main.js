@@ -89,7 +89,7 @@ function setJobStatusUrl(obj) {
 }
 
 
-function next_step(id, stage, interviewers_names, inviewer_dates,interview_id) {
+function next_step(id, stage, interviewers_names, inviewer_dates, interview_id) {
   //$("#myModal_n").show()
   $("#interview_id").val(interview_id)
   $("#scheds_id").val(id)
@@ -153,4 +153,14 @@ function showAddScheduleButton(id, stage, last_stage, interview_total_stage) {
       $(".add-schedule-button-" + id).show();
     }
   }
+}
+
+function populateInterviewSchedulePopUp(element) {
+  var job_id = $(element).data('job');
+  url = "/interview_schedules/populate_interview_schedule_popup?job_id="+job_id;
+  $.ajax({
+    url: url,
+    type: "GET",
+    dataType: "script"
+  });
 }

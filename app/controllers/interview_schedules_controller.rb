@@ -108,7 +108,11 @@ class InterviewSchedulesController < ApplicationController
   def destroy
     schedule = InterviewSchedule.find(params[:id])
     schedule.destroy
-    redirect_to"/interview_schedules/#{schedule.interview.job.id}?user_id=#{schedule.user_id}"
+    redirect_to"/users/dashboard"
+  end
+  
+  def populate_interview_schedule_popup
+    @job = Job.find(params[:job_id])
   end
 
   def meeting
