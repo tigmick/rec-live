@@ -148,7 +148,7 @@ function showAddScheduleButton(id, stage, last_stage, interview_total_stage) {
   stage = parseInt(stage);
   last_stage = parseInt(last_stage);
   interview_total_stage = parseInt(interview_total_stage);
-  if (stage == last_stage && stage != 1) {
+  if (stage == last_stage) {
     if (stage !== interview_total_stage) {
       $(".add-schedule-button-" + id).show();
     }
