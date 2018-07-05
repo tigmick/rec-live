@@ -1,2 +1,4 @@
 $('#interview-round').html("<%= escape_javascript render 'populate_interview_schedule_popup' %>");
 $('#interview-round').modal('show');
+<%interview_schedule = @job.interview.interview_schedules.order(:stage).first%>
+showAddScheduleButton(<%= interview_schedule.id %>,<%= interview_schedule.stage %>,<%= @job.interview.interview_schedules.maximum('stage')%>,<%=  @job.interview.total_stage%>);
