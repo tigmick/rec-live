@@ -78,34 +78,69 @@
                                 </div>
                                 <div class="job-discription">
                                   <div class="hori-divi"></div>
-                                  <%@job = Job.find(job.id) %>
-              <%#= new_desing_meeting_with(job, user.id)%>
+
+                                  <%= new_desing_meeting_with(job, user.id)%>
+                                  <%@last_stage = @job.interview.interview_schedules.maximum('stage')%>
                                 </div>
                               </div>
                               <div class="box-footer">
                                 <ul class="d-block">
-                                  <%if @job.interview.interview_schedules.present?%>
-                                    <h3>Comments &nbsp;&nbsp;&nbsp;<a data-toggle="modal"  data-target="#client-comment" href="#">Add</a> 
-                                    </h3>
-                                  <%end%>
-                                  <h3>Interview schedule &nbsp;&nbsp;&nbsp;<a data-toggle="modal"  data-target="#interview-round" href="#">View</a> <a data-toggle="modal" onclick="next_step('', 'Pre Screen', <%= @job.interview.interview_schedules.present? ? @job.interview.interview_schedules.first.interview_avail_dates.to_json : '' %>)" data-target="#schedule-interview" href="#">Create/Update</a>
+                                  <h3>Interview schedule &nbsp;&nbsp;&nbsp;<a data-toggle="modal"  data-target="#interview-round" href="#">View</a> 
                                   </h3>
                                   <div class="stepwizard">
                                     <div class="stepwizard-row">
                                       <div class="stepwizard-step">
                                         <button type="button" class="btn btn-default btn-circle">
-                                          <i class="fas fa-check"></i>
+                                          <%if @last_stage > 1%>
+                                            <i class="fas fa-check"></i>
+                                          <%end%>
                                         </button>
                                         <p>1st</p>
                                       </div>
                                       <div class="stepwizard-step">
-                                        <button type="button" class="btn btn-default btn-circle"></button>
+                                        <button type="button" class="btn btn-default btn-circle">
+                                          <%if @last_stage > 2%>
+                                            <i class="fas fa-check"></i>
+                                          <%end%>
+                                        </button>
                                         <p>2nd</p>
                                       </div>
                                       <div class="stepwizard-step">
-                                        <button type="button" class="btn btn-default btn-circle"></button>
+                                        <button type="button" class="btn btn-default btn-circle">
+                                          <%if @last_stage > 3%>
+                                            <i class="fas fa-check"></i>
+                                          <%end%>
+                                        </button>
                                         <p>3rd</p>
                                       </div>
+                                      <!--<div class="stepwizard-step">
+                                        <button type="button" class="btn btn-default btn-circle"></button>
+                                        <p>4th</p>
+                                      </div>
+                                      <div class="stepwizard-step">
+                                        <button type="button" class="btn btn-default btn-circle"></button>
+                                        <p>5th</p>
+                                      </div>
+                                      <div class="stepwizard-step">
+                                        <button type="button" class="btn btn-default btn-circle"></button>
+                                        <p>6th</p>
+                                      </div>
+                                      <div class="stepwizard-step">
+                                        <button type="button" class="btn btn-default btn-circle"></button>
+                                        <p>7th</p>
+                                      </div>
+                                      <div class="stepwizard-step">
+                                        <button type="button" class="btn btn-default btn-circle"></button>
+                                        <p>8th</p>
+                                      </div>
+                                      <div class="stepwizard-step">
+                                        <button type="button" class="btn btn-default btn-circle"></button>
+                                        <p>9th</p>
+                                      </div>
+                                      <div class="stepwizard-step">
+                                        <button type="button" class="btn btn-default btn-circle"></button>
+                                        <p>10th</p>
+                                      </div>-->
                                     </div>
                                   </div>
                                 </ul>
@@ -134,80 +169,64 @@
                 <h3>Interview Schedule</h3>
                 <a href="#" class="close" data-dismiss="modal">close</a>
               </div>
-
               <!-- Modal body -->
               <div class="modal-body">
                 <ul class="nav nav-tabs" role="tablist">
-                  <li class="nav-item">
-                    <a class="nav-link active" href="#pre-screen" role="tab" data-toggle="tab">Pre screen</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#2nd-round" role="tab" data-toggle="tab">2nd round</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#3rd-round" role="tab" data-toggle="tab">3rd round</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#4th-round" role="tab" data-toggle="tab">4th round</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#5th-round" role="tab" data-toggle="tab">5th round</a>
-                  </li>
+                  <%@job.interview.interview_schedules.order(:stage).each do |interview_schedule|%>
+                    <li class="nav-item">
+                      <a class="nav-link <%= interview_schedule.stage == 1 ? 'active' : '' %>" href="#<%= interview_schedule.stage %>-stage" role="tab" data-toggle="tab" onclick="showAddScheduleButton(<%= interview_schedule.id %>,<%= interview_schedule.stage %>,<%= @last_stage%>,<%=  @job.interview.total_stage%>);"><%= detect_stage(interview_schedule.stage) %></a>
+                    </li>
+                  <%end%>
                 </ul>
-
                 <!-- Tab panes -->
                 <div class="tab-content">
-                  <div role="tabpanel" class="tab-pane in active" id="pre-screen">
-                    <div class="popup-content">
-                      <h4>interview availability dates</h4>
-                      <%available_date = (@job.interview.interview_schedules.present? and @job.interview.interview_schedules.first.interview_avail_dates.present?) ? @job.interview.interview_schedules.first.interview_avail_dates["interview_avail_date1"] : "Not Available"%>
-                      <div class="date"><%= available_date %></div>
-                      <div class="popup-divider"></div>
-                      <h4>interviewer</h4>
-                      <%if @job.interview.interview_schedules.present? and @job.interview.interview_schedules.first.interviewers_names.size > 0%>
-                        <%@job.interview.interview_schedules.first.interviewers_names.each do |interviewer|%>
+                  <%@job.interview.interview_schedules.each do |interview_schedule|%>
+                    <div role="tabpanel" class="tab-pane <%= interview_schedule.stage == 1 ? 'in active' : '' %>" id="<%= interview_schedule.stage %>-stage">
+                      <div class="popup-content">
+                        <h4>interview availability dates</h4>
+                        <div class="date"><%= interview_schedule.interview_avail_dates["interview_avail_date1"] %></div>
+                        <div class="popup-divider"></div>
+                        <h4>interviewer</h4>
+                        <%interview_schedule.interviewers_names.each do |interviewer|%>
                           <div class="interviewer-detail">
-
                             <%= image_tag "new_ui/About Us-1.png", alt:"interviewer", class:"img-fluid" %>
                               <%= interviewer %>
                             </div>
                           <%end%>
-                        <%end%>
-                        <div class="popup-divider"></div>
-                        <h4>client comments</h4>
-                        <div class="row">
-                          <%if @job.interview.interview_schedules.present? and @job.interview.interview_schedules.first.client_comments.present?%>
-                            <%@job.interview.interview_schedules.first.client_comments.each do |client_comment| %>
+                          <div class="popup-divider"></div>
+                          <h4>client comments</h4>
+                          <div class="row">
+                            <%interview_schedule.client_comments.each do |client_comment| %>
                               <div class="col-9">
                                 <a href="##"><%= client_comment.user.first_name %></a>
                                 <%= client_comment.comment %>
                               </div>
                               <div class="col-3">
-                                <a data-toggle="modal" onclick="setCommentDetails(this);" data-target="#client-comment" href="#" data-comment-id="<%= client_comment.id %>" data-comment="<%= client_comment.comment %>">Edit</a> 
+                                <a data-toggle="modal" onclick="setCommentDetails(this);" data-target="#client-comment" href="#" data-comment-id="<%= client_comment.id %>" data-comment="<%= client_comment.comment %>" data-schedule_id="<%= interview_schedule.id %>">Edit</a> 
                                 <%= link_to 'Delete',destroy_comment_path(client_comment),method: :delete %>
                               </div>
                             <%end%>
-                          <%end%>
-                        </div>
-                        <div class="popup-divider"></div>
-                        <h4>next steps</h4>
-                        <div class="row">
-                          <div class="col-8">
-                            <a href="#">chris</a>
-                            very nice
+                            <div class="col-9">
+                            </div>
+                            <div class="col-3">
+                              <a data-toggle="modal" onclick="setCommentDetails(this);" data-target="#client-comment" href="#" data-comment-id="<%= '' %>" data-comment="<%= '' %>" data-schedule_id="<%= interview_schedule.id %>" class="btn btn-info">Add Comment</a> 
+                            </div>                            
                           </div>
-                          <div class="col-4">
-                            <a href="#">edit</a>
-                            <a href="#">add</a>
-                            <a href="#">delete</a>
+                          <div class="popup-divider"></div>
+
+                          <div class="row">
+                            <div class="col-8">
+                              <h4>next steps</h4>    
+                            </div>
+                            <div class="col-4">
+                              <a data-toggle="modal" onclick="next_step(<%=  interview_schedule.id%>, <%=  interview_schedule.stage%>,<%= interview_schedule.interviewers_names %>, <%=  interview_schedule.interview_avail_dates.to_json %>,<%= @job.interview.id %>)" data-target="#schedule-interview" href="#">Edit</a>
+                              <a data-toggle="modal" onclick="next_step('', <%=  interview_schedule.stage+1%>, '', '',<%= @job.interview.id %>)" data-target="#schedule-interview" href="#" class="add-schedule-button-<%= interview_schedule.id %>" style="display:none;">Add</a>
+                              <a href="#">delete</a>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane fade" id="2nd-round">bbb</div>
-                    <div role="tabpanel" class="tab-pane fade" id="3rd-round">ccc</div>
-                    <div role="tabpanel" class="tab-pane fade" id="4th-round">dffsf</div>
-                    <div role="tabpanel" class="tab-pane fade" id="4th-round">fsfs</div>
+                    <%end%>
                   </div>
                 </div>
 
@@ -231,8 +250,8 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                   <%= form_tag interview_schedules_path do %>
-                    <%= hidden_field_tag :interview_id, @job.interview.id if @job.interview.present? %>
-                    <%= hidden_field_tag :scheds_id, @job.interview.interview_schedules.present? ? @job.interview.interview_schedules.first.id : ''%>
+                    <%= hidden_field_tag :interview_id,'' %>
+                    <%= hidden_field_tag :scheds_id, ''%>
                     <%= hidden_field_tag :user_id, @user.id%>
                     <%= hidden_field_tag :date_count, 1%>
                     <div class="form-group">
@@ -243,19 +262,17 @@
 
                     <div class="form-group">
                       <div class="col-md-12">
-                        <%= text_field_tag :interviewer_names,@job.interview.interview_schedules.present? ? @job.interview.interview_schedules.first.interviewers_names.join(',') : nil, :class=> "form-control",:placeholder=>"Interviewer names"%>
+                        <%= text_field_tag :interviewer_names, nil, :class=> "form-control",:placeholder=>"Interviewer names"%>
                       </div>
                     </div>
                     <div id="dates">
 
                     </div>
-                    <%unless @job.interview.interview_schedules.present?%>
-                      <div class="form-group">
-                        <div class="col-md-12">
-                          <a href="javascript:void(0)" id="add_interview_dates" class="btn btn-info">Add Interview Dates</a>
-                        </div>
+                    <div class="form-group">
+                      <div class="col-md-12">
+                        <a href="javascript:void(0)" id="add_interview_dates" class="btn btn-info">Add Interview Dates</a>
                       </div>
-                    <%end%>
+                    </div>
                     <div class="form-group">
                       <div class="col-md-9">
                         <%= submit_tag "submit",class: "btn btn-primary"%>
@@ -274,7 +291,7 @@
 
                   <!-- Modal Header -->
                   <div class="modal-header d-block text-center">
-                    <h3>Interview Schedule</h3>
+                    <h3>Comment</h3>
                     <a href="#" class="close" data-dismiss="modal">close</a>
                     <a href="#" class="arrow" data-dismiss="modal">
                       <i class="fas fa-arrow-left"></i>
@@ -284,7 +301,7 @@
                   <!-- Modal body -->
                   <div class="modal-body">
                     <%= form_tag client_comment_interview_schedules_path do %>
-                      <%= hidden_field_tag :sched_id, @job.interview.interview_schedules.present? ? @job.interview.interview_schedules.first.id : ''%>
+                      <%= hidden_field_tag :sched_id,  ''%>
                       <%= hidden_field_tag :comment_id,'' %>
 
 
