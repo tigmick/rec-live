@@ -11,7 +11,7 @@
       <ul class="nav nav-tabs" role="tablist">
         <%@job.interview.interview_schedules.order(:stage).each_with_index do |interview_schedule,index|%>
           <li class="nav-item">
-            <a class="nav-link <%= index == 0 ? 'active' : '' %>" href="#<%= interview_schedule.stage %>-stage" role="tab" data-toggle="tab" onclick="showAddScheduleButton(<%= interview_schedule.id %>,<%= interview_schedule.stage %>,<%= @last_stage%>,<%=  @job.interview.total_stage%>);"><%= detect_stage(interview_schedule.stage) %></a>
+            <a class="nav-link <%= index == 0 ? 'active' : '' %>" href="#<%= interview_schedule.stage %>-stage" role="tab" data-toggle="tab" onclick="showAddScheduleButton(<%= interview_schedule.id %>,<%= interview_schedule.stage %>,<%= @job.interview.interview_schedules.maximum('stage')%>,<%=  @job.interview.total_stage%>);"><%= detect_stage(interview_schedule.stage) %></a>
           </li>
         <%end%>
       </ul>
