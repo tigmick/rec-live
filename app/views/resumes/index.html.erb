@@ -37,9 +37,11 @@
                            <p><%= resume.description.truncate(100) %></p>
                         </div>
                      </div>
-                     <div class="box-footer text-center">
-                        <a href="<%= edit_resume_path(resume) %>">Edit</a>
-                     </div>
+                    <%if current_user.candidate?%>
+                      <div class="box-footer text-center">
+                         <a href="<%= edit_resume_path(resume) %>">Edit</a>
+                      </div>
+                    <%end%>
                   </li>
                   <% end %>
                   <% else%>
