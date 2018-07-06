@@ -92,7 +92,7 @@
                                       <div class="stepwizard-row">
                                         <div class="stepwizard-step">
                                           <button type="button" class="btn btn-default btn-circle">
-                                            <%if @last_stage.present? and @last_stage > 1%>
+                                            <%if @last_stage.present? and @last_stage >= 1%>
                                               <i class="fas fa-check"></i>
                                             <%end%>
                                           </button>
@@ -100,7 +100,7 @@
                                         </div>
                                         <div class="stepwizard-step">
                                           <button type="button" class="btn btn-default btn-circle">
-                                            <%if @last_stage.present? and @last_stage > 2%>
+                                            <%if @last_stage.present? and @last_stage >= 2%>
                                               <i class="fas fa-check"></i>
                                             <%end%>
                                           </button>
@@ -108,7 +108,7 @@
                                         </div>
                                         <div class="stepwizard-step">
                                           <button type="button" class="btn btn-default btn-circle">
-                                            <%if @last_stage.present? and @last_stage > 3%>
+                                            <%if @last_stage.present? and @last_stage >= 3%>
                                               <i class="fas fa-check"></i>
                                             <%end%>
                                           </button>
@@ -116,7 +116,7 @@
                                         </div>
                                         <div class="stepwizard-step">
                                           <button type="button" class="btn btn-default btn-circle">
-                                            <%if @last_stage.present? and @last_stage > 4%>
+                                            <%if @last_stage.present? and @last_stage >= 4%>
                                               <i class="fas fa-check"></i>
                                             <%end%>
                                           </button>
@@ -124,7 +124,7 @@
                                         </div>
                                         <div class="stepwizard-step">
                                           <button type="button" class="btn btn-default btn-circle">
-                                            <%if @last_stage.present? and @last_stage > 5%>
+                                            <%if @last_stage.present? and @last_stage >= 5%>
                                               <i class="fas fa-check"></i>
                                             <%end%>
                                           </button>
@@ -152,16 +152,67 @@
 
         <!-- interview round -->
         <div class="modal fade interview-round" id="interview-round">
-          
+
+        </div>
+
+        <div class="modal fade schedule-interview" id="schedule-interview">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header d-block text-center">
+                <h3>Interview Schedule</h3>
+                <a href="#" class="close" data-dismiss="modal">close</a>
+                <a href="#" class="arrow" data-dismiss="modal">
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                <%= form_tag interview_schedules_path do %>
+                  <%= hidden_field_tag :interview_id,'' %>
+                  <%= hidden_field_tag :scheds_id, ''%>
+                  <%= hidden_field_tag :user_id, @user.id%>
+                  <%= hidden_field_tag :date_count, 1%>
+                  <div class="form-group stage-field">
+                    <div class="col-md-12">
+                      <%= text_field_tag :stage,nil, :class=> "form-control" , readonly: true%>
+                    </div>
+                  </div>
+
+                  <div class="form-group interviewer-names-field">
+                    <div class="col-md-12">
+                      <%= text_field_tag :interviewer_names, nil, :class=> "form-control",:placeholder=>"Interviewer names"%>
+                    </div>
+                  </div>
+                  <div id="dates">
+
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-12">
+                      <a href="javascript:void(0)" id="add_interview_dates" class="btn btn-info">Add Interview Dates</a>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-9">
+                      <%= submit_tag "submit",class: "btn btn-primary"%>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+
+              </div>
+            </div>
           </div>
 
-          <div class="modal fade schedule-interview" id="schedule-interview">
+          <div class="modal fade schedule-interview" id="client-comment">
             <div class="modal-dialog">
               <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header d-block text-center">
-                  <h3>Interview Schedule</h3>
+                  <h3>Comment</h3>
                   <a href="#" class="close" data-dismiss="modal">close</a>
                   <a href="#" class="arrow" data-dismiss="modal">
                     <i class="fas fa-arrow-left"></i>
@@ -170,98 +221,48 @@
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                  <%= form_tag interview_schedules_path do %>
-                    <%= hidden_field_tag :interview_id,'' %>
-                    <%= hidden_field_tag :scheds_id, ''%>
-                    <%= hidden_field_tag :user_id, @user.id%>
-                    <%= hidden_field_tag :date_count, 1%>
-                    <div class="form-group">
-                      <div class="col-md-12">
-                        <%= text_field_tag :stage,nil, :class=> "form-control" , readonly: true%>
-                      </div>
-                    </div>
+                  <%= form_tag client_comment_interview_schedules_path do %>
+                    <%= hidden_field_tag :sched_id,  ''%>
+                    <%= hidden_field_tag :comment_id,'' %>
+
 
                     <div class="form-group">
                       <div class="col-md-12">
-                        <%= text_field_tag :interviewer_names, nil, :class=> "form-control",:placeholder=>"Interviewer names"%>
-                      </div>
-                    </div>
-                    <div id="dates">
-
-                    </div>
-                    <div class="form-group">
-                      <div class="col-md-12">
-                        <a href="javascript:void(0)" id="add_interview_dates" class="btn btn-info">Add Interview Dates</a>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="col-md-9">
-                        <%= submit_tag "submit",class: "btn btn-primary"%>
+                        <%= text_field_tag :comment,nil, class: "result form-control",:placeholder=>"Comment"%>
                         </div>
                       </div>
-                    <% end %>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <div class="modal fade schedule-interview" id="client-comment">
-              <div class="modal-dialog">
-                <div class="modal-content">
-
-                  <!-- Modal Header -->
-                  <div class="modal-header d-block text-center">
-                    <h3>Comment</h3>
-                    <a href="#" class="close" data-dismiss="modal">close</a>
-                    <a href="#" class="arrow" data-dismiss="modal">
-                      <i class="fas fa-arrow-left"></i>
-                    </a>
-                  </div>
-
-                  <!-- Modal body -->
-                  <div class="modal-body">
-                    <%= form_tag client_comment_interview_schedules_path do %>
-                      <%= hidden_field_tag :sched_id,  ''%>
-                      <%= hidden_field_tag :comment_id,'' %>
-
 
                       <div class="form-group">
-                        <div class="col-md-12">
-                          <%= text_field_tag :comment,nil, class: "result form-control",:placeholder=>"Comment"%>
+                        <div class="col-md-9">
+                          <%= submit_tag "submit",class: "btn btn-primary"%>
                           </div>
                         </div>
-
-                        <div class="form-group">
-                          <div class="col-md-9">
-                            <%= submit_tag "submit",class: "btn btn-primary"%>
-                            </div>
-                          </div>
-                        <% end %>
-                      </div>
-
+                      <% end %>
                     </div>
+
                   </div>
                 </div>
+              </div>
 
 
-                <script>
-
-                  function DateSetup(dates, key, val)
-                  {
-                    var html = "<div class='form-group' id='date" + val + "'><label for='reason' class='col-md-3 control-label'> <%='Date'%>" + val + "</label><div class='col-md-9'><%= escape_javascript text_field_tag 'interview_avail_date',nil ,:class=>"form-control avail_date"%></div></div>";
-                    $('#dates').append(html)
-                    $("#date" + val + " .avail_date").attr('name', 'interview_avail_date' + val)
-                    $("#date" + val + " .avail_date").attr('id', 'interview_avail_date' + val);
-                    $("#date" + val + " .avail_date").val(dates[key]);
-                    $("#interview_avail_date" + val).datetimepicker();
-                  }
-
+              <script>
+                function DateSetup(dates, key, val)
+                {
+                  var html = "<div class='form-group' id='date" + val + "'><label for='reason' class='col-md-3 control-label'> <%='Date'%>" + val + "</label><div class='col-md-9'><%= escape_javascript text_field_tag 'interview_avail_date',nil ,:class=>"form-control avail_date"%></div></div>";
+                  $('#dates').append(html)
+                  $("#date" + val + " .avail_date").attr('name', 'interview_avail_date' + val)
+                  $("#date" + val + " .avail_date").attr('id', 'interview_avail_date' + val);
+                  $("#date" + val + " .avail_date").val(dates[key]);
+                  $("#interview_avail_date" + val).datetimepicker();
+                }
 
 
-                  var count = 0;
-                  $("#add_interview_dates").click(function () {
-                    var val = ($(".avail_date").length + 1) || ++count;
+
+                var count = 0;
+                $("#add_interview_dates").click(function () {
+                  var val = ($(".avail_date").length + 1) //|| ++count;
+                  count++
+                  if (count == 1) {
                     var html = "<div class='form-group' id='date" + val + "'><label for='reason' class='col-md-3 control-label'> <%='Date'%>" + val + "</label><div class='col-md-9'><%= escape_javascript text_field_tag 'interview_avail_date',nil ,:class=>"form-control avail_date"%></div></div>";
                     $('#dates').append(html)
                     $("#date" + val + " .avail_date").attr('name', 'interview_avail_date' + val)
@@ -271,7 +272,11 @@
                     });
                     $("#date_count").val(val)
                     $("#add_interview_dates").hide()
-                  });
+                  }
+                  else{
+                    $('#date1').show();
+                  }
+                });
 
 
-                </script>
+              </script>

@@ -113,6 +113,9 @@ class InterviewSchedulesController < ApplicationController
   
   def populate_interview_schedule_popup
     @job = Job.find(params[:job_id])
+    unless @job.interview.interview_schedules.present?
+      InterviewSchedule.create(stage: 1,interview_id: @job.interview.id,user_id: current_user.id)
+    end
   end
 
   def meeting
