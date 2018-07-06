@@ -1,34 +1,88 @@
 <div class="col-md-10" style="background-color:#f1f1f1;">
-   <div class="job-right">
-      <h2 class="heading"><%= @applied_jobs.present? ? "Jobs you've applied for (#{@applied_jobs.size})" : "" %></h2>
-      <div class="box-job">
-         <ul>
-          <% @applied_jobs.each do |job| %>
-            <li>
-               <div class="equal-height" style="height: 314px;">
-                  <div class="box-heading">
-                     <div class="box-header">
-                        <h2 class="job-heading"><%= link_to (job.title || ""), job_path(job)%></h2>
-                        <h3 class="job-sub-heading"><%= job.industry.present? ? job.industry.title : '' %></h3>
-                        <div class="about-job <%= job.status_string %>"><%= job.status %></div>
-                     </div>
+  <div class="job-right">
+    <h2 class="heading"><%= @applied_jobs.present? ? "Jobs you've applied for (#{@applied_jobs.size})" : "" %></h2>
+    <div class="box-job">
+      <ul>
+        <% @applied_jobs.each do |job| %>
+          <li>
+            <div class="equal-height" style="height: 314px;">
+              <div class="box-heading">
+                <div class="box-header">
+                  <h2 class="job-heading"><%= link_to (job.title || ""), job_path(job)%></h2>
+                  <h3 class="job-sub-heading"><%= job.industry.present? ? job.industry.title : '' %></h3>
+                  <div class="about-job <%= job.status_string %>"><%= job.status %></div>
+                </div>
+              </div>
+              <div class="job-discription">
+                <h3>Candidate Feedback &nbsp;&nbsp;<a href="#" data-toggle="modal" data-target="#interview-round">Edit</a></h3>
+                <p>Candidate has a strong technical background working on similar systems and a good track record. Seems to develop with the…</p>
+                <div class="job-status">
+                  <h3>status</h3>
+                  <h3>Reviewed by client?</h3>
+                  <p><%=reviewed_by(@reviews,job)%></p>
+                  <h3>Submitted to client?</h3>
+                  <p><%=cv_download(@reviews,job)%></p>
+                </div>
+              </div>
+            </div>
+            <%@last_stage = job.interview.interview_schedules.maximum('stage')%>
+            <div class='box-footer'>
+              <ul class='d-block'>
+                <h3>Interview Status&nbsp;&nbsp;&nbsp;<a href='##' style='display: inline-block;' data-job="<%= job.id %>" onclick="candidateInterviewSchedulePopUp(this);">view</a></h3>
+                <div class="stepwizard">
+                  <div class="stepwizard-row">
+                    <div class="stepwizard-step">
+                      <button type="button" class="btn btn-default btn-circle">
+                        <%if @last_stage.present? and @last_stage >= 1%>
+                          <i class="fas fa-check"></i>
+                        <%end%>
+                      </button>
+                      <p>1st</p>
+                    </div>
+                    <div class="stepwizard-step">
+                      <button type="button" class="btn btn-default btn-circle">
+                        <%if @last_stage.present? and @last_stage >= 2%>
+                          <i class="fas fa-check"></i>
+                        <%end%>
+                      </button>
+                      <p>2nd</p>
+                    </div>
+                    <div class="stepwizard-step">
+                      <button type="button" class="btn btn-default btn-circle">
+                        <%if @last_stage.present? and @last_stage >= 3%>
+                          <i class="fas fa-check"></i>
+                        <%end%>
+                      </button>
+                      <p>3rd</p>
+                    </div>
+                    <div class="stepwizard-step">
+                      <button type="button" class="btn btn-default btn-circle">
+                        <%if @last_stage.present? and @last_stage >= 4%>
+                          <i class="fas fa-check"></i>
+                        <%end%>
+                      </button>
+                      <p>4th</p>
+                    </div>
+                    <div class="stepwizard-step">
+                      <button type="button" class="btn btn-default btn-circle">
+                        <%if @last_stage.present? and @last_stage >= 5%>
+                          <i class="fas fa-check"></i>
+                        <%end%>
+                      </button>
+                      <p>5th</p>
+                    </div>
+
                   </div>
-                  <div class="job-discription">
-                     <h3>Candidate Feedback &nbsp;&nbsp;<a href="#" data-toggle="modal" data-target="#interview-round">Edit</a></h3>
-                     <p>Candidate has a strong technical background working on similar systems and a good track record. Seems to develop with the…</p>
-                     <div class="job-status">
-                        <h3>status</h3>
-                        <h3>Reviewed by client?</h3>
-                        <p><%=reviewed_by(@reviews,job)%></p>
-                        <h3>Submitted to client?</h3>
-                        <p><%=cv_download(@reviews,job)%></p>
-                     </div>
-                  </div>
-               </div>
-               <%= candidate_interview_status() %>
-            </li>
-          <% end %>
-         </ul>
-      </div>
-   </div>
+                </div>
+              </ul>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- interview round -->
+<div class="modal fade interview-round" id="interview-round">
+
 </div>

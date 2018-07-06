@@ -180,3 +180,13 @@ function populateInterviewSchedulePopUp(element) {
     dataType: "script"
   });
 }
+
+function candidateInterviewSchedulePopUp(element) {
+  var job_id = $(element).data('job');
+  url = "/interview_schedules/candidate_interview_schedule_popup?job_id=" + job_id;
+  $.ajax({
+    url: url,
+    type: "GET",
+    dataType: "script"
+  });
+}

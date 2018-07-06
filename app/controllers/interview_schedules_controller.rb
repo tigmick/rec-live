@@ -117,6 +117,10 @@ class InterviewSchedulesController < ApplicationController
       InterviewSchedule.create(stage: 1,interview_id: @job.interview.id,user_id: current_user.id)
     end
   end
+  
+  def candidate_interview_schedule_popup
+    @job = Job.find(params[:job_id])
+  end
 
   def meeting
     review = Review.find(params[:review_id])
