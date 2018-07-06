@@ -40,7 +40,11 @@
          <ul class="navbar-nav ml-auto col-md-2">
             <li>
                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
-               <i class="fas fa-user"></i>
+                 <% if current_user.image.url.present? && !current_user.image_file_name.nil? %>
+                  <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%;" %>
+                 <% else %>
+                 <i class="fas fa-user"></i>
+                 <% end %>
                </a>
             </li>
             <li class="nav-item dropdown">
@@ -116,7 +120,12 @@
          <ul class="navbar-nav col-md-2">
             <li>
                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
-               <i class="fas fa-user"></i>
+                 <% if current_user.image.url.present? && !current_user.image_file_name.nil? %>
+                  <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%;" %>
+                 <% else %>
+                 <i class="fas fa-user"></i>
+                 <% end %>
+               <!-- <i class="fas fa-user"></i> -->
                </a>
             </li>
             <li class="nav-item dropdown">
@@ -194,7 +203,12 @@
          <ul class="navbar-nav ml-auto col-md-2">
             <li>
                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
-               <i class="fas fa-user"></i>
+                 <% if current_user.image.url.present? && !current_user.image_file_name.nil? %>
+                  <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%;" %>
+                 <% else %>
+                 <i class="fas fa-user"></i>
+                 <% end %>
+               <!-- <i class="fas fa-user"></i> -->
                </a>
             </li>
             <li class="nav-item dropdown">
@@ -270,7 +284,12 @@
          <ul class="navbar-nav col-md-2">
             <li>
                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
-               <i class="fas fa-user"></i>
+                 <% if current_user.image.url.present? && !current_user.image_file_name.nil? %>
+                  <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%;" %>
+                 <% else %>
+                 <i class="fas fa-user"></i>
+                 <% end %>
+               <!-- <i class="fas fa-user"></i> -->
                </a>
             </li>
             <li class="nav-item dropdown">
@@ -337,7 +356,12 @@
          <ul class="navbar-nav col-md-2">
             <li>
                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
-               <i class="fas fa-user"></i>
+                 <% if current_user.image.url.present? && !current_user.image_file_name.nil? %>
+                  <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%;" %>
+                 <% else %>
+                 <i class="fas fa-user"></i>
+                 <% end %>
+               <!-- <i class="fas fa-user"></i> -->
                </a>
             </li>
             <li class="nav-item dropdown">

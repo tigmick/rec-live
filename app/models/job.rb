@@ -13,7 +13,7 @@
 #  document_content_type :string
 #  document_file_size    :integer
 #  document_updated_at   :datetime
-#  status                :integer          default(0) 0=>Open, 1=>Close
+#  status                :integer          default(0)
 #  closed_at             :datetime
 #
 
@@ -28,7 +28,7 @@ class Job < ActiveRecord::Base
 
   has_attached_file :document,
   :url  => "/assets/jobs/:id/:style/:basename.:extension",
-                  :path => ":rails_root/public/assets/jobs/:id/:style/:basename.:extension"
+  :path => ":rails_root/public/assets/jobs/:id/:style/:basename.:extension"
 
   validates_attachment_file_name :document, matches: [/\.(pdf|(docx?)|dot|wrd)\z/]
   include PgSearch
@@ -38,5 +38,11 @@ class Job < ActiveRecord::Base
 
   def status_string
     open? ? 'open' : 'clos'
+  end
+  def send_job_accepted_email
+    JobMailer.accepted_email(self.user.id, self.id).deliver_now
+  end
+  def send_job_rejected_email
+    JobMailer.rejected_email(self.user.id, self.id).deliver_now
   end
 end

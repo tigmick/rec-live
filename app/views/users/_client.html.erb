@@ -1,3 +1,6 @@
+<% unless flash[:error].nil? %>
+<p class="error-msg"> <%= flash[:error] %> </p>
+<%end%>
 <% industries = [] %>
 <% job_counts = [] %>
 <% @industries.each do |industry| %>
@@ -74,6 +77,8 @@
                                       <% else %>
                                         <%= link_to 'Open the job', open_job_path(id: job.id), class: 'dropdown-item jobs-action', id: "job_#{job.id}" %>
                                         <% end %>
+                                        <%= link_to "Accept", accept_job_path(id:job.id, user_id:user.id) , method: :post %>
+                                        <%= link_to "Reject", reject_job_path(id:job.id, user_id:user.id) , method: :post %>
                                       </div>
                                     </div>
                                   </div>
@@ -86,7 +91,7 @@
                                 </div>
                                 <div class="box-footer">
                                   <ul class="d-block">
-                                    <h3>Interview schedule &nbsp;&nbsp;&nbsp;<a href="##" data-job="<%= @job.id %>" onclick="populateInterviewSchedulePopUp(this);">View</a> 
+                                    <h3>Interview schedule &nbsp;&nbsp;&nbsp;<a href="##" data-job="<%= @job.id %>" onclick="populateInterviewSchedulePopUp(this);">View</a>
                                     </h3>
                                     <%dates = @job.interview.interview_schedules.collect{|i| {"#{i.stage}"=>i.interview_avail_dates.present? ? i.interview_avail_dates["interview_avail_date1"] : ''}}%>
                                     <div class="stepwizard">

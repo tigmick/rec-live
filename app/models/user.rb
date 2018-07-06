@@ -29,6 +29,10 @@
 #  job_title              :string
 #  company_name           :string
 #  status                 :boolean          default(FALSE)
+#  image_file_name        :string
+#  image_content_type     :string
+#  image_file_size        :integer
+#  image_updated_at       :datetime
 #
 # Indexes
 #
@@ -40,7 +44,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  :recoverable, :rememberable, :trackable, :validatable
 
   ROLES = ['client','candidate']
 
@@ -48,6 +52,11 @@ class User < ActiveRecord::Base
   has_many :jobs
   has_one :user_job, dependent: :destroy
   has_many :reviews, dependent: :destroy
+
+  has_attached_file :image
+  validates_attachment_content_type :image, content_type: ["image/jpeg", "image/gif", "image/png"]
+  validates_with AttachmentSizeValidator, attributes: :image, less_than: 1.megabytes
+
 
   def client?
     role == "client"
@@ -58,18 +67,26 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    first_name+" "+last_name
+    if first_name.to_s.empty?
+      if last_name.to_s.empty?
+        ""
+      else
+        "#{last_name.capitalize}"
+      end
+    else
+      "#{first_name.capitalize} #{last_name.to_s.capitalize}"
+    end
   end
 
   def candidate_jobs_by_industry
     jobs = {}
     self.user_job.job_ids.each do |job_id|
-        job = Job.find(job_id)
-        if jobs.key?(job.industry.title)
-          jobs[job.industry.title] << job
-        else
-          jobs.merge!({job.industry.title => [job]})
-        end
+      job = Job.find(job_id)
+      if jobs.key?(job.industry.title)
+        jobs[job.industry.title] << job
+      else
+        jobs.merge!({job.industry.title => [job]})
+      end
     end
     jobs
   end
@@ -77,9 +94,9 @@ class User < ActiveRecord::Base
   def candidate_jobs
     if self.user_job.present?
       job_ids = self.user_job.job_ids
-          jobs = Job.where(id: job_ids)
-      else
-        jobs = []
+      jobs = Job.where(id: job_ids)
+    else
+      jobs = []
     end
   end
 

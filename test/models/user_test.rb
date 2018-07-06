@@ -29,6 +29,10 @@
 #  job_title              :string
 #  company_name           :string
 #  status                 :boolean          default(FALSE)
+#  image_file_name        :string
+#  image_content_type     :string
+#  image_file_size        :integer
+#  image_updated_at       :datetime
 #
 # Indexes
 #

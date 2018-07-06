@@ -74,6 +74,12 @@ class UserMailer < ApplicationMailer
     mail(from: AdminUser.first.email,to: @resource.email, subject: @subject)
   end
 
+  def accepted_email(user_id, job_id)
+    @user = User.find user_id
+    @job = Job.find job_id
+    mail(to: email_with_name(@user.email, @user.full_name), subject: "Accpeted for job #{@job.title}")
+  end
+
   def candidate_email_alert(resource, user)
     @resource = resource
     if (resource.first_name.present? rescue false)
