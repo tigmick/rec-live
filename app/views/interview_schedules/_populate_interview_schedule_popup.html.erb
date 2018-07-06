@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-3">
                   <%unless interview_schedule.interview_avail_dates.present?%>
-                    <a data-toggle="modal" onclick="next_step(<%=  interview_schedule.id%>, <%=  interview_schedule.stage %>,<%= interview_schedule.interviewers_names %>, <%=  interview_schedule.interview_avail_dates.to_json %>,<%= @job.interview.id %>, 'date')" data-target="#schedule-interview" href="#">Add</a>
+                    <a data-toggle="modal" onclick="next_step(<%=  interview_schedule.id%>, <%=  interview_schedule.stage %>,<%= interview_schedule.interviewers_names %>, <%=  interview_schedule.interview_avail_dates["interview_avail_date1"].to_json %>,<%= @job.interview.id %>, 'date')" data-target="#schedule-interview" href="#">Add</a>
                   <%end%>
                 </div>
                 <div class="col-9">
@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-3">
                   <%if interview_schedule.interview_avail_dates.present?%>
-                    <a data-toggle="modal" onclick="next_step(<%=  interview_schedule.id%>, <%=  interview_schedule.stage %>,<%= interview_schedule.interviewers_names %>, <%=  interview_schedule.interview_avail_dates.to_json %>,<%= @job.interview.id %>, 'date')" data-target="#schedule-interview" href="#">Edit</a>
+                    <a data-toggle="modal" onclick="next_step(<%=  interview_schedule.id%>, <%=  interview_schedule.stage %>,<%= interview_schedule.interviewers_names %>, <%=  interview_schedule.interview_avail_dates["interview_avail_date1"].to_json %>,<%= @job.interview.id %>, 'date')" data-target="#schedule-interview" href="#">Edit</a>
                   <%end%>
                 </div>
               </div>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-3">
                   <%unless interview_schedule.interviewers_names.present?%>
-                    <a data-toggle="modal" onclick="next_step(<%=  interview_schedule.id%>, <%=  interview_schedule.stage %>,<%= interview_schedule.interviewers_names %>, <%=  interview_schedule.interview_avail_dates.to_json %>,<%= @job.interview.id %>, 'interviewer')" data-target="#schedule-interview" href="#">Add</a>   
+                    <a data-toggle="modal" onclick="next_step(<%=  interview_schedule.id%>, <%=  interview_schedule.stage %>,<%= interview_schedule.interviewers_names %>, <%=  interview_schedule.interview_avail_dates["interview_avail_date1"].to_json %>,<%= @job.interview.id %>, 'interviewer')" data-target="#schedule-interview" href="#">Add</a>   
                   <%end%>
                 </div>
                 <div class="col-9">
@@ -58,7 +58,7 @@
                 </div>
                 <div class="col-3">
                   <%if interview_schedule.interviewers_names.present?%>
-                    <a data-toggle="modal" onclick="next_step(<%=  interview_schedule.id%>, <%=  interview_schedule.stage %>,<%= interview_schedule.interviewers_names %>, <%=  interview_schedule.interview_avail_dates.to_json %>,<%= @job.interview.id %>, 'interviewer')" data-target="#schedule-interview" href="#">Edit</a>   
+                    <a data-toggle="modal" onclick="next_step(<%=  interview_schedule.id%>, <%=  interview_schedule.stage %>,<%= interview_schedule.interviewers_names %>, <%=  interview_schedule.interview_avail_dates["interview_avail_date1"].to_json %>,<%= @job.interview.id %>, 'interviewer')" data-target="#schedule-interview" href="#">Edit</a>   
                   <%end%>
                 </div>
               </div>
@@ -97,7 +97,7 @@
                   <%if interview_schedule.stage.to_i == @job.interview.interview_schedules.maximum('stage')%>
                     <a data-toggle="modal" onclick="next_step('', <%=  interview_schedule.stage+1%>, '', '',<%= @job.interview.id %>, 'all fields')" data-target="#schedule-interview" href="#" class="add-schedule-button-<%= interview_schedule.id %>">Add</a>
                   <%end%>
-                  <a data-toggle="modal" onclick="next_step(<%=  interview_schedule.id%>, <%=  interview_schedule.stage %>,<%= interview_schedule.interviewers_names %>, <%=  interview_schedule.interview_avail_dates.to_json %>,<%= @job.interview.id %>, 'all fields')" data-target="#schedule-interview" href="#">Edit</a>
+                  <a data-toggle="modal" onclick="next_step(<%=  interview_schedule.id%>, <%=  interview_schedule.stage %>,<%= interview_schedule.interviewers_names %>, <%=  interview_schedule.interview_avail_dates["interview_avail_date1"].to_json %>,<%= @job.interview.id %>, 'all fields')" data-target="#schedule-interview" href="#">Edit</a>
                   <%= link_to " Delete", "/interview_schedules/#{interview_schedule.id}", method: :delete  %>
                 </div>
               </div>

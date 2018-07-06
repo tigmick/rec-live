@@ -186,12 +186,18 @@
                       <%= text_field_tag :interviewer_names, nil, :class=> "form-control",:placeholder=>"Interviewer names"%>
                     </div>
                   </div>
-                  <div id="dates">
+                  <!--<div id="dates">
 
                   </div>
                   <div class="form-group">
                     <div class="col-md-12">
                       <a href="javascript:void(0)" id="add_interview_dates" class="btn btn-info">Add Interview Dates</a>
+                    </div>
+                  </div>-->
+                  <div class="form-group" id="date1">
+                    <label for="reason" class="col-md-3 control-label"> Date1</label>
+                    <div class="col-md-9">
+                      <input name="interview_avail_date1" id="interview_avail_date1" class="form-control avail_date" type="text">
                     </div>
                   </div>
                   <div class="form-group">
@@ -246,6 +252,9 @@
 
 
               <script>
+                $("#interview_avail_date1").datetimepicker({
+                  defaultTime: '09:00'
+                });
                 function DateSetup(dates, key, val)
                 {
                   var html = "<div class='form-group' id='date" + val + "'><label for='reason' class='col-md-3 control-label'> <%='Date'%>" + val + "</label><div class='col-md-9'><%= escape_javascript text_field_tag 'interview_avail_date',nil ,:class=>"form-control avail_date"%></div></div>";
@@ -272,8 +281,7 @@
                     });
                     $("#date_count").val(val)
                     $("#add_interview_dates").hide()
-                  }
-                  else{
+                  } else {
                     $('#date1').show();
                   }
                 });

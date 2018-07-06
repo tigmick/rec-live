@@ -90,29 +90,27 @@ function setJobStatusUrl(obj) {
 
 
 function next_step(id, stage, interviewers_names, inviewer_dates, interview_id, field) {
+  console.log(inviewer_dates);
   //$("#myModal_n").show()
   if (field == 'all fields') {
     $('.stage-field').show();
     $('.interviewer-names-field').show();
-    $('#add_interview_dates').show();
-  }
-  else if (field == 'interviewer') {
+    $('#date1').show();
+  } else if (field == 'interviewer') {
     $('.stage-field').hide();
     $('.interviewer-names-field').show();
-    $('#add_interview_dates').hide();
     $('#date1').hide();
-  }
-  else if (field == 'date') {
+  } else if (field == 'date') {
     $('.stage-field').hide();
     $('.interviewer-names-field').hide();
-    $('.date-adding-button').hide();
-    $('#add_interview_dates').show();
+    $('#date1').show();
   }
   $("#interview_id").val(interview_id)
   $("#scheds_id").val(id)
   $("#stage").val(stage)
   $("#interviewer_names").val(interviewers_names)
-  $("#add_interview_dates").attr("data-id", $(".avail_date").length)
+  $("#interview_avail_date1").val(inviewer_dates)
+  //$("#add_interview_dates").attr("data-id", $(".avail_date").length)
   // && Object.keys(inviewer_dates).length > 1
 //  if (typeof inviewer_dates !== "undefined" && Object.keys(inviewer_dates).length > 1) {
 //    UpdateDate(inviewer_dates)
