@@ -1,0 +1,88 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <!-- Modal Header -->
+    <div class="modal-header d-block">
+      <h3>Interview Schedule</h3>
+      <a href="#" class="close" data-dismiss="modal">close</a>
+    </div>
+    <!-- Modal body -->
+    <div class="modal-body">
+      <ul class="nav nav-tabs" role="tablist">
+        <%@job.interview.interview_schedules.order(:stage).each_with_index do |interview_schedule,index|%>
+          <li class="nav-item">
+            <a class="nav-link <%= index == 0 ? 'active' : '' %>" href="#<%= interview_schedule.stage %>-stage" role="tab" data-toggle="tab"><%= detect_stage(interview_schedule.stage) %></a>
+          </li>
+        <%end%>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <%@job.interview.interview_schedules.each_with_index do |interview_schedule,index|%>
+          <div role="tabpanel" class="tab-pane <%= index == 0 ? 'in active' : '' %>" id="<%= interview_schedule.stage %>-stage">
+            <div class="popup-content">
+              <div class="row">
+                <div class="col-9">
+                  <h4>interview availability dates</h4>
+                </div>
+                <div class="col-3">
+                  
+                </div>
+                <div class="col-9">
+                  <%= interview_schedule.interview_avail_dates["interview_avail_date1"] %>
+                </div>
+                <div class="col-3">
+                  
+                </div>
+              </div>
+
+              <div class="popup-divider"></div>
+              <div class="row">
+                <div class="col-9">
+                  <h4>interviewer</h4>    
+                </div>
+                <div class="col-3">
+                  
+                </div>
+                <div class="col-9">
+                  <%interview_schedule.interviewers_names.each do |interviewer|%>
+                    <div class="interviewer-detail">
+                      <%= interviewer %>
+                    </div>
+                  <%end%>    
+                </div>
+                <div class="col-3">
+                  
+                </div>
+              </div>
+
+
+              <div class="popup-divider"></div>
+              <div class="row">
+                <div class="col-9">
+                  <h4>client comments</h4>                  
+                </div>
+                <div class="col-3">
+                  
+                </div>
+                <%interview_schedule.client_comments.each do |client_comment| %>
+                  <div class="col-9">
+                    <a href="##"><%= client_comment.user.first_name %></a>
+                    <%= client_comment.comment %>
+                  </div>
+                  <div class="col-3">
+                  </div>
+                <%end%>
+                <div class="col-9">
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        <%end%>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -2,233 +2,294 @@
 <p class="error-msg"> <%= flash[:error] %> </p>
 <%end%>
 <% industries = [] %>
-  <% job_counts = [] %>
-    <% @industries.each do |industry| %>
-      <% count = 0 %>
-        <% industry.jobs.where(user_id: current_user.id).each do |job| %>
-          <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
-            <% users.each do |user| %>
-              <% if user.present?%>
-                <% industries << industry if count == 0 %>
-                  <% count += 1 %><% end %>
-                <% end %>
-              <% end %>
-              <% job_counts << count if count > 0 %><% end %>
+<% job_counts = [] %>
+<% @industries.each do |industry| %>
+  <% count = 0 %>
+  <% industry.jobs.where(user_id: current_user.id).each do |job| %>
+    <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
+    <% users.each do |user| %>
+      <% if user.present?%>
+        <% industries << industry if count == 0 %>
+        <% count += 1 %><% end %>
+    <% end %>
+  <% end %>
+  <% job_counts << count if count > 0 %><% end %>
 
-              <div class="col-md-10" id="content-container" style="background-color:#f1f1f1;">
-                <% industries.each_with_index do |industry, i| %>
-                  <% if industry.jobs.count > 0 %>
-                    <!-- List the Jobs application according to Industry -->
-                    <div class="row">
-                      <div class="col-md-12" style="border-bottom:1px solid #fff;">
-                        <div class="job-right">
-                          <h2 class="heading">
-                            <a href="#" data-toggle="collapse" data-target="#collapse-<%= industry.id %>">
-                              <%= industry.title %>
-                              (<%= job_counts[i] %>)
-                            </a>
-                          </h2>
-                          <div id="collapse-<%= industry.id %>" class="collapse-panel collapse show">
-                            <div class="box-job">
-                              <ul>
-                                <% industry.jobs.each do |job| %>
-                                  <!-- start of application -->
-                                  <% recived_applications = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
-                                    <% recived_applications.each do |user| %>
-                                      <%# user = users.first %>
-                                        <% next unless user.present? %>
-                                          <% resume = user.resumes.first %>
-                                            <li>
-                                              <div class="equal">
-                                                <div class="box-heading">
-                                                  <div class="box-header">
-                                                    <div class="name">
-                                                      <%= user.first_name[0] %>
-                                                      <% if user.last_name %><%= user.last_name[0] %>
-                                                      <% end %>
-                                                    </div>
-                                                    <div class="detail">
-                                                      <h2 class="job-heading">
-                                                        <%= link_to "#{user.first_name} \n #{user.last_name}", job_path(job) %>
-                                                      </h2>
-                                                      <h3 class="job-sub-heading">
-                                                        <a href="mailto:<%= user.email %>"><%= user.email %></a>
-                                                      </h3>
-                                                      <% if resume.present? %>
-                                                        <div class="about-job">
-                                                          <%= link_to "#{File.extname(resume.cv_file_name.upcase).gsub(".","")}" , download_resume_path(resume), target: "_blank", style: "color:#203CC4", title: "#{resume.cv_file_name}" %>
-                                                        </div>
-                                                      <% end %>
-                                                    </div>
-                                                  </div>
-                                                  <div class="job-option text-center float-right">
-                                                    <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                      <ul>
-                                                        <li></li>
-                                                        <li></li>
-                                                        <li></li>
-                                                      </ul>
-                                                    </a>
-                                                    <div class="dropdown-menu" aria-labelledby="options">
-                                                      <%= link_to 'Create interview', job_path(job), class: "dropdown-item" %>
-                                                      <% if job.open? %>
-                                                        <%= link_to 'Close the job', close_job_path(id: job.id), class: 'dropdown-item jobs-action', id: "job_#{job.id}" %>
-                                                      <% else %>
-                                                        <%= link_to 'Open the job', open_job_path(id: job.id), class: 'dropdown-item jobs-action', id: "job_#{job.id}" %>
-                                                      <% end %>
-                                                      <%= link_to "Accept", accept_job_path(id:job.id, user_id:user.id) , method: :post %>
-                                                      <%= link_to "Reject", reject_job_path(id:job.id, user_id:user.id) , method: :post %>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                                <div class="job-discription">
-                                                  <div class="hori-divi"></div>
-                                                  <%= new_desing_meeting_with(job, user.id)%>
-                                                </div>
-                                              </div>
-                                              <div class="box-footer">
-                                                <ul class="d-block">
-                                                  <h3>Interview schedule &nbsp;&nbsp;&nbsp;<a data-toggle="modal" onclick="next_step('',0,'')" data-target="#interview-round" href="#">Create</a>
-                                                  </h3>
-                                                  <div class="stepwizard">
-                                                    <div class="stepwizard-row">
-                                                      <div class="stepwizard-step">
-                                                        <button type="button" class="btn btn-default btn-circle">
-                                                          <i class="fas fa-check"></i>
-                                                        </button>
-                                                        <p>1st</p>
-                                                      </div>
-                                                      <div class="stepwizard-step">
-                                                        <button type="button" class="btn btn-default btn-circle"></button>
-                                                        <p>2nd</p>
-                                                      </div>
-                                                      <div class="stepwizard-step">
-                                                        <button type="button" class="btn btn-default btn-circle"></button>
-                                                        <p>3rd</p>
-                                                      </div>
-                                                      <div class="stepwizard-step">
-                                                        <button type="button" class="btn btn-default btn-circle"></button>
-                                                        <p>4th</p>
-                                                      </div>
-                                                      <div class="stepwizard-step">
-                                                        <button type="button" class="btn btn-default btn-circle"></button>
-                                                        <p>5th</p>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                </ul>
-                                                <!-- <%= new_desing_interview_stage_client_section(job, user.id )%> -->
-                                              </div>
-                                            </li>
-                                            <!-- end of application -->
-                                          <% end %>
-                                        <% end %>
-                                      </ul>
+<div class="col-md-10" id="content-container" style="background-color:#f1f1f1;">
+  <% industries.each_with_index do |industry, i| %>
+    <% if industry.jobs.count > 0 %>
+      <!-- List the Jobs application according to Industry -->
+      <div class="row">
+        <div class="col-md-12" style="border-bottom:1px solid #fff;">
+          <div class="job-right">
+            <h2 class="heading">
+              <a href="#" data-toggle="collapse" data-target="#collapse-<%= industry.id %>">
+                <%= industry.title %>
+                (<%= job_counts[i] %>)
+              </a>
+            </h2>
+            <div id="collapse-<%= industry.id %>" class="collapse-panel collapse show">
+              <div class="box-job">
+                <ul>
+                  <% industry.jobs.each do |job| %>
+                    <!-- start of application -->
+                    <% recived_applications = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
+                    <% recived_applications.each do |user| %>
+        <%# user = users.first %>
+                      <% next unless user.present? %>
+                      <% resume = user.resumes.first %>
+                      <%if job.interview.present?%>
+                        <li>
+                          <div class="equal">
+                            <div class="box-heading">
+                              <div class="box-header">
+                                <div class="name">
+                                  <%= user.first_name[0] %>
+                                  <% if user.last_name %><%= user.last_name[0] %>
+                                  <% end %>
+                                </div>
+                                <div class="detail">
+                                  <h2 class="job-heading">
+                                    <%= link_to "#{user.first_name} #{user.last_name}", job_path(job) %>
+                                  </h2>
+                                  <h3 class="job-sub-heading">
+                                    <a href="mailto:<%= user.email %>"><%= user.email %></a>
+                                  </h3>
+                                  <% if resume.present? %>
+                                    <div class="about-job">
+                                      <%= link_to "#{resume.cv_file_name}".truncate(10).humanize, download_resume_path(resume), target: "_blank", style: "color:#203CC4", title: "#{resume.cv_file_name}" %>
                                     </div>
-                                  </div>
+                                  <% end %>
                                 </div>
                               </div>
-                            </div>
+                              <div class="job-option text-center float-right">
+                                <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <ul>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                  </ul>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="options">
+                                  <%= link_to 'Create interview', job_path(job), class: "dropdown-item" %>
+                                    <% if job.open? %>
+                                      <%= link_to 'Close the job', close_job_path(id: job.id), class: 'dropdown-item jobs-action', id: "job_#{job.id}" %>
+                                      <% else %>
+                                        <%= link_to 'Open the job', open_job_path(id: job.id), class: 'dropdown-item jobs-action', id: "job_#{job.id}" %>
+                                        <% end %>
+                                        <%= link_to "Accept", accept_job_path(id:job.id, user_id:user.id) , method: :post %>
+                                        <%= link_to "Reject", reject_job_path(id:job.id, user_id:user.id) , method: :post %>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="job-discription">
+                                    <div class="hori-divi"></div>
+
+                                    <%= new_desing_meeting_with(job, user.id)%>
+                                    <%@last_stage = @job.interview.interview_schedules.maximum('stage')%>
+                                  </div>
+                                </div>
+                                <div class="box-footer">
+                                  <ul class="d-block">
+                                    <h3>Interview schedule &nbsp;&nbsp;&nbsp;<a href="##" data-job="<%= @job.id %>" onclick="populateInterviewSchedulePopUp(this);">View</a>
+                                    </h3>
+                                    <div class="stepwizard">
+                                      <div class="stepwizard-row">
+                                        <div class="stepwizard-step">
+                                          <button type="button" class="btn btn-default btn-circle">
+                                            <%if @last_stage.present? and @last_stage >= 1%>
+                                              <i class="fas fa-check"></i>
+                                            <%end%>
+                                          </button>
+                                          <p>1st</p>
+                                        </div>
+                                        <div class="stepwizard-step">
+                                          <button type="button" class="btn btn-default btn-circle">
+                                            <%if @last_stage.present? and @last_stage >= 2%>
+                                              <i class="fas fa-check"></i>
+                                            <%end%>
+                                          </button>
+                                          <p>2nd</p>
+                                        </div>
+                                        <div class="stepwizard-step">
+                                          <button type="button" class="btn btn-default btn-circle">
+                                            <%if @last_stage.present? and @last_stage >= 3%>
+                                              <i class="fas fa-check"></i>
+                                            <%end%>
+                                          </button>
+                                          <p>3rd</p>
+                                        </div>
+                                        <div class="stepwizard-step">
+                                          <button type="button" class="btn btn-default btn-circle">
+                                            <%if @last_stage.present? and @last_stage >= 4%>
+                                              <i class="fas fa-check"></i>
+                                            <%end%>
+                                          </button>
+                                          <p>4th</p>
+                                        </div>
+                                        <div class="stepwizard-step">
+                                          <button type="button" class="btn btn-default btn-circle">
+                                            <%if @last_stage.present? and @last_stage >= 5%>
+                                              <i class="fas fa-check"></i>
+                                            <%end%>
+                                          </button>
+                                          <p>5th</p>
+                                        </div>
+
+                                      </div>
+                                    </div>
+                                  </ul>
+                                  <!-- <%= new_desing_interview_stage_client_section(job, user.id )%> -->
+                                </div>
+                              </li>
+                            <%end%>
+                            <!-- end of application -->
                           <% end %>
                         <% end %>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
 
-                        <!-- interview round -->
-                        <div class="modal fade interview-round" id="interview-round">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
+        <!-- interview round -->
+        <div class="modal fade interview-round" id="interview-round">
 
-                              <!-- Modal Header -->
-                              <div class="modal-header d-block">
-                                <h3>Interview Schedule</h3>
-                                <a href="#" class="close" data-dismiss="modal">close</a>
-                              </div>
+        </div>
 
-                              <!-- Modal body -->
-                              <div class="modal-body">
-                                <ul class="nav nav-tabs" role="tablist">
-                                  <li class="nav-item">
-                                    <a class="nav-link active" href="#pre-screen" role="tab" data-toggle="tab">Pre screen</a>
-                                  </li>
-                                  <li class="nav-item">
-                                    <a class="nav-link" href="#2nd-round" role="tab" data-toggle="tab">2nd round</a>
-                                  </li>
-                                  <li class="nav-item">
-                                    <a class="nav-link" href="#3rd-round" role="tab" data-toggle="tab">3rd round</a>
-                                  </li>
-                                  <li class="nav-item">
-                                    <a class="nav-link" href="#4th-round" role="tab" data-toggle="tab">4th round</a>
-                                  </li>
-                                  <li class="nav-item">
-                                    <a class="nav-link" href="#5th-round" role="tab" data-toggle="tab">5th round</a>
-                                  </li>
-                                </ul>
+        <div class="modal fade schedule-interview" id="schedule-interview">
+          <div class="modal-dialog">
+            <div class="modal-content">
 
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                  <div role="tabpanel" class="tab-pane in active" id="pre-screen">
-                                    <div class="popup-content">
-                                      <h4>interview availability dates</h4>
-                                      <div class="date">21/03/2018 10:00 am</div>
-                                      <div class="popup-divider"></div>
-                                      <h4>interviewer</h4>
-                                      <div class="interviewer-detail">
-                                        <%= image_tag "new_ui/About Us-1.png", alt:"interviewer", class:"img-fluid" %>
-                                        brain johnson</div>
-                                      <div class="popup-divider"></div>
-                                      <h4>interviewer</h4>
-                                      <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
-                                      <div class="popup-divider"></div>
-                                      <h4>client comments</h4>
-                                      <div class="row">
-                                        <div class="col-9">
-                                          <a href="#">chris</a>
-                                          very nice
-                                        </div>
-                                        <div class="col-3">
-                                          <a href="#">edit</a>
-                                          <a href="#">delete</a>
-                                        </div>
-                                        <div class="col-9">
-                                          <a href="#">chris</a>
-                                          very nice
-                                        </div>
-                                        <div class="col-3">
-                                          <a href="#">edit</a>
-                                          <a href="#">delete</a>
-                                        </div>
-                                        <div class="col-9">
-                                          <a href="#">chris</a>
-                                          very nice
-                                        </div>
-                                        <div class="col-3">
-                                          <a href="#">edit</a>
-                                          <a href="#">delete</a>
-                                        </div>
-                                      </div>
-                                      <div class="popup-divider"></div>
-                                      <h4>next steps</h4>
-                                      <div class="row">
-                                        <div class="col-8">
-                                          <a href="#">chris</a>
-                                          very nice
-                                        </div>
-                                        <div class="col-4">
-                                          <a href="#">edit</a>
-                                          <a href="#">add</a>
-                                          <a href="#">delete</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div role="tabpanel" class="tab-pane fade" id="2nd-round">bbb</div>
-                                  <div role="tabpanel" class="tab-pane fade" id="3rd-round">ccc</div>
-                                  <div role="tabpanel" class="tab-pane fade" id="4th-round">dffsf</div>
-                                  <div role="tabpanel" class="tab-pane fade" id="4th-round">fsfs</div>
-                                </div>
-                              </div>
+              <!-- Modal Header -->
+              <div class="modal-header d-block text-center">
+                <h3>Interview Schedule</h3>
+                <a href="#" class="close" data-dismiss="modal">close</a>
+                <a href="#" class="arrow" data-dismiss="modal">
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+              </div>
 
-                            </div>
+              <!-- Modal body -->
+              <div class="modal-body">
+                <%= form_tag interview_schedules_path do %>
+                  <%= hidden_field_tag :interview_id,'' %>
+                  <%= hidden_field_tag :scheds_id, ''%>
+                  <%= hidden_field_tag :user_id, @user.id%>
+                  <%= hidden_field_tag :date_count, 1%>
+                  <div class="form-group stage-field">
+                    <div class="col-md-12">
+                      <%= text_field_tag :stage,nil, :class=> "form-control" , readonly: true%>
+                    </div>
+                  </div>
+
+                  <div class="form-group interviewer-names-field">
+                    <div class="col-md-12">
+                      <%= text_field_tag :interviewer_names, nil, :class=> "form-control",:placeholder=>"Interviewer names"%>
+                    </div>
+                  </div>
+                  <!--<div id="dates">
+
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-12">
+                      <a href="javascript:void(0)" id="add_interview_dates" class="btn btn-info">Add Interview Dates</a>
+                    </div>
+                  </div>-->
+                  <div class="form-group" id="date1">
+                    <label for="reason" class="col-md-3 control-label"> Date1</label>
+                    <div class="col-md-9">
+                      <input name="interview_avail_date1" id="interview_avail_date1" class="form-control avail_date" type="text">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-9">
+                      <%= submit_tag "submit",class: "btn btn-primary"%>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade schedule-interview" id="client-comment">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header d-block text-center">
+                  <h3>Comment</h3>
+                  <a href="#" class="close" data-dismiss="modal">close</a>
+                  <a href="#" class="arrow" data-dismiss="modal">
+                    <i class="fas fa-arrow-left"></i>
+                  </a>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <%= form_tag client_comment_interview_schedules_path do %>
+                    <%= hidden_field_tag :sched_id,  ''%>
+                    <%= hidden_field_tag :comment_id,'' %>
+
+
+                    <div class="form-group">
+                      <div class="col-md-12">
+                        <%= text_field_tag :comment,nil, class: "result form-control",:placeholder=>"Comment"%>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <div class="col-md-9">
+                          <%= submit_tag "submit",class: "btn btn-primary"%>
                           </div>
                         </div>
-                        <!-- interview round -->
+                      <% end %>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+              <script>
+                $("#interview_avail_date1").datetimepicker({
+                  defaultTime: '09:00'
+                });
+                function DateSetup(dates, key, val)
+                {
+                  var html = "<div class='form-group' id='date" + val + "'><label for='reason' class='col-md-3 control-label'> <%='Date'%>" + val + "</label><div class='col-md-9'><%= escape_javascript text_field_tag 'interview_avail_date',nil ,:class=>"form-control avail_date"%></div></div>";
+                  $('#dates').append(html)
+                  $("#date" + val + " .avail_date").attr('name', 'interview_avail_date' + val)
+                  $("#date" + val + " .avail_date").attr('id', 'interview_avail_date' + val);
+                  $("#date" + val + " .avail_date").val(dates[key]);
+                  $("#interview_avail_date" + val).datetimepicker();
+                }
+
+
+
+                var count = 0;
+                $("#add_interview_dates").click(function () {
+                  var val = ($(".avail_date").length + 1) //|| ++count;
+                  count++
+                  if (count == 1) {
+                    var html = "<div class='form-group' id='date" + val + "'><label for='reason' class='col-md-3 control-label'> <%='Date'%>" + val + "</label><div class='col-md-9'><%= escape_javascript text_field_tag 'interview_avail_date',nil ,:class=>"form-control avail_date"%></div></div>";
+                    $('#dates').append(html)
+                    $("#date" + val + " .avail_date").attr('name', 'interview_avail_date' + val)
+                    $("#date" + val + " .avail_date").attr('id', 'interview_avail_date' + val);
+                    $("#interview_avail_date" + val).datetimepicker({
+                      defaultTime: '09:00'
+                    });
+                    $("#date_count").val(val)
+                    $("#add_interview_dates").hide()
+                  } else {
+                    $('#date1').show();
+                  }
+                });
+
+
+              </script>

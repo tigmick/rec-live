@@ -14,6 +14,7 @@
  *= require alertify
  *= require alertify/default
  *= require alertify/bootstrap
+ *= require datetimepicker
  *= require_tree .
  *= require_self
 */

@@ -103,7 +103,8 @@ function UpdateDate(dates)
 {
   var count = 1
   for (var key in dates){
-    val = count++
+    //val = count++
+    val = count;
     DateSetup(dates,key,val)
   $("#add_interview_dates").attr("data-id",val)
   }
