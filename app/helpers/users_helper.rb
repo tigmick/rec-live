@@ -184,12 +184,12 @@ module UsersHelper
       if current_user.client? && @schedule.present?
         if @schedule.client_comments.present?
           recent_comment = @schedule.client_comments.last
-          add = "<a href='javascript:void(0);' onclick='setCommentDetails(this);' data-toggle='modal' data-target='#client-comment' data-comment-id='' data-comment=''  data-schedule_id='#{@schedule.id}'>Add</a>"
-          edit = "<a href='javascript:void(0);' onclick='setCommentDetails(this);' data-toggle='modal' data-target='#client-comment' data-comment-id='#{recent_comment.id}' data-comment='#{recent_comment.comment}'  data-schedule_id='#{@schedule.id}'>Edit</a>"
+          add = "<a href='javascript:void(0);' onclick='setCommentDetails(this);' data-toggle='modal' data-target='#client-comment' data-comment-id='' data-comment=''  data-schedule_id='#{@schedule.id}' data-review='1'>Add</a>"
+          edit = "<a href='javascript:void(0);' onclick='setCommentDetails(this);' data-toggle='modal' data-target='#client-comment' data-comment-id='#{recent_comment.id}' data-comment='#{recent_comment.comment}'  data-schedule_id='#{@schedule.id}' data-review='1'>Edit</a>"
           html += 	@schedule.client_comments.present? ? "#{edit}" : "#{add}"
           html +=	"<p title='#{recent_comment.comment}' id='comment_#{recent_comment.interview_schedule_id}_#{recent_comment.id}'>#{recent_comment.comment.truncate(70)}</p>"
         else
-          html += "<a href='javascript:void(0);' onclick='setCommentDetails(this);' data-toggle='modal' data-target='#client-comment' data-comment-id='' data-comment=''  data-schedule_id='#{@schedule.id}'>Add</a>"
+          html += "<a href='javascript:void(0);' onclick='setCommentDetails(this);' data-toggle='modal' data-target='#client-comment' data-comment-id='' data-comment=''  data-schedule_id='#{@schedule.id}' data-review='1'>Add</a>"
           html +=	"<p title='' id='comment_#{@schedule.id}'></p>"
         end
       end

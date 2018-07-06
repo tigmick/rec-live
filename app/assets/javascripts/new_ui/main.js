@@ -155,6 +155,15 @@ function showJobDetails(jobId) {
 }
 
 function setCommentDetails(element) {
+  var review = $(element).data('review');
+  if(review == '1'){
+    $('#comment-heading').text('CV Review Notes');
+    $('#comment').attr('placeholder','CV Review Notes');
+  }
+  else{
+    $('#comment-heading').text('Comment');
+    $('#comment').attr('placeholder','Comment');
+  }
   $('#sched_id').val($(element).data('schedule_id'));
   $('#comment').val($(element).data('comment'));
   $('#comment_id').val($(element).data('comment-id'));
