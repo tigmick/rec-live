@@ -1,6 +1,7 @@
 class JobsController < ApplicationController
   include JobsHelper
-  before_action :set_job, only: [:show, :edit, :update, :destroy, :close_job, :open_job]
+  before_action :set_job, only: [:show, :edit, :update, :destroy, :close_job, :open_job, :accept_job]
+  before_action :set_candidate, only: [:accept_job, :reject_job]
   before_action :authenticate_user!, except: [:download]
 
   # GET /Jobs
@@ -141,10 +142,33 @@ class JobsController < ApplicationController
     end
   end
 
+  def accept_job
+    if @job.status == "closed"
+      flash[:notice] = "Job is closed, can not send accepted job to candidate."
+      redirect_to users_dashboard_path
+    else
+      @job.update status: 1
+      JobMailer.accepted_email(params[:user_id], params[:id]).deliver_now
+      flash[:notice] = "Email sent to user #{@user.full_name}"
+      redirect_to '/jobs'
+    end
+
+
+  end
+  def reject_job
+    JobMailer.rejected_email(params[:user_id], params[:id]).deliver_now
+    flash[:notice] = "Email sent to user #{@user.full_name}"
+    redirect_to '/jobs'
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_job
     @job = Job.find(params[:id])
+  end
+
+  def set_candidate
+    @user = User.find(params[:user_id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

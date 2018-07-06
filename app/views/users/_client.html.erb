@@ -1,3 +1,6 @@
+<% unless flash[:error].nil? %>
+<p class="error-msg"> <%= flash[:error] %> </p>
+<%end%>
 <% industries = [] %>
   <% job_counts = [] %>
     <% @industries.each do |industry| %>
@@ -46,14 +49,14 @@
                                                     </div>
                                                     <div class="detail">
                                                       <h2 class="job-heading">
-                                                        <%= link_to "#{user.first_name} #{user.last_name}", job_path(job) %>
+                                                        <%= link_to "#{user.first_name} \n #{user.last_name}", job_path(job) %>
                                                       </h2>
                                                       <h3 class="job-sub-heading">
                                                         <a href="mailto:<%= user.email %>"><%= user.email %></a>
                                                       </h3>
                                                       <% if resume.present? %>
                                                         <div class="about-job">
-                                                          <%= link_to "#{resume.cv_file_name}".truncate(10).humanize, download_resume_path(resume), target: "_blank", style: "color:#203CC4", title: "#{resume.cv_file_name}" %>
+                                                          <%= link_to "#{File.extname(resume.cv_file_name.upcase).gsub(".","")}" , download_resume_path(resume), target: "_blank", style: "color:#203CC4", title: "#{resume.cv_file_name}" %>
                                                         </div>
                                                       <% end %>
                                                     </div>
@@ -73,6 +76,8 @@
                                                       <% else %>
                                                         <%= link_to 'Open the job', open_job_path(id: job.id), class: 'dropdown-item jobs-action', id: "job_#{job.id}" %>
                                                       <% end %>
+                                                      <%= link_to "Accept", accept_job_path(id:job.id, user_id:user.id) , method: :post %>
+                                                      <%= link_to "Reject", reject_job_path(id:job.id, user_id:user.id) , method: :post %>
                                                     </div>
                                                   </div>
                                                 </div>
@@ -100,6 +105,14 @@
                                                       <div class="stepwizard-step">
                                                         <button type="button" class="btn btn-default btn-circle"></button>
                                                         <p>3rd</p>
+                                                      </div>
+                                                      <div class="stepwizard-step">
+                                                        <button type="button" class="btn btn-default btn-circle"></button>
+                                                        <p>4th</p>
+                                                      </div>
+                                                      <div class="stepwizard-step">
+                                                        <button type="button" class="btn btn-default btn-circle"></button>
+                                                        <p>5th</p>
                                                       </div>
                                                     </div>
                                                   </div>

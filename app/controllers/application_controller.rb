@@ -4,11 +4,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :default_url
-  
+
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up) {|u| u.permit(:email, :password, :password_confirmation, :role,:first_name,:last_name,:contact_no,:job_title,:company_name, :current_location, :salary_expectation)}
-    devise_parameter_sanitizer.permit(:account_update) {|u| u.permit(:email, :password, :password_confirmation, :role, :salary_expectation,:current_location,:first_name,:last_name,:contact_no,:current_password)}
+    devise_parameter_sanitizer.permit(:sign_up) {|u| u.permit(:email, :password, :password_confirmation, :role,:first_name,:last_name,:contact_no,:job_title,:company_name, :current_location, :salary_expectation, :image)}
+    devise_parameter_sanitizer.permit(:account_update) {|u| u.permit(:email, :password, :password_confirmation, :role, :salary_expectation,:current_location,:first_name,:last_name,:contact_no,:current_password, :image)}
   end
 
   def default_url
@@ -21,10 +21,10 @@ class ApplicationController < ActionController::Base
       admin_dashboard_path
     elsif resource.class.name == "AdminUser"
       admin_dashboard_path
-    # elsif resource.candidate?
-    #   resource.sign_in_count < 2 ? edit_user_registration_path : users_dashboard_path
-    else  
+      # elsif resource.candidate?
+      #   resource.sign_in_count < 2 ? edit_user_registration_path : users_dashboard_path
+    else
       users_dashboard_path
-    end 
+    end
   end
 end

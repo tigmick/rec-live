@@ -6,7 +6,9 @@ gem 'rails', '4.2.7'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 
-gem 'pg'
+# gem 'pg'
+gem 'pg', '~> 0.20'
+
 gem 'will_paginate-bootstrap'
 
 # gem 'mysql2'
@@ -39,7 +41,7 @@ end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # for uploading
-gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
+gem "paperclip", "~> 6.0.0"
 # Use Unicorn as the app server
 # gem 'unicorn'
 
