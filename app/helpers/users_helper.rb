@@ -186,7 +186,7 @@ module UsersHelper
           recent_comment = @schedule.client_comments.last
           add = "<a href='javascript:void(0);' onclick='setCommentDetails(this);' data-toggle='modal' data-target='#client-comment' data-comment-id='' data-comment=''  data-schedule_id='#{@schedule.id}'>Add</a>"
           edit = "<a href='javascript:void(0);' onclick='setCommentDetails(this);' data-toggle='modal' data-target='#client-comment' data-comment-id='#{recent_comment.id}' data-comment='#{recent_comment.comment}'  data-schedule_id='#{@schedule.id}'>Edit</a>"
-          html += 	@schedule.client_comments.present? ? "#{add}/#{edit}" : "#{add}"
+          html += 	@schedule.client_comments.present? ? "#{edit}" : "#{add}"
           html +=	"<p title='#{recent_comment.comment}' id='comment_#{recent_comment.interview_schedule_id}_#{recent_comment.id}'>#{recent_comment.comment.truncate(70)}</p>"
         else
           html += "<a href='javascript:void(0);' onclick='setCommentDetails(this);' data-toggle='modal' data-target='#client-comment' data-comment-id='' data-comment=''  data-schedule_id='#{@schedule.id}'>Add</a>"
