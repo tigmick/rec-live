@@ -76,4 +76,15 @@ module InterviewSchedulesHelper
       "10th round"
     end
   end
+
+  def populate_date_for_tooltip(dates,stage)
+    
+    @date = ""
+    dates.each do |date|
+      if date.key?(stage.to_s)  
+        @date = date[stage.to_s]
+      end      
+    end
+    return @date
+  end
 end
