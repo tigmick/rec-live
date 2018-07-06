@@ -65,8 +65,8 @@ end
 
 gem 'pg_search'
 
-gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin'
-
+#gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin'
+gem 'activeadmin'
 
 gem 'unicorn'
 
