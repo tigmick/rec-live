@@ -178,17 +178,18 @@ module UsersHelper
     @user = User.find(user_id) if current_user.client?
     html = "<h3>Interview notes &nbsp;&nbsp;"
     if @job.interview.present?
-      @schedule = @job.interview.interview_schedules.where(user_id: user_id).last if current_user.client?
+      #@schedule = @job.interview.interview_schedules.where(user_id: user_id).last if current_user.client?
+      @schedule = @job.interview.interview_schedules.last if current_user.client?
       #@last_stage = @schedules.maximum('stage') if current_user.client?
       if current_user.client? && @schedule.present?
         if @schedule.client_comments.present?
           recent_comment = @schedule.client_comments.last
-          add = "<a href='javascript:void(0);' id='addLink' onclick='show(#{@schedule.id},\"\",\"\")' id='myBtn'>Add</a>"
-          edit = "<a href='javascript:void(0);' id='editLink' onclick='show(#{@schedule.id},#{recent_comment.id},\"#{recent_comment.comment}\")' id='myBtn'>Edit</a>"
+          add = "<a href='javascript:void(0);' onclick='setCommentDetails(this);' data-toggle='modal' data-target='#client-comment' data-comment-id='' data-comment=''  data-schedule_id='#{@schedule.id}'>Add</a>"
+          edit = "<a href='javascript:void(0);' onclick='setCommentDetails(this);' data-toggle='modal' data-target='#client-comment' data-comment-id='#{recent_comment.id}' data-comment='#{recent_comment.comment}'  data-schedule_id='#{@schedule.id}'>Edit</a>"
           html += 	@schedule.client_comments.present? ? "#{add}/#{edit}" : "#{add}"
           html +=	"<p title='#{recent_comment.comment}' id='comment_#{recent_comment.interview_schedule_id}_#{recent_comment.id}'>#{recent_comment.comment.truncate(70)}</p>"
         else
-          html += "<a href='javascript:void(0);' id='addLink' onclick='show(#{@schedule.id},\"\",\"\")' id='myBtn'>Add</a>"
+          html += "<a href='javascript:void(0);' onclick='setCommentDetails(this);' data-toggle='modal' data-target='#client-comment' data-comment-id='' data-comment=''  data-schedule_id='#{@schedule.id}'>Add</a>"
           html +=	"<p title='' id='comment_#{@schedule.id}'></p>"
         end
       end

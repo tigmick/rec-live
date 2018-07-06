@@ -29,10 +29,11 @@
             <div class='box-footer'>
               <ul class='d-block'>
                 <h3>Interview Status&nbsp;&nbsp;&nbsp;<a href='##' style='display: inline-block;' data-job="<%= job.id %>" onclick="candidateInterviewSchedulePopUp(this);">view</a></h3>
+                <%dates = job.interview.interview_schedules.collect{|i| {"#{i.stage}"=>i.interview_avail_dates.present? ? i.interview_avail_dates["interview_avail_date1"] : ''}}%>
                 <div class="stepwizard">
                   <div class="stepwizard-row">
                     <div class="stepwizard-step">
-                      <button type="button" class="btn btn-default btn-circle">
+                      <button type="button" class="btn btn-default btn-circle" data-toggle="tooltip" data-placement="top" title="<%= populate_date_for_tooltip(dates,"1")%>">
                         <%if @last_stage.present? and @last_stage >= 1%>
                           <i class="fas fa-check"></i>
                         <%end%>
@@ -40,7 +41,7 @@
                       <p>1st</p>
                     </div>
                     <div class="stepwizard-step">
-                      <button type="button" class="btn btn-default btn-circle">
+                      <button type="button" class="btn btn-default btn-circle"  data-toggle="tooltip" data-placement="top" title="<%= populate_date_for_tooltip(dates,"2")%>">
                         <%if @last_stage.present? and @last_stage >= 2%>
                           <i class="fas fa-check"></i>
                         <%end%>
@@ -48,7 +49,7 @@
                       <p>2nd</p>
                     </div>
                     <div class="stepwizard-step">
-                      <button type="button" class="btn btn-default btn-circle">
+                      <button type="button" class="btn btn-default btn-circle"  data-toggle="tooltip" data-placement="top" title="<%= populate_date_for_tooltip(dates,"3")%>">
                         <%if @last_stage.present? and @last_stage >= 3%>
                           <i class="fas fa-check"></i>
                         <%end%>
@@ -56,7 +57,7 @@
                       <p>3rd</p>
                     </div>
                     <div class="stepwizard-step">
-                      <button type="button" class="btn btn-default btn-circle">
+                      <button type="button" class="btn btn-default btn-circle"  data-toggle="tooltip" data-placement="top" title="<%= populate_date_for_tooltip(dates,"4")%>">
                         <%if @last_stage.present? and @last_stage >= 4%>
                           <i class="fas fa-check"></i>
                         <%end%>
@@ -64,7 +65,7 @@
                       <p>4th</p>
                     </div>
                     <div class="stepwizard-step">
-                      <button type="button" class="btn btn-default btn-circle">
+                      <button type="button" class="btn btn-default btn-circle"  data-toggle="tooltip" data-placement="top" title="<%= populate_date_for_tooltip(dates,"5")%>">
                         <%if @last_stage.present? and @last_stage >= 5%>
                           <i class="fas fa-check"></i>
                         <%end%>
