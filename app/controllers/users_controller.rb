@@ -9,11 +9,25 @@ class UsersController < ApplicationController
       @jobs = current_user.jobs.order('created_at desc')
       @jobs << Job.where('id IN (?)',job_ids)
       @jobs = @jobs.flatten
+      #temporary code to interview if job doesnot have one
+      @jobs.each do |job|
+        unless job.interview.present?
+          job.create_interview(total_stage: 10)
+        end
+      end
     else
       #@applied_jobs = @user.candidate_jobs
       @applied_jobs = current_user.user_job.present? ? Job.where(id: current_user.user_job.job_ids) : []
       @reviews = Review.joins(:job).where(user_id: @user.id).select("id","job_id","jobs.user_id","created_at","cv_download_date")
+      #temporary code to interview if job doesnot have one
+      @applied_jobs.each do |job|
+        unless job.interview.present?
+          job.create_interview(total_stage: 10)
+        end
+      end
     end
+    
+    
     render layout: 'new_ui/application'
   end
 
