@@ -199,3 +199,13 @@ function candidateInterviewSchedulePopUp(element) {
     dataType: "script"
   });
 }
+
+function showAssignJobPopup(element) {
+  var job_id = $(element).data('job');
+  url = "/jobs/"+job_id+"/assign_jobs/new";
+  $.ajax({
+    url: url,
+    type: "GET",
+    dataType: "script"
+  });
+}
