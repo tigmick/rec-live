@@ -105,10 +105,10 @@
          <div class="col-md-11">
             <div class="form-group search">
                <div class="col-md-4">
-                  <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title", params[:category].to_i),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
+                  <%= text_field_tag "search_candidate" ,params[:search_candidate],:class=>"form-control", :placeholder=>"Search Candidates"%>
                </div>
                <div class="col-md-7">
-                  <%= text_field_tag :search, '', class: 'form-control', value: params[:search],placeholder: 'Search Job', aria: { label: 'Search' } %>
+                  <%= text_field_tag "location_search" ,params[:location_search],:class=>"form-control", :placeholder=>" Search Location "%>
                   <%= button_tag class: 'btn srch-btn' do %>
                   <i class="fas fa-search"></i>
                </div>

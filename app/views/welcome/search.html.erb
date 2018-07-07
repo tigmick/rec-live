@@ -5,6 +5,26 @@
       <% end %>
       <div class="col-md-12" style="border-bottom:1px solid #fff;">
          <div class="job-right without-logged">
+           <div class="row pull-right">
+              <div class="col-9">
+                
+              </div>
+              <div class="col-3">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sort by
+                  </button>
+                    <div class="dropdown-menu">
+                        <%if user_signed_in?%>
+                          <a class="dropdown-item" href="/welcome/search?applied=true" data-method="POST">Applied</a>
+                          <a class="dropdown-item" href="/welcome/search?not_applied=true" data-method="POST">Not applied</a>
+                        <%else%>
+                          <a class="dropdown-item" href="##">Blank</a>  
+                        <%end%>
+                    </div>
+                </div>
+              </div>
+            </div>
             <div class="box-job">
                <% if !@search.blank? %> 
                <ul>
