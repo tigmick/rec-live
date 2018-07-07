@@ -49,8 +49,9 @@ class User < ActiveRecord::Base
   ROLES = ['client','candidate']
 
   has_many :resumes
-  has_many :jobs
-  has_one :user_job, dependent: :destroy
+  has_many :jobs #User as a client has many jobs
+  has_many :job_applications,class_name: "UserJob",foreign_key: :candidate_id, dependent: :destroy
+  has_many :applied_jobs,through: :job_applications,foreign_key: :candidate_id, :source => :job, dependent: :destroy  
   has_many :reviews, dependent: :destroy
 
   has_attached_file :image

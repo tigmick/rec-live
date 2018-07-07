@@ -11,5 +11,7 @@
 
 class UserJob < ActiveRecord::Base
 	belongs_to :user
+  belongs_to :candidate, foreign_key: :candidate_id,class_name: "User"
+  belongs_to :job
 	serialize :job_ids, Array
 end
