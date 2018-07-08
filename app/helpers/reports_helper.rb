@@ -9,7 +9,7 @@ module ReportsHelper
         counter = counter + 1
       end
     end
-    return days.inject(0){|sum,x| sum + x }.to_i/counter
+    return days.inject(0){|sum,x| sum + x }.to_i/counter rescue 0
   end
   
   def rejected_jobs(jobs)
