@@ -49,17 +49,18 @@ class InterviewSchedulesController < ApplicationController
       candidate_feedback=CandidateFeedback.find(params[:feedback_id])
       candidate_feedback.update(feedback: params[:feedback])
     end
-    redirect_to interview_schedule_path(schedule.interview.job) if current_user.candidate?
-    redirect_to "/interview_schedules/#{schedule.interview.job.id}?user_id=#{schedule.user_id}" if current_user.client?
+    #redirect_to interview_schedule_path(schedule.interview.job) if current_user.candidate?
+    #redirect_to "/interview_schedules/#{schedule.interview.job.id}?user_id=#{schedule.user_id}" if current_user.client?
+    redirect_to "/users/dashboard#"
   end
 
 
   def destroy_feedback
     candidate_feedback=CandidateFeedback.find(params[:id])
     candidate_feedback.destroy
-    redirect_to interview_schedule_path(candidate_feedback.interview_schedule.interview.job) if current_user.candidate?
-    redirect_to "/interview_schedules/#{candidate_feedback.interview_schedule.interview.job.id}?user_id=#{candidate_feedback.interview_schedule.user_id}" if current_user.client?
-
+    #redirect_to interview_schedule_path(candidate_feedback.interview_schedule.interview.job) if current_user.candidate?
+    #redirect_to "/interview_schedules/#{candidate_feedback.interview_schedule.interview.job.id}?user_id=#{candidate_feedback.interview_schedule.user_id}" if current_user.client?
+    redirect_to "/users/dashboard#"
   end
 
 

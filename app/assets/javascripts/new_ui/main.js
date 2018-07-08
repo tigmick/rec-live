@@ -169,6 +169,12 @@ function setCommentDetails(element) {
   $('#comment_id').val($(element).data('comment-id'));
 }
 
+function setFeedbackDetails(element) {
+  $('#schedule_id').val($(element).data('schedule_id'));
+  $('#feedback').val($(element).data('feedback'));
+  $('#feedback_id').val($(element).data('feedback-id'));
+}
+
 function showAddScheduleButton(id, stage, last_stage, interview_total_stage) {
   stage = parseInt(stage);
   last_stage = parseInt(last_stage);

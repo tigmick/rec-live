@@ -14,7 +14,7 @@
                 </div>
               </div>
               <div class="job-discription">
-                <h3>Candidate Feedback &nbsp;&nbsp;<a href="#" data-toggle="modal" data-target="#interview-round">Edit</a></h3>
+                <h3>Candidate Feedback &nbsp;&nbsp;</h3>
                 <p>Candidate has a strong technical background working on similar systems and a good track record. Seems to develop with the…</p>
                 <div class="job-status">
                   <h3>status</h3>
@@ -87,3 +87,41 @@
 <div class="modal fade interview-round" id="interview-round">
 
 </div>
+
+<div class="modal fade schedule-interview" id="candidate-feedback">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+    <div class="modal-header d-block text-center">
+      <h3 id="comment-heading">Candidate Feeback</h3>
+      <a href="#" class="close" data-dismiss="modal">close</a>
+      <a href="#" class="arrow" data-dismiss="modal">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+    </div>
+
+    <!-- Modal body -->
+    <div class="modal-body">
+      <%= form_tag candidate_feedback_interview_schedules_path do %>
+        <%= hidden_field_tag :schedule_id,  ''%>
+        <%= hidden_field_tag :feedback_id,'' %>
+
+
+        <div class="form-group">
+          <div class="col-md-12">
+            <%= text_field_tag :feedback,nil, class: "result form-control",:placeholder=>"Candidate feeback"%>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-9">
+              <%= submit_tag "submit",class: "btn btn-primary"%>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+      </div>
+     </div>
+   </div>
