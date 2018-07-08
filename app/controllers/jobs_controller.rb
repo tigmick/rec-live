@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   include JobsHelper
-  before_action :set_job, only: [:show, :edit, :update, :destroy, :close_job, :open_job, :accept_job]
+  before_action :set_job, only: [:show, :edit, :update, :destroy, :close_job, :open_job, :accept_job, :reject_job]
   before_action :set_candidate, only: [:accept_job, :reject_job]
   before_action :authenticate_user!, except: [:download]
 
@@ -44,6 +44,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
+        @job.create_interview(total_stage: 10)
         UserMailer.job_creation(@job).deliver_now
         format.html { redirect_to @job, notice: 'Job was successfully created.' }
         format.json { render :show, status: :created, location: @job }
@@ -147,7 +148,9 @@ class JobsController < ApplicationController
       flash[:notice] = "Job is closed, can not send accepted job to candidate."
       redirect_to users_dashboard_path
     else
-      @job.update status: 1
+      #@job.update status: 1
+      user_job = UserJob.find_by(candidate_id: params[:user_id],job_id: @job.id)
+      user_job.update_attributes(accepted: true,user_id: current_user.id,accepted_at: Date.today)
       JobMailer.accepted_email(params[:user_id], params[:id]).deliver_now
       flash[:notice] = "Email sent to user #{@user.full_name}"
       redirect_to '/jobs'
@@ -156,6 +159,8 @@ class JobsController < ApplicationController
 
   end
   def reject_job
+    user_job = UserJob.find_by(candidate_id: params[:user_id],job_id: @job.id)
+    user_job.update_attributes(rejected: true,user_id: current_user.id,rejected_at: Date.today)
     JobMailer.rejected_email(params[:user_id], params[:id]).deliver_now
     flash[:notice] = "Email sent to user #{@user.full_name}"
     redirect_to '/jobs'

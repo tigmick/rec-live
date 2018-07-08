@@ -1,25 +1,45 @@
 <div class="col-md-12" style="background-color:#f1f1f1;">
-  <div class="row">
-    <% if current_user.present? %>
-      <p id="error-msg" class="alert alert-danger" style="display: none;    width: 100%;text-align: center;"></p>
-    <% end %>
-    <div class="col-md-12" style="border-bottom:1px solid #fff;">
-      <div class="job-right without-logged">
-        <div class="box-job">
-          <% if !@search.blank? %>
-            <ul>
-              <% @search.each do |search| %>
-                <li>
-                  <div class="equal-height" style="height: 175px;">
-                    <div class="box-heading">
-                      <div class="box-header">
-                        <div class="detail">
-                          <h2 class="job-heading" id="job-title-<%= search.id %>">
-                            <%= search.title%></h2>
-                          <% if search.document.present? %>
-                            <div class="about-job"><%= link_to "#{File.extname(search.document_file_name)}".gsub(".","").upcase, download_job_path(search), target: "_blank" %>
-                            </div>
-                          <% end %>
+   <div class="row">
+      <% if current_user.present? %>
+         <p id="error-msg" class="alert alert-danger" style="display: none;    width: 100%;text-align: center;"></p>
+      <% end %>
+      <div class="col-md-12" style="border-bottom:1px solid #fff;">
+         <div class="job-right without-logged">
+           <div class="row pull-right">
+              <div class="col-9">
+
+              </div>
+              <div class="col-3">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sort by
+                  </button>
+                    <div class="dropdown-menu">
+                        <%if user_signed_in?%>
+                          <a class="dropdown-item" href="/welcome/search?applied=true" data-method="POST">Applied</a>
+                          <a class="dropdown-item" href="/welcome/search?not_applied=true" data-method="POST">Not applied</a>
+                        <%else%>
+                          <a class="dropdown-item" href="##">Blank</a>
+                        <%end%>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="box-job">
+               <% if !@search.blank? %>
+               <ul>
+                  <% @search.each do |search| %>
+                  <li>
+                     <div class="equal-height" style="height: 175px;">
+                        <div class="box-heading">
+                           <div class="box-header">
+                              <div class="detail">
+                                 <h2 class="job-heading" id="job-title-<%= search.id %>"> <%= search.title%></h2>
+                                 <% if search.document.present? %>
+                                 <div class="about-job"><%= link_to "#{File.extname(search.document_file_name)}".gsub(".","").upcase, download_job_path(search),  target: "_blank" %> </div>
+                                 <% end %>
+                              </div>
+                           </div>
                         </div>
                       </div>
                     </div>

@@ -24,7 +24,10 @@ class Job < ActiveRecord::Base
 
   has_one :interview
   has_one :assign_job
+  has_many :user_jobs
   has_many :interview_schedules, through: :interview
+  has_many :candidate_applications,class_name: "UserJob",foreign_key: :job_id, dependent: :destroy
+  has_many :candidates,through: :candidate_applications, :source => :candidate, dependent: :destroy  
 
   has_attached_file :document,
   :url  => "/assets/jobs/:id/:style/:basename.:extension",

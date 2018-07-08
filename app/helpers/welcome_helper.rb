@@ -1,6 +1,7 @@
 module WelcomeHelper
   def job_applied?(job_id)
-    return current_user.user_job.nil? ? false :current_user.user_job.try(:job_ids).include?(job_id)
+    #return current_user.user_job.nil? ? false :current_user.user_job.try(:job_ids).include?(job_id)
+    current_user.job_applications.map(&:job_id).include?(job_id)
   end
 
   def job_apply_link(search)

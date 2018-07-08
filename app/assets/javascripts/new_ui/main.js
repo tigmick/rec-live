@@ -155,6 +155,15 @@ function showJobDetails(jobId) {
 }
 
 function setCommentDetails(element) {
+  var review = $(element).data('review');
+  if(review == '1'){
+    $('#comment-heading').text('CV Review Notes');
+    $('#comment').attr('placeholder','CV Review Notes');
+  }
+  else{
+    $('#comment-heading').text('Comment');
+    $('#comment').attr('placeholder','Comment');
+  }
   $('#sched_id').val($(element).data('schedule_id'));
   $('#comment').val($(element).data('comment'));
   $('#comment_id').val($(element).data('comment-id'));
@@ -184,6 +193,16 @@ function populateInterviewSchedulePopUp(element) {
 function candidateInterviewSchedulePopUp(element) {
   var job_id = $(element).data('job');
   url = "/interview_schedules/candidate_interview_schedule_popup?job_id=" + job_id;
+  $.ajax({
+    url: url,
+    type: "GET",
+    dataType: "script"
+  });
+}
+
+function showAssignJobPopup(element) {
+  var job_id = $(element).data('job');
+  url = "/jobs/"+job_id+"/assign_jobs/new";
   $.ajax({
     url: url,
     type: "GET",

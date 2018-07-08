@@ -1,13 +1,13 @@
 <div class="container-fluid">
   <div class="row">
-   <%= render 'shared/navigation' %>
-   <div class="col-md-10" id="content-container" style="background-color:#f1f1f1;">
-        <div class="job-right">
-          <h2 class="heading">Administrate Jobs</h2>
-          <div class="box-job">
-            <ul>
+    <%= render 'shared/navigation' %>
+    <div class="col-md-10" id="content-container" style="background-color:#f1f1f1;">
+      <div class="job-right">
+        <h2 class="heading">Administrate Jobs</h2>
+        <div class="box-job">
+          <ul>
 
-              <% @jobs.each do |job| %>
+            <% @jobs.each do |job| %>
               <li>
                 <div class="equal-height" style="min-height:200px; max-height:300px;">
                   <div class="box-heading">
@@ -18,39 +18,41 @@
                     </div>
                     <div class="job-option text-center float-right">
                       <a href="#" id="options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                      </ul></a>
+                          <li></li>
+                          <li></li>
+                          <li></li>
+                        </ul></a>
                       <div class="dropdown-menu" aria-labelledby="options">
-
-                        <% if job.open? %>
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#assign-job-popup">Assign job</a>
-                          <%= link_to 'Close Job', close_job_path(id: job.id), method: :post, data: {confirm: 'Are you sure you want to close this Job.'}, class: "dropdown-item" %>
-                        <% else %>
-                          <%= link_to 'Open Job', open_job_path(id: job.id), method: :post, class: "dropdown-item" %>
-                        <% end %>
                         <%= link_to 'View job', job_path(job), class: "dropdown-item" %>
+                          <% if job.open? %>
+                            <%= link_to 'Close Job', close_job_path(id: job.id), method: :post, data: {confirm: 'Are you sure you want to close this Job.'}, class: "dropdown-item" %>
+                            <% else %>
+                              <%= link_to 'Open Job', open_job_path(id: job.id), method: :post, class: "dropdown-item" %>
+                              <% end %>
+                              <a href="##" onclick="showAssignJobPopup(this);" data-job="<%= job.id %>">Assign Job</a>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="job-discription">
+                          <div class="hori-divi"></div>
+                          <h3>Job description</h3>
+                          <p><%= job.description.truncate(60) %></p>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="job-discription">
-                    <div class="hori-divi"></div>
-                    <h3>Job description</h3>
-                    <p><%= job.description.truncate(60) %></p>
-                  </div>
-                </div>
-                <div class="box-footer">
-                  <ul class="d-block">
-                    <li><%= link_to 'view', job_path(job) %></li>
-                  <li><%= link_to 'edit', edit_job_path(job) %></li>
-                  </ul>
-                </div>
-              </li>
-              <% end %>
-            </ul>
+                      <div class="box-footer">
+                        <ul class="d-block">
+                          <li><%= link_to 'view', job_path(job) %></li>
+                          <li><%= link_to 'edit', edit_job_path(job) %></li>
+                        </ul>
+                      </div>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-</div>
-</div>
+      <div class="modal fade schedule-interview" id="assign-job">
+
+      </div>

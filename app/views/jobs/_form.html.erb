@@ -25,7 +25,7 @@
   </div>
   <div class="field">
     <%= f.label :industry_id %><br>
-    <%= f.select("industry_id", Industry.all.collect {|p| [ p.title, p.id ] }, {include_blank: 'None'},class: "form-control")  %>
+    <%= f.select("industry_id", Industry.all.collect {|p| [ p.title, p.id ] }, {},class: "form-control")  %>
   </div>
   <div class="actions">
     <%= f.submit %>

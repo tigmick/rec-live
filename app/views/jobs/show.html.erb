@@ -32,12 +32,25 @@
           </div>
           <% if current_user.client? %>
             <a data-toggle="modal" data-target="#stage" href="#" class="interview-stage">create interview stage</a>
+
             <div class="clos-edit-job">
               <% if @job.closed? %>
                 <%= link_to 'Open Job', open_job_path(id: @job.id), method: :post if current_user.client? %>
               <% else %>
                 <%= link_to 'Close Job', close_job_path(id: @job.id), method: :post if current_user.client? %>
                 <%= link_to 'Edit', edit_job_path(@job) if current_user.client? %>
+              <% end %>
+            </div>
+            <div class="popup-divider"></div>
+            <h4>Applications - <%= @users.length %> </h4>
+            <div class="row">
+              <% @users.each do |user| %>
+                <div class="col-9">
+                  <%= user.email %>
+                </div>
+                <div class="col-3">
+                  <%= link_to "Review", "/resumes?job_id=#{@job.id}&user_id=#{user.id}" %>
+                </div>
               <% end %>
             </div>
           <% end %>
@@ -67,15 +80,15 @@
           <div class="form-group">
             <div class="form-control">
               <%= f.select(:total_stage, [["Pre Screen", 1], ["Stage 2",2], ["Stage 3", 3], ["Stage 4",4],["Stage 5", 5],
-                 ["Stage 6",6], ["Stage 7", 7], ["Stage 8", 8], ["Stage 9", 9], ["Stage 10", 10]], {:class => 'stage-select'}) %>
+                  ["Stage 6",6], ["Stage 7", 7], ["Stage 8", 8], ["Stage 9", 9], ["Stage 10", 10]], {:class => 'stage-select'}) %>
             </div>
           </div>
-      </div>
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <%= f.submit "save changes" %>
-      </div>
-        <% end %>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <%= f.submit "save changes" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
