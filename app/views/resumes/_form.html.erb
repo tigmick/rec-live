@@ -18,7 +18,13 @@
 </div>
 <div class="box__input">
    <%= f.file_field :cv, required: true,class:"box__file", title: "#{@resume.cv_file_name.present? ? @resume.cv_file_name : 'Browse'}" %>
-   <label for="file"><%= image_tag "/assets/new_ui/Shape.png", class:"img-fluid", alt:"drag" %>&nbsp;&nbsp;<%= @resume.cv_file_name.present? ? @resume.cv_file_name : "Browse" %></label>
+  <label for="file"><%= image_tag "/assets/new_ui/Shape.png", class:"img-fluid", alt:"drag" %>&nbsp;&nbsp;<span id="resume-label"><%= @resume.cv_file_name.present? ? @resume.cv_file_name : "Browse" %></span></label>
 </div>
 <%= f.submit  class:"btn"%>
 <% end %>
+<script>
+  $("#resume_cv").change(function(){
+    $("#resume_cv").prop('title',this.files[0].name);
+    $('#resume-label').html(this.files[0].name)
+  });
+</script>
