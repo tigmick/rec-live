@@ -2,7 +2,9 @@ class ReportsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @job_count = Job.all.count
+    #@job_count = Job.all.count
+    #@job_count = Job.count
+    @jobs = current_user.jobs.includes(:candidates,:user_jobs,:interview_schedules)
     render layout: 'new_ui/application'
   end
 
