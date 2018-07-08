@@ -84,9 +84,10 @@
                                   </div>
                                   <div class="job-discription">
                                     <div class="hori-divi"></div>
-
-                                    <%= new_desing_meeting_with(job, user.id)%>
-                                    <%@last_stage = @job.interview.interview_schedules.maximum('stage')%>
+                                      <div class="interview-notes">
+                                      <%= new_desing_meeting_with(job, user.id)%>
+                                      <%@last_stage = @job.interview.interview_schedules.maximum('stage')%>
+                                    </div>
                                   </div>
                                 </div>
                                 <div class="box-footer">

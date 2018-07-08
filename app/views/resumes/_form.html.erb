@@ -11,13 +11,13 @@
 <% end %>
 <div class="form-group title">
    <label>Title</label>
-   <%= f.text_field :title, class:"form-control", placeholder:"title" %>
+   <%= f.text_field :title, class:"form-control", required: true,placeholder:"title" %>
 </div>
 <div class="form-group">
-   <%= f.text_area :description, class:"form-control", rows:"5", placeholder:"Description" %>
+   <%= f.text_area :description, class:"form-control", required: true,rows:"5", placeholder:"Description" %>
 </div>
 <div class="box__input">
-   <%= f.file_field :cv, class:"box__file", title: "#{@resume.cv_file_name.present? ? @resume.cv_file_name : 'Browse'}" %>
+   <%= f.file_field :cv, required: true,class:"box__file", title: "#{@resume.cv_file_name.present? ? @resume.cv_file_name : 'Browse'}" %>
    <label for="file"><%= image_tag "/assets/new_ui/Shape.png", class:"img-fluid", alt:"drag" %>&nbsp;&nbsp;<%= @resume.cv_file_name.present? ? @resume.cv_file_name : "Browse" %></label>
 </div>
 <%= f.submit  class:"btn"%>

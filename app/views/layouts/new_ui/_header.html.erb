@@ -28,7 +28,7 @@
                   <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title", params[:category].to_i),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
                </div>
                <div class="col-md-7">
-                  <%= text_field_tag :search, '', class: 'form-control', value: params[:search],placeholder: 'Search Job', aria: { label: 'Search' } %>
+                  <%= text_field_tag :search, '', class: 'form-control', value: params[:search],placeholder: 'Search', aria: { label: 'Search' } %>
                   <%= button_tag class: 'btn srch-btn' do %>
                   <i class="fas fa-search"></i>
                </div>
@@ -57,7 +57,9 @@
                   <%= link_to "Create Job", new_job_path, class: 'dropdown-item' %>
                   <%= link_to "Administrate Jobs", jobs_path, class: 'dropdown-item' %>
                   <% end %>
-                  <%= link_to "Edit", edit_user_registration_path, class: 'dropdown-item' %>
+                  <a href="#" class="dropdown-item" data-toggle="modal" data-target="#edit_profile_modal">Edit Profile
+                  </a>
+                  <!-- <%= link_to "Edit", edit_user_registration_path, class: 'dropdown-item' %> -->
                   <%= link_to "Logout", destroy_user_session_path, class: 'dropdown-item' %>
                </div>
             </li>
@@ -108,7 +110,7 @@
                   <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title", params[:category].to_i),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
                </div>
                <div class="col-md-7">
-                  <%= text_field_tag :search, '', class: 'form-control', value: params[:search],placeholder: 'Search Job', aria: { label: 'Search' } %>
+                  <%= text_field_tag :search, '', class: 'form-control', value: params[:search],placeholder: 'Search', aria: { label: 'Search' } %>
                   <%= button_tag class: 'btn srch-btn' do %>
                   <i class="fas fa-search"></i>
                </div>
@@ -138,7 +140,9 @@
                   <%= link_to "Create Job", new_job_path, class: 'dropdown-item' %>
                   <%= link_to "Administrate Jobs", jobs_path, class: 'dropdown-item' %>
                   <% end %>
-                  <%= link_to "Edit", edit_user_registration_path, class: 'dropdown-item' %>
+                  <a href="#" class="dropdown-item" data-toggle="modal" data-target="#edit_profile_modal">Edit Profile
+                  </a>
+                  <!-- <%= link_to "Edit", edit_user_registration_path, class: 'dropdown-item' %> -->
                   <%= link_to "Logout", destroy_user_session_path, class: 'dropdown-item' %>
                </div>
             </li>
@@ -191,7 +195,7 @@
                   <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title", params[:category].to_i),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
                </div>
                <div class="col-md-7">
-                  <%= text_field_tag :search, '', class: 'form-control', value: params[:search],placeholder: 'Search Job', aria: { label: 'Search' } %>
+                  <%= text_field_tag :search, '', class: 'form-control', value: params[:search],placeholder: 'Search', aria: { label: 'Search' } %>
                   <%= button_tag class: 'btn srch-btn' do %>
                   <i class="fas fa-search"></i>
                </div>
@@ -221,7 +225,9 @@
                   <%= link_to "Create Job", new_job_path, class: 'dropdown-item' %>
                   <%= link_to "Administrate Jobs", jobs_path, class: 'dropdown-item' %>
                   <% end %>
-                  <%= link_to "Edit", edit_user_registration_path, class: 'dropdown-item' %>
+                  <a href="#" class="dropdown-item" data-toggle="modal" data-target="#edit_profile_modal">Edit Profile
+                  </a>
+                  <!-- <%= link_to "Edit", edit_user_registration_path, class: 'dropdown-item' %> -->
                   <%= link_to "Logout", destroy_user_session_path, class: 'dropdown-item' %>
                </div>
             </li>
@@ -272,7 +278,7 @@
                   <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title", params[:category].to_i),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
                </div>
                <div class="col-md-7">
-                  <%= text_field_tag :search, '', class: 'form-control', value: params[:search],placeholder: 'Search Job', aria: { label: 'Search' } %>
+                  <%= text_field_tag :search, '', class: 'form-control', value: params[:search],placeholder: 'Search', aria: { label: 'Search' } %>
                   <%= button_tag class: 'btn srch-btn' do %>
                   <i class="fas fa-search"></i>
                </div>
@@ -302,7 +308,9 @@
                   <%= link_to "Create Job", new_job_path, class: 'dropdown-item' %>
                   <%= link_to "Administrate Jobs", jobs_path, class: 'dropdown-item' %>
                   <% end %>
-                  <%= link_to "Edit", edit_user_registration_path, class: 'dropdown-item' %>
+                  <a href="#" class="dropdown-item" data-toggle="modal" data-target="#edit_profile_modal">Edit Profile
+                  </a>
+                  <!-- <%= link_to "Edit", edit_user_registration_path, class: 'dropdown-item' %> -->
                   <%= link_to "Logout", destroy_user_session_path, class: 'dropdown-item' %>
                </div>
             </li>
@@ -345,7 +353,7 @@
          </div>
          <div class="col-md-9">
             <div class="form-group search search-custom">
-               <%= text_field_tag :search, '', class: 'form-control', value: params[:search],placeholder: 'Search Job', aria: { label: 'Search' } %>
+               <%= text_field_tag :search, '', class: 'form-control', value: params[:search],placeholder: 'Search', aria: { label: 'Search' } %>
                <%= button_tag class: 'btn srch-btn' do %>
                <i class="fas fa-search"></i>
                <% end %>
@@ -374,7 +382,9 @@
                   <%= link_to "Create Job", new_job_path, class: 'dropdown-item' %>
                   <%= link_to "Administrate Jobs", jobs_path, class: 'dropdown-item' %>
                   <% end %>
-                  <%= link_to "Edit", edit_user_registration_path, class: 'dropdown-item' %>
+                  <a href="#" class="dropdown-item" data-toggle="modal" data-target="#edit_profile_modal">Edit Profile
+                  </a>
+                  <!-- <%= link_to "Edit", edit_user_registration_path, class: 'dropdown-item' %> -->
                   <%= link_to "Logout", destroy_user_session_path, class: 'dropdown-item' %>
                </div>
             </li>

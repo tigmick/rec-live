@@ -2,88 +2,114 @@
   <div class="row">
     <%= render 'shared/navigation' %>
     <div class="col-md-10" id="content-container" style="background-color:#f1f1f1;">
-        <div class="job-right reportse">
-            
-            <div class="box-job job-report-box">
-                <ul>
-                    <li>
-                        <div class="equal-height">
-                            <div class="box-heading">
-                                
-                                <div class="report bo">
-                                    <span><%= Job.open.count %></span>
-                                </div>
-                            </div>
-                            <div class="hori-divi"></div>
-                            Live Vacancies
-                        </div>
-                    </li>
-                    <li>
-                        <div class="equal-height">
-                            <div class="box-heading">
-                                
-                                <div class="report redr">
-                                    <i class="fas fa-long-arrow-alt-up grey"></i><span>70</span><i class="fas fa-long-arrow-alt-down red"></i>
-                                </div>
-                            </div>
-                            <div class="hori-divi"></div>
-                            Avarage time to Offer
-                        </div>
-                    </li>
-                    <li>
-                        <div class="equal-height">
-                            <div class="box-heading">
-                                
-                                <div class="report green">
-                                    <i class="fas fa-long-arrow-alt-up green"></i><span>9:1</span><i class="fas fa-long-arrow-alt-down grey"></i>
-                                </div>
-                            </div>
-                            <div class="hori-divi"></div>
-                            Live Vacancies
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="reporttable">
-            <table>
-            <tr>
-                <th>Roles</th>
-                <th>Number of Candidates</th>
-                <th>1st Round</th>
-                <th>2nd Round</th>
-                <th>3rd Round</th>
-            </tr>
-<% Job.open.each do |job| %>
-<% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
-            <tr>
-                <td><%= job.title %></td>
-                <td><%= users.count %></td>
-                <td><%= InterviewSchedule.joins(:interview).where('interviews.job_id=? and stage = 0', job).size %></td>
-                <td><%= InterviewSchedule.joins(:interview).where('interviews.job_id=? and stage = 1', job).size %></td>
-                <td><%= InterviewSchedule.joins(:interview).where('interviews.job_id=? and stage = 2', job).size %></td>
-            </tr>
-<% end %>
-            </table>
-            </div>
-            
-            <div class="reporttable tab2">
-            <table>
-            <tr>
-                <th>Interviwers</th>
-                <th>Notes</th>
-            </tr>
-<% InterviewSchedule.all.each do |interview| %>
-<% comment = interview.client_comments.first %>
-    <% interview.interviewers_names.each do |name| %>
-            <tr>
-                <td><%= name %></td>
-                <td><%= (comment.present? ? comment.comment : '') %></td>
-            </tr>
-    <% end %>
-<% end %>
-            </table>
-            </div>
+      <div class="job-right reportse">
+
+        <div class="box-job job-report-box">
+          <ul>
+            <li>
+              <div class="equal-height">
+                <div class="box-heading">
+
+                  <div class="report bo">
+                    <span><%= Job.open.count %></span>
+                  </div>
+                </div>
+                <div class="hori-divi"></div>
+                Live Vacancies
+              </div>
+            </li>
+            <li>
+              <div class="equal-height">
+                <div class="box-heading">
+
+                  <div class="report redr">
+                    <i class="fas fa-long-arrow-alt-up grey"></i>
+                    <span>70</span>
+                    <i class="fas fa-long-arrow-alt-down red"></i>
+                  </div>
+                </div>
+                <div class="hori-divi"></div>
+                Avarage time to Offer
+              </div>
+            </li>
+            <li>
+              <div class="equal-height">
+                <div class="box-heading">
+
+                  <div class="report green">
+                    <i class="fas fa-long-arrow-alt-up green"></i>
+                    <span><%= Job.open.count %>:1</span>
+                    <i class="fas fa-long-arrow-alt-down grey"></i>
+                  </div>
+                </div>
+                <div class="hori-divi"></div>
+                Drop Out Ratio's
+              </div>
+            </li>
+            <li>
+              <div class="equal-height">
+                <div class="box-heading">
+
+                  <div class="report bo">
+                    <span><%= Job.open.count %></span>
+                  </div>
+                </div>
+                <div class="hori-divi"></div>
+                Vacancies Filled This Year
+              </div>
+            </li>
+          </ul>
         </div>
+        <div class="reporttable">
+          <table>
+            <tr>
+              <th>Roles</th>
+              <th>Number of Candidates</th>
+              <th>1st Round</th>
+              <th>2nd Round</th>
+              <th>3rd Round</th>
+            </tr>
+            <% Job.open.each do |job| %>
+              <% users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
+                <tr>
+                  <td><%= job.title %></td>
+                  <td><%= users.count %></td>
+                  <td><%= InterviewSchedule.joins(:interview).where('interviews.job_id=? and stage = 0', job).size %></td>
+                  <td><%= InterviewSchedule.joins(:interview).where('interviews.job_id=? and stage = 1', job).size %></td>
+                  <td><%= InterviewSchedule.joins(:interview).where('interviews.job_id=? and stage = 2', job).size %></td>
+                </tr>
+              <% end %>
+            </table>
+          </div>
+
+          <div class="reporttable tab2">
+            <table>
+              <tr>
+                <th>Interviwers</th>
+                <th>Pass</th>
+                <th>Reject</th>
+                <th>Notes</th>
+              </tr>
+              <% InterviewSchedule.all.each do |interview| %>
+                <% comment = interview.client_comments.first %>
+                  <% interview.interviewers_names.each do |name| %>
+                    <tr>
+                      <td><%= name %></td>
+                      <td><%=  %></td>
+                      <td><%=  %></td>
+                      <td><%= (comment.present? ? comment.comment : '') %></td>
+                    </tr>
+                  <% end %>
+                <% end %>
+                <tr>
+                  <td><%=  %></td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td><%= %></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-</div>

@@ -22,10 +22,8 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade in active show" id="sign_up">
               <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { id: 'sign-up-form' }) do |f| %>
-                <%#= devise_error_messages! %>
-                <div class="alert alert-danger" id="sign-up-error" role="alert">
-
-                </div>
+              <%#= devise_error_messages! %>
+                <div class="alert alert-danger" id="sign-up-error" role="alert"></div>
                 <div class="candi-client text-center">
                   <div class="radio">
                     <label><%= f.radio_button :role, 'candidate' %>&nbsp;&nbsp;candidate</label>
@@ -61,12 +59,8 @@
                   <%= f.text_field :current_location, class: "form-control", placeholder: 'Location Preferred' %>
                 </div>
                 <div class="form-group candidate-fields">
-                  <%= f.select(:salary_expectation, options_for_select([["£18-30k", "18000-30000"],
-                                                                        ["£30-50k", "30000-50000"],
-                                                                        ["£50-75k", "50000-75000"],
-                                                                        ["£75-100k", "75000-100000"],
-                                                                        ["£100k+", "100000+"]]),
-                                   { prompt: 'Salary Sought' } , class: "form-control", placeholder: "Salary Sought*") %>
+                  <%= f.select(:salary_expectation, options_for_select([["£18-30k", "18000-30000"], ["£30-50k", "30000-50000"], ["£50-75k", "50000-75000"], ["£75-100k", "75000-100000"], ["£100k+", "100000+"]]), { prompt: 'Salary Sought' } , class: "form-control",
+                  placeholder: "Salary Sought*") %>
                 </div>
                 <div class="form-group">
                   <%= f.password_field :password, autocomplete: "off", id: 'sign_up_password', class: "form-control", placeholder: "Password (6 characters minimum)" %>
@@ -80,118 +74,190 @@
 
             <div role="tabpanel" class="tab-pane fade" id="login">
               <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), html: { class: 'log-in-form', id: 'log-in-form' }, format: :json, remote: true) do |f| %>
-                <div class="alert alert-danger" id="login-error" role="alert">
+              <div class="alert alert-danger" id="login-error" role="alert"></div>
+              <div class="form-group">
+                <%= f.email_field :email, autofocus: true, placeholder: 'Email', class: 'form-control' %>
+              </div>
 
-                </div>
-                <div class="form-group">
-                  <%= f.email_field :email, autofocus: true, placeholder: 'Email', class: 'form-control' %>
-                </div>
+              <div class="form-group">
+                <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: 'password' %>
+              </div>
 
-                <div class="form-group">
-                  <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: 'password' %>
-                </div>
+              <div class="form-group form-check">
+                <label class="form-check-label">
+                  <%= f.check_box :remember_me, class: 'form-check-input' %>
+                  <%= f.label :remember_me %>
+                </label>
+              </div>
 
-                <div class="form-group form-check">
-                  <label class="form-check-label">
-                    <%= f.check_box :remember_me, class: 'form-check-input' %> <%= f.label :remember_me %>
-                  </label>
-                </div>
-
-                <%= f.submit "Log in", class: "btn log-in-btn" %>
-                <a href="#">forget your password?</a>
-              <% end %>
-            </div>
+              <%= f.submit "Log in", class: "btn log-in-btn" %>
+              <a href="#">forget your password?</a>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 <% else %>
-  <!-- Edit profile modal -->
-  <div class="modal fade popup-1" id="edit_profile_modal">
-    <div class="modal-dialog">
-      <div class="modal-content">
+<!-- Edit profile modal -->
+<div class="modal fade popup-1" id="edit_profile_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <a href="#" class="close" data-dismiss="modal">close</a>
-        </div>
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <a href="#" class="close" data-dismiss="modal">close</a>
+      </div>
 
-        <!-- Modal body -->
-        <div class="modal-body">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <h2>Edit <%= resource_name.to_s.humanize %>
-                  <span style="font-size:15px;color:red;"><% if  resource.candidate?%>(You must fill in the Salary & Location field)<% end %></span></h2>
-
-                <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-                    <%= devise_error_messages! %>
-
-                    <div class="field">
-                      <%= f.label :first_name %><br />
-                      <%= f.text_field :first_name, autofocus: true , class: "form-control"%>
-                    </div>
-                    <div class="field">
-                      <%= f.label :last_name %><br />
-                      <%= f.text_field :last_name, autofocus: true , class: "form-control"%>
-                    </div>
-                    <div class="field">
-                      <%= f.label :email %><br />
-                      <%= f.email_field :email, autofocus: true , class: "form-control"%>
-                    </div>
-                    <div class="field">
-                      <%= f.label :contact_no %><br />
-                      <%= f.text_field :contact_no, autofocus: true , class: "form-control"%>
-                    </div>
-                    <% if resource.candidate? %>
-                        <div class="field">
-                          <%= f.label :current_location, "Location Preferred" %>*<br />
-                          <%= f.text_field :current_location, autofocus: true ,required: "true",  class: "form-control"%>
-                        </div>
-                        <div class="field">
-                          <%= f.label :salary_expectation, "Salary expected" %>*<br />
-                          <%= f.text_field :salary_expectation, autofocus: true , required: "true", class: "form-control"%>
-                        </div>
-                    <% end %>
-                    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-                        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-                    <% end %>
-
-                    <div class="field">
-                      <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-                      <%= f.password_field :password, autocomplete: "off" , class: "form-control"%>
-                      <% if @minimum_password_length %>
-                          <br />
-                          <em><%= @minimum_password_length %> characters minimum</em>
-                      <% end %>
-                    </div>
-
-                    <div class="field">
-                      <%= f.label :password_confirmation %><br />
-                      <%= f.password_field :password_confirmation, autocomplete: "off" , class: "form-control"%>
-                    </div>
-
-                    <div class="field">
-                      <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-                      <%= f.password_field :current_password, autocomplete: "off" , class: "form-control"%>
-                    </div>
-
-                    <div class="actions">
-                      <%= f.submit "Update" %>
-                    </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 sign-up-form edit-profile">
+              <div class="text-center">
+                <% if current_user.image.url.present? && !current_user.image_file_name.nil? %>
+                  <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%;" %>
+                <% else %>
+                  <i class="fas fa-user"></i>
                 <% end %>
+              </div>
+              <div class="candi-client text-center">
+                Edit Profile
+              </div>
+              <span style="font-size:15px;color:red;">
+                <% if  resource.candidate?%>(You must fill in the Salary & Location field)<% end %></span></h2>
 
-                <h3>Cancel my account</h3>
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+            <%= devise_error_messages! %>
+            <div class="name-field">
+              <div class="form-group">
+                <%= f.text_field :first_name, autofocus: true , class: "form-control", required: true, value: "#{current_user.first_name}"%>
+              </div>
+              <div class="form-group">
+                <%= f.text_field :last_name, autofocus: true , class: "form-control", required: true,value: "#{current_user.last_name}"%>
+              </div>
+            </div>
+            <div class="form-group">
+              <%= f.label :image %><br/>
+              <%= f.file_field :image , class: "form-control"%>
+            </div>
+            <div class="form-group">
+              <%= f.email_field :email, autofocus: true , class: "form-control",required: true, placeholder:"Email", value: "#{current_user.email}"%>
+            </div>
+            <div class="form-group">
+              <%= f.text_field :contact_no, autofocus: true , class: "form-control",required: true, value: "#{current_user.contact_no}"%>
+            </div>
+            <% if resource.candidate? %>
+              <div class="form-group">
+                <%= f.label :current_location, "Location Preferred" %>*<br/>
+                <%= f.text_field :current_location, autofocus: true ,required: "true", class: "form-control" , value: "#{current_user.current_location}"%>
+              </div>
+              <div class="form-group">
+                <%= f.label :salary_expectation, "Salary expected" %>*<br/>
+                <%= f.text_field :salary_expectation, autofocus: true , required: "true", class: "form-control"%>
+              </div>
+            <% end %>
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div>Currently waiting confirmation for:
+                <%= resource.unconfirmed_email %></div>
+            <% end %>
 
-                <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+            <div class="form-group">
+              <%= f.label :password %>
+              <i>(leave blank if you don't want to change it)</i><br/>
+              <%= f.password_field :password, autocomplete: "off" , class: "form-control"%>
+              <% if @minimum_password_length %>
+                <br/>
+                <em><%= @minimum_password_length %>
+                  characters minimum</em>
+              <% end %>
+            </div>
 
-                <%= link_to "Back", :back %>
-              </div></div></div>
+            <div class="form-group">
+              <%= f.label :password_confirmation %><br/>
+              <%= f.password_field :password_confirmation, autocomplete: "off" , class: "form-control"%>
+            </div>
 
+            <div class="form-group">
+              <%= f.label :current_password %>
+              <i>(we need your current password to confirm your changes)</i><br/>
+              <%= f.password_field :current_password, autocomplete: "off" , class: "form-control"%>
+            </div>
+
+            <div class="btn log-in-btn">
+              <%= f.submit "Update" , style:"border: 0;background-color: #122FB8;color: #fff;"%>
+            </div>
+          <% end %>
         </div>
-
       </div>
     </div>
+
   </div>
+
+</div>
+</div>
+</div>
 <% end %>
+
+<!-- assign job Modal -->
+
+<div class="modal fade assign-job-model" id="assign-job-popup">
+<div class="modal-dialog">
+<div class="modal-content text-center">
+
+<!-- Modal Header -->
+<div class="modal-header">
+  <h4 class="modal-title popup-title">Assign job</h4>
+  <button type="button" class="close" data-dismiss="modal">close</button>
+</div>
+
+<!-- Modal body -->
+<div class="modal-body">
+  <h5 class="popup-title">Select people to assign</h5>
+  <ul>
+    <li>
+      <a href="#">
+        <%= image_tag 'new_ui/avatar.jpg', alt: 'icon-3', class: 'img-fluid' %>
+      </a>
+      brain johnson
+    </li>
+    <li>
+      <a href="#">
+        <%= image_tag 'new_ui/avatar.jpg', alt: 'icon-3', class: 'img-fluid' %>
+      </a>
+      brain johnson
+    </li>
+    <li>
+      <a href="#">
+        <%= image_tag 'new_ui/avatar.jpg', alt: 'icon-3', class: 'img-fluid' %>
+      </a>
+      brain johnson
+    </li>
+    <li>
+      <a href="#">
+        <%= image_tag 'new_ui/avatar.jpg', alt: 'icon-3', class: 'img-fluid' %>
+      </a>
+      brain johnson
+    </li>
+    <li>
+      <a href="#">
+        <%= image_tag 'new_ui/avatar.jpg', alt: 'icon-3', class: 'img-fluid' %>
+      </a>
+      brain johnson
+    </li>
+    <li>
+      <a href="#">
+        <%= image_tag 'new_ui/avatar.jpg', alt: 'icon-3', class: 'img-fluid' %>
+      </a>
+      brain johnson
+    </li>
+  </ul>
+  <a href="#" class="assign-job-btn">assign</a>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- assign job Modal -->

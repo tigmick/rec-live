@@ -23,12 +23,14 @@
                         <li></li>
                       </ul></a>
                       <div class="dropdown-menu" aria-labelledby="options">
-                        <%= link_to 'View job', job_path(job), class: "dropdown-item" %>
+
                         <% if job.open? %>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#assign-job-popup">Assign job</a>
                           <%= link_to 'Close Job', close_job_path(id: job.id), method: :post, data: {confirm: 'Are you sure you want to close this Job.'}, class: "dropdown-item" %>
                         <% else %>
                           <%= link_to 'Open Job', open_job_path(id: job.id), method: :post, class: "dropdown-item" %>
                         <% end %>
+                        <%= link_to 'View job', job_path(job), class: "dropdown-item" %>
                       </div>
                     </div>
                   </div>
