@@ -553,72 +553,7 @@ h3.job-sub-heading {
   line-height: 46px;
 }
 
-/* assign job model   */
 
-.assign-job-model .modal-header{display:block;text-align:center;border:0px;padding:0px;}
-.assign-job-model .modal-body ul{
-	padding: 0;
-    list-style-type: none;
-    text-align: center;
-}
-.assign-job-model .modal-body ul li{
-	display: inline-block;
-    width: 28.8%;
-    border: 1px solid #000;
-    border-radius: 5px;
-    vertical-align: top;
-    margin: 0% 2% 4% 2%;
-    min-width: 150px;
-    padding: 15px;
-    font-family: PublicaSans-Light;
-    text-transform: capitalize;
-}
-.assign-job-model .modal-body ul li a{
-	display: block;
-    max-width: 80px;
-    max-height: 80px;
-    margin: 20px auto;
-    border-radius: 60px;
-    overflow: hidden;
-}
-.assign-job-model .modal-body h5{font-size:18px;padding:15px 0px;}
-.assign-job-model .modal-body a.assign-job-btn {
-    line-height: normal;
-    font-size: 16px;
-    background-color: #122FB8;
-    font-family: ZPublicaSans;
-    letter-spacing: -0.217708px;
-    color: #FFFFFF;
-    border-radius: 8px;
-    width: 100%;
-    padding: 20px 0px;
-    max-width: 240px;
-    display: block;
-    margin: auto;
-    text-align: center;
-    text-transform: capitalize;
-}
-
-
-.popup-title{
-	line-height: normal;
-    font-size: 24px;
-    font-family: PublicaSans-Medium;
-    color: #090909;
-    letter-spacing: -0.348333px;
-}
-.popup-title span{
-	line-height: normal;
-    font-size: 10px;
-    text-align: center;
-    font-family: PublicaSans-Medium;
-    color: #fff;
-    padding: 3px 12px 5px;
-    border-radius: 20px;
-}
-.popup-title .open{background-color: #7ed321;}
-
-/* assign job model   */
 
 
 .popup-title{
