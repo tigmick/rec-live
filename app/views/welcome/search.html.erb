@@ -3,6 +3,7 @@
       <% if current_user.present? %>
          <p id="error-msg" class="alert alert-danger" style="display: none;    width: 100%;text-align: center;"></p>
       <% end %>
+         
       <div class="col-md-12" style="border-bottom:1px solid #fff;">
          <div class="job-right without-logged">
            <div class="row pull-right">
@@ -25,12 +26,14 @@
                 </div>
               </div>
             </div>
-            <div class="box-job">
+           
+           <div class="box-job">
                <% if !@search.blank? %>
                <ul>
-                  <% @search.each do |search| %>
-                  <li>
-                     <div class="equal-height" style="height: 175px;">
+                 <% @search.each do |search| %>
+                 <li>
+                   
+                   <div class="equal-height" style="height: 175px;">
                         <div class="box-heading">
                            <div class="box-header">
                               <div class="detail">
@@ -41,33 +44,39 @@
                               </div>
                            </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="job-discription">
-                      <h3>job description</h3>
-                      <p ><%= search.description.truncate(50)%></p>
-                      <input type="hidden" id="job-<%= search.id %>-industry" value="<%= search.industry.present? ? search.industry.title : '' %>">
-                      <input type="hidden" id="job-discription-<%= search.id %>" value="<%= search.description.present? ? search.description : '' %>">
-                    </div>
-                  </div>
-                  <div class="box-footer text-center">
-                    <a href="javascript:void(0)" data-toggle="modal" class="<%= (user_signed_in? && search.open?) ? 'job-search':''%>" data-target="#jobDetialsModel" onclick="showJobDetails(<%= search.id %>)">View</a>
-                    <%= job_apply_link(search) if user_signed_in? && search.open? %>
-                  </div>
-                </li>
-              <% end %>
-            </ul>
-          <% else %>
+                     
+                        <div class="job-discription">
+                          <h3>job description</h3>
+                          <p ><%= search.description.truncate(50)%></p>
+                          <input type="hidden" id="job-<%= search.id %>-industry" value="<%= search.industry.present? ? search.industry.title : '' %>">
+                          <input type="hidden" id="job-discription-<%= search.id %>" value="<%= search.description.present? ? search.description : '' %>">
+                        </div>
+                        <div class="box-footer text-center">
+                          <a href="javascript:void(0)" data-toggle="modal" class="<%= (user_signed_in? && search.open?) ? 'job-search':''%>" data-target="#jobDetialsModel" onclick="showJobDetails(<%= search.id %>)">View</a>
+                          <%= job_apply_link(search) if user_signed_in? && search.open? %>
+                        </div>
+                   </div>
+                   
+                 </li>
+                 
+                 <% end %>
+                 
+               </ul>
+             
+             <% else %>
             <h5 style="color:#4286F5;font-weight:bold;">No Job listed in this Category Yet.</h5>
-          <% end %>
-        </div>
+            <% end %>
+            
+             
+           </div>
+         </div>
+      </div>
+   </div>
+</div>
         <nav aria-label="Page navigation">
           <%= will_paginate @search , renderer: BootstrapPagination::Rails%>
         </nav>
-      </div>
-    </div>
-  </div>
-</div>
+
 <!-- The Modal 2 -->
 <div class="modal fade popup-3 popup-1" id="jobDetialsModel">
   <div class="modal-dialog">
