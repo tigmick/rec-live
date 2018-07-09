@@ -21,8 +21,7 @@
                   </div>
                 </div>
                 <div class="box-footer">
-                	<a href="/users/<%=user.id%>/user_profile?job_id=<%=user.jobs.first%>&review=true">view</a>
-                  <%# link_to 'view', user_path %>
+                	<a href="/resumes?job_id=<%= user.applied_jobs.first.id%>&user_id=<%=user.id%>">view</a>
                 </div>
               </li>
               <% end %>
