@@ -20,9 +20,11 @@
                     <p><%= user.email %></p>
                   </div>
                 </div>
-                <div class="box-footer">
-                	<a href="/resumes?job_id=<%= user.applied_jobs.first.id%>&user_id=<%=user.id%>">view</a>
-                </div>
+                <%if user.applied_jobs.present?%>
+                  <div class="box-footer">
+                    <a href="/resumes?job_id=<%= user.applied_jobs.first.id%>&user_id=<%=user.id%>">view</a>
+                  </div>
+                <%end%>
               </li>
               <% end %>
               </ul>
