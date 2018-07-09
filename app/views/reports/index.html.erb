@@ -52,6 +52,7 @@
               <th>1st Round</th>
               <th>2nd Round</th>
               <th>3rd Round</th>
+              <th>Offer</th>
             </tr>
             <% @jobs.where(status: 0).each do |job| %>
               <tr>
@@ -60,6 +61,7 @@
                 <td><%= job.interview_schedules.where(stage: 1).count %></td>
                 <td><%= job.interview_schedules.where(stage: 2).count %></td>
                 <td><%= job.interview_schedules.where(stage: 3).count %></td>
+                <td><%= job.candidate_applications.where(accepted: true).count %></td>
               </tr>
             <% end %>
           </table>
