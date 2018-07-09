@@ -14,8 +14,10 @@
                 </div>
               </div>
               <div class="job-discription">
-                <h3>Candidate Feedback &nbsp;&nbsp;</h3>
-                <p>Candidate has a strong technical background working on similar systems and a good track record. Seems to develop with the…</p>
+                <%if job.interview.interview_schedules.present? and job.interview.interview_schedules.first.candidate_feedbacks.present?%>
+                  <h3>Candidate Feedback &nbsp;&nbsp;</h3>
+                  <p><%= job.interview.interview_schedules.first.candidate_feedbacks.first.feedback %></p>
+                <%end%>
                 <div class="job-status">
                   <h3>status</h3>
                   <h3>Reviewed by client?</h3>
