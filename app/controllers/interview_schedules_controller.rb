@@ -39,15 +39,15 @@ class InterviewSchedulesController < ApplicationController
   def candidate_feedback
     schedule = InterviewSchedule.find(params[:schedule_id])
     unless params[:feedback_id].present?
-      user_id = current_user.client? ? schedule.interview.job.user.id :  schedule.user_id
-      candidate_feedback = schedule.candidate_feedbacks.new(user_id: user_id,client: current_user.client? ,feedback: params[:feedback])
+      #user_id = current_user.client? ? schedule.interview.job.user.id :  schedule.user_id
+      candidate_feedback = schedule.candidate_feedbacks.new(user_id: current_user.id,client: current_user.client? ,feedback: params[:feedback])
       candidate_feedback.save
       UserMailer.candidate_feedback(candidate_feedback,schedule.interview.job.user).deliver_now
       UserMailer.candidate_feedback(candidate_feedback,User.find(user_id)).deliver_now
       UserMailer.candidate_feedback(candidate_feedback,AdminUser.first).deliver_now
     else
       candidate_feedback=CandidateFeedback.find(params[:feedback_id])
-      candidate_feedback.update(feedback: params[:feedback])
+      candidate_feedback.update(user_id: current_user.id,feedback: params[:feedback])
     end
     #redirect_to interview_schedule_path(schedule.interview.job) if current_user.candidate?
     #redirect_to "/interview_schedules/#{schedule.interview.job.id}?user_id=#{schedule.user_id}" if current_user.client?

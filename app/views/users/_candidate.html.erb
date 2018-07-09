@@ -14,9 +14,9 @@
                 </div>
               </div>
               <div class="job-discription">
-                <%if job.interview.interview_schedules.present? and job.interview.interview_schedules.first.candidate_feedbacks.present?%>
-                  <h3>Candidate Feedback &nbsp;&nbsp;</h3>
-                  <p><%= job.interview.interview_schedules.first.candidate_feedbacks.first.feedback %></p>
+                <%if job.interview.interview_schedules.present? and job.interview.interview_schedules.first.client_comments.present?%>
+                  <h3>Client Comment &nbsp;&nbsp;</h3>
+                  <p><%= job.interview.interview_schedules.first.client_comments.first.comment %></p>
                 <%end%>
                 <div class="job-status">
                   <h3>status</h3>
