@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
 <% if current_user.client? %>
-<% if request.path.include? "dashboard" %>
+<% if request.path.include? "dashboard" and current_user.candidate? %>
 <nav class="navbar navbar-expand-lg navbar-light head-2">
    <a class="navbar-brand" href="/">
    <%= image_tag 'new_ui/logo-img.png', alt: 'logo', class: 'img-fluid' %> <span id="company-logo">yourcube</span>
