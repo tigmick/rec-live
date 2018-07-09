@@ -1,7 +1,7 @@
 <div class="container-fluid">
 <div class="row">
 <%= render 'shared/navigation' %>
-<div class="col-md-10" id="content-container" style="background-color:#f1f1f1;">
+<div class="col-md-10" id="content-container" style="background-color:#f1f1f1; margin-bottom: 50px;">
    <div class="create-job">
       <h2>new job</h2>
       <%= form_for(@job, :html => { :multipart => true }) do |f| %>
@@ -16,8 +16,7 @@
       </div>
       <% end %>
       <div class="form-group title">
-         <label>Title</label>
-         <%= f.text_field :title, class: 'form-control',required: true, placeholder: 'Active field for job title' %>
+         <%= f.text_field :title, class: 'form-control',required: true,placeholder: "Title" %>
       </div>
       <div class="form-group">
          <%= f.text_area :description, rows: "5", required: true,class: 'form-control', placeholder: 'Description' %>
@@ -25,11 +24,11 @@
       <div class="box__input">
          <%= f.file_field :document, required: true,class:"box__file" %>
          <label for="file">
-           <%= image_tag "/assets/new_ui/Shape.png", class:"img-fluid", alt:"drag" %>&nbsp;&nbsp; Browse
+           <%= image_tag "/assets/new_ui/Shape.png", class:"img-fluid", alt:"drag" %>&nbsp;&nbsp; <span id="resume-label">Browse</span>
          </label>
       </div>
       <div class="form-group">
-         <%= f.label :industry_id %><br>
+         <%#= f.label :industry_id %><br>
          <%= f.select("industry_id", Industry.all.collect {|p| [ p.title, p.id ] }, {}, class: "form-control", id: 'sel1')  %>
       </div>
       <div class="actions">
@@ -37,4 +36,6 @@
       </div>
       <% end %>
    </div>
+</div>
+</div>
 </div>
