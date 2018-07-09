@@ -24,10 +24,10 @@
           </div>
           <div class="successfull-des rounds">
             <span>Total Interview Round</span>
-            <% if @job.interview.try(:total_stage).nil? %>
-              0
+            <% unless @job.interview.interview_schedules.present? %>
+              1
             <% else %>
-              <%= @job.interview.try(:total_stage) %>
+              <%= @job.interview.interview_schedules.maximum('stage') %>
             <% end %>
           </div>
           <% if current_user.client? %>
