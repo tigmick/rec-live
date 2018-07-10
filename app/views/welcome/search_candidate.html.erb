@@ -20,10 +20,11 @@
                     <p><%= user.email %></p>
                   </div>
                 </div>
-                <div class="box-footer">
-                	<a href="/users/<%=user.id%>/user_profile?job_id=<%=user.jobs.first%>&review=true">view</a>
-                  <%# link_to 'view', user_path %>
-                </div>
+                <%if user.applied_jobs.present?%>
+                  <div class="box-footer">
+                    <a href="/resumes?job_id=<%= user.applied_jobs.first.id%>&user_id=<%=user.id%>">view</a>
+                  </div>
+                <%end%>
               </li>
               <% end %>
               </ul>

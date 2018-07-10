@@ -88,6 +88,25 @@
                 </div>
               </div>
               <div class="popup-divider"></div>
+              <div class="row">
+                <div class="col-9">
+                  <h4>candidate feedback</h4>                  
+                </div>
+                <div class="col-3">
+                  
+                </div>
+                <%interview_schedule.candidate_feedbacks.each do |candidate_feeback| %>
+                  <div class="col-9">
+                    <a href="##"><%= candidate_feeback.user.first_name %></a>
+                    <%= candidate_feeback.feedback %>
+                  </div>
+                  <div class="col-3">
+                  </div>
+                <%end%>
+                <div class="col-9">
+                </div>
+              </div>
+              <div class="popup-divider"></div>
 
               <div class="row">
                 <div class="col-8">

@@ -2,11 +2,11 @@
   <div class="row">
     <%= render 'shared/navigation' %>
     <div class="col-md-10" id="content-container" style="background-color:#f1f1f1;">
-      <div class="job-right reportse">
+      <div class="job-right reportse" style="padding: 34px;">
 
         <div class="box-job job-report-box">
           <ul>
-            <li>
+            <li style="min-width: 232px; width: 0% !important">
               <div class="equal-height">
                 <div class="box-heading">
 
@@ -18,7 +18,7 @@
                 Live Vacancies
               </div>
             </li>
-            <li>
+            <li style="min-width: 232px; width: 0% !important">
               <div class="equal-height">
                 <div class="box-heading">
 
@@ -30,16 +30,29 @@
                 Avarage time to Offer
               </div>
             </li>
-            <li>
+            <li style="min-width: 232px; width: 0% !important">
               <div class="equal-height">
                 <div class="box-heading">
 
                   <div class="report green">
-                    <i class="fas fa-long-arrow-alt-up green"></i><span><%= @jobs.where(status: 0).count %>:<%= rejected_jobs(@jobs) %></span><i class="fas fa-long-arrow-alt-down grey"></i>
+                    <i class="fas fa-long-arrow-alt-up green"></i><span><%= @jobs.where(status: 0).count %>:<%= rejected_jobs(@jobs) %></span>
+                    <!--<i class="fas fa-long-arrow-alt-down grey"></i>-->
                   </div>
                 </div>
                 <div class="hori-divi"></div>
                 Drop Out Ratio's
+              </div>
+            </li>
+            <li style="min-width: 232px; width: 0% !important">
+              <div class="equal-height">
+                <div class="box-heading">
+
+                  <div class="report bo">
+                    <span><%= @jobs.count %></span>
+                  </div>
+                </div>
+                <div class="hori-divi"></div>
+                Vacancies filed this year
               </div>
             </li>
           </ul>
@@ -52,6 +65,7 @@
               <th>1st Round</th>
               <th>2nd Round</th>
               <th>3rd Round</th>
+              <th>Offer</th>
             </tr>
             <% @jobs.where(status: 0).each do |job| %>
               <tr>
@@ -60,6 +74,7 @@
                 <td><%= job.interview_schedules.where(stage: 1).count %></td>
                 <td><%= job.interview_schedules.where(stage: 2).count %></td>
                 <td><%= job.interview_schedules.where(stage: 3).count %></td>
+                <td><%= job.candidate_applications.where(accepted: true).count %></td>
               </tr>
             <% end %>
           </table>
