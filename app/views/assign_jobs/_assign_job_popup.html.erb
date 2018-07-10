@@ -22,7 +22,7 @@
                 <% else %>
                   <%= image_tag "new_ui/About Us-1.png",:class=>"img-fluid #{@assign_users.include?(user.id.to_s) ? 'assigned' : ''}",:style=>"display: #{@assign_users.include?(user.id.to_s) ? 'none;' : 'block'}",:id=>"profile-pic-#{user.id}"  %>
                 <% end %>
-                <%= image_tag "hundredone.png",:class=>"img-fluid",:style=>"background-color:#122FB8; display: #{@assign_users.include?(user.id.to_s) ? 'block' : 'none'}",:id=>"tick-mark-#{user.id}"  %>
+                <%= image_tag "yours.png",:class=>"img-fluid",:style=>"background-color:#122FB8; display: #{@assign_users.include?(user.id.to_s) ? 'block' : 'none'}",:id=>"tick-mark-#{user.id}"  %>
               </a>
               <%= user.full_name %>
               <%= check_box_tag 'user_ids[]', user.id, @assign_users.include?(user.id.to_s),:style=>"display: none;",:id=>"user-checkbox-#{user.id}"%>
