@@ -1,0 +1,2 @@
+$('#interview-schedule-feedback-'+<%= params[:schedule_id] %>).html("<%= escape_javascript render('candidate_feedback_details',{interview_schedule: @schedule}) %>");
+$('#candidate-feedback').modal('hide');

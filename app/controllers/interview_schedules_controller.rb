@@ -38,12 +38,12 @@ class InterviewSchedulesController < ApplicationController
   end
 
   def candidate_feedback
-    schedule = InterviewSchedule.find(params[:schedule_id])
+    @schedule = InterviewSchedule.find(params[:schedule_id])
     unless params[:feedback_id].present?
       #user_id = current_user.client? ? schedule.interview.job.user.id :  schedule.user_id
-      candidate_feedback = schedule.candidate_feedbacks.new(user_id: current_user.id,client: current_user.client? ,feedback: params[:feedback])
+      candidate_feedback = @schedule.candidate_feedbacks.new(user_id: current_user.id,client: current_user.client? ,feedback: params[:feedback])
       candidate_feedback.save
-      UserMailer.candidate_feedback(candidate_feedback,schedule.interview.job.user).deliver_now
+      UserMailer.candidate_feedback(candidate_feedback,@schedule.interview.job.user).deliver_now
       UserMailer.candidate_feedback(candidate_feedback,current_user).deliver_now
       UserMailer.candidate_feedback(candidate_feedback,AdminUser.first).deliver_now
     else
@@ -52,16 +52,17 @@ class InterviewSchedulesController < ApplicationController
     end
     #redirect_to interview_schedule_path(schedule.interview.job) if current_user.candidate?
     #redirect_to "/interview_schedules/#{schedule.interview.job.id}?user_id=#{schedule.user_id}" if current_user.client?
-    redirect_to "/users/dashboard#"
+    #redirect_to "/users/dashboard#"
   end
 
 
   def destroy_feedback
     candidate_feedback=CandidateFeedback.find(params[:id])
+    @schedule = candidate_feedback.interview_schedule
     candidate_feedback.destroy
     #redirect_to interview_schedule_path(candidate_feedback.interview_schedule.interview.job) if current_user.candidate?
     #redirect_to "/interview_schedules/#{candidate_feedback.interview_schedule.interview.job.id}?user_id=#{candidate_feedback.interview_schedule.user_id}" if current_user.client?
-    redirect_to "/users/dashboard#"
+    #redirect_to "/users/dashboard#"
   end
 
 

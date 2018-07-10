@@ -104,7 +104,7 @@
 
     <!-- Modal body -->
     <div class="modal-body">
-      <%= form_tag candidate_feedback_interview_schedules_path do %>
+      <%= form_tag candidate_feedback_interview_schedules_path,remote: true do %>
         <%= hidden_field_tag :schedule_id,  ''%>
         <%= hidden_field_tag :feedback_id,'' %>
 
