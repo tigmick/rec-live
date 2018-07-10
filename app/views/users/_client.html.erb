@@ -75,7 +75,7 @@
                                   </ul>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="options">
-                                  <%= link_to 'Create interview', job_path(job), class: "dropdown-item" %>
+                                  <%= link_to 'Create Interview Stage', job_path(job), class: "dropdown-item" %>
                                     <% if job.open? %>
                                       <%= link_to 'Close the job', close_job_path(id: job.id), class: 'dropdown-item jobs-action', id: "job_#{job.id}" %>
                                       <% else %>
