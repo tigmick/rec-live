@@ -1,81 +1,81 @@
 <div class="col-md-12" style="background-color:#f1f1f1;">
-   <div class="row">
-      <% if current_user.present? %>
-         <p id="error-msg" class="alert alert-danger" style="display: none;    width: 100%;text-align: center;"></p>
-      <% end %>
+  <div class="row">
+    <% if current_user.present? %>
+      <p id="error-msg" class="alert alert-danger" style="display: none;    width: 100%;text-align: center;"></p>
+    <% end %>
 
-      <div class="col-md-12" style="border-bottom:1px solid #fff;">
-         <div class="job-right without-logged">
-           <div class="row pull-right">
-              <div class="col-12" >
-                <div class="sort-btn">
-                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sort by
-                  </button>
-                    <div class="dropdown-menu">
-                        <%if user_signed_in?%>
-                          <a class="dropdown-item" href="/welcome/search?applied=true" data-method="POST">Applied</a>
-                          <a class="dropdown-item" href="/welcome/search?not_applied=true" data-method="POST">Not applied</a>
-                        <%else%>
-                          <a class="dropdown-item" href="##">Blank</a>
-                        <%end%>
-                    </div>
+    <div class="col-md-12" style="border-bottom:1px solid #fff;">
+      <div class="job-right without-logged">
+        <div class="row pull-right">
+          <div class="col-12">
+            <%if user_signed_in?%>
+            <div class="sort-btn">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort by
+              </button>
+
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="/welcome/search?applied=true" data-method="POST">Applied</a>
+                  <a class="dropdown-item" href="/welcome/search?not_applied=true" data-method="POST">Not applied</a>
                 </div>
-              </div>
+
             </div>
+            <%end%>
+          </div>
+        </div>
 
-           <div class="box-job">
-               <% if !@search.blank? %>
-               <ul>
-                 <% @search.each do |search| %>
-                 <li>
+        <div class="box-job">
+          <% if !@search.blank? %>
+            <ul>
+              <% @search.each do |search| %>
+                <li>
 
-                   <div class="equal-height">
-                        <div class="box-heading">
-                           <div class="box-header">
-                              <div class="detail">
-                                 <h2 class="job-heading" id="job-title-<%= search.id %>"> <%= search.title%></h2>
-                                 <% if search.document.present? %>
-                                 <div class="about-job"><%= link_to "#{File.extname(search.document_file_name)}".gsub(".","").upcase, download_job_path(search),  target: "_blank" %> </div>
-                                 <% end %>
-                              </div>
-                           </div>
+                  <div class="equal-height">
+                    <div class="box-heading">
+                      <div class="box-header">
+                        <div class="detail">
+                          <h2 class="job-heading" id="job-title-<%= search.id %>">
+                            <%= search.title%></h2>
+                          <% if search.document.present? %>
+                            <div class="about-job"><%= link_to "#{File.extname(search.document_file_name)}".gsub(".","").upcase, download_job_path(search), target: "_blank" %>
+                            </div>
+                          <% end %>
                         </div>
+                      </div>
+                    </div>
 
-                        <div class="job-discription">
-                          <h3>job description</h3>
-                          <p ><%= search.description.truncate(50)%></p>
-                          <input type="hidden" id="job-<%= search.id %>-industry" value="<%= search.industry.present? ? search.industry.title : '' %>">
-                          <input type="hidden" id="job-discription-<%= search.id %>" value="<%= search.description.present? ? search.description : '' %>">
-                        </div>
-                        <div class="box-footer text-center">
-                          <a href="javascript:void(0)" data-toggle="modal" class="<%= (user_signed_in? && search.open?) ? 'job-search':''%>" data-target="#jobDetialsModel" onclick="showJobDetails(<%= search.id %>)">View</a>
-                          <%= job_apply_link(search) if user_signed_in? && search.open? %>
-                        </div>
-                   </div>
+                    <div class="job-discription">
+                      <h3>job description</h3>
+                      <p ><%= search.description.truncate(50)%></p>
+                      <input type="hidden" id="job-<%= search.id %>-industry" value="<%= search.industry.present? ? search.industry.title : '' %>">
+                      <input type="hidden" id="job-discription-<%= search.id %>" value="<%= search.description.present? ? search.description : '' %>">
+                    </div>
+                    <div class="box-footer text-center">
+                      <a href="javascript:void(0)" data-toggle="modal" class="<%= (user_signed_in? && search.open?) ? 'job-search':''%>" data-target="#jobDetialsModel" onclick="showJobDetails(<%= search.id %>)">View</a>
+                      <%= job_apply_link(search) if user_signed_in? && search.open? %>
+                    </div>
+                  </div>
 
-                 </li>
+                </li>
 
-                 <% end %>
+              <% end %>
 
-               </ul>
+            </ul>
 
-             <% else %>
+          <% else %>
             <h5 style="color:#4286F5;font-weight:bold;">No Job listed in this Category Yet.</h5>
-            <% end %>
+          <% end %>
 
-
-           </div>
-           <nav aria-label="Page navigation">
+        </div>
+        <nav aria-label="Page navigation">
           <%= will_paginate @search , renderer: BootstrapPagination::Rails%>
         </nav>
-         </div>
-
       </div>
-   </div>
+
+    </div>
+  </div>
 
 </div>
-
 
 <!-- The Modal 2 -->
 <div class="modal fade popup-3 popup-1" id="jobDetialsModel">
