@@ -9,13 +9,14 @@ module ReportsHelper
         counter = counter + 1
       end
     end
-    return days.inject(0){|sum,x| sum + x }.to_i/counter
+  # rescue 0
+    # return days.inject(0){|sum,x| sum + x }.to_i/counter
   end
-  
+
   def rejected_jobs(jobs)
     rejected_jobs = 0
     jobs.each do |job|
-      rejected_jobs = rejected_jobs + job.user_jobs.where(rejected: true).count 
+      rejected_jobs = rejected_jobs + job.user_jobs.where(rejected: true).count
     end
     return rejected_jobs
   end

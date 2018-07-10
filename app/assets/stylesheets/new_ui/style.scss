@@ -1737,6 +1737,30 @@ h2.job-heading {
   /* -webkit-appearance: none;
      */
 }
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+.job-listing-header form button{
+  line-height: normal;
+  font-size: 15px;
+  letter-spacing: -0.217708px;
+  color: #090909;
+  font-family: PublicaSans-Light;
+    padding: 10px 18px;
+      background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
 
 .succesfull-create {
   background-color: #fff;

@@ -7,7 +7,7 @@
   <% count = 0 %>
   <% industry.jobs.where(user_id: current_user.id).each do |job| %>
     <%# users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
-    <%users = job.candidates%>  
+    <%users = job.candidates%>
     <% users.each do |user| %>
       <% if user.present?%>
         <% industries << industry if count == 0 %>
@@ -158,6 +158,7 @@
             </div>
           <% end %>
         <% end %>
+      </div>
 
         <!-- interview round -->
         <div class="modal fade interview-round" id="interview-round">

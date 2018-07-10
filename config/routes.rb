@@ -11,46 +11,8 @@
 #                                                        PATCH    /admin/password(.:format)                                         active_admin/devise/passwords#update
 #                                                        PUT      /admin/password(.:format)                                         active_admin/devise/passwords#update
 #                                             admin_root GET      /admin(.:format)                                                  admin/dashboard#index
-#                             batch_action_admin_reviews POST     /admin/reviews/batch_action(.:format)                             admin/reviews#batch_action
-#                                          admin_reviews GET      /admin/reviews(.:format)                                          admin/reviews#index
-#                                                        POST     /admin/reviews(.:format)                                          admin/reviews#create
-#                                       new_admin_review GET      /admin/reviews/new(.:format)                                      admin/reviews#new
-#                                      edit_admin_review GET      /admin/reviews/:id/edit(.:format)                                 admin/reviews#edit
-#                                           admin_review GET      /admin/reviews/:id(.:format)                                      admin/reviews#show
-#                                                        PATCH    /admin/reviews/:id(.:format)                                      admin/reviews#update
-#                                                        PUT      /admin/reviews/:id(.:format)                                      admin/reviews#update
-#                                                        DELETE   /admin/reviews/:id(.:format)                                      admin/reviews#destroy
-#                                        admin_candidate GET      /admin/candidate(.:format)                                        admin/candidate#index
-#                          batch_action_admin_interviews POST     /admin/interviews/batch_action(.:format)                          admin/interviews#batch_action
-#                                       admin_interviews GET      /admin/interviews(.:format)                                       admin/interviews#index
-#                                                        POST     /admin/interviews(.:format)                                       admin/interviews#create
-#                                    new_admin_interview GET      /admin/interviews/new(.:format)                                   admin/interviews#new
-#                                   edit_admin_interview GET      /admin/interviews/:id/edit(.:format)                              admin/interviews#edit
-#                                        admin_interview GET      /admin/interviews/:id(.:format)                                   admin/interviews#show
-#                                                        PATCH    /admin/interviews/:id(.:format)                                   admin/interviews#update
-#                                                        PUT      /admin/interviews/:id(.:format)                                   admin/interviews#update
-#                                                        DELETE   /admin/interviews/:id(.:format)                                   admin/interviews#destroy
-#                                        admin_dashboard GET      /admin/dashboard(.:format)                                        admin/dashboard#index
-#                             batch_action_admin_resumes POST     /admin/resumes/batch_action(.:format)                             admin/resumes#batch_action
-#                                          admin_resumes GET      /admin/resumes(.:format)                                          admin/resumes#index
-#                                                        POST     /admin/resumes(.:format)                                          admin/resumes#create
-#                                       new_admin_resume GET      /admin/resumes/new(.:format)                                      admin/resumes#new
-#                                      edit_admin_resume GET      /admin/resumes/:id/edit(.:format)                                 admin/resumes#edit
-#                                           admin_resume GET      /admin/resumes/:id(.:format)                                      admin/resumes#show
-#                                                        PATCH    /admin/resumes/:id(.:format)                                      admin/resumes#update
-#                                                        PUT      /admin/resumes/:id(.:format)                                      admin/resumes#update
-#                                                        DELETE   /admin/resumes/:id(.:format)                                      admin/resumes#destroy
-#                                           admin_client GET      /admin/client(.:format)                                           admin/client#index
 #                                           admin_report GET      /admin/report(.:format)                                           admin/report#index
-#                               batch_action_admin_users POST     /admin/users/batch_action(.:format)                               admin/users#batch_action
-#                                            admin_users GET      /admin/users(.:format)                                            admin/users#index
-#                                                        POST     /admin/users(.:format)                                            admin/users#create
-#                                         new_admin_user GET      /admin/users/new(.:format)                                        admin/users#new
-#                                        edit_admin_user GET      /admin/users/:id/edit(.:format)                                   admin/users#edit
-#                                             admin_user GET      /admin/users/:id(.:format)                                        admin/users#show
-#                                                        PATCH    /admin/users/:id(.:format)                                        admin/users#update
-#                                                        PUT      /admin/users/:id(.:format)                                        admin/users#update
-#                                                        DELETE   /admin/users/:id(.:format)                                        admin/users#destroy
+#                                        admin_candidate GET      /admin/candidate(.:format)                                        admin/candidate#index
 #                      batch_action_admin_job_categories POST     /admin/job_categories/batch_action(.:format)                      admin/job_categories#batch_action
 #                                   admin_job_categories GET      /admin/job_categories(.:format)                                   admin/job_categories#index
 #                                                        POST     /admin/job_categories(.:format)                                   admin/job_categories#create
@@ -60,24 +22,16 @@
 #                                                        PATCH    /admin/job_categories/:id(.:format)                               admin/job_categories#update
 #                                                        PUT      /admin/job_categories/:id(.:format)                               admin/job_categories#update
 #                                                        DELETE   /admin/job_categories/:id(.:format)                               admin/job_categories#destroy
-#                         batch_action_admin_admin_users POST     /admin/admin_users/batch_action(.:format)                         admin/admin_users#batch_action
-#                                      admin_admin_users GET      /admin/admin_users(.:format)                                      admin/admin_users#index
-#                                                        POST     /admin/admin_users(.:format)                                      admin/admin_users#create
-#                                   new_admin_admin_user GET      /admin/admin_users/new(.:format)                                  admin/admin_users#new
-#                                  edit_admin_admin_user GET      /admin/admin_users/:id/edit(.:format)                             admin/admin_users#edit
-#                                       admin_admin_user GET      /admin/admin_users/:id(.:format)                                  admin/admin_users#show
-#                                                        PATCH    /admin/admin_users/:id(.:format)                                  admin/admin_users#update
-#                                                        PUT      /admin/admin_users/:id(.:format)                                  admin/admin_users#update
-#                                                        DELETE   /admin/admin_users/:id(.:format)                                  admin/admin_users#destroy
-#                 batch_action_admin_interview_schedules POST     /admin/interview_schedules/batch_action(.:format)                 admin/interview_schedules#batch_action
-#                              admin_interview_schedules GET      /admin/interview_schedules(.:format)                              admin/interview_schedules#index
-#                                                        POST     /admin/interview_schedules(.:format)                              admin/interview_schedules#create
-#                           new_admin_interview_schedule GET      /admin/interview_schedules/new(.:format)                          admin/interview_schedules#new
-#                          edit_admin_interview_schedule GET      /admin/interview_schedules/:id/edit(.:format)                     admin/interview_schedules#edit
-#                               admin_interview_schedule GET      /admin/interview_schedules/:id(.:format)                          admin/interview_schedules#show
-#                                                        PATCH    /admin/interview_schedules/:id(.:format)                          admin/interview_schedules#update
-#                                                        PUT      /admin/interview_schedules/:id(.:format)                          admin/interview_schedules#update
-#                                                        DELETE   /admin/interview_schedules/:id(.:format)                          admin/interview_schedules#destroy
+#                                        admin_dashboard GET      /admin/dashboard(.:format)                                        admin/dashboard#index
+#                             batch_action_admin_reviews POST     /admin/reviews/batch_action(.:format)                             admin/reviews#batch_action
+#                                          admin_reviews GET      /admin/reviews(.:format)                                          admin/reviews#index
+#                                                        POST     /admin/reviews(.:format)                                          admin/reviews#create
+#                                       new_admin_review GET      /admin/reviews/new(.:format)                                      admin/reviews#new
+#                                      edit_admin_review GET      /admin/reviews/:id/edit(.:format)                                 admin/reviews#edit
+#                                           admin_review GET      /admin/reviews/:id(.:format)                                      admin/reviews#show
+#                                                        PATCH    /admin/reviews/:id(.:format)                                      admin/reviews#update
+#                                                        PUT      /admin/reviews/:id(.:format)                                      admin/reviews#update
+#                                                        DELETE   /admin/reviews/:id(.:format)                                      admin/reviews#destroy
 #                                batch_action_admin_jobs POST     /admin/jobs/batch_action(.:format)                                admin/jobs#batch_action
 #                                             admin_jobs GET      /admin/jobs(.:format)                                             admin/jobs#index
 #                                                        POST     /admin/jobs(.:format)                                             admin/jobs#create
@@ -87,6 +41,52 @@
 #                                                        PATCH    /admin/jobs/:id(.:format)                                         admin/jobs#update
 #                                                        PUT      /admin/jobs/:id(.:format)                                         admin/jobs#update
 #                                                        DELETE   /admin/jobs/:id(.:format)                                         admin/jobs#destroy
+#                                           admin_client GET      /admin/client(.:format)                                           admin/client#index
+#                             batch_action_admin_resumes POST     /admin/resumes/batch_action(.:format)                             admin/resumes#batch_action
+#                                          admin_resumes GET      /admin/resumes(.:format)                                          admin/resumes#index
+#                                                        POST     /admin/resumes(.:format)                                          admin/resumes#create
+#                                       new_admin_resume GET      /admin/resumes/new(.:format)                                      admin/resumes#new
+#                                      edit_admin_resume GET      /admin/resumes/:id/edit(.:format)                                 admin/resumes#edit
+#                                           admin_resume GET      /admin/resumes/:id(.:format)                                      admin/resumes#show
+#                                                        PATCH    /admin/resumes/:id(.:format)                                      admin/resumes#update
+#                                                        PUT      /admin/resumes/:id(.:format)                                      admin/resumes#update
+#                                                        DELETE   /admin/resumes/:id(.:format)                                      admin/resumes#destroy
+#                         batch_action_admin_admin_users POST     /admin/admin_users/batch_action(.:format)                         admin/admin_users#batch_action
+#                                      admin_admin_users GET      /admin/admin_users(.:format)                                      admin/admin_users#index
+#                                                        POST     /admin/admin_users(.:format)                                      admin/admin_users#create
+#                                   new_admin_admin_user GET      /admin/admin_users/new(.:format)                                  admin/admin_users#new
+#                                  edit_admin_admin_user GET      /admin/admin_users/:id/edit(.:format)                             admin/admin_users#edit
+#                                       admin_admin_user GET      /admin/admin_users/:id(.:format)                                  admin/admin_users#show
+#                                                        PATCH    /admin/admin_users/:id(.:format)                                  admin/admin_users#update
+#                                                        PUT      /admin/admin_users/:id(.:format)                                  admin/admin_users#update
+#                                                        DELETE   /admin/admin_users/:id(.:format)                                  admin/admin_users#destroy
+#                          batch_action_admin_interviews POST     /admin/interviews/batch_action(.:format)                          admin/interviews#batch_action
+#                                       admin_interviews GET      /admin/interviews(.:format)                                       admin/interviews#index
+#                                                        POST     /admin/interviews(.:format)                                       admin/interviews#create
+#                                    new_admin_interview GET      /admin/interviews/new(.:format)                                   admin/interviews#new
+#                                   edit_admin_interview GET      /admin/interviews/:id/edit(.:format)                              admin/interviews#edit
+#                                        admin_interview GET      /admin/interviews/:id(.:format)                                   admin/interviews#show
+#                                                        PATCH    /admin/interviews/:id(.:format)                                   admin/interviews#update
+#                                                        PUT      /admin/interviews/:id(.:format)                                   admin/interviews#update
+#                                                        DELETE   /admin/interviews/:id(.:format)                                   admin/interviews#destroy
+#                 batch_action_admin_interview_schedules POST     /admin/interview_schedules/batch_action(.:format)                 admin/interview_schedules#batch_action
+#                              admin_interview_schedules GET      /admin/interview_schedules(.:format)                              admin/interview_schedules#index
+#                                                        POST     /admin/interview_schedules(.:format)                              admin/interview_schedules#create
+#                           new_admin_interview_schedule GET      /admin/interview_schedules/new(.:format)                          admin/interview_schedules#new
+#                          edit_admin_interview_schedule GET      /admin/interview_schedules/:id/edit(.:format)                     admin/interview_schedules#edit
+#                               admin_interview_schedule GET      /admin/interview_schedules/:id(.:format)                          admin/interview_schedules#show
+#                                                        PATCH    /admin/interview_schedules/:id(.:format)                          admin/interview_schedules#update
+#                                                        PUT      /admin/interview_schedules/:id(.:format)                          admin/interview_schedules#update
+#                                                        DELETE   /admin/interview_schedules/:id(.:format)                          admin/interview_schedules#destroy
+#                               batch_action_admin_users POST     /admin/users/batch_action(.:format)                               admin/users#batch_action
+#                                            admin_users GET      /admin/users(.:format)                                            admin/users#index
+#                                                        POST     /admin/users(.:format)                                            admin/users#create
+#                                         new_admin_user GET      /admin/users/new(.:format)                                        admin/users#new
+#                                        edit_admin_user GET      /admin/users/:id/edit(.:format)                                   admin/users#edit
+#                                             admin_user GET      /admin/users/:id(.:format)                                        admin/users#show
+#                                                        PATCH    /admin/users/:id(.:format)                                        admin/users#update
+#                                                        PUT      /admin/users/:id(.:format)                                        admin/users#update
+#                                                        DELETE   /admin/users/:id(.:format)                                        admin/users#destroy
 #                                         admin_comments GET      /admin/comments(.:format)                                         admin/comments#index
 #                                                        POST     /admin/comments(.:format)                                         admin/comments#create
 #                                          admin_comment GET      /admin/comments/:id(.:format)                                     admin/comments#show
