@@ -5,20 +5,20 @@
 <% job_counts = [] %>
 <% @industries.each do |industry| %>
   <% count = 0 %>
-  <% industry.jobs.where(user_id: current_user.id).each do |job| %>
+  <% @jobs.select{|j| j.industry_id == industry.id}.each do |job| %>
     <%# users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
     <%users = job.candidates%>
-    <% users.each do |user| %>
-      <% if user.present?%>
+    
+      <% if users.present?%>
         <% industries << industry if count == 0 %>
         <% count += 1 %><% end %>
-    <% end %>
+    
   <% end %>
   <% job_counts << count if count > 0 %><% end %>
 
 <div class="col-md-10" id="content-container" style="background-color:#f1f1f1;">
   <% industries.each_with_index do |industry, i| %>
-    <% if industry.jobs.where(user_id: current_user.id).count > 0 %>
+    <% if @jobs.select{|j| j.industry_id == industry.id}.size > 0 %>
       <!-- List the Jobs application according to Industry -->
       <div class="row">
         <div class="col-md-12" style="border-bottom:1px solid #fff;">
@@ -32,7 +32,7 @@
             <div id="collapse-<%= industry.id %>" class="collapse-panel collapse show">
               <div class="box-job">
                 <ul>
-                  <% industry.jobs.where(user_id: current_user.id).each do |job| %>
+                  <% @jobs.select{|j| j.industry_id == industry.id}.each do |job| %>
                     <!-- start of application -->
                     <%# recived_applications = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
                     <%recived_applications = job.candidates%>

@@ -7,7 +7,7 @@ class JobsController < ApplicationController
   # GET /Jobs
   # GET /Jobs.json
   def index
-    job_ids = AssignJob.all.collect{|k| k.user_ids.include?(current_user.id) ? k.job_id : []}.flatten
+    job_ids = AssignJob.all.collect{|k| k.user_ids.include?(current_user.id.to_s) ? k.job_id : []}.flatten
     @jobs = Job.all.order('created_at desc')
     if current_user.client?
       @jobs =  current_user.jobs.order('created_at desc')
