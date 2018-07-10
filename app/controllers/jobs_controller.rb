@@ -11,7 +11,7 @@ class JobsController < ApplicationController
     @jobs = Job.all.order('created_at desc')
     if current_user.client?
       @jobs =  current_user.jobs.order('created_at desc')
-      @jobs << Job.where('id IN (?)',job_ids)
+      @jobs << Job.where(id: job_ids)
       @jobs = @jobs.flatten
     end
     render layout: 'new_ui/application'
