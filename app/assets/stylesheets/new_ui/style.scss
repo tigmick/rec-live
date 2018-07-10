@@ -593,12 +593,12 @@ h3.job-sub-heading {
 }
 
 .stepwizard {
-  display: inline-block;
-    width: 89%;
-    /* margin: 0 auto; */
-    margin-left: 12px;
-    /* text-align: center; */
-    position: relative;
+  display: block;
+    margin: 0 auto;
+  // width: 90%;
+  width: 205px;
+  // padding-left: 10px;
+  position: relative;
 }
 
 .stepwizard-step button[disabled] {
@@ -628,7 +628,7 @@ h3.job-sub-heading {
       height: 20px;
       text-align: center;
       padding: 0;
-      margin-right: 33px;
+      margin-right: 27px;
       font-size: 8px;
       border: 1px solid #cbcbcb;
       color: #fff;
