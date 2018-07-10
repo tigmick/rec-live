@@ -1,0 +1,4 @@
+$('#interview-schedule-details').html("<%= escape_javascript render 'interview_schedule_details' %>");
+$('#schedule-interview').modal('hide');
+var stage = "<%= params[:stage]%>";
+$('#tab-'+stage).trigger('click');

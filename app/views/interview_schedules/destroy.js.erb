@@ -1,0 +1,4 @@
+$('#interview-schedule-details').html("<%= escape_javascript render 'interview_schedule_details' %>");
+$('#tab-1').trigger('click');
+var stage = "<%= @job.interview.interview_schedules.minimum('stage')%>";
+$('#tab-'+stage).trigger('click');

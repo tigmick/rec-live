@@ -22,9 +22,10 @@ class InterviewSchedulesController < ApplicationController
       schedule = InterviewSchedule.find params[:scheds_id]
       schedule.update(interviewers_names: params[:interviewer_names].split(","),interview_avail_dates: @date_hash)
     end
-    flash[:notice] = schedule.errors.messages  unless schedule.present?
+    @job = interview.job
+    #flash[:notice] = schedule.errors.messages  unless schedule.present?
     #redirect_to"/interview_schedules/#{interview.job.id}?user_id=#{params[:user_id]}"
-    redirect_to "/users/dashboard"
+    #redirect_to "/users/dashboard"
     # redirect_to "/interview_schedules/#{params[:user_id]}/user_profile?job_id=#{interview.job.id}&review=true"
   end
 
@@ -65,36 +66,37 @@ class InterviewSchedulesController < ApplicationController
 
 
   def client_comment
-    schedule = InterviewSchedule.find(params[:sched_id])
+    @schedule = InterviewSchedule.find(params[:sched_id])
     unless params[:comment_id].present?
-      user_id = current_user.client? ? current_user.id : schedule.user_id
-      client_comment = schedule.client_comments.new(user_id: user_id,client: current_user.client? ,comment: params[:comment])
+      user_id = current_user.client? ? current_user.id : @schedule.user_id
+      client_comment = @schedule.client_comments.new(user_id: user_id,client: current_user.client? ,comment: params[:comment])
       client_comment.save
-      UserMailer.client_comment(client_comment,schedule.interview.job.user).deliver_now
-      UserMailer.client_comment(client_comment,User.find(schedule.user_id)).deliver_now
+      UserMailer.client_comment(client_comment,@schedule.interview.job.user).deliver_now
+      UserMailer.client_comment(client_comment,User.find(@schedule.user_id)).deliver_now
       UserMailer.client_comment(client_comment,AdminUser.first).deliver_now
     else
       client_comment=ClientComment.find(params[:comment_id])
       client_comment.update(comment: params[:comment])
     end
 
-    respond_to do |format|
-      format.html do
-        redirect_to interview_schedule_path(schedule.interview.job) if current_user.candidate?
-        #redirect_to "/interview_schedules/#{schedule.interview.job.id}?user_id=#{schedule.user_id}" if current_user.client?
-        redirect_to "/users/dashboard" if current_user.client?
-      end
-      format.json do
-        render json: client_comment, status: :ok
-      end
-    end
+#    respond_to do |format|
+#      format.html do
+#        redirect_to interview_schedule_path(schedule.interview.job) if current_user.candidate?
+#        #redirect_to "/interview_schedules/#{schedule.interview.job.id}?user_id=#{schedule.user_id}" if current_user.client?
+#        redirect_to "/users/dashboard" if current_user.client?
+#      end
+#      format.json do
+#        render json: client_comment, status: :ok
+#      end
+#    end
   end
 
   def destroy_comment
     client_comment=ClientComment.find(params[:id])
+    @schedule = client_comment.interview_schedule 
     client_comment.destroy
-    redirect_to interview_schedule_path(client_comment.interview_schedule.interview.job) if current_user.candidate?
-    redirect_to "/users/dashboard" if current_user.client?
+    #redirect_to interview_schedule_path(client_comment.interview_schedule.interview.job) if current_user.candidate?
+    #redirect_to "/users/dashboard" if current_user.client?
 
   end
 
@@ -108,8 +110,9 @@ class InterviewSchedulesController < ApplicationController
 
   def destroy
     schedule = InterviewSchedule.find(params[:id])
+    @job = schedule.interview.job
     schedule.destroy
-    redirect_to"/users/dashboard"
+    #redirect_to"/users/dashboard"
   end
   
   def populate_interview_schedule_popup

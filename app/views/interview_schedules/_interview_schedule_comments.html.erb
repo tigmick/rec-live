@@ -1,0 +1,20 @@
+<div class="col-9">
+  <h4>client comments</h4>                  
+</div>
+<div class="col-3">
+  <%unless interview_schedule.client_comments.present?%>
+    <a data-toggle="modal" onclick="setCommentDetails(this);" data-target="#client-comment" href="#" data-comment-id="<%= '' %>" data-comment="<%= '' %>" data-schedule_id="<%= interview_schedule.id %>">Add</a> 
+  <%end%>
+</div>
+<%interview_schedule.client_comments.each do |client_comment| %>
+  <div class="col-9">
+    <a href="##"><%= client_comment.user.first_name %></a>
+    <%= client_comment.comment %>
+  </div>
+  <div class="col-3">
+    <a data-toggle="modal" onclick="setCommentDetails(this);" data-target="#client-comment" href="#" data-comment-id="<%= client_comment.id %>" data-comment="<%= client_comment.comment %>" data-schedule_id="<%= interview_schedule.id %>">Edit</a> 
+    <%= link_to 'Delete',destroy_comment_path(client_comment),method: :delete,remote: true %>
+  </div>
+<%end%>
+<div class="col-9">
+</div>

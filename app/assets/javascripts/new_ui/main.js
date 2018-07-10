@@ -91,6 +91,7 @@ function setJobStatusUrl(obj) {
 
 function next_step(id, stage, interviewers_names, inviewer_dates, interview_id, field) {
   console.log(inviewer_dates);
+  $('#interview-round-submit-button').val('Submit');
   //$("#myModal_n").show()
   if (field == 'all fields') {
     $('.stage-field').show();
@@ -214,4 +215,8 @@ function showAssignJobPopup(element) {
     type: "GET",
     dataType: "script"
   });
+}
+
+function changeSubmittingText(element){
+  $(element).val('Submitting...');
 }

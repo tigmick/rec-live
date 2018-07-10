@@ -1,0 +1,2 @@
+$('#interview-schedule-comments-'+<%= @schedule.id %>).html("<%= escape_javascript render('interview_schedule_comments',{interview_schedule: @schedule}) %>");
+$('#client-comment').modal('hide');
