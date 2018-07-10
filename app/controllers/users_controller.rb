@@ -5,9 +5,9 @@ class UsersController < ApplicationController
     @industries = Industry.all
     @user = current_user
     if current_user.client?
-      job_ids = AssignJob.all.collect{|k| k.user_ids.include?(current_user.id) ? k.job_id : []}.flatten
+      job_ids = AssignJob.all.collect{|k| k.user_ids.include?(current_user.id.to_s) ? k.job_id : []}.flatten
       @jobs = current_user.jobs.order('created_at desc')
-      @jobs << Job.where('id IN (?)',job_ids)
+      @jobs << Job.where(id: job_ids)
       @jobs = @jobs.flatten
     else
       #@applied_jobs = @user.candidate_jobs
