@@ -37,7 +37,7 @@ module UsersHelper
   def cv_download(reviews,job)
     html = ""
     review = reviews.find_by(job_id: job.id, user_id: current_user,is_cv_download: true)
-    html = review.present? ? "<b>Yes</b> on <b>Date: #{review.cv_download_date.strftime('%d/%m/%Y %-I:%M%p')}</b>" : "<b>CV awaiting download</b>"
+    html = review.present? ? "<b>Yes</b> on <b>Date: #{review.cv_download_date.strftime('%d/%m/%Y %-I:%M%p')}</b>" : "CV awaiting download"
     return html.html_safe
   end
 

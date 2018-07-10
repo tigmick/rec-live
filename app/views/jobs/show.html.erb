@@ -66,19 +66,19 @@
 
       <!-- Modal Header -->
       <div class="modal-header d-block text-center">
-        <h3>Interview Schedule</h3>
-        <a href="#" class="close" data-dismiss="modal">close</a>
+        <h5>Interview Schedule</h5>
+        <a href="#" class="close-interview-stage" data-dismiss="modal">close</a>
         <a href="#" class="arrow" data-dismiss="modal">
           <i class="fas fa-arrow-left"></i>
         </a>
       </div>
 
       <!-- Modal body -->
-      <div class="modal-body">
+      <div class="modal-body" style="margin-bottom: 150px;">
         <h4>stage</h4>
         <%= form_for :interview,url: job_interviews_path(@job) do |f|%>
           <div class="form-group">
-            <div class="form-control">
+            <div class="form-control interview-form-control">
               <%= f.select(:total_stage, [["Pre Screen", 1], ["Stage 2",2], ["Stage 3", 3], ["Stage 4",4],["Stage 5", 5],
                   ["Stage 6",6], ["Stage 7", 7], ["Stage 8", 8], ["Stage 9", 9], ["Stage 10", 10]], {:class => 'stage-select'}) %>
             </div>

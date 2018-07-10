@@ -38,7 +38,7 @@
               <div class="popup-divider"></div>
               <div class="row">
                 <div class="col-9">
-                  <h4>interviewer</h4>    
+                  <h4>interviewer</h4>
                 </div>
                 <div class="col-3">
 
@@ -48,7 +48,7 @@
                     <div class="interviewer-detail">
                       <%= interviewer %>
                     </div>
-                  <%end%>    
+                  <%end%>
                 </div>
                 <div class="col-3">
 
@@ -59,7 +59,7 @@
               <div class="popup-divider"></div>
               <div class="row">
                 <div class="col-9">
-                  <h4>client comments</h4>                  
+                  <h4>client comments</h4>
                 </div>
                 <div class="col-3">
 
@@ -78,11 +78,11 @@
               <div class="popup-divider"></div>
               <div class="row">
                 <div class="col-9">
-                  <h4>candidate feedback</h4>                  
+                  <h4>candidate feedback</h4>
                 </div>
                 <div class="col-3">
                   <%unless interview_schedule.candidate_feedbacks.present?%>
-                    <a data-toggle="modal" onclick="setFeedbackDetails(this);" data-target="#candidate-feedback" href="#" data-feedback-id="<%= '' %>" data-feedback="<%= '' %>" data-schedule_id="<%= interview_schedule.id %>">Add</a> 
+                    <a data-toggle="modal" onclick="setFeedbackDetails(this);" data-target="#candidate-feedback" href="#" data-feedback-id="<%= '' %>" data-feedback="<%= '' %>" data-schedule_id="<%= interview_schedule.id %>">Add</a>
                   <%end%>
                 </div>
                 <%interview_schedule.candidate_feedbacks.each do |candidate_feeback| %>
@@ -91,7 +91,7 @@
                     <%= candidate_feeback.feedback %>
                   </div>
                   <div class="col-3">
-                    <a data-toggle="modal" onclick="setFeedbackDetails(this);" data-target="#candidate-feedback" href="#" data-feedback-id="<%= candidate_feeback.id %>" data-feedback="<%= candidate_feeback.feedback %>" data-schedule_id="<%= interview_schedule.id %>">Edit</a> 
+                    <a data-toggle="modal" onclick="setFeedbackDetails(this);" data-target="#candidate-feedback" href="#" data-feedback-id="<%= candidate_feeback.id %>" data-feedback="<%= candidate_feeback.feedback %>" data-schedule_id="<%= interview_schedule.id %>">Edit</a>
                     <%= link_to 'Delete',destroy_feedback_path(candidate_feeback),method: :delete %>
                   </div>
                 <%end%>
