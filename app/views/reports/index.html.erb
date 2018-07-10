@@ -67,7 +67,7 @@
               <th>3rd Round</th>
               <th>Offer</th>
             </tr>
-            <% @jobs.where(status: 0).each do |job| %>
+            <% @jobs.each do |job| %>
               <tr>
                 <td><%= job.title %></td>
                 <td><%= job.candidates.count %></td>
