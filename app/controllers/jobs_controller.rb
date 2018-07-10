@@ -148,7 +148,7 @@ class JobsController < ApplicationController
       flash[:notice] = "Job is closed, can not send accepted job to candidate."
       redirect_to users_dashboard_path
     else
-      #@job.update status: 1
+      @job.update status: 1
       user_job = UserJob.find_by(candidate_id: params[:user_id],job_id: @job.id)
       user_job.update_attributes(accepted: true,user_id: current_user.id,accepted_at: Date.today)
       JobMailer.accepted_email(params[:user_id], params[:id]).deliver_now
