@@ -43,7 +43,7 @@ class InterviewSchedulesController < ApplicationController
       candidate_feedback = schedule.candidate_feedbacks.new(user_id: current_user.id,client: current_user.client? ,feedback: params[:feedback])
       candidate_feedback.save
       UserMailer.candidate_feedback(candidate_feedback,schedule.interview.job.user).deliver_now
-      UserMailer.candidate_feedback(candidate_feedback,User.find(user_id)).deliver_now
+      UserMailer.candidate_feedback(candidate_feedback,current_user).deliver_now
       UserMailer.candidate_feedback(candidate_feedback,AdminUser.first).deliver_now
     else
       candidate_feedback=CandidateFeedback.find(params[:feedback_id])
