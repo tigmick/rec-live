@@ -1379,9 +1379,9 @@ p {
     text-align: center;
 }
 .assign-job-model .modal-body ul li{
-	display: inline-block;
-    width: 28.8%;
-    border: 1px solid #000;
+  	display: inline-block;
+    // width: 28.8%;
+    border: 1px solid #ccc;
     border-radius: 5px;
     vertical-align: top;
     margin: 0% 2% 4% 2%;
@@ -1390,16 +1390,22 @@ p {
     font-family: PublicaSans-Light;
     text-transform: capitalize;
 }
+
+.assign-job-model .modal-body ul li:hover {
+    box-shadow: 1px 1px 1px 2px #ccc;
+}
+
 .assign-job-model .modal-body ul li a{
-	display: block;
+	  display: block;
     max-width: 80px;
+    border: 1px solid #ccc;
     max-height: 80px;
     margin: 20px auto;
     border-radius: 60px;
     overflow: hidden;
 }
 .assign-job-model .modal-body h5{font-size:18px;padding:15px 0px;}
-.assign-job-model .modal-body a.assign-job-btn {
+.assign-job-btn {
     line-height: normal;
     font-size: 16px;
     background-color: #122FB8;
