@@ -45,6 +45,8 @@
                           <div class="equal">
                             <div class="box-heading">
                               <div class="box-header">
+                                <h2 class="job-heading"><%= link_to (job.title || ""), job_path(job)%></h2>
+                                <h3 class="job-sub-heading"><%= job.industry.present? ? job.industry.title : '' %></h3>
                                 <div class="name">
                                   <%= user.first_name[0] %>
                                   <% if user.last_name %><%= user.last_name[0] %>
