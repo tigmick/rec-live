@@ -13,18 +13,18 @@
                     <div class="box-header">
                       <div class="name"><%= user.first_name[0] %><% if user.last_name %><%= user.last_name[0] %><% end %></div>
                        <div class="detail"><h2 class="job-heading"><%= user.first_name %><% user.last_name %></h2>
+                       </div>
                     </div>
-                </div>
                   </div>
                   <div class="job-discription-less-custom">
                     <p><%= user.email %></p>
                   </div>
+                  <%if user.applied_jobs.present?%>
+                    <div class="box-footer">
+                      <a href="/resumes?job_id=<%= user.applied_jobs.first.id%>&user_id=<%=user.id%>">view</a>
+                    </div>
+                  <%end%>
                 </div>
-                <%if user.applied_jobs.present?%>
-                  <div class="box-footer">
-                    <a href="/resumes?job_id=<%= user.applied_jobs.first.id%>&user_id=<%=user.id%>">view</a>
-                  </div>
-                <%end%>
               </li>
               <% end %>
               </ul>

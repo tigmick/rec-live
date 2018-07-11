@@ -33,4 +33,9 @@ class RegistrationsController < Devise::RegistrationsController
   def edit
     render layout: 'new_ui/application'
   end
+  protected
+
+  def after_update_path_for(resource)
+    "/users/dashboard"
+  end
 end
