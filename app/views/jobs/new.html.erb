@@ -24,7 +24,7 @@
       <div class="box__input">
          <%= f.file_field :document, required: true,class:"box__file" %>
          <label for="file">
-           <%= image_tag "/assets/new_ui/Shape.png", class:"img-fluid", alt:"drag" %>&nbsp;&nbsp; <span id="resume-label">Browse</span>
+           <%= image_tag "/assets/new_ui/Shape.png", class:"img-fluid", alt:"drag" %>&nbsp;&nbsp; <span id="document-label">Browse</span>
          </label>
       </div>
       <div class="form-group">
@@ -39,3 +39,9 @@
 </div>
 </div>
 </div>
+<script>
+  $("#job_document").change(function(){
+    $("#job_document").prop('title',this.files[0].name);
+    $('#document-label').html(this.files[0].name);
+  });
+</script>
