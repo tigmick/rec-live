@@ -25,7 +25,7 @@
          <div class="col-md-11">
             <div class="form-group search">
                <div class="col-md-4">
-                  <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title", params[:category].to_i),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
+                  <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title", params[:category].to_i),class: '', id: 'sel1', :prompt => 'Select Job Category' %>
                </div>
                <div class="col-md-7">
                   <%= text_field_tag :search, '', class: 'form-control', value: params[:search],placeholder: 'Search', aria: { label: 'Search' } %>
@@ -192,7 +192,7 @@
          <div class="col-md-11">
             <div class="form-group search">
                <div class="col-md-4">
-                  <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title", params[:category].to_i),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
+                  <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title", params[:category].to_i),class: '', id: 'sel1', :prompt => 'Select Job Category' %>
                </div>
                <div class="col-md-7">
                   <%= text_field_tag :search, '', class: 'form-control', value: params[:search],placeholder: 'Search', aria: { label: 'Search' } %>
@@ -275,7 +275,7 @@
          <div class="col-md-11">
             <div class="form-group search">
                <div class="col-md-4">
-                  <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title", params[:category].to_i),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
+                  <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title", params[:category].to_i),class: '', id: 'sel1', :prompt => 'Select Job Category' %>
                </div>
                <div class="col-md-7">
                   <%= text_field_tag :search, '', class: 'form-control', value: params[:search],placeholder: 'Search', aria: { label: 'Search' } %>
@@ -348,7 +348,7 @@
          <%= form_tag welcome_search_path, :method=> :post, class: 'form-inline loc-search-form col-md-10' do %>
          <div class="col-md-3">
             <div class="form-group">
-               <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title", params[:category].to_i),class: 'form-control', id: 'sel1', :prompt => 'Select Job Category' %>
+               <%= select_tag "category", options_from_collection_for_select(Industry.all, "id", "title", params[:category].to_i),class: '', id: 'sel1', :prompt => 'Select Job Category' %>
             </div>
          </div>
          <div class="col-md-9">
