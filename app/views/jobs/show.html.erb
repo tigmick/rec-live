@@ -24,9 +24,10 @@
           </div>
           <div class="successfull-des rounds">
             <span>Total Interview Round</span>
-            <% unless @job.interview.interview_schedules.present? %>
-              1
-            <% else %>
+            <% if @job.interview.total_stage != 0 and !(@job.interview.interview_schedules.present?)%>
+              <%= @job.interview.total_stage%>  
+            <%end%>
+            <% if @job.interview.interview_schedules.present?  %>
               <%= @job.interview.interview_schedules.maximum('stage') %>
             <% end %>
           </div>
