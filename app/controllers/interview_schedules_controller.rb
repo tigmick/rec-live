@@ -15,6 +15,7 @@ class InterviewSchedulesController < ApplicationController
         user_id:  params[:user_id]
       )
       schedule.save
+      schedule.interview.update_attribute(:total_stage, params[:stage])
       UserMailer.interview_schedules(schedule.interview.job.user, schedule.id).deliver_now
       UserMailer.interview_schedules(User.find(schedule.user_id), schedule.id).deliver_now
       UserMailer.interview_schedules(AdminUser.first, schedule.id).deliver_now
@@ -118,9 +119,7 @@ class InterviewSchedulesController < ApplicationController
   
   def populate_interview_schedule_popup
     @job = Job.find(params[:job_id])
-    unless @job.interview.interview_schedules.present?
-      InterviewSchedule.create(stage: 1,interview_id: @job.interview.id,user_id: current_user.id)
-    end
+    puts '------------------' , (@job.interview.interview_schedules.maximum('stage') != 0)
   end
   
   def candidate_interview_schedule_popup

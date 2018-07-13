@@ -8,7 +8,9 @@
     </div>
     <!-- Modal body -->
     <div class="modal-body" id="interview-schedule-details">
-      <%= render 'interview_schedule_details' %>
+      <%if @job.interview.interview_schedules.maximum('stage') != 0%>
+        <%= render 'interview_schedule_details' %>
+      <%end%>
     </div>
 
   </div>

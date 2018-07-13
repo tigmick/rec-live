@@ -181,7 +181,7 @@ module UsersHelper
       #@schedule = @job.interview.interview_schedules.where(user_id: user_id).last if current_user.client?
       @schedule = @job.interview.interview_schedules.last if current_user.client?
       #@last_stage = @schedules.maximum('stage') if current_user.client?
-      if current_user.client? && @schedule.present?
+      if current_user.client? && @schedule.present? and @schedule.stage != 0
         if @schedule.client_comments.present?
           recent_comment = @schedule.client_comments.last
           add = "<a href='javascript:void(0);' onclick='setCommentDetails(this);' data-toggle='modal' data-target='#client-comment' data-comment-id='' data-comment=''  data-schedule_id='#{@schedule.id}' data-review='1'>Add</a>"

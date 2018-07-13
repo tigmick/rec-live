@@ -8,6 +8,7 @@
     </div>
     <!-- Modal body -->
     <div class="modal-body">
+      <%if @job.interview.interview_schedules.maximum('stage').to_i != 0%>
       <ul class="nav nav-tabs" role="tablist">
         <%@job.interview.interview_schedules.order(:stage).each_with_index do |interview_schedule,index|%>
           <li class="nav-item">
@@ -85,7 +86,7 @@
         <%end%>
 
       </div>
-
+      <%end%>
     </div>
 
   </div>
