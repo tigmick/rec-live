@@ -19,4 +19,12 @@ module ReportsHelper
     end
     return rejected_jobs
   end
+  
+  def accepted_jobs(jobs)
+    accepted_jobs = 0
+    jobs.each do |job|
+      accepted_jobs = accepted_jobs + job.user_jobs.where(accepted: true).count
+    end
+    return accepted_jobs
+  end
 end
