@@ -82,7 +82,7 @@ $(function () {
       $('#login_sign_up_tabs a[href="#sign_up"]').tab('show')
     });
 
-    $('.log-in-btn').click(function () {
+    $('.ssign-uup-bbtn').click(function () {
       // Validate Signup form
       sign_up_form.validate({
         errorClass: 'is-invalid',
