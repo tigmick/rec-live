@@ -18,10 +18,11 @@
             <%= f.label :email %><br />
             <%= f.email_field :email, autofocus: true , required: true,class: "form-control"%>
           </div>
+        <label>Image</label>
           <div class="box__input">
              <%= f.file_field :image, class:"box__file" %>
              <label for="file">
-               <%= image_tag "/assets/new_ui/Shape.png", class:"img-fluid", alt:"drag" %>&nbsp;&nbsp; Browse
+               <%= image_tag "/assets/new_ui/Shape.png", class:"img-fluid", alt:"drag" %>&nbsp;&nbsp; <span id="resume-label">Browse</span>
              </label>
           </div>
           <div class="form-group">
@@ -74,3 +75,9 @@
     </div>
   </div>
 </div>
+<script>
+  $("#user_image").change(function(){
+    $("#user_image").prop('title',this.files[0].name);
+    $('#resume-label').html(this.files[0].name)
+  });
+</script>
