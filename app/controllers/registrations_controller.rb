@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-
+  layout 'new_ui/application'
   def create
     build_resource(sign_up_params)
     if resource.save
@@ -34,7 +34,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
-    render layout: 'new_ui/application'
+    #render layout: 'new_ui/application'
   end
   protected
 
