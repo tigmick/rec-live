@@ -41,7 +41,7 @@
             <li>
                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
                  <% if current_user.image.url.present? && !current_user.image_file_name.nil? %>
-                  <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%;" %>
+                  <%= image_tag current_user.image.url, style:"border-radius: 50%; width: auto; height: auto; max-width: 50px; max-height: 50px;" %>
                  <% else %>
                  <i class="fas fa-user"></i>
                  <% end %>
@@ -123,7 +123,7 @@
             <li>
                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
                  <% if current_user.image.url.present? && !current_user.image_file_name.nil? %>
-                  <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%;" %>
+                  <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%; width: auto; height: auto; max-width: 50px; max-height: 50px;" %>
                  <% else %>
                  <i class="fas fa-user"></i>
                  <% end %>
@@ -208,7 +208,7 @@
             <li>
                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
                  <% if current_user.image.url.present? && !current_user.image_file_name.nil? %>
-                  <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%;" %>
+                  <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%; width: auto; height: auto; max-width: 50px; max-height: 50px;" %>
                  <% else %>
                  <i class="fas fa-user"></i>
                  <% end %>
@@ -291,7 +291,7 @@
             <li>
                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
                  <% if current_user.image.url.present? && !current_user.image_file_name.nil? %>
-                  <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%;" %>
+                  <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%; width: auto; height: auto; max-width: 50px; max-height: 50px;" %>
                  <% else %>
                  <i class="fas fa-user"></i>
                  <% end %>
@@ -365,7 +365,7 @@
             <li>
                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
                  <% if current_user.image.url.present? && !current_user.image_file_name.nil? %>
-                  <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%;" %>
+                  <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%; width: auto; height: auto; max-width: 50px; max-height: 50px;" %>
                  <% else %>
                  <i class="fas fa-user"></i>
                  <% end %>
