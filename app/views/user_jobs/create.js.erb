@@ -2,6 +2,7 @@
 	$("#apply_<%=@job_id%>").attr("href","#")
 	$("#apply_<%=@job_id%>").text("Applied")
 	$("#apply_<%=@job_id%>").removeClass('not-applied').addClass('applied')
+        $("#apply_<%=@job_id%>").css('color','#C70039')
 <%else%>
 	$("#error-msg").html("<%=@error_msg%>").show();
 <%end%>
