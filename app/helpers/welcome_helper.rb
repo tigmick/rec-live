@@ -9,7 +9,7 @@ module WelcomeHelper
       unless job_applied?(search.id)
         link_to "Apply",{:controller => "user_jobs", :action => "create", :user_id => current_user.id , job_id: search.id }, id:"apply_#{search.id}",  class: "job-search not-applied",method: :post, remote: true
       else
-        link_to "Applied" ,"#" ,class: 'job-search applied'
+        link_to "Applied" ,"#" ,class: 'job-search applied',style: "color: #C70039;"
       end
     end
   end
