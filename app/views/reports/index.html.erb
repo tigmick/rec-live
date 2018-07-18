@@ -23,7 +23,8 @@
                 <div class="box-heading">
 
                   <div class="report redr">
-                    <i class="fas fa-long-arrow-alt-up grey"></i><span><%= calculate_average_time(@jobs) %></span><i class="fas fa-long-arrow-alt-down red"></i>
+                    <%average_time = calculate_average_time(@jobs)%>
+                    <i class="fas fa-long-arrow-alt-up grey"></i><span><%= average_time >= 0 ? average_time : 0%></span><i class="fas fa-long-arrow-alt-down red"></i>
                   </div>
                 </div>
                 <div class="hori-divi"></div>

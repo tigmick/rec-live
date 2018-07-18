@@ -3,7 +3,7 @@ module ReportsHelper
     counter = 0
     days = []
     jobs.each do |job|
-      user_jobs = job.user_jobs.where.not(accepted: nil)
+      user_jobs = job.user_jobs.where.not(accepted_at: nil)
       user_jobs.each do |user_job|
         days << (user_job.accepted_at - user_job.created_at.to_date )
         counter = counter + 1
