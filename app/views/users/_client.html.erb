@@ -8,11 +8,11 @@
   <% @jobs.select{|j| j.industry_id == industry.id}.each do |job| %>
     <%# users = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
     <%users = job.candidates%>
-    
-      <% if users.present?%>
-        <% industries << industry if count == 0 %>
-        <% count += 1 %><% end %>
-    
+
+    <% if users.present?%>
+      <% industries << industry if count == 0 %>
+      <% count += 1 %><% end %>
+
   <% end %>
   <% job_counts << count if count > 0 %><% end %>
 
@@ -34,7 +34,7 @@
                 <ul>
                   <% @jobs.select{|j| j.industry_id == industry.id}.each do |job| %>
                     <!-- start of application -->
-                    <%# recived_applications = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
+      <%# recived_applications = UserJob.all.collect {|k| k.job_ids.include?(job.id) ? User.find(k.user_id) : []}.flatten %>
                     <%recived_applications = job.candidates%>
                     <% recived_applications.each do |user| %>
         <%# user = users.first %>
@@ -45,20 +45,23 @@
                           <div class="equal">
                             <div class="box-heading">
                               <div class="box-header">
-                                <h2 class="job-heading"><%= link_to (job.title || ""), job_path(job)%></h2>
-                                <h3 class="job-sub-heading"><%= job.industry.present? ? job.industry.title : '' %></h3>
+                                <h2 class="job-heading" title="<%= job.title %>">
+                                  <%= link_to (job.title.truncate(14) || ""), job_path(job)%>
+                                </h2>
+                                <h3 class="job-sub-heading" title="<%= job.industry.present? ? job.industry.title : '' %>"><%= job.industry.present? ? job.industry.title.truncate(14) : '' %></h3>
                                 <div class="name">
                                   <%= user.first_name[0] %>
-                                  <% if user.last_name %><%= user.last_name[0] %>
+                                  <% if user.last_name %>
+                                    <%= user.last_name[0] %>
                                   <% end %>
                                 </div>
 
                                 <div class="detail">
-                                  <h2 class="job-heading">
-                                    <%= link_to "#{user.first_name} #{user.last_name}", job_path(job) %>
+                                  <h2 class="job-heading" title="<%= user.first_name %> <%= user.last_name %>">
+                                    <%= link_to "#{user.first_name} #{user.last_name.truncate(6)}", job_path(job) %>
                                   </h2>
-                                  <h3 class="job-sub-heading">
-                                    <a href="mailto:<%= user.email %>"><%= user.email %></a>
+                                  <h3 class="job-sub-heading" title="<%= user.email %>">
+                                    <a href="mailto:<%= user.email %>"><%= user.email.truncate(22) %></a>
                                   </h3>
                                   <% if resume.present? %>
                                     <div class="about-job">
@@ -93,12 +96,12 @@
                                     </div>
                                   </div>
                                   <div class="job-discription">
-                                  <h3>job description</h3>
-                                  <p title="<%= job.description %>"><%= job.description.truncate(20) %></p>
-                                    </div>
+                                    <h3>job description</h3>
+                                    <p title="<%= job.description %>"><%= job.description.truncate(20) %></p>
+                                  </div>
                                   <div class="job-discription">
                                     <div class="hori-divi"></div>
-                                      <div class="interview-notes">
+                                    <div class="interview-notes">
                                       <%= new_desing_meeting_with(job, user.id)%>
                                       <%@last_stage = @job.interview.interview_schedules.maximum('stage')%>
                                     </div>
@@ -172,18 +175,75 @@
         <% end %>
       </div>
 
-        <!-- interview round -->
-        <div class="modal fade interview-round" id="interview-round">
+      <!-- interview round -->
+      <div class="modal fade interview-round" id="interview-round">
 
+      </div>
+
+      <div class="modal fade schedule-interview" id="schedule-interview">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header d-block text-center">
+              <h3>Interview Schedule</h3>
+              <a href="#" class="close" data-dismiss="modal">close</a>
+              <a href="#" class="arrow" data-dismiss="modal">
+                <i class="fas fa-arrow-left"></i>
+              </a>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              <%= form_tag interview_schedules_path, remote: true do %>
+                <%= hidden_field_tag :interview_id,'' %>
+                <%= hidden_field_tag :scheds_id, ''%>
+                <%= hidden_field_tag :user_id, @user.id%>
+                <%= hidden_field_tag :date_count, 1%>
+                <div class="form-group stage-field">
+                  <div class="col-md-12">
+                    <%= text_field_tag :stage,nil, :class=> "form-control" , readonly: true%>
+                  </div>
+                </div>
+
+                <div class="form-group interviewer-names-field">
+                  <div class="col-md-12">
+                    <%= text_field_tag :interviewer_names, nil, :class=> "form-control",:placeholder=>"Interviewer names"%>
+                  </div>
+                </div>
+                <!--<div id="dates">
+
+                </div>
+                <div class="form-group">
+                  <div class="col-md-12">
+                    <a href="javascript:void(0)" id="add_interview_dates" class="btn btn-info">Add Interview Dates</a>
+                  </div>
+                </div>-->
+                <div class="form-group" id="date1">
+                  <label for="reason" class="col-md-3 control-label"> Date1</label>
+                  <div class="col-md-9">
+                    <input name="interview_avail_date1" id="interview_avail_date1" class="form-control avail_date" type="text">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-md-9">
+                    <%= submit_tag "Submit",class: "btn btn-primary",:id=>"interview-round-submit-button",:onclick=>"changeSubmittingText(this);"%>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+
+            </div>
+          </div>
         </div>
 
-        <div class="modal fade schedule-interview" id="schedule-interview">
+        <div class="modal fade schedule-interview" id="client-comment">
           <div class="modal-dialog">
             <div class="modal-content">
 
               <!-- Modal Header -->
               <div class="modal-header d-block text-center">
-                <h3>Interview Schedule</h3>
+                <h3 id="comment-heading">Comment</h3>
                 <a href="#" class="close" data-dismiss="modal">close</a>
                 <a href="#" class="arrow" data-dismiss="modal">
                   <i class="fas fa-arrow-left"></i>
@@ -192,121 +252,64 @@
 
               <!-- Modal body -->
               <div class="modal-body">
-                <%= form_tag interview_schedules_path, remote: true do %>
-                  <%= hidden_field_tag :interview_id,'' %>
-                  <%= hidden_field_tag :scheds_id, ''%>
-                  <%= hidden_field_tag :user_id, @user.id%>
-                  <%= hidden_field_tag :date_count, 1%>
-                  <div class="form-group stage-field">
-                    <div class="col-md-12">
-                      <%= text_field_tag :stage,nil, :class=> "form-control" , readonly: true%>
-                    </div>
-                  </div>
+                <%= form_tag client_comment_interview_schedules_path,remote: true do %>
+                  <%= hidden_field_tag :sched_id,  ''%>
+                  <%= hidden_field_tag :comment_id,'' %>
 
-                  <div class="form-group interviewer-names-field">
-                    <div class="col-md-12">
-                      <%= text_field_tag :interviewer_names, nil, :class=> "form-control",:placeholder=>"Interviewer names"%>
-                    </div>
-                  </div>
-                  <!--<div id="dates">
 
-                  </div>
                   <div class="form-group">
                     <div class="col-md-12">
-                      <a href="javascript:void(0)" id="add_interview_dates" class="btn btn-info">Add Interview Dates</a>
-                    </div>
-                  </div>-->
-                  <div class="form-group" id="date1">
-                    <label for="reason" class="col-md-3 control-label"> Date1</label>
-                    <div class="col-md-9">
-                      <input name="interview_avail_date1" id="interview_avail_date1" class="form-control avail_date" type="text">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="col-md-9">
-                      <%= submit_tag "Submit",class: "btn btn-primary",:id=>"interview-round-submit-button",:onclick=>"changeSubmittingText(this);"%>
+                      <%= text_field_tag :comment,nil, class: "result form-control",:placeholder=>"Comment"%>
                       </div>
                     </div>
-                  <% end %>
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="modal fade schedule-interview" id="client-comment">
-            <div class="modal-dialog">
-              <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header d-block text-center">
-                  <h3 id="comment-heading">Comment</h3>
-                  <a href="#" class="close" data-dismiss="modal">close</a>
-                  <a href="#" class="arrow" data-dismiss="modal">
-                    <i class="fas fa-arrow-left"></i>
-                  </a>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                  <%= form_tag client_comment_interview_schedules_path,remote: true do %>
-                    <%= hidden_field_tag :sched_id,  ''%>
-                    <%= hidden_field_tag :comment_id,'' %>
-
 
                     <div class="form-group">
-                      <div class="col-md-12">
-                        <%= text_field_tag :comment,nil, class: "result form-control",:placeholder=>"Comment"%>
+                      <div class="col-md-9">
+                        <%= submit_tag "submit",class: "btn btn-primary"%>
                         </div>
                       </div>
-
-                      <div class="form-group">
-                        <div class="col-md-9">
-                          <%= submit_tag "submit",class: "btn btn-primary"%>
-                          </div>
-                        </div>
-                      <% end %>
-                    </div>
-
+                    <% end %>
                   </div>
+
                 </div>
               </div>
+            </div>
 
 
-              <script>
-                $("#interview_avail_date1").datetimepicker({
-                  defaultTime: '09:00'
-                });
-                function DateSetup(dates, key, val)
-                {
+            <script>
+              $("#interview_avail_date1").datetimepicker({
+                defaultTime: '09:00'
+              });
+              function DateSetup(dates, key, val)
+              {
+                var html = "<div class='form-group' id='date" + val + "'><label for='reason' class='col-md-3 control-label'> <%='Date'%>" + val + "</label><div class='col-md-9'><%= escape_javascript text_field_tag 'interview_avail_date',nil ,:class=>"form-control avail_date"%></div></div>";
+                $('#dates').append(html)
+                $("#date" + val + " .avail_date").attr('name', 'interview_avail_date' + val)
+                $("#date" + val + " .avail_date").attr('id', 'interview_avail_date' + val);
+                $("#date" + val + " .avail_date").val(dates[key]);
+                $("#interview_avail_date" + val).datetimepicker();
+              }
+
+
+
+              var count = 0;
+              $("#add_interview_dates").click(function () {
+                var val = ($(".avail_date").length + 1) //|| ++count;
+                count++
+                if (count == 1) {
                   var html = "<div class='form-group' id='date" + val + "'><label for='reason' class='col-md-3 control-label'> <%='Date'%>" + val + "</label><div class='col-md-9'><%= escape_javascript text_field_tag 'interview_avail_date',nil ,:class=>"form-control avail_date"%></div></div>";
                   $('#dates').append(html)
                   $("#date" + val + " .avail_date").attr('name', 'interview_avail_date' + val)
                   $("#date" + val + " .avail_date").attr('id', 'interview_avail_date' + val);
-                  $("#date" + val + " .avail_date").val(dates[key]);
-                  $("#interview_avail_date" + val).datetimepicker();
+                  $("#interview_avail_date" + val).datetimepicker({
+                    defaultTime: '09:00'
+                  });
+                  $("#date_count").val(val)
+                  $("#add_interview_dates").hide()
+                } else {
+                  $('#date1').show();
                 }
+              });
 
 
-
-                var count = 0;
-                $("#add_interview_dates").click(function () {
-                  var val = ($(".avail_date").length + 1) //|| ++count;
-                  count++
-                  if (count == 1) {
-                    var html = "<div class='form-group' id='date" + val + "'><label for='reason' class='col-md-3 control-label'> <%='Date'%>" + val + "</label><div class='col-md-9'><%= escape_javascript text_field_tag 'interview_avail_date',nil ,:class=>"form-control avail_date"%></div></div>";
-                    $('#dates').append(html)
-                    $("#date" + val + " .avail_date").attr('name', 'interview_avail_date' + val)
-                    $("#date" + val + " .avail_date").attr('id', 'interview_avail_date' + val);
-                    $("#interview_avail_date" + val).datetimepicker({
-                      defaultTime: '09:00'
-                    });
-                    $("#date_count").val(val)
-                    $("#add_interview_dates").hide()
-                  } else {
-                    $('#date1').show();
-                  }
-                });
-
-
-              </script>
+            </script>
