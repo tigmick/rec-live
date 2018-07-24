@@ -55,25 +55,25 @@ module InterviewSchedulesHelper
   def detect_stage(stage)
     case stage # a_variable is the variable we want to compare
     when 1    
-      "Pre screen" 
+      "1st Round" 
     when 2    
-      "2nd round"
+      "2nd Round"
     when 3    
-      "3rd round"
+      "3rd Round"
     when 4    
-      "4th round"
+      "4th Round"
     when 5    
-      "5th round"
+      "5th Round"
     when 6    
-      "6th round"
+      "6th Round"
     when 7    
-      "7th round"
+      "7th Round"
     when 8    
-      "8th round"
+      "8th Round"
     when 9    
-      "9th round"
+      "9th Round"
     when 10    
-      "10th round"
+      "10th Round"
     end
   end
 

@@ -176,7 +176,7 @@ module UsersHelper
   def new_desing_meeting_with(job, user_id)
     @job = Job.find(job.id)
     @user = User.find(user_id) if current_user.client?
-    html = "<h3>CV review Note &nbsp;&nbsp;"
+    html = "<h3>Pre Screen Note &nbsp;&nbsp;"
     if @job.interview.present?
       #@schedule = @job.interview.interview_schedules.where(user_id: user_id).last if current_user.client?
       @schedule = @job.interview.interview_schedules.last if current_user.client?
