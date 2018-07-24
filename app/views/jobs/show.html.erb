@@ -80,7 +80,7 @@
         <%= form_for :interview,url: job_interviews_path(@job) do |f|%>
           <div class="form-group">
             <div class="form-control interview-form-control">
-              <%= f.select(:total_stage, options_for_select([["Pre Screen", 1], ["Stage 2",2], ["Stage 3", 3], ["Stage 4",4],["Stage 5", 5],
+              <%= f.select(:total_stage, options_for_select([["Stage 1", 1], ["Stage 2",2], ["Stage 3", 3], ["Stage 4",4],["Stage 5", 5],
                   ["Stage 6",6], ["Stage 7", 7], ["Stage 8", 8], ["Stage 9", 9], ["Stage 10", 10]],(@job.interview.interview_schedules.maximum('stage')+1)),{}, {:class => 'stage-select'}) %>
             </div>
           </div>
