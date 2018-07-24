@@ -158,8 +158,8 @@ function showJobDetails(jobId) {
 function setCommentDetails(element) {
   var review = $(element).data('review');
   if(review == '1'){
-    $('#comment-heading').text('CV Review Notes');
-    $('#comment').attr('placeholder','CV Review Notes');
+    $('#comment-heading').text('Pre Screen Notes');
+    $('#comment').attr('placeholder','Pre Screen Notes');
   }
   else{
     $('#comment-heading').text('Comment');
