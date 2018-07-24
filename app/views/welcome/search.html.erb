@@ -9,17 +9,17 @@
         <div class="row pull-right">
           <div class="col-12">
             <%if user_signed_in?%>
-            <div class="sort-btn">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Sort by
-              </button>
+              <div class="sort-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Sort by
+                </button>
 
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="/welcome/search?applied=true" data-method="POST">Applied</a>
                   <a class="dropdown-item" href="/welcome/search?not_applied=true" data-method="POST">Not applied</a>
                 </div>
 
-            </div>
+              </div>
             <%end%>
           </div>
         </div>
@@ -34,7 +34,7 @@
                     <div class="box-heading">
                       <div class="box-header">
                         <div class="detail">
-                          <h2 class="job-heading" id="job-title-<%= search.id %>">
+                          <h2 class="job-heading" id="job-title-<%= search.id %>" title="<%= search.title %>">
                             <%= search.title.truncate(16)%></h2>
                           <% if search.document.present? %>
                             <div class="about-job"><%= link_to "#{File.extname(search.document_file_name)}".gsub(".","").upcase, download_job_path(search), target: "_blank" %>
@@ -46,7 +46,7 @@
 
                     <div class="job-discription">
                       <h3>job description</h3>
-                      <p ><%= search.description.truncate(50)%></p>
+                      <p title="<%= search.description %>"><%= search.description.truncate(20)%></p>
                       <input type="hidden" id="job-<%= search.id %>-industry" value="<%= search.industry.present? ? search.industry.title : '' %>">
                       <input type="hidden" id="job-discription-<%= search.id %>" value="<%= search.description.present? ? search.description : '' %>">
                     </div>
@@ -68,7 +68,7 @@
 
         </div>
         <nav aria-label="Page navigation">
-          <%= will_paginate @search , renderer: BootstrapPagination::Rails%>
+          <%= will_paginate @search,:params => {:applied => "#{params[:applied].present? and params[:applied] == 'true' ? true : false}",:not_applied => "#{params[:not_applied].present? and params[:not_applied] == 'true' ? true : false}"} , renderer: BootstrapPagination::Rails%>
         </nav>
       </div>
 

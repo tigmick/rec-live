@@ -15,9 +15,9 @@ class WelcomeController < ApplicationController
     elsif !params[:search].present? && params[:category].present?
       @search = Job.where("industry_id = ? and status = ?","#{params[:category]}", 0)
       @search = @search.paginate(:page => params[:page], :per_page => 6).order(created_at: :desc)
-    elsif !params[:search].present? && params[:applied].present? and user_signed_in?
+    elsif !params[:search].present? && params[:applied].present? and params[:applied] == 'true' and user_signed_in?
       @search = current_user.applied_jobs.paginate(:page => params[:page], :per_page => 6).order(created_at: :desc)
-    elsif !params[:search].present? && params[:not_applied].present? and user_signed_in?
+    elsif !params[:search].present? && params[:not_applied].present? and params[:not_applied] == 'true' and user_signed_in?
       @search = Job.where.not(id: current_user.job_applications.map(&:job_id)).paginate(:page => params[:page], :per_page => 6).order(created_at: :desc)  
     else
       @search = Job.where(status: 0).paginate(:page => params[:page], :per_page => 6).order(created_at: :desc)
