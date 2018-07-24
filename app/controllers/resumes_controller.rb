@@ -1,7 +1,10 @@
 class ResumesController < ApplicationController
-
-  before_action :set_resume, only: [:show, :edit, :update, :destroy]
+  
   before_action :authenticate_user!
+  before_action :set_resume, only: [:show, :edit, :update, :destroy]
+  before_action :check_reviews, only: :index
+  
+  
 
   layout "new_ui/application", only: [:index, :new, :edit]
 
@@ -76,16 +79,23 @@ class ResumesController < ApplicationController
     send_data(data, :type => "application/#{doc.cv.path.split(".").last}", :filename => "#{doc.cv_file_name}", :x_sendfile=>true)
     return
   end
+  
+  def check_reviews
+    review = Review.find_or_create_by(job_id: params[:job_id], user_id: params[:user_id])
+    is_review = review.is_review
+    review.update(is_review: true, review_count: (review.review_count.to_i+1))
+    UserMailer.review_mail(params[:user_id], params[:job_id]).deliver_now if (is_review && review.created_at == review.updated_at)
+  end
 
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_resume
-      @resume = Resume.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_resume
+    @resume = Resume.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def resume_params
-      params.require(:resume).permit(:title, :description,:cv)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def resume_params
+    params.require(:resume).permit(:title, :description,:cv)
+  end
 end
