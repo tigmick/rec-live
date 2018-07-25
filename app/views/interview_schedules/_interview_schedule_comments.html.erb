@@ -6,7 +6,7 @@
     <a data-toggle="modal" onclick="setCommentDetails(this);" data-target="#client-comment" href="#" data-comment-id="<%= '' %>" data-comment="<%= '' %>" data-schedule_id="<%= interview_schedule.id %>">Add</a> 
   <%end%>
 </div>
-<%interview_schedule.client_comments.each do |client_comment| %>
+<%interview_schedule.client_comments.first(1).each do |client_comment| %>
   <div class="col-9">
     <a href="##"><%= client_comment.user.first_name %></a>
     <%= client_comment.comment %>

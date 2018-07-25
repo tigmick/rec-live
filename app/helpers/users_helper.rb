@@ -179,11 +179,11 @@ module UsersHelper
     html = "<h3>Pre Screen Note &nbsp;&nbsp;"
     if @job.interview.present?
       #@schedule = @job.interview.interview_schedules.where(user_id: user_id).last if current_user.client?
-      @schedule = @job.interview.interview_schedules.last if current_user.client?
+      @schedule = @job.interview.interview_schedules.first if current_user.client?
       #@last_stage = @schedules.maximum('stage') if current_user.client?
       if current_user.client? && @schedule.present? and @schedule.stage != 0
         if @schedule.client_comments.present?
-          recent_comment = @schedule.client_comments.last
+          recent_comment = @schedule.client_comments.first
           add = "<a href='javascript:void(0);' onclick='setCommentDetails(this);' data-toggle='modal' data-target='#client-comment' data-comment-id='' data-comment=''  data-schedule_id='#{@schedule.id}' data-review='1'>Add</a>"
           edit = "<a href='javascript:void(0);' onclick='setCommentDetails(this);' data-toggle='modal' data-target='#client-comment' data-comment-id='#{recent_comment.id}' data-comment='#{recent_comment.comment}'  data-schedule_id='#{@schedule.id}' data-review='1'>Edit</a>"
           html += 	@schedule.client_comments.present? ? "#{edit}" : "#{add}"

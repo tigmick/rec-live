@@ -119,7 +119,6 @@ class InterviewSchedulesController < ApplicationController
   
   def populate_interview_schedule_popup
     @job = Job.find(params[:job_id])
-    puts '------------------' , (@job.interview.interview_schedules.maximum('stage') != 0)
   end
   
   def candidate_interview_schedule_popup
