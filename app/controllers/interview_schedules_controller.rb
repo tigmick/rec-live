@@ -81,16 +81,29 @@ class InterviewSchedulesController < ApplicationController
       client_comment.update(comment: params[:comment])
     end
 
-#    respond_to do |format|
-#      format.html do
-#        redirect_to interview_schedule_path(schedule.interview.job) if current_user.candidate?
-#        #redirect_to "/interview_schedules/#{schedule.interview.job.id}?user_id=#{schedule.user_id}" if current_user.client?
-#        redirect_to "/users/dashboard" if current_user.client?
-#      end
-#      format.json do
-#        render json: client_comment, status: :ok
-#      end
-#    end
+    #    respond_to do |format|
+    #      format.html do
+    #        redirect_to interview_schedule_path(schedule.interview.job) if current_user.candidate?
+    #        #redirect_to "/interview_schedules/#{schedule.interview.job.id}?user_id=#{schedule.user_id}" if current_user.client?
+    #        redirect_to "/users/dashboard" if current_user.client?
+    #      end
+    #      format.json do
+    #        render json: client_comment, status: :ok
+    #      end
+    #    end
+  end
+  
+  def pre_screen_note
+    unless params[:note_id].present?
+      pre_screen_note = PreScreenNote.new(note: params[:note],interview_id: params[:p_interview_id])
+      pre_screen_note.save
+      flash[:notice] = "Pre screen note is added successfully."
+    else
+      pre_screen_note=PreScreenNote.find(params[:note_id])
+      pre_screen_note.update(note: params[:note])
+      flash[:notice] = "Pre screen note is updated successfully."
+    end
+    redirect_to "/users/dashboard"
   end
 
   def destroy_comment

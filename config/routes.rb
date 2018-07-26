@@ -229,6 +229,7 @@ Rails.application.routes.draw do
     collection do
       post "candidate_feedback"
       post "client_comment"
+      post "pre_screen_note"
       post "next_step"
       post "meeting"
       get "populate_interview_schedule_popup"

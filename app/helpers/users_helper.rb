@@ -179,20 +179,21 @@ module UsersHelper
     html = "<h3>Pre Screen Note &nbsp;&nbsp;"
     if @job.interview.present?
       #@schedule = @job.interview.interview_schedules.where(user_id: user_id).last if current_user.client?
-      @schedule = @job.interview.interview_schedules.first if current_user.client?
+      #@schedule = @job.interview.interview_schedules.first if current_user.client?
       #@last_stage = @schedules.maximum('stage') if current_user.client?
-      if current_user.client? && @schedule.present? and @schedule.stage != 0
-        if @schedule.client_comments.present?
-          recent_comment = @schedule.client_comments.first
-          add = "<a href='javascript:void(0);' onclick='setCommentDetails(this);' data-toggle='modal' data-target='#client-comment' data-comment-id='' data-comment=''  data-schedule_id='#{@schedule.id}' data-review='1'>Add</a>"
-          edit = "<a href='javascript:void(0);' onclick='setCommentDetails(this);' data-toggle='modal' data-target='#client-comment' data-comment-id='#{recent_comment.id}' data-comment='#{recent_comment.comment}'  data-schedule_id='#{@schedule.id}' data-review='1'>Edit</a>"
-          html += 	@schedule.client_comments.present? ? "#{edit}" : "#{add}"
-          html +=	"<p title='#{recent_comment.comment}' id='comment_#{recent_comment.interview_schedule_id}_#{recent_comment.id}'>#{recent_comment.comment.truncate(20)}</p>"
-        else
-          html += "<a href='javascript:void(0);' onclick='setCommentDetails(this);' data-toggle='modal' data-target='#client-comment' data-comment-id='' data-comment=''  data-schedule_id='#{@schedule.id}' data-review='1'>Add</a>"
-          html +=	"<p title='' id='comment_#{@schedule.id}'></p>"
-        end
+      #if current_user.client? && @schedule.present? and @schedule.stage != 0
+      if @job.interview.pre_screen_note.present?
+        #recent_comment = @schedule.client_comments.first
+        note = @job.interview.pre_screen_note
+        add = "<a href='javascript:void(0);' onclick='setPreScreenNoteDetails(this);' data-toggle='modal' data-target='#pre-screen-note' data-note-id='' data-note=''  data-interview-id='#{@job.interview.id}' data-review='1'>Add</a>"
+        edit = "<a href='javascript:void(0);' onclick='setPreScreenNoteDetails(this);' data-toggle='modal' data-target='#pre-screen-note' data-note-id='#{note.id}' data-note='#{note.note}'  data-interview-id='#{@job.interview.id}' data-review='1'>Edit</a>"
+        html += 	@job.interview.pre_screen_note.present? ? "#{edit}" : "#{add}"
+        html +=	"<p title='#{note.note}'>#{note.note.truncate(20)}</p>"
+      else
+        html += "<a href='javascript:void(0);' onclick='setPreScreenNoteDetails(this);' data-toggle='modal' data-target='#pre-screen-note' data-note-id='' data-note=''  data-interview-id='#{@job.interview.id}' data-review='1'>Add</a>"
+        html +=	"<p title=''></p>"
       end
+      #end
     end
     html += "</h3>"
     html.html_safe

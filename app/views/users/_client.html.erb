@@ -274,6 +274,44 @@
                 </div>
               </div>
             </div>
+      
+        <div class="modal fade schedule-interview" id="pre-screen-note">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header d-block text-center">
+                <h3>Pre Screen Note</h3>
+                <a href="#" class="close" data-dismiss="modal">close</a>
+                <a href="#" class="arrow" data-dismiss="modal">
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                <%= form_tag pre_screen_note_interview_schedules_path do %>
+                  <%= hidden_field_tag :p_interview_id,  ''%>
+                  <%= hidden_field_tag :note_id,'' %>
+
+
+                  <div class="form-group">
+                    <div class="col-md-12">
+                      <%= text_field_tag :note,nil, class: "result form-control",:placeholder=>"Pre Screen Note"%>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-md-9">
+                        <%= submit_tag "submit",class: "btn btn-primary"%>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+
+                </div>
+              </div>
+            </div>
 
 
             <script>

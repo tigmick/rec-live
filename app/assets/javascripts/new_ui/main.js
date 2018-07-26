@@ -170,6 +170,13 @@ function setCommentDetails(element) {
   $('#comment_id').val($(element).data('comment-id'));
 }
 
+function setPreScreenNoteDetails(element) {
+  $('#p_interview_id').val($(element).data('interview-id'));
+  console.log($(element).data('interview-id'));
+  $('#note').val($(element).data('note'));
+  $('#note_id').val($(element).data('note-id'));
+}
+
 function setFeedbackDetails(element) {
   $('#schedule_id').val($(element).data('schedule_id'));
   $('#feedback').val($(element).data('feedback'));

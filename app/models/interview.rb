@@ -12,5 +12,6 @@
 class Interview < ActiveRecord::Base
 	belongs_to :job
   has_many :interview_schedules
+  has_one :pre_screen_note
   #validates_inclusion_of :total_stage, :in => 1..10
 end
