@@ -58,7 +58,7 @@
 
                                 <div class="detail">
                                   <h2 class="job-heading" title="<%= user.first_name %> <%= user.last_name %>">
-                                    <%= link_to "#{user.first_name} #{user.last_name.truncate(6)}", job_path(job) %>
+                                    <%= link_to "#{user.first_name.truncate(6)} #{user.last_name.truncate(6)}", job_path(job) %>
                                   </h2>
                                   <h3 class="job-sub-heading" title="<%= user.email %>">
                                     <a href="mailto:<%= user.email %>"><%= user.email.truncate(22) %></a>
