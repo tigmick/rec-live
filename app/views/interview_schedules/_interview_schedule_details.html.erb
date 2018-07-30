@@ -1,5 +1,5 @@
 <ul class="nav nav-tabs" role="tablist">
-  <%@job.interview.interview_schedules.order(:stage).each_with_index do |interview_schedule,index|%>
+  <%@interview_schedules.order(:stage).each_with_index do |interview_schedule,index|%>
     <li class="nav-item">
       <a class="nav-link <%= index == 0 ? 'active' : '' %>" href="#<%= interview_schedule.stage %>-stage" role="tab" data-toggle="tab" id="tab-<%= interview_schedule.stage %>"><%= detect_stage(interview_schedule.stage) %></a>
     </li>
@@ -7,7 +7,7 @@
 </ul>
 <!-- Tab panes -->
 <div class="tab-content">
-  <%@job.interview.interview_schedules.order(:stage).each_with_index do |interview_schedule,index|%>
+  <%@interview_schedules.order(:stage).each_with_index do |interview_schedule,index|%>
     <div role="tabpanel" class="tab-pane <%= index == 0 ? 'in active' : '' %>" id="<%= interview_schedule.stage %>-stage">
       <div class="popup-content">
         <div class="row">

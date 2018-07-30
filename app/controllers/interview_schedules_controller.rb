@@ -132,6 +132,7 @@ class InterviewSchedulesController < ApplicationController
   
   def populate_interview_schedule_popup
     @job = Job.find(params[:job_id])
+    @interview_schedules = @job.interview.interview_schedules.where(user_id: params[:user_id]) 
   end
   
   def candidate_interview_schedule_popup

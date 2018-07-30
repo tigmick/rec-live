@@ -196,11 +196,15 @@ function showAddScheduleButton(id, stage, last_stage, interview_total_stage) {
 
 function populateInterviewSchedulePopUp(element) {
   var job_id = $(element).data('job');
+  var user_id = $(element).data('user-id');
   url = "/interview_schedules/populate_interview_schedule_popup?job_id=" + job_id;
   $.ajax({
     url: url,
     type: "GET",
-    dataType: "script"
+    dataType: "script",
+    data: {
+      user_id: user_id
+    }
   });
 }
 

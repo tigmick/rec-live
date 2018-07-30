@@ -103,13 +103,13 @@
                                     <div class="hori-divi"></div>
                                     <div class="interview-notes">
                                       <%= new_desing_meeting_with(job, user.id)%>
-                                      <%@last_stage = @job.interview.interview_schedules.maximum('stage')%>
+                                      <%@last_stage = @job.interview.interview_schedules.where(user_id: user.id).maximum('stage')%>
                                     </div>
                                   </div>
                                 </div>
                                 <div class="box-footer">
                                   <ul class="d-block">
-                                    <h3>Interview schedule &nbsp;&nbsp;&nbsp;<a href="##" data-job="<%= @job.id %>" onclick="populateInterviewSchedulePopUp(this);">View</a>
+                                    <h3>Interview schedule &nbsp;&nbsp;&nbsp;<a href="##" data-job="<%= @job.id %>" data-user-id="<%= user.id %>" onclick="populateInterviewSchedulePopUp(this);">View</a>
                                     </h3>
                                     <%dates = @job.interview.interview_schedules.collect{|i| {"#{i.stage}"=>i.interview_avail_dates.present? ? i.interview_avail_dates["interview_avail_date1"] : ''}}%>
                                     <div class="stepwizard">
