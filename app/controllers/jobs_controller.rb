@@ -45,7 +45,7 @@ class JobsController < ApplicationController
     respond_to do |format|
       if @job.save
         @job.create_interview(total_stage: 0)
-        InterviewSchedule.create(stage: 0,interview_id: @job.interview.id,user_id: current_user.id)
+        #InterviewSchedule.create(stage: 0,interview_id: @job.interview.id,user_id: current_user.id)
         #UserMailer.job_creation(@job).deliver_now
         format.html { redirect_to @job, notice: 'Job was successfully created.' }
         format.json { render :show, status: :created, location: @job }

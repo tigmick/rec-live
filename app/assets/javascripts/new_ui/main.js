@@ -89,7 +89,7 @@ function setJobStatusUrl(obj) {
 }
 
 
-function next_step(id, stage, interviewers_names, inviewer_dates, interview_id, field) {
+function next_step(id, stage, interviewers_names, inviewer_dates, interview_id, field,user_id) {
   console.log(inviewer_dates);
   $('#interview-round-submit-button').val('Submit');
   //$("#myModal_n").show()
@@ -111,6 +111,7 @@ function next_step(id, stage, interviewers_names, inviewer_dates, interview_id, 
   $("#stage").val(stage)
   $("#interviewer_names").val(interviewers_names)
   $("#interview_avail_date1").val(inviewer_dates)
+  $("#user_id").val(user_id)
   //$("#add_interview_dates").attr("data-id", $(".avail_date").length)
   // && Object.keys(inviewer_dates).length > 1
 //  if (typeof inviewer_dates !== "undefined" && Object.keys(inviewer_dates).length > 1) {

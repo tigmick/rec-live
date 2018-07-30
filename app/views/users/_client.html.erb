@@ -84,7 +84,7 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="options">
-                                  <%= link_to 'Create Interview Stage', job_path(job), class: "dropdown-item" %>
+                                  <%= link_to 'Create Interview Stage', job_path(job,user_id: user.id), class: "dropdown-item" %>
                                     <% if job.open? %>
                                       <%= link_to 'Close the job', close_job_path(id: job.id), class: 'dropdown-item jobs-action', id: "job_#{job.id}" %>
                                       <% else %>
@@ -198,7 +198,7 @@
               <%= form_tag interview_schedules_path, remote: true do %>
                 <%= hidden_field_tag :interview_id,'' %>
                 <%= hidden_field_tag :scheds_id, ''%>
-                <%= hidden_field_tag :user_id, @user.id%>
+                <%= hidden_field_tag :user_id%>
                 <%= hidden_field_tag :date_count, 1%>
                 <div class="form-group stage-field">
                   <div class="col-md-12">

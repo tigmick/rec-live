@@ -14,9 +14,9 @@
                 </div>
               </div>
               <div class="job-discription">
-                <%if job.interview.interview_schedules.present? and job.interview.interview_schedules.first.client_comments.present?%>
+                <%if job.interview.interview_schedules.where(user_id: current_user.id).present? and job.interview.interview_schedules.where(user_id: current_user.id).first.client_comments.present?%>
                   <h3>Client Comment &nbsp;&nbsp;</h3>
-                  <p><%= job.interview.interview_schedules.first.client_comments.first.comment %></p>
+                  <p><%= job.interview.interview_schedules.where(user_id: current_user.id).first.client_comments.first.comment %></p>
                 <%end%>
                 <div class="job-status">
                   <h3>status</h3>
@@ -27,12 +27,12 @@
                 </div>
               </div>
             </div>
-            <%@last_stage = job.interview.interview_schedules.maximum('stage')%>
+            <%@last_stage = job.interview.interview_schedules.where(user_id: current_user.id).maximum('stage')%>
             <div class='box-footer'>
               <ul class='d-block'>
                 <h3 style="margin-left: 15px;">
                 Interview Status&nbsp;&nbsp;&nbsp;<a href='##' style='display: inline-block;' data-job="<%= job.id %>" onclick="candidateInterviewSchedulePopUp(this);">view</a></h3>
-                <%dates = job.interview.interview_schedules.collect{|i| {"#{i.stage}"=>i.interview_avail_dates.present? ? i.interview_avail_dates["interview_avail_date1"] : ''}}%>
+                <%dates = job.interview.interview_schedules.where(user_id: current_user.id).collect{|i| {"#{i.stage}"=>i.interview_avail_dates.present? ? i.interview_avail_dates["interview_avail_date1"] : ''}}%>
                 <div class="stepwizard">
                   <div class="stepwizard-row">
                     <div class="stepwizard-step">

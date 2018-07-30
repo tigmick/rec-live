@@ -16,14 +16,15 @@ class InterviewSchedulesController < ApplicationController
       )
       schedule.save
       schedule.interview.update_attribute(:total_stage, params[:stage])
-      UserMailer.interview_schedules(schedule.interview.job.user, schedule.id).deliver_now
-      UserMailer.interview_schedules(User.find(schedule.user_id), schedule.id).deliver_now
+      user = User.find params[:user_id]
+      UserMailer.interview_schedules(user, schedule.id).deliver_now
+      UserMailer.interview_schedules(User.find(user.id), schedule.id).deliver_now
       UserMailer.interview_schedules(AdminUser.first, schedule.id).deliver_now
     else
       schedule = InterviewSchedule.find params[:scheds_id]
       schedule.update(interviewers_names: params[:interviewer_names].split(","),interview_avail_dates: @date_hash)
     end
-    @job = interview.job
+    @interview_schedules = interview.interview_schedules.where(user_id: params[:user_id])
     #flash[:notice] = schedule.errors.messages  unless schedule.present?
     #redirect_to"/interview_schedules/#{interview.job.id}?user_id=#{params[:user_id]}"
     #redirect_to "/users/dashboard"
@@ -137,6 +138,7 @@ class InterviewSchedulesController < ApplicationController
   
   def candidate_interview_schedule_popup
     @job = Job.find(params[:job_id])
+    @interview_schedules = @job.interview.interview_schedules.where(user_id: current_user.id) 
   end
 
   def meeting
