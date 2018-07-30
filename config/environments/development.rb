@@ -51,8 +51,8 @@ Rails.application.configure do
    address:              'smtp.gmail.com',
    port:                  587,
    domain:               'gmail.com',
-   user_name:            'yourcube.recruitment@gmail.com',
-   password:             'testing60',
+   user_name:            'yourcube.mailer@gmail.com',
+   password:             'Amazon123',
    authentication:       'plain',
    enable_starttls_auto: true }
 end
