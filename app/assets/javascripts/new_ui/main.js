@@ -176,6 +176,7 @@ function setPreScreenNoteDetails(element) {
   console.log($(element).data('interview-id'));
   $('#note').val($(element).data('note'));
   $('#note_id').val($(element).data('note-id'));
+  $('#p_user_id').val($(element).data('user-id'));
 }
 
 function setFeedbackDetails(element) {

@@ -182,15 +182,15 @@ module UsersHelper
       #@schedule = @job.interview.interview_schedules.first if current_user.client?
       #@last_stage = @schedules.maximum('stage') if current_user.client?
       #if current_user.client? && @schedule.present? and @schedule.stage != 0
-      if @job.interview.pre_screen_note.present?
+      if @job.interview.pre_screen_notes.where(user_id: user_id).present?
         #recent_comment = @schedule.client_comments.first
-        note = @job.interview.pre_screen_note
-        add = "<a href='javascript:void(0);' onclick='setPreScreenNoteDetails(this);' data-toggle='modal' data-target='#pre-screen-note' data-note-id='' data-note=''  data-interview-id='#{@job.interview.id}' data-review='1'>Add</a>"
-        edit = "<a href='javascript:void(0);' onclick='setPreScreenNoteDetails(this);' data-toggle='modal' data-target='#pre-screen-note' data-note-id='#{note.id}' data-note='#{note.note}'  data-interview-id='#{@job.interview.id}' data-review='1'>Edit</a>"
-        html += 	@job.interview.pre_screen_note.present? ? "#{edit}" : "#{add}"
+        note = @job.interview.pre_screen_notes.where(user_id: user_id).first
+        add = "<a href='javascript:void(0);' onclick='setPreScreenNoteDetails(this);' data-toggle='modal' data-target='#pre-screen-note' data-note-id='' data-note=''  data-interview-id='#{@job.interview.id}' data-user-id='#{user_id}' data-review='1'>Add</a>"
+        edit = "<a href='javascript:void(0);' onclick='setPreScreenNoteDetails(this);' data-toggle='modal' data-target='#pre-screen-note' data-note-id='#{note.id}' data-note='#{note.note}'  data-interview-id='#{@job.interview.id}' data-user-id='#{user_id}' data-review='1'>Edit</a>"
+        html += 	@job.interview.pre_screen_notes.where(user_id: user_id).present? ? "#{edit}" : "#{add}"
         html +=	"<p title='#{note.note}'>#{note.note.truncate(20)}</p>"
       else
-        html += "<a href='javascript:void(0);' onclick='setPreScreenNoteDetails(this);' data-toggle='modal' data-target='#pre-screen-note' data-note-id='' data-note=''  data-interview-id='#{@job.interview.id}' data-review='1'>Add</a>"
+        html += "<a href='javascript:void(0);' onclick='setPreScreenNoteDetails(this);' data-toggle='modal' data-target='#pre-screen-note' data-note-id='' data-note=''  data-interview-id='#{@job.interview.id}' data-user-id='#{user_id}' data-review='1'>Add</a>"
         html +=	"<p title=''></p>"
       end
       #end

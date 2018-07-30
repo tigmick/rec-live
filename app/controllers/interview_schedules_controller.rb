@@ -96,7 +96,7 @@ class InterviewSchedulesController < ApplicationController
   
   def pre_screen_note
     unless params[:note_id].present?
-      pre_screen_note = PreScreenNote.new(note: params[:note],interview_id: params[:p_interview_id])
+      pre_screen_note = PreScreenNote.new(note: params[:note],interview_id: params[:p_interview_id],user_id: params[:p_user_id])
       pre_screen_note.save
       flash[:notice] = "Pre screen note is added successfully."
     else
