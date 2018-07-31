@@ -9,7 +9,7 @@
               <div class="box-heading">
                 <div class="box-header">
                   <h2 class="job-heading"><%= link_to (job.title.truncate(16) || ""), job_path(job)%></h2>
-                  <h3 class="job-sub-heading"><%= job.industry.present? ? job.industry.title : '' %></h3>
+                  <h3 class="job-sub-heading" title="<%= job.industry.present? ? job.industry.title : '' %>"><%= job.industry.present? ? job.industry.title.truncate(10) : '' %></h3>
                   <div class="about-job <%= job.status_string %>"><%= job.status %></div>
                 </div>
               </div>
