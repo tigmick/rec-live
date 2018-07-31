@@ -35,7 +35,7 @@
                       <div class="box-header">
                         <div class="detail">
                           <h2 class="job-heading" id="job-title-<%= search.id %>" title="<%= search.title %>" style="display: -moz-grid-line;">
-                            <%= search.title.truncate(30)%></h2>
+                            <%= search.title.truncate(21)%></h2>
                           <% if search.document.present? %>
                             <div class="about-job"><%= link_to "#{File.extname(search.document_file_name)}".gsub(".","").upcase, download_job_path(search), target: "_blank" %>
                             </div>
