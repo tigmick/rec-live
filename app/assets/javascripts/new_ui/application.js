@@ -9,3 +9,6 @@
 //= require alertify
 //= require new_ui/main
 //= require_tree .
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});

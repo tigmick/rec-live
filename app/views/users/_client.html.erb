@@ -45,10 +45,10 @@
                           <div class="equal">
                             <div class="box-heading">
                               <div class="box-header">
-                                <h2 class="job-heading" title="<%= job.title %>">
+                                <h2 class="job-heading" data-toggle="tooltip" data-placement="bottom" title="<%= job.title %>">
                                   <%= link_to (job.title.truncate(14) || ""), job_path(job)%>
                                 </h2>
-                                <h3 class="job-sub-heading" title="<%= job.industry.present? ? job.industry.title : '' %>"><%= job.industry.present? ? job.industry.title.truncate(14) : '' %></h3>
+                                <h3 class="job-sub-heading" data-toggle="tooltip" data-placement="bottom" title="<%= job.industry.present? ? job.industry.title : '' %>"><%= job.industry.present? ? job.industry.title.truncate(14) : '' %></h3>
                                 <div class="name">
                                   <%= user.first_name[0] %>
                                   <% if user.last_name %>
@@ -57,10 +57,10 @@
                                 </div>
 
                                 <div class="detail">
-                                  <h2 class="job-heading" title="<%= user.first_name %> <%= user.last_name %>">
+                                  <h2 class="job-heading" data-toggle="tooltip" data-placement="bottom" title="<%= user.first_name %> <%= user.last_name %>">
                                     <%= link_to "#{user.first_name.truncate(6)} #{user.last_name.truncate(6)}", job_path(job) %>
                                   </h2>
-                                  <h3 class="job-sub-heading" title="<%= user.email %>">
+                                  <h3 class="job-sub-heading" data-toggle="tooltip" data-placement="bottom" title="<%= user.email %>">
                                     <a href="mailto:<%= user.email %>"><%= user.email.truncate(22) %></a>
                                   </h3>
                                   <% if resume.present? %>
@@ -97,7 +97,7 @@
                                   </div>
                                   <div class="job-discription">
                                     <h3>job description</h3>
-                                    <p title="<%= job.description %>"><%= job.description.truncate(20) %></p>
+                                    <p data-toggle="tooltip" data-placement="bottom" title="<%= job.description %>"><%= job.description.truncate(20) %></p>
                                   </div>
                                   <div class="job-discription">
                                     <div class="hori-divi"></div>

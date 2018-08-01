@@ -188,7 +188,7 @@ module UsersHelper
         add = "<a href='javascript:void(0);' onclick='setPreScreenNoteDetails(this);' data-toggle='modal' data-target='#pre-screen-note' data-note-id='' data-note=''  data-interview-id='#{@job.interview.id}' data-user-id='#{user_id}' data-review='1'>Add</a>"
         edit = "<a href='javascript:void(0);' onclick='setPreScreenNoteDetails(this);' data-toggle='modal' data-target='#pre-screen-note' data-note-id='#{note.id}' data-note='#{note.note}'  data-interview-id='#{@job.interview.id}' data-user-id='#{user_id}' data-review='1'>Edit</a>"
         html += 	@job.interview.pre_screen_notes.where(user_id: user_id).present? ? "#{edit}" : "#{add}"
-        html +=	"<p title='#{note.note}'>#{note.note.truncate(20)}</p>"
+        html +=	"<p data-toggle='tooltip' data-placement='bottom' title='#{note.note}'>#{note.note.truncate(20)}</p>"
       else
         html += "<a href='javascript:void(0);' onclick='setPreScreenNoteDetails(this);' data-toggle='modal' data-target='#pre-screen-note' data-note-id='' data-note=''  data-interview-id='#{@job.interview.id}' data-user-id='#{user_id}' data-review='1'>Add</a>"
         html +=	"<p title=''></p>"
