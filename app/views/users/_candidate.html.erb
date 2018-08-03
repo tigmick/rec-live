@@ -16,7 +16,7 @@
               <div class="job-discription">
                 <%if job.interview.interview_schedules.where(user_id: current_user.id).present? and job.interview.interview_schedules.where(user_id: current_user.id).first.client_comments.present?%>
                   <h3>Client Comment &nbsp;&nbsp;</h3>
-                  <p data-toggle="tooltip" data-placement="bottom" title="<%= job.interview.interview_schedules.where(user_id: current_user.id).first.client_comments.first.comment %>"><%= job.interview.interview_schedules.where(user_id: current_user.id).first.client_comments.first.comment.truncate(20) %></p>
+                  <p data-toggle="tooltip" data-placement="bottom" title="<%= job.interview.interview_schedules.where(user_id: current_user.id).last.client_comments.last.comment %>"><%= job.interview.interview_schedules.where(user_id: current_user.id).last.client_comments.last.comment.truncate(20) %></p>
                 <%end%>
                 <div class="job-status">
                   <h3>status</h3>
