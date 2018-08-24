@@ -2204,6 +2204,12 @@ select {
   display: flex;
   align-items: center;
 }
+.btn.log-in-btn.ssign-uup-bbtn:hover{
+  color: white;  
+}
+a.btn.log-in-btn.ssign-uup-bbtn{
+  width: 40%;
+}
 @media (min-width: 576px) {
   .interview-round .modal-dialog,
   .schedu .modal-dialog {
@@ -2228,6 +2234,16 @@ select {
 
   .assign-job-model .modal-content {
     padding: 40px;
+  }
+}
+
+@media only screen and (min-device-width:320px) and (max-device-width:767px){
+  .equal-height span p{
+   position: relative;
+    top: -37px; 
+  }
+  #company-logo{
+    display: none;
   }
 }
 /*********************** End of New style *******************************/

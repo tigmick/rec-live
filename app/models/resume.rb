@@ -31,8 +31,8 @@ class Resume < ActiveRecord::Base
    #    'application/msword',
    #    'application/pdf',
    #    'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
-    validates_attachment_file_name :cv, matches: [/\.(pdf|(docx?)|dot|wrd)\z/]
-
+    # validates_attachment_file_name :cv, matches: [/\.(pdf|(docx?)|dot|wrd)\z/]
+    do_not_validate_attachment_file_type :cv
 
   def track_resume(job_id)
    

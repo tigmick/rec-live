@@ -34,7 +34,7 @@
                         </div>
                         <div class="job-discription">
                            <h3>description</h3>
-                           <p><%= resume.description.truncate(100) %></p>
+                           <p><%= resume.description.truncate(100) if resume.description.present? %></p>
                         </div>
                      </div>
                     <%if current_user.candidate?%>

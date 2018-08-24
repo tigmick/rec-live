@@ -32,10 +32,15 @@ border:1px solid #f5f5f5; }
 }
 .report.redr span{font-size:80px;color:#DB254A;}
 .report.redr .red{color:#DB254A;}
+.report-result.redr span{font-size:80px;color:#DB254A;}
+.report-result.redr .red{color:#DB254A;}
 .report .grey{color:#f5f5f5}
 .report i{font-size:50px;padding:0px 10px;}
+.report-result i{font-size:12px;padding:0px 10px;}
 .report.green span{color:#7ED321;font-size:80px;}
 .report .green{color:#7ED321}
+.report-result.green span{color:#7ED321;font-size:80px;}
+.report-result .green{color:#7ED321}
 .box-job ul{display:block;}
 .job-in-search ul{
     display: inline-block;

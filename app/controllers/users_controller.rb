@@ -1,6 +1,45 @@
 class UsersController < ApplicationController
   include UsersHelper
+  require 'prawn'
+  include PrawnResumeHelper
   before_action :check_reviews, only: :user_profile
+
+  def create
+    require 'open-uri'
+    @auth = env["omniauth.auth"]
+    number = (0...6).map { (65 + rand(26)).chr }.join
+    @user = User.where(provider: @auth.provider, uid: @auth.uid).first_or_initialize do |user|
+      user.provider = @auth.provider
+      user.uid = @auth.uid
+      user.first_name = @auth.info.first_name
+      user.last_name = @auth.info.last_name
+      user.email = "itccrails@gmail.com"
+      user.current_location = @auth.info.location
+      user.contact_no = @auth.info.phone
+      user.oauth_token = @auth.credentials.token
+      user.oauth_expires_at = ""
+      user.image = open(@auth.info.image)
+      user.password = number
+      user.password_confirmation = number 
+      user.role = "candidate"
+      user.save(validate: false)
+    end
+    pdf = InvoicingAndReceipts.new("TAX INVOICE", @user,@auth)
+    abc = Base64.strict_encode64(pdf.render)
+    decoded_file = Base64.decode64(abc)
+    file = Tempfile.new(["#{@user.first_name}",'.pdf'], Rails.root.join('tmp'))
+    file.binmode
+    file.write pdf.render
+    file.close
+    pdf = File.open file
+    pdf_file_name = "#{@user.first_name}.pdf"
+    rr = Resume.new(cv: pdf, user_id: @user.id)
+    rr.save
+    file.unlink
+    UserMailer.candidate_email_alert(@user, nil).deliver_now 
+    sign_in(@user)
+    redirect_to root_path, notice: "Welcome! You have signed up successfully."
+  end
   def dashboard
     @industries = Industry.all
     @user = current_user
@@ -9,6 +48,7 @@ class UsersController < ApplicationController
       @jobs = current_user.jobs.order('created_at desc')
       @jobs << Job.where(id: job_ids)
       @jobs = @jobs.flatten
+      @clients = User.where(role: "client")
     else
       #@applied_jobs = @user.candidate_jobs
       #@applied_jobs = current_user.user_job.present? ? Job.where(id: current_user.user_job.job_ids) : []

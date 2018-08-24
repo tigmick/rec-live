@@ -32,6 +32,11 @@
                     <label><%= f.radio_button :role, 'client' %>&nbsp;&nbsp;client</label>
                   </div>
                 </div>
+                <div class="candi-client text-center">
+                  <div class="form-group candidate-fields">
+                    <%= link_to "Sign Up With LinkedIn", "/auth/linkedin", id: "sign_in", class: "btn log-in-btn ssign-uup-bbtn" %>
+                  </div>
+                </div>
                 <div class="name-field">
                   <div class="form-group">
                     <%= f.text_field :first_name, autofocus: true, class: "form-control", placeholder: 'First Name' %>
@@ -52,7 +57,7 @@
                 <div class="form-group client-fields">
                   <%= f.text_field :job_title, class: "form-control", placeholder: "Job title" %>
                 </div>
-                <div class="form-group client-fields">
+                <div class="form-group client-candidate-fields">
                   <%= f.text_field :company_name, class: "form-control", placeholder: "Company name" %>
                 </div>
                 <div class="form-group">
@@ -149,6 +154,10 @@
             <div class="form-group">
               <%= f.text_field :contact_no, autofocus: true , class: "form-control",required: true, value: "#{current_user.contact_no}"%>
             </div>
+            <% if current_user.candidate? and current_user.salary_expectation.blank? %>
+              <%= f.select(:salary_expectation, options_for_select([["£18-30k", "18000-30000"], ["£30-50k", "30000-50000"], ["£50-75k", "50000-75000"], ["£75-100k", "75000-100000"], ["£100k+", "100000+"]]), { prompt: 'Salary Sought' } , class: "form-control",
+                  placeholder: "Salary Sought*") %>
+            <% end %>
             <% if resource.candidate? %>
               <div class="form-group">
                 <%= f.label :current_location, "Location Preferred" %>*<br/>

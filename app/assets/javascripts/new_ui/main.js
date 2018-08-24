@@ -109,7 +109,7 @@ function next_step(id, stage, interviewers_names, inviewer_dates, interview_id, 
   $("#interview_id").val(interview_id)
   $("#scheds_id").val(id)
   $("#stage").val(stage)
-  $("#interviewer_names").val(interviewers_names)
+  $("#interviewer_names option[value='+interviewers_names+']").attr('selected','selected');
   $("#interview_avail_date1").val(inviewer_dates)
   $("#user_id").val(user_id)
   //$("#add_interview_dates").attr("data-id", $(".avail_date").length)

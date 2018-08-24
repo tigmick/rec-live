@@ -208,7 +208,7 @@
 
                 <div class="form-group interviewer-names-field">
                   <div class="col-md-12">
-                    <%= text_field_tag :interviewer_names, nil, :class=> "form-control",:placeholder=>"Interviewer names"%>
+                     <%= select_tag :interviewer_names, options_from_collection_for_select(@clients, "full_name", "full_name"), :class=> "form-control"%>
                   </div>
                 </div>
                 <!--<div id="dates">

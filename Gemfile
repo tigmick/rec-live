@@ -69,6 +69,11 @@ gem 'pg_search'
 gem 'activeadmin'
 
 gem 'unicorn'
+gem 'omniauth'
+gem 'omniauth-linkedin'
+gem 'prawn'
+gem 'prawn-table'
+gem 'linkedin-scraper'
 
 group :production do
 	gem 'byebug'
