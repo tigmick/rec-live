@@ -12,10 +12,9 @@
     <% if users.present?%>
       <% industries << industry if count == 0 %>
       <% count += 1 %><% end %>
-
   <% end %>
   <% job_counts << count if count > 0 %><% end %>
-
+  
 <div class="col-md-10" id="content-container" style="background-color:#f1f1f1;">
   <% industries.each_with_index do |industry, i| %>
     <% if @jobs.select{|j| j.industry_id == industry.id}.size > 0 %>
@@ -46,13 +45,17 @@
                             <div class="box-heading">
                               <div class="box-header">
                                 <h2 class="job-heading" data-toggle="tooltip" data-placement="bottom" title="<%= job.title %>">
-                                  <%= link_to (job.title.truncate(14) || ""), job_path(job)%>
+                                  <%= link_to (job.title.truncate(22) || ""), job_path(job)%>
                                 </h2>
-                                <h3 class="job-sub-heading" data-toggle="tooltip" data-placement="bottom" title="<%= job.industry.present? ? job.industry.title : '' %>"><%= job.industry.present? ? job.industry.title.truncate(14) : '' %></h3>
+                                <h3 class="job-sub-heading" data-toggle="tooltip" data-placement="bottom" title="<%= job.industry.present? ? job.industry.title : '' %>"><%= job.industry.present? ? job.industry.title.truncate(22) : '' %></h3>
                                 <div class="name">
-                                  <%= user.first_name[0] %>
-                                  <% if user.last_name %>
-                                    <%= user.last_name[0] %>
+                                  <% if user.image.url.present? && !user.image_file_name.nil? %>
+                                    <%= image_tag user.image.url, style:"border-radius: 50%; width: auto; height: auto; max-width: 50px; max-height: 50px;" %>
+                                  <% else %>
+                                    <%= user.first_name[0] %>
+                                    <% if user.last_name %>
+                                      <%= user.last_name[0] %>
+                                    <% end %>
                                   <% end %>
                                 </div>
 

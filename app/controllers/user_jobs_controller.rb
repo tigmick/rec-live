@@ -15,9 +15,13 @@ class UserJobsController < ApplicationController
 #				UserMailer.job_applied(current_user,@job_id).deliver_now
 #				UserMailer.job_applied(AdminUser.first,@job_id).deliver_now
 #			end
+			user_job = UserJob.where(candidate_id: current_user.id,job_id: params[:job_id])
+			if !user_job.present?
         current_user.job_applications.create(candidate_id: current_user.id,job_id: params[:job_id])
+
 				UserMailer.job_applied(current_user,@job_id).deliver_now
 				UserMailer.job_applied(AdminUser.first,@job_id).deliver_now
+			end
 		else
 			if job.closed?
 				@error_msg = "Job has been closed and no longer available."
