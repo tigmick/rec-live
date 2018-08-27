@@ -1,4 +1,5 @@
 include ActionView::Helpers::NumberHelper
+include ActionView::Helpers::UrlHelper
 module PrawnResumeHelper 
   class InvoicingAndReceipts
     include Prawn::View
@@ -8,26 +9,27 @@ module PrawnResumeHelper
     end
   
     def initialize(type, user, data)
-      font_size(22)
+      stroke_color "808080"
+      font_size(18)
        
       @name = type
       @user = user
       @data = data
      	
       move_down 35
-      text @data.info.name, :size => 35, :color => "808080"
+      text @data.info.name, :size => 25, :color => "808080"
       text @data.info.headline
       text @data.info.email
       move_down 15
       stroke_horizontal_rule
       move_down 10
-      text "Summary", :size => 35, :color => "808080"
+      text "Summary", :size => 25, :color => "808080"
       move_down 15
       text @data.extra.raw_info.summary
       move_down 15
       stroke_horizontal_rule
       move_down 15
-      text "Experience", :size => 35, :color => "808080"
+      text "Experience", :size => 25, :color => "808080"
       move_down 15
       text @data.info.headline
       @data.extra.raw_info["positions"]["values"].each do |pos|
@@ -42,9 +44,13 @@ module PrawnResumeHelper
       	end
       end
      	move_down 15
-     	stroke_horizontal_rule
+     	# stroke_horizontal_rule
+      # move_down 15
+      # text "Education" , :size => 25, :color => "808080"
       move_down 15
-      text "Education" , :size => 35, :color => "808080"
+      stroke_horizontal_rule
+      move_down 15
+      image "#{Rails.root}/app/assets/images/linkedin.png", width: 100, height: 20
     end
   end
 end

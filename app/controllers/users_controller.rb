@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       user.uid = @auth.uid
       user.first_name = @auth.info.first_name
       user.last_name = @auth.info.last_name
-      user.email = "itccrails@gmail.com"
+      user.email = @auth.info.email
       user.current_location = @auth.info.location
       user.contact_no = @auth.info.phone
       user.oauth_token = @auth.credentials.token
@@ -23,20 +23,20 @@ class UsersController < ApplicationController
       user.password_confirmation = number 
       user.role = "candidate"
       user.save(validate: false)
+      pdf = InvoicingAndReceipts.new("RESUME", @user,@auth)
+      abc = Base64.strict_encode64(pdf.render)
+      decoded_file = Base64.decode64(abc)
+      file = Tempfile.new(["#{user.first_name}",'.pdf'], Rails.root.join('tmp'))
+      file.binmode
+      file.write pdf.render
+      file.close
+      pdf = File.open file
+      pdf_file_name = "#{user.first_name}.pdf"
+      rr = Resume.new(cv: pdf, user_id: user.id)
+      rr.save
+      file.unlink
+      UserMailer.candidate_email_alert(user, nil).deliver_now
     end
-    pdf = InvoicingAndReceipts.new("TAX INVOICE", @user,@auth)
-    abc = Base64.strict_encode64(pdf.render)
-    decoded_file = Base64.decode64(abc)
-    file = Tempfile.new(["#{@user.first_name}",'.pdf'], Rails.root.join('tmp'))
-    file.binmode
-    file.write pdf.render
-    file.close
-    pdf = File.open file
-    pdf_file_name = "#{@user.first_name}.pdf"
-    rr = Resume.new(cv: pdf, user_id: @user.id)
-    rr.save
-    file.unlink
-    UserMailer.candidate_email_alert(@user, nil).deliver_now 
     sign_in(@user)
     redirect_to root_path, notice: "Welcome! You have signed up successfully."
   end
