@@ -90,21 +90,23 @@
               <th>Notes</th>
             </tr>
             <% @jobs.where(status: 1).each do |job| %>
-              <% comment = job.interview_schedules.order('stage desc').first.client_comments.first rescue ''%>
-              <% accepted = job.user_jobs.where(accepted: true).count %>
-              <% rejected = job.user_jobs.where(rejected: true).count %>
-              <tr>
-                <td><%= job.interview_schedules.order('stage desc').first.interviewers_names.join(",") if job.interview_schedules.present?  %></td>
-                <td>
-                  <% if accepted > rejected  %>
-                    <div class="report-result green"><i class="fas fa-long-arrow-alt-up green"></i><%= accepted%></div> 
-                  <% else %>
-                    <div class="report-result redr"><%= accepted%><i class="fas fa-long-arrow-alt-down red"></i></div>
-                  <% end %>
-                </td>
-                <td><%= rejected %></td>
-                <td><%= (comment.present? ? comment.comment : '') %></td>
-              </tr>
+              <% if job.interview_schedules.present? %>
+                <% comment = job.interview_schedules.order('stage desc').first.client_comments.first rescue ''%>
+                <% accepted = job.user_jobs.where(accepted: true).count %>
+                <% rejected = job.user_jobs.where(rejected: true).count %>
+                <tr>
+                  <td><%= job.interview_schedules.order('stage desc').first.interviewers_names.join(",") if job.interview_schedules.present?  %></td>
+                  <td>
+                    <% if accepted > rejected  %>
+                      <div class="report-result green"><i class="fas fa-long-arrow-alt-up green"></i><%= accepted%></div> 
+                    <% else %>
+                      <div class="report-result redr"><%= accepted%><i class="fas fa-long-arrow-alt-down red"></i></div>
+                    <% end %>
+                  </td>
+                  <td><%= rejected %></td>
+                  <td><%= (comment.present? ? comment.comment : '') %></td>
+                </tr>
+              <% end %>
             <% end %>
           </table>
         </div>
