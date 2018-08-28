@@ -183,23 +183,9 @@
 Rails.application.routes.draw do
   get 'reports/index'
 
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
+  
 
-  match "/admin/candidate/:id/jobs" => 'admin/candidate#candidate_jobs', via: :get, as: "admin_candidate_jobs"
-  match "/admin/candidate/:candidate_id/job/:id/schedule" => 'admin/candidate#candidate_job_schedules', via: :get, as: "admin_candidate_job_schedules"
-
-
-  match "/admin/client/:id/jobs" => 'admin/client#client_jobs', via: :get, as: "admin_client_jobs"
-  match "/admin/client/:client_id/job/:id/schedule" => 'admin/client#client_job_schedules', via: :get, as: "admin_client_job_schedules"
-  match "/admin/resumes/:id/download" => 'admin/resumes#download', via: :get, as: "admin_resume_download"
-  match "/admin/reports" => 'admin/report#index', via: :get, as: "admin_reports"
-  match "/admin/get_data" => 'admin/report#get_data', via: :get, as: "admin_get_report_data"
-  match '/admin/jobs/close_job/:id' => 'admin/jobs#close_job', via: :post, as: :admin_close_job
-  match '/admin/jobs/open_job/:id' => 'admin/jobs#open_job', via: :post, as: :admin_open_job
-
-  match 'auth/:provider/callback', to: 'users#create', via: [:get, :post]
-  match 'auth/failure', to: redirect('/'),via: [:get, :post]
+  
 
 
   # match "/admin/update_passwords" => 'admin/update_passwords#update', via: :post
@@ -267,5 +253,21 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+  match "/admin/candidate/:id/jobs" => 'admin/candidate#candidate_jobs', via: :get, as: "admin_candidate_jobs"
+  match "/admin/candidate/:candidate_id/job/:id/schedule" => 'admin/candidate#candidate_job_schedules', via: :get, as: "admin_candidate_job_schedules"
+
+
+  match "/admin/client/:id/jobs" => 'admin/client#client_jobs', via: :get, as: "admin_client_jobs"
+  match "/admin/client/:client_id/job/:id/schedule" => 'admin/client#client_job_schedules', via: :get, as: "admin_client_job_schedules"
+  match "/admin/resumes/:id/download" => 'admin/resumes#download', via: :get, as: "admin_resume_download"
+  match "/admin/reports" => 'admin/report#index', via: :get, as: "admin_reports"
+  match "/admin/get_data" => 'admin/report#get_data', via: :get, as: "admin_get_report_data"
+  match '/admin/jobs/close_job/:id' => 'admin/jobs#close_job', via: :post, as: :admin_close_job
+  match '/admin/jobs/open_job/:id' => 'admin/jobs#open_job', via: :post, as: :admin_open_job
+
+  match 'auth/:provider/callback', to: 'users#create', via: [:get, :post]
   root 'welcome#index'
+
 end
