@@ -94,7 +94,7 @@
               <% accepted = job.user_jobs.where(accepted: true).count %>
               <% rejected = job.user_jobs.where(rejected: true).count %>
               <tr>
-                <td><%= job.interview_schedules.order('stage desc').first.interviewers_names.join(",")  %></td>
+                <td><%= job.interview_schedules.order('stage desc').first.interviewers_names.join(",") if job.interview_schedules.present?  %></td>
                 <td>
                   <% if accepted > rejected  %>
                     <div class="report-result green"><i class="fas fa-long-arrow-alt-up green"></i><%= accepted%></div> 
