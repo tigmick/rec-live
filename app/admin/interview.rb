@@ -1,3 +1,4 @@
+include ActiveAdminHelper
 ActiveAdmin.register Interview do
 
 # See permitted parameters documentation:

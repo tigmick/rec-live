@@ -1,3 +1,4 @@
+include ActiveAdminHelper
 ActiveAdmin.register InterviewSchedule do
 
 # See permitted parameters documentation:

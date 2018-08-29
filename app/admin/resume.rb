@@ -1,3 +1,4 @@
+include ActiveAdminHelper
 ActiveAdmin.register Resume do
 
   permit_params :title, :description,:user_id, :cv

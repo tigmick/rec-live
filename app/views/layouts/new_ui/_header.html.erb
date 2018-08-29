@@ -38,7 +38,7 @@
          <% end %>
          <% if current_user.present? %>
          <ul class="navbar-nav ml-auto col-md-2">
-            <li>
+            <li class="mobile-menu">
                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
                  <% if current_user.image.url.present? && !current_user.image_file_name.nil? %>
                   <%= image_tag current_user.image.url, style:"border-radius: 50%; width: auto; height: auto; max-width: 50px; max-height: 50px;" %>
@@ -110,7 +110,7 @@
                   <%= text_field_tag "search_candidate" ,params[:search_candidate],:class=>"form-control", :placeholder=>"Search Candidates"%>
                </div>
                <div class="col-md-7">
-                  <%= text_field_tag "location_search" ,params[:location_search],:class=>"form-control", :placeholder=>" Search Location "%>
+                  <%= text_field_tag "location_search" ,params[:location_search],:class=>"form-control", :placeholder=>"Search Location"%>
                   <%= button_tag class: 'btn srch-btn' do %>
                   <i class="fas fa-search"></i>
                </div>
@@ -120,7 +120,7 @@
          <% end %>
          <% if current_user.present? %>
          <ul class="navbar-nav col-md-2">
-            <li>
+            <li class="mobile-menu">
                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
                  <% if current_user.image.url.present? && !current_user.image_file_name.nil? %>
                   <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%; width: auto; height: auto; max-width: 50px; max-height: 50px;" %>
@@ -130,7 +130,7 @@
                <!-- <i class="fas fa-user"></i> -->
                </a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown mobile-menu">
                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.first_name %>
                </a>
                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -205,7 +205,7 @@
          <% end %>
          <% if current_user.present? %>
          <ul class="navbar-nav ml-auto col-md-2">
-            <li>
+            <li class="mobile-menu">
                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
                  <% if current_user.image.url.present? && !current_user.image_file_name.nil? %>
                   <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%; width: auto; height: auto; max-width: 50px; max-height: 50px;" %>
@@ -215,7 +215,7 @@
                <!-- <i class="fas fa-user"></i> -->
                </a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown mobile-menu">
                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.first_name %>
                </a>
                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -288,7 +288,7 @@
          <% end %>
          <% if current_user.present? %>
          <ul class="navbar-nav col-md-2">
-            <li>
+            <li class="mobile-menu">
                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
                  <% if current_user.image.url.present? && !current_user.image_file_name.nil? %>
                   <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%; width: auto; height: auto; max-width: 50px; max-height: 50px;" %>
@@ -298,7 +298,7 @@
                <!-- <i class="fas fa-user"></i> -->
                </a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown mobile-menu">
                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.first_name %>
                </a>
                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -362,7 +362,7 @@
          <% end %>
          <% if current_user.present? %>
          <ul class="navbar-nav col-md-2">
-            <li>
+            <li class="mobile-menu">
                <a href="#" data-toggle="modal" data-target="#edit_profile_modal">
                  <% if current_user.image.url.present? && !current_user.image_file_name.nil? %>
                   <%= image_tag current_user.image.url, size:"50x50", style:"border-radius: 50%; width: auto; height: auto; max-width: 50px; max-height: 50px;" %>
@@ -372,7 +372,7 @@
                <!-- <i class="fas fa-user"></i> -->
                </a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown mobile-menu">
                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.first_name %>
                </a>
                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

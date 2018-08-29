@@ -1,3 +1,4 @@
+include ActiveAdminHelper
 ActiveAdmin.register User do
   index :title => 'LIST OF USERS' 
 # See permitted parameters documentation:

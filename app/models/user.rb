@@ -110,8 +110,4 @@ class User < ActiveRecord::Base
       super
     end
   end
-  def self.from_omniauth(auth)
-    
-  end
-
 end

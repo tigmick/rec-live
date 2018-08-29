@@ -1,3 +1,4 @@
+include ActiveAdminHelper
 ActiveAdmin.register Industry , as: "Job Categories" do
   
   permit_params :title, :descritption

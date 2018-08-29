@@ -1,3 +1,4 @@
+include ActiveAdminHelper
 ActiveAdmin.register Job do
 
 # See permitted parameters documentation:

@@ -1,3 +1,4 @@
+include ActiveAdminHelper
 ActiveAdmin.register Review do
 
 # See permitted parameters documentation:
