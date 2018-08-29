@@ -2208,7 +2208,7 @@ select {
   color: white;  
 }
 a.btn.log-in-btn{
-  width: 40%;
+  width: 51%;
 }
 @media (min-width: 576px) {
   .interview-round .modal-dialog,
@@ -2237,6 +2237,19 @@ a.btn.log-in-btn{
   }
 }
 
+@media only screen and (max-device-width:1024px){
+  .job-right {
+    padding: 0px;
+  }
+  .reportse .equal-height{
+    position: relative;
+  }
+  .equal-height span p{
+    top: inherit;
+    bottom: 0;
+  }
+}
+
 @media only screen and (min-device-width:320px) and (max-device-width:767px){
   .equal-height span p{
    position: relative;
@@ -2250,6 +2263,27 @@ a.btn.log-in-btn{
   }
   li.mobile-menu {
     padding: 0 0 0 40px;
+  }
+  .sort-btn button {
+    right: 0px;
+  }
+  .box-job ul {
+    background: #fff;
+  }
+  .box-job{
+    background: #fff;
+  }
+  .sort-btn {
+    margin-top: 75px;
+    position: relative;
+  }
+  .reporttable {
+    max-width: 1000px;
+    width: 100%;
+    overflow-y: auto;
+  }
+  .search-custom input {
+    width: 100% !important;
   }
 }
 /*********************** End of New style *******************************/
