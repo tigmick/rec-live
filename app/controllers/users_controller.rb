@@ -37,8 +37,13 @@ class UsersController < ApplicationController
       file.unlink
       UserMailer.candidate_email_alert(user, nil).deliver_now
     end
-    sign_in(@user)
-    redirect_to root_path, notice: "Welcome! You have signed up successfully."
+    if @user.present?
+      sign_in(@user)
+      redirect_to root_path, notice: "Welcome! You have signed up successfully. and send login detail to email"
+    else
+      redirect_to root_path, alert: "Sign Up Failed please try again!"
+    end
+    
   end
   def dashboard
     @industries = Industry.all
