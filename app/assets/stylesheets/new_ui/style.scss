@@ -2249,7 +2249,18 @@ a.btn.log-in-btn{
     bottom: 0;
   }
 }
+.reportse{
+  padding: 34px;
+}
 
+@media only screen and (max-device-width:320px){
+  .reportse{
+    padding: 0px;
+  }
+  .reporttable{
+    margin-top: 15px;
+  }
+}
 @media only screen and (min-device-width:320px) and (max-device-width:767px){
   .equal-height span p{
    position: relative;
@@ -2284,6 +2295,9 @@ a.btn.log-in-btn{
   }
   .search-custom input {
     width: 100% !important;
+  }
+  a.btn.log-in-btn{
+    width: 68%;
   }
 }
 /*********************** End of New style *******************************/
