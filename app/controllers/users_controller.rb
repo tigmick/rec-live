@@ -8,40 +8,44 @@ class UsersController < ApplicationController
     require 'open-uri'
     @auth = env["omniauth.auth"]
     number = (0...6).map { (65 + rand(26)).chr }.join
-    @user = User.where(provider: @auth.provider, uid: @auth.uid).first_or_initialize do |user|
-      user.provider = @auth.provider
-      user.uid = @auth.uid
-      user.first_name = @auth.info.first_name
-      user.last_name = @auth.info.last_name
-      user.email = @auth.info.email
-      user.current_location = @auth.info.location
-      user.contact_no = @auth.info.phone
-      user.oauth_token = @auth.credentials.token
-      user.oauth_expires_at = ""
-      user.image = open(@auth.info.image)
-      user.password = number
-      user.password_confirmation = number 
-      user.role = "candidate"
-      user.save(validate: false)
-      pdf = InvoicingAndReceipts.new("RESUME", @user,@auth)
-      abc = Base64.strict_encode64(pdf.render)
-      decoded_file = Base64.decode64(abc)
-      file = Tempfile.new(["#{user.first_name}",'.pdf'], Rails.root.join('tmp'))
-      file.binmode
-      file.write pdf.render
-      file.close
-      pdf = File.open file
-      pdf_file_name = "#{user.first_name}.pdf"
-      rr = Resume.new(cv: pdf, user_id: user.id)
-      rr.save
-      file.unlink
-      UserMailer.candidate_email_alert(user, nil).deliver_now
-    end
-    if @user.present?
-      sign_in(@user)
-      redirect_to root_path, notice: "Welcome! You have signed up successfully. and send login detail to email"
-    else
-      redirect_to root_path, alert: "Sign Up Failed please try again!"
+   begin
+      @user = User.where(provider: @auth.provider, uid: @auth.uid).first_or_initialize do |user|
+        user.provider = @auth.provider
+        user.uid = @auth.uid
+        user.first_name = @auth.info.first_name
+        user.last_name = @auth.info.last_name
+        user.email = @auth.info.email
+        user.current_location = @auth.info.location
+        user.contact_no = @auth.info.phone
+        user.oauth_token = @auth.credentials.token
+        user.oauth_expires_at = ""
+        user.image = open(@auth.info.image) if @auth.info.image.present?
+        user.password = number
+        user.password_confirmation = number 
+        user.role = "candidate"
+        user.save(validate: false)
+        pdf = InvoicingAndReceipts.new("RESUME", @user,@auth)
+        abc = Base64.strict_encode64(pdf.render)
+        decoded_file = Base64.decode64(abc)
+        file = Tempfile.new(["#{user.first_name}",'.pdf'], Rails.root.join('tmp'))
+        file.binmode
+        file.write pdf.render
+        file.close
+        pdf = File.open file
+        pdf_file_name = "#{user.first_name}.pdf"
+        rr = Resume.new(cv: pdf, user_id: user.id)
+        rr.save
+        file.unlink
+        UserMailer.candidate_email_alert(user, nil).deliver_now
+      end
+      if @user.present?
+        sign_in(@user)
+        redirect_to root_path, notice: "Welcome! You have signed up successfully. and send login detail to email"
+      else
+        redirect_to root_path, alert: "Sign Up Failed please try again!"
+      end
+    rescue Exception => e
+      redirect_to root_path, alert: e.message
     end
     
   end
