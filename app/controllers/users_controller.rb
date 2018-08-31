@@ -40,7 +40,7 @@ class UsersController < ApplicationController
       end
       if @user.present?
         sign_in(@user)
-        redirect_to root_path, notice: "Welcome! You have signed up successfully."
+        redirect_to root_path, notice: "Welcome! You have signed up Sucessfully and we have email your login Details on your email."
       else
         redirect_to root_path, alert: "Sign Up Failed please try again!"
       end
