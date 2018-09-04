@@ -1,5 +1,6 @@
 class ReportsController < ApplicationController
   before_filter :authenticate_user!
+  skip_before_action :verify_authenticity_token
 
   def index
     #@job_count = Job.all.count
@@ -14,6 +15,14 @@ class ReportsController < ApplicationController
     json = get_chart_data(start_date, end_date)
 
     render json: json
+  end
+
+  def save_comment
+    @job = Job.find(params[:job_id].to_i)
+    if @job.present?
+      @job.update_attribute("client_comment", params[:comment])
+    end
+    render nothing: true
   end
 
   private

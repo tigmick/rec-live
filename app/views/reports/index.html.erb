@@ -91,7 +91,6 @@
             </tr>
             <% @jobs.where(status: 1).each do |job| %>
               <% if job.interview_schedules.present? %>
-                <% comment = job.interview_schedules.order('stage desc').first.client_comments.first rescue ''%>
                 <% accepted = job.user_jobs.where(accepted: true).count %>
                 <% rejected = job.user_jobs.where(rejected: true).count %>
                 <tr>
@@ -104,7 +103,12 @@
                     <% end %>
                   </td>
                   <td><%= rejected %></td>
-                  <td><%= (comment.present? ? comment.comment : '') %></td>
+                  <td>
+                    <div class="field">
+                      <%= hidden_field_tag :job_id, job.id , class: "job-id" %>
+                      <%= text_field_tag :client_comment, job.client_comment, class: "form-control client_comment" %>
+                    </div>
+                  </td>
                 </tr>
               <% end %>
             <% end %>
@@ -114,3 +118,14 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  $(".client_comment").keyup(function () {
+    var data = { comment: $(this).val(), job_id: $(this).closest('tr').find(".job-id").val()};
+    $.ajax({
+      type: "POST",
+      url: "/reports/save_comment",
+      data: data,
+      dataType: "json"
+    });
+  });
+</script>

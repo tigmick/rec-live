@@ -2,6 +2,91 @@
 #
 #                                                 Prefix Verb     URI Pattern                                                       Controller#Action
 #                                          reports_index GET      /reports/index(.:format)                                          reports#index
+#                                        users_dashboard GET      /users/dashboard(.:format)                                        users#dashboard
+#                                         client_reports GET      /reports(.:format)                                                reports#index
+#                                       reports_get_data GET      /reports/get_data(.:format)                                       reports#get_data
+#                                             jobs_index GET      /jobs/index(.:format)                                             jobs#index
+#                                              close_job POST     /jobs/close_job/:id(.:format)                                     jobs#close_job
+#                                               open_job POST     /jobs/open_job/:id(.:format)                                      jobs#open_job
+#                                             accept_job POST     /jobs/accept_job/:id(.:format)                                    jobs#accept_job
+#                                             reject_job POST     /jobs/reject_job/:id(.:format)                                    jobs#reject_job
+#                                        download_resume GET      /resumes/:id/download(.:format)                                   resumes#download
+#                                                resumes GET      /resumes(.:format)                                                resumes#index
+#                                                        POST     /resumes(.:format)                                                resumes#create
+#                                             new_resume GET      /resumes/new(.:format)                                            resumes#new
+#                                            edit_resume GET      /resumes/:id/edit(.:format)                                       resumes#edit
+#                                                 resume GET      /resumes/:id(.:format)                                            resumes#show
+#                                                        PATCH    /resumes/:id(.:format)                                            resumes#update
+#                                                        PUT      /resumes/:id(.:format)                                            resumes#update
+#                                                        DELETE   /resumes/:id(.:format)                                            resumes#destroy
+#                                         job_interviews POST     /jobs/:job_id/interviews(.:format)                                interviews#create
+#                                      new_job_interview GET      /jobs/:job_id/interviews/new(.:format)                            interviews#new
+#                                           download_job GET      /jobs/:id/download(.:format)                                      jobs#download
+#                           remove_assign_job_assign_job POST     /jobs/:job_id/assign_jobs/:id/remove_assign(.:format)             assign_jobs#remove_assign
+#                                        job_assign_jobs GET      /jobs/:job_id/assign_jobs(.:format)                               assign_jobs#index
+#                                                        POST     /jobs/:job_id/assign_jobs(.:format)                               assign_jobs#create
+#                                     new_job_assign_job GET      /jobs/:job_id/assign_jobs/new(.:format)                           assign_jobs#new
+#                                    edit_job_assign_job GET      /jobs/:job_id/assign_jobs/:id/edit(.:format)                      assign_jobs#edit
+#                                         job_assign_job GET      /jobs/:job_id/assign_jobs/:id(.:format)                           assign_jobs#show
+#                                                        PATCH    /jobs/:job_id/assign_jobs/:id(.:format)                           assign_jobs#update
+#                                                        PUT      /jobs/:job_id/assign_jobs/:id(.:format)                           assign_jobs#update
+#                                                        DELETE   /jobs/:job_id/assign_jobs/:id(.:format)                           assign_jobs#destroy
+#                                                   jobs GET      /jobs(.:format)                                                   jobs#index
+#                                                        POST     /jobs(.:format)                                                   jobs#create
+#                                                new_job GET      /jobs/new(.:format)                                               jobs#new
+#                                               edit_job GET      /jobs/:id/edit(.:format)                                          jobs#edit
+#                                                    job GET      /jobs/:id(.:format)                                               jobs#show
+#                                                        PATCH    /jobs/:id(.:format)                                               jobs#update
+#                                                        PUT      /jobs/:id(.:format)                                               jobs#update
+#                                                        DELETE   /jobs/:id(.:format)                                               jobs#destroy
+#                 candidate_feedback_interview_schedules POST     /interview_schedules/candidate_feedback(.:format)                 interview_schedules#candidate_feedback
+#                     client_comment_interview_schedules POST     /interview_schedules/client_comment(.:format)                     interview_schedules#client_comment
+#                    pre_screen_note_interview_schedules POST     /interview_schedules/pre_screen_note(.:format)                    interview_schedules#pre_screen_note
+#                          next_step_interview_schedules POST     /interview_schedules/next_step(.:format)                          interview_schedules#next_step
+#                            meeting_interview_schedules POST     /interview_schedules/meeting(.:format)                            interview_schedules#meeting
+#  populate_interview_schedule_popup_interview_schedules GET      /interview_schedules/populate_interview_schedule_popup(.:format)  interview_schedules#populate_interview_schedule_popup
+# candidate_interview_schedule_popup_interview_schedules GET      /interview_schedules/candidate_interview_schedule_popup(.:format) interview_schedules#candidate_interview_schedule_popup
+#                                    interview_schedules POST     /interview_schedules(.:format)                                    interview_schedules#create
+#                                     interview_schedule GET      /interview_schedules/:id(.:format)                                interview_schedules#show
+#                                                        DELETE   /interview_schedules/:id(.:format)                                interview_schedules#destroy
+#                                        destroy_comment DELETE   /destroy_comment/:id(.:format)                                    interview_schedules#destroy_comment
+#                                       destroy_feedback DELETE   /destroy_feedback/:id(.:format)                                   interview_schedules#destroy_feedback
+#                                       new_user_session GET      /users/sign_in(.:format)                                          sessions#new
+#                                           user_session POST     /users/sign_in(.:format)                                          sessions#create
+#                                   destroy_user_session GET      /users/sign_out(.:format)                                         sessions#destroy
+#                                          user_password POST     /users/password(.:format)                                         devise/passwords#create
+#                                      new_user_password GET      /users/password/new(.:format)                                     devise/passwords#new
+#                                     edit_user_password GET      /users/password/edit(.:format)                                    devise/passwords#edit
+#                                                        PATCH    /users/password(.:format)                                         devise/passwords#update
+#                                                        PUT      /users/password(.:format)                                         devise/passwords#update
+#                               cancel_user_registration GET      /users/cancel(.:format)                                           registrations#cancel
+#                                      user_registration POST     /users(.:format)                                                  registrations#create
+#                                  new_user_registration GET      /users/sign_up(.:format)                                          registrations#new
+#                                 edit_user_registration GET      /users/edit(.:format)                                             registrations#edit
+#                                                        PATCH    /users(.:format)                                                  registrations#update
+#                                                        PUT      /users(.:format)                                                  registrations#update
+#                                                        DELETE   /users(.:format)                                                  registrations#destroy
+#                                      user_profile_user GET      /users/:id/user_profile(.:format)                                 users#user_profile
+#                                         user_user_jobs POST     /users/:user_id/user_jobs(.:format)                               user_jobs#create
+#                                          welcome_index GET      /welcome/index(.:format)                                          welcome#index
+#                                            how_it_work GET      /how_it_work(.:format)                                            welcome#how_it_work
+#                                                  about GET      /about(.:format)                                                  welcome#about
+#                                                privacy GET      /privacy(.:format)                                                welcome#privacy
+#                                                contact GET      /contact(.:format)                                                welcome#contact
+#                                         term_condition GET      /term_condition(.:format)                                         welcome#term_condition
+#                                               platform GET      /platform(.:format)                                               welcome#platform
+#                                         welcome_search POST     /welcome/search(.:format)                                         welcome#search
+#                                                 search GET|POST /welcome/search(.:format)                                         welcome#search
+#                                       search_candidate GET|POST /welcome/search_candidate(.:format)                               welcome#search_candidate
+#                                   admin_candidate_jobs GET      /admin/candidate/:id/jobs(.:format)                               admin/candidate#candidate_jobs
+#                          admin_candidate_job_schedules GET      /admin/candidate/:candidate_id/job/:id/schedule(.:format)         admin/candidate#candidate_job_schedules
+#                                      admin_client_jobs GET      /admin/client/:id/jobs(.:format)                                  admin/client#client_jobs
+#                             admin_client_job_schedules GET      /admin/client/:client_id/job/:id/schedule(.:format)               admin/client#client_job_schedules
+#                                  admin_resume_download GET      /admin/resumes/:id/download(.:format)                             admin/resumes#download
+#                                          admin_reports GET      /admin/reports(.:format)                                          admin/report#index
+#                                  admin_get_report_data GET      /admin/get_data(.:format)                                         admin/report#get_data
+#                                        admin_close_job POST     /admin/jobs/close_job/:id(.:format)                               admin/jobs#close_job
+#                                         admin_open_job POST     /admin/jobs/open_job/:id(.:format)                                admin/jobs#open_job
 #                                 new_admin_user_session GET      /admin/login(.:format)                                            active_admin/devise/sessions#new
 #                                     admin_user_session POST     /admin/login(.:format)                                            active_admin/devise/sessions#create
 #                             destroy_admin_user_session GET      /admin/logout(.:format)                                           active_admin/devise/sessions#destroy
@@ -91,93 +176,7 @@
 #                                                        POST     /admin/comments(.:format)                                         admin/comments#create
 #                                          admin_comment GET      /admin/comments/:id(.:format)                                     admin/comments#show
 #                                                        DELETE   /admin/comments/:id(.:format)                                     admin/comments#destroy
-#                                   admin_candidate_jobs GET      /admin/candidate/:id/jobs(.:format)                               admin/candidate#candidate_jobs
-#                          admin_candidate_job_schedules GET      /admin/candidate/:candidate_id/job/:id/schedule(.:format)         admin/candidate#candidate_job_schedules
-#                                      admin_client_jobs GET      /admin/client/:id/jobs(.:format)                                  admin/client#client_jobs
-#                             admin_client_job_schedules GET      /admin/client/:client_id/job/:id/schedule(.:format)               admin/client#client_job_schedules
-#                                  admin_resume_download GET      /admin/resumes/:id/download(.:format)                             admin/resumes#download
-#                                          admin_reports GET      /admin/reports(.:format)                                          admin/report#index
-#                                  admin_get_report_data GET      /admin/get_data(.:format)                                         admin/report#get_data
-#                                        admin_close_job POST     /admin/jobs/close_job/:id(.:format)                               admin/jobs#close_job
-#                                         admin_open_job POST     /admin/jobs/open_job/:id(.:format)                                admin/jobs#open_job
 #                                                        GET|POST /auth/:provider/callback(.:format)                                users#create
-#                                           auth_failure GET|POST /auth/failure(.:format)                                           redirect(301, /)
-#                                        users_dashboard GET      /users/dashboard(.:format)                                        users#dashboard
-#                                         client_reports GET      /reports(.:format)                                                reports#index
-#                                       reports_get_data GET      /reports/get_data(.:format)                                       reports#get_data
-#                                             jobs_index GET      /jobs/index(.:format)                                             jobs#index
-#                                              close_job POST     /jobs/close_job/:id(.:format)                                     jobs#close_job
-#                                               open_job POST     /jobs/open_job/:id(.:format)                                      jobs#open_job
-#                                             accept_job POST     /jobs/accept_job/:id(.:format)                                    jobs#accept_job
-#                                             reject_job POST     /jobs/reject_job/:id(.:format)                                    jobs#reject_job
-#                                        download_resume GET      /resumes/:id/download(.:format)                                   resumes#download
-#                                                resumes GET      /resumes(.:format)                                                resumes#index
-#                                                        POST     /resumes(.:format)                                                resumes#create
-#                                             new_resume GET      /resumes/new(.:format)                                            resumes#new
-#                                            edit_resume GET      /resumes/:id/edit(.:format)                                       resumes#edit
-#                                                 resume GET      /resumes/:id(.:format)                                            resumes#show
-#                                                        PATCH    /resumes/:id(.:format)                                            resumes#update
-#                                                        PUT      /resumes/:id(.:format)                                            resumes#update
-#                                                        DELETE   /resumes/:id(.:format)                                            resumes#destroy
-#                                         job_interviews POST     /jobs/:job_id/interviews(.:format)                                interviews#create
-#                                      new_job_interview GET      /jobs/:job_id/interviews/new(.:format)                            interviews#new
-#                                           download_job GET      /jobs/:id/download(.:format)                                      jobs#download
-#                           remove_assign_job_assign_job POST     /jobs/:job_id/assign_jobs/:id/remove_assign(.:format)             assign_jobs#remove_assign
-#                                        job_assign_jobs GET      /jobs/:job_id/assign_jobs(.:format)                               assign_jobs#index
-#                                                        POST     /jobs/:job_id/assign_jobs(.:format)                               assign_jobs#create
-#                                     new_job_assign_job GET      /jobs/:job_id/assign_jobs/new(.:format)                           assign_jobs#new
-#                                    edit_job_assign_job GET      /jobs/:job_id/assign_jobs/:id/edit(.:format)                      assign_jobs#edit
-#                                         job_assign_job GET      /jobs/:job_id/assign_jobs/:id(.:format)                           assign_jobs#show
-#                                                        PATCH    /jobs/:job_id/assign_jobs/:id(.:format)                           assign_jobs#update
-#                                                        PUT      /jobs/:job_id/assign_jobs/:id(.:format)                           assign_jobs#update
-#                                                        DELETE   /jobs/:job_id/assign_jobs/:id(.:format)                           assign_jobs#destroy
-#                                                   jobs GET      /jobs(.:format)                                                   jobs#index
-#                                                        POST     /jobs(.:format)                                                   jobs#create
-#                                                new_job GET      /jobs/new(.:format)                                               jobs#new
-#                                               edit_job GET      /jobs/:id/edit(.:format)                                          jobs#edit
-#                                                    job GET      /jobs/:id(.:format)                                               jobs#show
-#                                                        PATCH    /jobs/:id(.:format)                                               jobs#update
-#                                                        PUT      /jobs/:id(.:format)                                               jobs#update
-#                                                        DELETE   /jobs/:id(.:format)                                               jobs#destroy
-#                 candidate_feedback_interview_schedules POST     /interview_schedules/candidate_feedback(.:format)                 interview_schedules#candidate_feedback
-#                     client_comment_interview_schedules POST     /interview_schedules/client_comment(.:format)                     interview_schedules#client_comment
-#                    pre_screen_note_interview_schedules POST     /interview_schedules/pre_screen_note(.:format)                    interview_schedules#pre_screen_note
-#                          next_step_interview_schedules POST     /interview_schedules/next_step(.:format)                          interview_schedules#next_step
-#                            meeting_interview_schedules POST     /interview_schedules/meeting(.:format)                            interview_schedules#meeting
-#  populate_interview_schedule_popup_interview_schedules GET      /interview_schedules/populate_interview_schedule_popup(.:format)  interview_schedules#populate_interview_schedule_popup
-# candidate_interview_schedule_popup_interview_schedules GET      /interview_schedules/candidate_interview_schedule_popup(.:format) interview_schedules#candidate_interview_schedule_popup
-#                                    interview_schedules POST     /interview_schedules(.:format)                                    interview_schedules#create
-#                                     interview_schedule GET      /interview_schedules/:id(.:format)                                interview_schedules#show
-#                                                        DELETE   /interview_schedules/:id(.:format)                                interview_schedules#destroy
-#                                        destroy_comment DELETE   /destroy_comment/:id(.:format)                                    interview_schedules#destroy_comment
-#                                       destroy_feedback DELETE   /destroy_feedback/:id(.:format)                                   interview_schedules#destroy_feedback
-#                                       new_user_session GET      /users/sign_in(.:format)                                          sessions#new
-#                                           user_session POST     /users/sign_in(.:format)                                          sessions#create
-#                                   destroy_user_session GET      /users/sign_out(.:format)                                         sessions#destroy
-#                                          user_password POST     /users/password(.:format)                                         devise/passwords#create
-#                                      new_user_password GET      /users/password/new(.:format)                                     devise/passwords#new
-#                                     edit_user_password GET      /users/password/edit(.:format)                                    devise/passwords#edit
-#                                                        PATCH    /users/password(.:format)                                         devise/passwords#update
-#                                                        PUT      /users/password(.:format)                                         devise/passwords#update
-#                               cancel_user_registration GET      /users/cancel(.:format)                                           registrations#cancel
-#                                      user_registration POST     /users(.:format)                                                  registrations#create
-#                                  new_user_registration GET      /users/sign_up(.:format)                                          registrations#new
-#                                 edit_user_registration GET      /users/edit(.:format)                                             registrations#edit
-#                                                        PATCH    /users(.:format)                                                  registrations#update
-#                                                        PUT      /users(.:format)                                                  registrations#update
-#                                                        DELETE   /users(.:format)                                                  registrations#destroy
-#                                      user_profile_user GET      /users/:id/user_profile(.:format)                                 users#user_profile
-#                                         user_user_jobs POST     /users/:user_id/user_jobs(.:format)                               user_jobs#create
-#                                          welcome_index GET      /welcome/index(.:format)                                          welcome#index
-#                                            how_it_work GET      /how_it_work(.:format)                                            welcome#how_it_work
-#                                                  about GET      /about(.:format)                                                  welcome#about
-#                                                privacy GET      /privacy(.:format)                                                welcome#privacy
-#                                                contact GET      /contact(.:format)                                                welcome#contact
-#                                         term_condition GET      /term_condition(.:format)                                         welcome#term_condition
-#                                               platform GET      /platform(.:format)                                               welcome#platform
-#                                         welcome_search POST     /welcome/search(.:format)                                         welcome#search
-#                                                 search GET|POST /welcome/search(.:format)                                         welcome#search
-#                                       search_candidate GET|POST /welcome/search_candidate(.:format)                               welcome#search_candidate
 #                                                   root GET      /                                                                 welcome#index
 
 Rails.application.routes.draw do
@@ -194,6 +193,7 @@ Rails.application.routes.draw do
 
   get 'reports' => 'reports#index', as: :client_reports
   get 'reports/get_data' => 'reports#get_data'
+  post 'reports/save_comment' => 'reports#save_comment'
 
   get 'jobs/index'
   post 'jobs/close_job/:id' => 'jobs#close_job', as: :close_job
@@ -253,8 +253,6 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
   match "/admin/candidate/:id/jobs" => 'admin/candidate#candidate_jobs', via: :get, as: "admin_candidate_jobs"
   match "/admin/candidate/:candidate_id/job/:id/schedule" => 'admin/candidate#candidate_job_schedules', via: :get, as: "admin_candidate_job_schedules"
 
@@ -266,6 +264,9 @@ Rails.application.routes.draw do
   match "/admin/get_data" => 'admin/report#get_data', via: :get, as: "admin_get_report_data"
   match '/admin/jobs/close_job/:id' => 'admin/jobs#close_job', via: :post, as: :admin_close_job
   match '/admin/jobs/open_job/:id' => 'admin/jobs#open_job', via: :post, as: :admin_open_job
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+  
 
   match 'auth/:provider/callback', to: 'users#create', via: [:get, :post]
   root 'welcome#index'
