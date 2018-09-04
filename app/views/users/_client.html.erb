@@ -48,20 +48,30 @@
                                   <%= link_to (job.title.truncate(22) || ""), job_path(job)%>
                                 </h2>
                                 <h3 class="job-sub-heading" data-toggle="tooltip" data-placement="bottom" title="<%= job.industry.present? ? job.industry.title : '' %>"><%= job.industry.present? ? job.industry.title.truncate(22) : '' %></h3>
-                                <div class="name">
-                                  <% if user.image.url.present? && !user.image_file_name.nil? %>
-                                    <%= image_tag user.image.url, style:"border-radius: 50%; width: auto; height: auto; max-width: 50px; max-height: 50px;" %>
-                                  <% else %>
+                                
+                                <% if user.image.url.present? && !user.image_file_name.nil? %>
+                                  <div class="image">
+                                    <%= image_tag user.image.url, style:"float: left; border-radius: 50%; width: auto; height: auto; max-width: 50px; max-height: 50px;" %>
+                                  </div>
+                                <% else %>
+                                  <div class="name">
                                     <%= user.first_name[0] %>
                                     <% if user.last_name %>
                                       <%= user.last_name[0] %>
                                     <% end %>
-                                  <% end %>
-                                </div>
+                                  </div>
+                                <% end %>
+                                
 
                                 <div class="detail">
                                   <h2 class="job-heading" data-toggle="tooltip" data-placement="bottom" title="<%= user.first_name %> <%= user.last_name %>">
-                                    <%= link_to "#{user.first_name.truncate(6)} #{user.last_name.truncate(6)}", job_path(job) %>
+                                    <% cl = ""%>
+                                    <% if user.job_applications.present? and user.job_applications.where(job_id: job.id).first.accepted  %>
+                                      <% cl = "accepted" %>
+                                    <% elsif user.job_applications.present? and user.job_applications.where(job_id: job.id).first.rejected %>
+                                      <% cl = "rejected" %>
+                                    <% end %>
+                                    <%= link_to "#{user.first_name.truncate(6)} #{user.last_name.truncate(6)}", job_path(job), class: "#{cl}" %>
                                   </h2>
                                   <h3 class="job-sub-heading" data-toggle="tooltip" data-placement="bottom" title="<%= user.email %>">
                                     <a href="mailto:<%= user.email %>"><%= user.email.truncate(22) %></a>

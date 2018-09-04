@@ -32,16 +32,18 @@ module PrawnResumeHelper
       text "Experience", :size => 25, :color => "808080"
       move_down 15
       text @data.info.headline
-      @data.extra.raw_info["positions"]["values"].each do |pos|
-      	@present = ""
-      	pos.each do |p|
-      		if p[0] == "isCurrent"
-      			@present = "Present"
-      		end
-      		if p[0] == "startDate"
-      			text Date::MONTHNAMES[p[1].month].to_s + " " + p[1].year.to_s + " - " + @present
-      		end
-      	end
+      if @data.extra.raw_info["positions"].present? and @data.extra.raw_info["positions"]["values"].present?
+        @data.extra.raw_info["positions"]["values"].each do |pos|
+        	@present = ""
+        	pos.each do |p|
+        		if p[0] == "isCurrent"
+        			@present = "Present"
+        		end
+        		if p[0] == "startDate"
+        			text Date::MONTHNAMES[p[1].month].to_s + " " + p[1].year.to_s + " - " + @present
+        		end
+        	end
+        end
       end
      	move_down 15
      	# stroke_horizontal_rule

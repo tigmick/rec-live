@@ -353,7 +353,7 @@ footer {
 
 h2.job-heading {
   line-height: normal;
-  margin-left: 18px;
+  //margin-left: 18px;
   font-family: ZPublicaSans;
   color: #090909;
   margin-bottom: 5px;
@@ -370,7 +370,7 @@ h3.job-sub-heading {
   line-height: normal;
   font-family: PublicaSans-Light;
   color: #090909;
-  margin-left: 18px;
+  //margin-left: 18px;
   // margin: 0;
   font-size: 12px;
   letter-spacing: -0.174167px;
@@ -2209,6 +2209,14 @@ select {
 }
 a.btn.log-in-btn{
   width: 51%;
+}
+.rejected {
+  color: #db254a !important;
+  font-weight: bold;
+}
+.accepted {
+  color:  #7ed321 !important;
+  font-weight: bold;
 }
 @media (min-width: 576px) {
   .interview-round .modal-dialog,
